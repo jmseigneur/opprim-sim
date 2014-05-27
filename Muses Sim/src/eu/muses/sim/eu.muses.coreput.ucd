@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" size="859,716" id="eu.muses.sim" metadata="uml2-1.0" initialized="true" zoom="1.5" scrolledX="159" tag="100" key="32303037303533312D31303020436F776F726B696E672052657075746174696F6E">
+  <children xsi:type="editmodel:ClassEditModel" name="SecurityIncident" location="610,631" size="107,65" id="eu.muses.sim.riskman/SecurityIncident" runTimeClassModel="SecurityIncident(Ljava.lang.String;D)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="67,11">
+      <children xsi:type="editmodel:MethodEditModel" name="SecurityIncident" id="eu.muses.sim.riskman/SecurityIncident#SecurityIncident(Ljava.lang.String;D)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim/Outcome&lt;-eu.muses.sim.riskman/SecurityIncident" source="//@children.0" target="//@children.32" targetEnd="//@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.0/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="64,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="41,83"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="AccessRequest" location="519,37" size="254,224" id="eu.muses.sim.request/AccessRequest" runTimeClassModel="setUserAccessDecision(Leu.muses.coreput.decision.UserAccessDecision;),setOpportunityDescriptor(Leu.muses.coreput.OpportunityDescriptor;),getOpportunityDescriptor(),getUser(),getUserAccessDecision(),getRequestedCorporateAsset(),AccessRequest(Leu.muses.coreput.riskman.asset.Asset;),corporateAccessRequestDecision,getDenialDecisionReasons(),getAccessRiskCommunication(),userAccessDecision,getCorporateAccessRequestDecision(),setAccessRisk(Leu.muses.coreput.riskman.RiskCommunication;),user,opportunityDescriptor,setCorporateAccessRequestDecision(Leu.muses.coreput.decision.CorporateUserAccessRequestDecision;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="231,44">
+      <children xsi:type="editmodel:AttributeEditModel" name="corporateAccessRequestDecision" id="eu.muses.sim.request/AccessRequest#corporateAccessRequestDecision"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="userAccessDecision" id="eu.muses.sim.request/AccessRequest#userAccessDecision"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="user" id="eu.muses.sim.request/AccessRequest#user"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="opportunityDescriptor" id="eu.muses.sim.request/AccessRequest#opportunityDescriptor"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="130,132">
+      <children xsi:type="editmodel:MethodEditModel" name="getAccessRiskCommunication" id="eu.muses.sim.request/AccessRequest#getAccessRiskCommunication()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getUserAccessDecision" id="eu.muses.sim.request/AccessRequest#getUserAccessDecision()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getCorporateAccessRequestDecision" id="eu.muses.sim.request/AccessRequest#getCorporateAccessRequestDecision()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setAccessRisk" id="eu.muses.sim.request/AccessRequest#setAccessRisk(Leu.muses.coreput.riskman.RiskCommunication;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="AccessRequest" id="eu.muses.sim.request/AccessRequest#AccessRequest(Leu.muses.coreput.riskman.asset.Asset;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setUserAccessDecision" id="eu.muses.sim.request/AccessRequest#setUserAccessDecision(Leu.muses.coreput.decision.UserAccessDecision;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setCorporateAccessRequestDecision" id="eu.muses.sim.request/AccessRequest#setCorporateAccessRequestDecision(Leu.muses.coreput.decision.CorporateUserAccessRequestDecision;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getDenialDecisionReasons" id="eu.muses.sim.request/AccessRequest#getDenialDecisionReasons()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getRequestedCorporateAsset" id="eu.muses.sim.request/AccessRequest#getRequestedCorporateAsset()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getOpportunityDescriptor" id="eu.muses.sim.request/AccessRequest#getOpportunityDescriptor()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getUser" id="eu.muses.sim.request/AccessRequest#getUser()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setOpportunityDescriptor" id="eu.muses.sim.request/AccessRequest#setOpportunityDescriptor(Leu.muses.coreput.OpportunityDescriptor;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="RiskCommunication" location="610,210" size="125,103" id="eu.muses.sim.riskman/RiskCommunication" runTimeClassModel="RiskCommunication([Leu.muses.coreput.riskman.RiskTreatment;Ljava.lang.String;),hasRiskTreatment(Leu.muses.coreput.riskman.RiskTreatment;),getRiskTreatments(),getTextualDescription(),textualDescription">
+    <children xsi:type="editmodel:CompartmentEditModel" size="88,11">
+      <children xsi:type="editmodel:AttributeEditModel" name="textualDescription" id="eu.muses.sim.riskman/RiskCommunication#textualDescription"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="86,44">
+      <children xsi:type="editmodel:MethodEditModel" name="hasRiskTreatment" id="eu.muses.sim.riskman/RiskCommunication#hasRiskTreatment(Leu.muses.coreput.riskman.RiskTreatment;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="RiskCommunication" id="eu.muses.sim.riskman/RiskCommunication#RiskCommunication([Leu.muses.coreput.riskman.RiskTreatment;Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getRiskTreatments" id="eu.muses.sim.riskman/RiskCommunication#getRiskTreatments()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getTextualDescription" id="eu.muses.sim.riskman/RiskCommunication#getTextualDescription()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="DecisionManager" location="404,60" size="109,34" id="eu.muses.sim.decision/DecisionManager" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" name="managesDecisions" autoLocated="true" id="eu.muses.sim.decision/Decision@decisions+eu.muses.sim.decision/DecisionManager@decisionManager" source="//@children.3" target="//@children.5" targetEnd="//@children.3/@sourceConnections.0/@children.1" label="//@children.3/@sourceConnections.0/@children.2" sourceEnd="//@children.3/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" name="decisionManager" location="0,5" id="eu.muses.sim.decision/Decision@decisions+eu.muses.sim.decision/DecisionManager@decisionManager|eu.muses.sim.decision/DecisionManager#decisionManager" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="decisions" location="220,66" id="eu.muses.sim.decision/Decision@decisions+eu.muses.sim.decision/DecisionManager@decisionManager|eu.muses.sim.decision/Decision#decisions" multiplicityLabel="//@children.3/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.3/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - decisions" location="505,86" size="36,9" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="505,109" size="4,9" anchorKind="LastPart"/>
+      </children>
+      <children xsi:type="editmodel:WireLabelEditModel" name="managesDecisions" size="58,9" anchorKind="MiddlePart"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="UserAccessDecision" location="205,125" size="115,34" id="eu.muses.sim.decision/UserAccessDecision" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.6/@sourceConnections.0" autoLocated="true" id="eu.muses.sim.decision/Decision&lt;-eu.muses.sim.decision/UserAccessDecision" source="//@children.4" target="//@children.5" targetEnd="//@children.4/@sourceConnections.0/@children.1" sourceEnd="//@children.4/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="57,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="108,81" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.4/@sourceConnections.0 //@children.3/@sourceConnections.0" name="Decision" location="278,37" size="221,82" id="eu.muses.sim.decision/Decision" runTimeClassModel="mAYBE_ACCESS,oN_YOUR_RISK_ACCESS,aLLOW_ACCESS,sTRONG_DENY_ACCESS">
+    <children xsi:type="editmodel:CompartmentEditModel" size="201,44">
+      <children xsi:type="editmodel:AttributeEditModel" name="oN_YOUR_RISK_ACCESS" id="eu.muses.sim.decision/Decision#oN_YOUR_RISK_ACCESS"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mAYBE_ACCESS" id="eu.muses.sim.decision/Decision#mAYBE_ACCESS"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="aLLOW_ACCESS" id="eu.muses.sim.decision/Decision#aLLOW_ACCESS"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sTRONG_DENY_ACCESS" id="eu.muses.sim.decision/Decision#sTRONG_DENY_ACCESS"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="CorporateUserAccessRequestDecision" location="309,125" size="194,76" id="eu.muses.sim.decision/CorporateUserAccessRequestDecision" runTimeClassModel="CorporateUserAccessRequestDecision(Ljava.lang.String;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="171,11"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="133,11">
+      <children xsi:type="editmodel:MethodEditModel" name="CorporateUserAccessRequestDecision" id="eu.muses.sim.decision/CorporateUserAccessRequestDecision#CorporateUserAccessRequestDecision(Ljava.lang.String;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.decision/Decision&lt;-eu.muses.sim.decision/CorporateUserAccessRequestDecision" source="//@children.6" target="//@children.4/@sourceConnections.0" targetEnd="//@children.6/@sourceConnections.0/@children.1" sourceEnd="//@children.6/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="97,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="12,25"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="UserDeviceTrustValue" location="278,265" size="128,34" id="eu.muses.sim.trustman/UserDeviceTrustValue" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="AccessLocationTrust" location="374,404" size="123,34" id="eu.muses.sim.trustman/AccessLocationTrust" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.trustman/ContextTrustValue&lt;-eu.muses.sim.trustman/AccessLocationTrust" source="//@children.8" target="//@children.28" targetEnd="//@children.8/@sourceConnections.0/@children.1" sourceEnd="//@children.8/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="73,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="49,34"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="UserTrustValue" location="200,265" size="108,34" id="eu.muses.sim.trustman/UserTrustValue" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.11/@sourceConnections.0" name="Threat" location="642,491" size="100,59" id="eu.muses.sim.riskman.threat/Threat" runTimeClassModel="Threat(Ljava.lang.String;Leu.muses.coreput.riskman.Probability;Ljava.util.Collection;),probability">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="37,11">
+      <children xsi:type="editmodel:MethodEditModel" name="Threat" id="eu.muses.sim.riskman.threat/Threat#Threat(Ljava.lang.String;Leu.muses.coreput.riskman.Probability;Ljava.util.Collection;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" name="exploits" autoLocated="true" id="eu.muses.sim.riskman.vulnerability/Vulnerability@vulnerabilities+eu.muses.sim.riskman.threat/Threat@threat" source="//@children.10" target="//@children.21" targetEnd="//@children.10/@sourceConnections.0/@children.1" label="//@children.10/@sourceConnections.0/@children.2" sourceEnd="//@children.10/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" name="threat" location="49,0" id="eu.muses.sim.riskman.vulnerability/Vulnerability@vulnerabilities+eu.muses.sim.riskman.threat/Threat@threat|eu.muses.sim.riskman.threat/Threat#threat" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="vulnerabilities" location="64,34" id="eu.muses.sim.riskman.vulnerability/Vulnerability@vulnerabilities+eu.muses.sim.riskman.threat/Threat@threat|eu.muses.sim.riskman.vulnerability/Vulnerability#vulnerabilities" multiplicityLabel="//@children.10/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.10/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - vulnerabilities" location="721,527" size="53,9" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="703,527" size="4,9" anchorKind="LastPart"/>
+      </children>
+      <children xsi:type="editmodel:WireLabelEditModel" name="exploits" size="25,9" anchorKind="MiddlePart"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman/RiskEvent&lt;-eu.muses.sim.riskman.threat/Threat" source="//@children.10" target="//@children.26" targetEnd="//@children.10/@sourceConnections.1/@children.1" sourceEnd="//@children.10/@sourceConnections.1/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,37" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="102,22"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="AccessThreat" location="765,524" size="120,34" id="eu.muses.sim.riskman.threat/AccessThreat" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.threat/Threat&lt;-eu.muses.sim.riskman.threat/AccessThreat" source="//@children.11" target="//@children.10" targetEnd="//@children.11/@sourceConnections.0/@children.1" sourceEnd="//@children.11/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,12" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="100,45"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.13/@sourceConnections.0 //@children.14/@sourceConnections.0 //@children.15/@sourceConnections.0 //@children.16/@sourceConnections.0 //@children.17/@sourceConnections.0 //@children.18/@sourceConnections.0 //@children.19/@sourceConnections.0" name="Asset" location="444,465" size="91,103" id="eu.muses.sim.riskman.asset/Asset" runTimeClassModel="getValue(),assetName,Asset(Ljava.lang.String;D),getAssetName(),value">
+    <children xsi:type="editmodel:CompartmentEditModel" size="66,22">
+      <children xsi:type="editmodel:AttributeEditModel" name="value" id="eu.muses.sim.riskman.asset/Asset#value"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="assetName" id="eu.muses.sim.riskman.asset/Asset#assetName"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="61,33">
+      <children xsi:type="editmodel:MethodEditModel" name="Asset" id="eu.muses.sim.riskman.asset/Asset#Asset(Ljava.lang.String;D)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getValue" id="eu.muses.sim.riskman.asset/Asset#getValue()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getAssetName" id="eu.muses.sim.riskman.asset/Asset#getAssetName()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" name="has" autoLocated="true" id="eu.muses.sim.riskman.vulnerability/Vulnerability@vulnerabilities+eu.muses.sim.riskman.asset/Asset@asset" source="//@children.12" target="//@children.21" targetEnd="//@children.12/@sourceConnections.0/@children.1" label="//@children.12/@sourceConnections.0/@children.2" sourceEnd="//@children.12/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" name="asset" location="91,10" id="eu.muses.sim.riskman.vulnerability/Vulnerability@vulnerabilities+eu.muses.sim.riskman.asset/Asset@asset|eu.muses.sim.riskman.asset/Asset#asset" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="vulnerabilities" location="10,34" id="eu.muses.sim.riskman.vulnerability/Vulnerability@vulnerabilities+eu.muses.sim.riskman.asset/Asset@asset|eu.muses.sim.riskman.vulnerability/Vulnerability#vulnerabilities" multiplicityLabel="//@children.12/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.12/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - vulnerabilities" location="667,527" size="53,9" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="649,527" size="4,9" anchorKind="LastPart"/>
+      </children>
+      <children xsi:type="editmodel:WireLabelEditModel" name="has" size="11,9" anchorKind="MiddlePart"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="UserPrivacy" location="207,416" size="110,34" id="eu.muses.sim.riskman.asset/UserPrivacy" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.asset/Asset&lt;-eu.muses.sim.riskman.asset/UserPrivacy" source="//@children.13" target="//@children.12" targetEnd="//@children.13/@sourceConnections.0/@children.1" sourceEnd="//@children.13/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="101,34" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,35"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Money" location="273,449" size="94,34" id="eu.muses.sim.riskman.asset/Money" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.asset/Asset&lt;-eu.muses.sim.riskman.asset/Money" source="//@children.14" target="//@children.12" targetEnd="//@children.14/@sourceConnections.0/@children.1" sourceEnd="//@children.14/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="94,25" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,9"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.29/@sourceConnections.0" name="IntellectualPropertyConfidentiality" location="205,524" size="185,34" id="eu.muses.sim.riskman.asset/IntellectualPropertyConfidentiality" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.asset/Asset&lt;-eu.muses.sim.riskman.asset/IntellectualPropertyConfidentiality" source="//@children.15" target="//@children.12" targetEnd="//@children.15/@sourceConnections.0/@children.1" sourceEnd="//@children.15/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="185,17" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,76"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Equipment" location="210,482" size="109,34" id="eu.muses.sim.riskman.asset/Equipment" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.asset/Asset&lt;-eu.muses.sim.riskman.asset/Equipment" source="//@children.16" target="//@children.12" targetEnd="//@children.16/@sourceConnections.0/@children.1" sourceEnd="//@children.16/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="109,17" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,34"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Reputation" location="297,399" size="110,34" id="eu.muses.sim.riskman.asset/Reputation" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.asset/Asset&lt;-eu.muses.sim.riskman.asset/Reputation" source="//@children.17" target="//@children.12" targetEnd="//@children.17/@sourceConnections.0/@children.1" sourceEnd="//@children.17/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="78,34" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,18"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="InformationSystemAvailability" location="335,598" size="170,34" id="eu.muses.sim.riskman.asset/InformationSystemAvailability" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.asset/Asset&lt;-eu.muses.sim.riskman.asset/InformationSystemAvailability" source="//@children.18" target="//@children.12" targetEnd="//@children.18/@sourceConnections.0/@children.1" sourceEnd="//@children.18/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="139,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="30,103"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="InformationSystemIntegrity" location="278,559" size="163,34" id="eu.muses.sim.riskman.asset/InformationSystemIntegrity" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.asset/Asset&lt;-eu.muses.sim.riskman.asset/InformationSystemIntegrity" source="//@children.19" target="//@children.12" targetEnd="//@children.19/@sourceConnections.0/@children.1" sourceEnd="//@children.19/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="118,4" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,98"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.28/@sourceConnections.0 //@children.30/@sourceConnections.0" name="Contextable" location="309,329" size="96,76" id="eu.muses.sim.context/Contextable" runTimeClassModel="isUnderAttack(),getVulnerabilities()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="73,22">
+      <children xsi:type="editmodel:MethodEditModel" name="isUnderAttack" id="eu.muses.sim.context/Contextable#isUnderAttack()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getVulnerabilities" id="eu.muses.sim.context/Contextable#getVulnerabilities()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.12/@sourceConnections.0 //@children.10/@sourceConnections.0 //@children.22/@sourceConnections.0 //@children.23/@sourceConnections.0 //@children.24/@sourceConnections.0 //@children.31/@sourceConnections.0" name="Vulnerability" location="627,379" size="138,34" id="eu.muses.sim.riskman.vulnerability/Vulnerability" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="PhysicalVulnerability" location="483,379" size="163,34" id="eu.muses.sim.riskman.vulnerability/PhysicalVulnerability" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.vulnerability/Vulnerability&lt;-eu.muses.sim.riskman.vulnerability/PhysicalVulnerability" source="//@children.22" target="//@children.21" targetEnd="//@children.22/@sourceConnections.0/@children.1" sourceEnd="//@children.22/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="162,17" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,17"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="SoftwareVulnerability" location="492,315" size="167,34" id="eu.muses.sim.riskman.vulnerability/SoftwareVulnerability" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.vulnerability/Vulnerability&lt;-eu.muses.sim.riskman.vulnerability/SoftwareVulnerability" source="//@children.23" target="//@children.21" targetEnd="//@children.23/@sourceConnections.0/@children.1" sourceEnd="//@children.23/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="150,34" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="15,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="NetworkVulnerability" location="586,265" size="165,34" id="eu.muses.sim.riskman.vulnerability/NetworkVulnerability" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.vulnerability/Vulnerability&lt;-eu.muses.sim.riskman.vulnerability/NetworkVulnerability" source="//@children.24" target="//@children.21" targetEnd="//@children.24/@sourceConnections.0/@children.1" sourceEnd="//@children.24/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="102,34" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="61,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="RiskPolicy" location="475,221" size="86,92" id="eu.muses.sim.riskman/RiskPolicy" runTimeClassModel="computeRisk([Leu.muses.coreput.riskman.vulnerability.Vulnerability;[Leu.muses.coreput.riskman.threat.Threat;[D),getCostBenefit(),probability,costBenefit,getProbability(),RiskPolicy(Leu.muses.coreput.riskman.RiskValue;Leu.muses.coreput.corporate.policy.CorporateSecurityPolicy;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="62,44">
+      <children xsi:type="editmodel:MethodEditModel" name="getProbability" id="eu.muses.sim.riskman/RiskPolicy#getProbability()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getCostBenefit" id="eu.muses.sim.riskman/RiskPolicy#getCostBenefit()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="RiskPolicy" id="eu.muses.sim.riskman/RiskPolicy#RiskPolicy(Leu.muses.coreput.riskman.RiskValue;Leu.muses.coreput.corporate.policy.CorporateSecurityPolicy;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="computeRisk" id="eu.muses.sim.riskman/RiskPolicy#computeRisk([Leu.muses.coreput.riskman.vulnerability.Vulnerability;[Leu.muses.coreput.riskman.threat.Threat;[D)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.10/@sourceConnections.1 //@children.27/@sourceConnections.0" name="RiskEvent" location="492,506" size="102,59" id="eu.muses.sim.riskman/RiskEvent" runTimeClassModel="probability,RiskEvent(Leu.muses.coreput.riskman.Probability;Ljava.util.Collection;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="79,11"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="46,11">
+      <children xsi:type="editmodel:MethodEditModel" name="RiskEvent" id="eu.muses.sim.riskman/RiskEvent#RiskEvent(Leu.muses.coreput.riskman.Probability;Ljava.util.Collection;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" name="has" autoLocated="true" id="eu.muses.sim/Outcome@outcome+eu.muses.sim.riskman/RiskEvent@event" source="//@children.26" target="//@children.32" targetEnd="//@children.26/@sourceConnections.0/@children.1" label="//@children.26/@sourceConnections.0/@children.2" sourceEnd="//@children.26/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" name="event" location="102,48" id="eu.muses.sim/Outcome@outcome+eu.muses.sim.riskman/RiskEvent@event|eu.muses.sim.riskman/RiskEvent#event" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="outcome" location="0,10" id="eu.muses.sim/Outcome@outcome+eu.muses.sim.riskman/RiskEvent@event|eu.muses.sim/Outcome#outcome" multiplicityLabel="//@children.26/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.26/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - outcome" location="610,609" size="35,9" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="641,586" size="4,9" anchorKind="LastPart"/>
+      </children>
+      <children xsi:type="editmodel:WireLabelEditModel" name="has" size="11,9" anchorKind="MiddlePart"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Opportunity" location="492,602" size="133,65" id="eu.muses.sim.riskman.opportunity/Opportunity" runTimeClassModel="Opportunity(Ljava.lang.String;Leu.muses.coreput.riskman.Probability;Ljava.util.Collection;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="53,11">
+      <children xsi:type="editmodel:MethodEditModel" name="Opportunity" id="eu.muses.sim.riskman.opportunity/Opportunity#Opportunity(Ljava.lang.String;Leu.muses.coreput.riskman.Probability;Ljava.util.Collection;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman/RiskEvent&lt;-eu.muses.sim.riskman.opportunity/Opportunity" source="//@children.27" target="//@children.26" targetEnd="//@children.27/@sourceConnections.0/@children.1" sourceEnd="//@children.27/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="50,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="50,59"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.8/@sourceConnections.0" name="ContextTrustValue" location="398,276" size="118,34" id="eu.muses.sim.trustman/ContextTrustValue" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="eu.muses.sim.context/Contextable@contextable+eu.muses.sim.trustman/ContextTrustValue@contextTrust" source="//@children.28" target="//@children.20" targetEnd="//@children.28/@sourceConnections.0/@children.1" label="//@children.28/@sourceConnections.0/@children.2" sourceEnd="//@children.28/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" name="contextTrust" location="3,34" id="eu.muses.sim.context/Contextable@contextable+eu.muses.sim.trustman/ContextTrustValue@contextTrust|eu.muses.sim.trustman/ContextTrustValue#contextTrust" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="contextable" location="92,2" id="eu.muses.sim.context/Contextable@contextable+eu.muses.sim.trustman/ContextTrustValue@contextTrust|eu.muses.sim.context/Contextable#contextable" multiplicityLabel="//@children.28/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.28/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name=" - contextable" location="348,312" size="45,9" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="1" location="407,312" size="4,9" anchorKind="LastPart"/>
+      </children>
+      <children xsi:type="editmodel:WireLabelEditModel" size="0,9" anchorKind="MiddlePart"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="PatentProposal" location="196,631" size="124,34" id="eu.muses.sim.riskman.asset/PatentProposal" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.asset/IntellectualPropertyConfidentiality&lt;-eu.muses.sim.riskman.asset/PatentProposal" source="//@children.29" target="//@children.15" targetEnd="//@children.29/@sourceConnections.0/@children.1" sourceEnd="//@children.29/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="66,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="57,34"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Location" location="161,309" size="108,142" id="eu.muses.sim.context.location/Location" runTimeClassModel="getName(),lon,getLon(),getLat(),name,Location(Ljava.lang.String;DD),eVERYWHERE,lat">
+    <children xsi:type="editmodel:CompartmentEditModel" size="79,44">
+      <children xsi:type="editmodel:AttributeEditModel" name="eVERYWHERE" id="eu.muses.sim.context.location/Location#eVERYWHERE"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="lat" id="eu.muses.sim.context.location/Location#lat"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="lon" id="eu.muses.sim.context.location/Location#lon"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="name" id="eu.muses.sim.context.location/Location#name"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="44,44">
+      <children xsi:type="editmodel:MethodEditModel" name="Location" id="eu.muses.sim.context.location/Location#Location(Ljava.lang.String;DD)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getLat" id="eu.muses.sim.context.location/Location#getLat()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getLon" id="eu.muses.sim.context.location/Location#getLon()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getName" id="eu.muses.sim.context.location/Location#getName()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.context/Contextable&lt;-eu.muses.sim.context.location/Location" source="//@children.30" target="//@children.20" targetEnd="//@children.30/@sourceConnections.0/@children.1" sourceEnd="//@children.30/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="108,58" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,38"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="UserVulnerability" location="675,309" size="91,25" id="eu.muses.sim/UserVulnerability" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="eu.muses.sim.riskman.vulnerability/Vulnerability&lt;-eu.muses.sim/UserVulnerability" source="//@children.31" target="//@children.21" targetEnd="//@children.31/@sourceConnections.0/@children.1" sourceEnd="//@children.31/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="44,25" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="92,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.26/@sourceConnections.0 //@children.0/@sourceConnections.0" name="Outcome" location="633,544" size="90,83" id="eu.muses.sim/Outcome" runTimeClassModel="getDescription(),description,costBenefit,Outcome(Ljava.lang.String;D)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="67,22">
+      <children xsi:type="editmodel:AttributeEditModel" name="costBenefit" id="eu.muses.sim/Outcome#costBenefit"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="description" id="eu.muses.sim/Outcome#description"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="62,22">
+      <children xsi:type="editmodel:MethodEditModel" name="getDescription" id="eu.muses.sim/Outcome#getDescription()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="Outcome" id="eu.muses.sim/Outcome#Outcome(Ljava.lang.String;D)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=1;Product=eUML2" autoName="false"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>
