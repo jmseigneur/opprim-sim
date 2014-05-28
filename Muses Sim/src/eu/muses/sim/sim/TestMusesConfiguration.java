@@ -1,33 +1,21 @@
 package eu.muses.sim.sim;
 
 import java.security.Certificate;
-import java.util.Collection;
 import java.util.Vector;
 
 import eu.muses.sim.OpportunityDescriptor;
 import eu.muses.sim.Outcome;
 import eu.muses.sim.RealTimeRiskTrustAnalysisEngine;
-import eu.muses.sim.context.location.Location;
-import eu.muses.sim.context.location.PublicAccessPoint;
-import eu.muses.sim.corporate.CorporateOffice;
 import eu.muses.sim.corporate.Corporation;
-import eu.muses.sim.corporate.policy.CorporateSecurityPolicy;
 import eu.muses.sim.decision.Decision;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.PersonalUserDevice;
-import eu.muses.sim.riskman.Probability;
-import eu.muses.sim.riskman.RiskEvent;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.RiskTreatment;
 import eu.muses.sim.riskman.RiskValue;
 import eu.muses.sim.riskman.SecurityIncident;
 import eu.muses.sim.riskman.asset.Asset;
-import eu.muses.sim.riskman.asset.CorporateAsset;
 import eu.muses.sim.riskman.asset.UserDevice;
-import eu.muses.sim.riskman.opportunity.Opportunity;
-import eu.muses.sim.riskman.threat.Threat;
-import eu.muses.sim.riskman.vulnerability.Vulnerability;
-import eu.muses.sim.trustman.TrustValue;
 import eu.muses.sim.userman.Credential;
 import eu.muses.wp5.EventProcessor;
 

@@ -3,6 +3,7 @@ package eu.muses.sim;
 import java.util.Collection;
 import java.util.Vector;
 
+import eu.muses.wp5.Clue;
 import eu.muses.sim.decision.Decision;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.Probability;
@@ -70,11 +71,15 @@ public class RealTimeRiskTrustAnalysisEngine {
 			userSpecifiedOutcomes = opportunityDescriptor.getOutcomes();
 		}
 		
-		Threat[] currentThreats = new Threat[0];
+		Clue[] clues = new Clue[0];
 		
 		for (Asset asset : requestedAssests) {
-			currentThreats = eventProcessor.getThreats(asset, this.getTrustValue(accessRequest.getUser()));
+			//currentThreats = eventProcessor.getThreats(asset, this.getTrustValue(accessRequest.getUser()));
+			clues = eventProcessor.getClues(asset);
 		} 
+		
+		
+		Threat[] currentThreats = new Threat[0];
 		
 		Collection<Probability> outcomesProbabilites = new Vector<Probability>();
 		

@@ -48,6 +48,11 @@ public class EventProcessor {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public Clue[] getClues(Asset asset) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public void logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(
 			AccessRequest accessRequest) {
