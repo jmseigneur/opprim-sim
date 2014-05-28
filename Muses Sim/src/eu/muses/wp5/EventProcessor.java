@@ -15,7 +15,7 @@ import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.sim.riskman.vulnerability.Vulnerability;
 import eu.muses.sim.sim.SimUser;
 import eu.muses.sim.trustman.TrustValue;
-
+       
 public class EventProcessor {
 
 	public Collection<Vulnerability> getVulnerabilities(Asset materialForPatentProposal) {
