@@ -14,6 +14,8 @@ public class RiskPolicy {
 
 	private CorporateSecurityPolicy corporateSecurityPolicy;
 	
+	public static RiskPolicy TEST_NO_RISK = new RiskPolicy(RiskValue.NO_RISK, null);
+	
 		
 	public RiskPolicy(RiskValue noRisk, CorporateSecurityPolicy corporateSecurityPolicy) {
 		// TODO Auto-generated constructor stub

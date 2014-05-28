@@ -1,6 +1,8 @@
 package eu.muses.sim.context.location;
 
 import eu.muses.sim.context.Contextable;
+import eu.muses.sim.riskman.Probability;
+import eu.muses.sim.riskman.vulnerability.Vulnerability;
 
 public class Location implements Contextable {
 	
@@ -27,6 +29,18 @@ public class Location implements Contextable {
 
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public Probability isUnderAttack() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Vulnerability[] getVulnerabilities() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

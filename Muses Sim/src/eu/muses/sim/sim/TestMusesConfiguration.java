@@ -43,7 +43,7 @@ public class TestMusesConfiguration {
 	static SimUser userCso = new SimUser("userCSO", 300); 
 
 	static SimUser user1 = new SimUser("user1", 120);
-	static UserDevice user1Laptop = new UserDevice();
+	static UserDevice user1Laptop = new PersonalUserDevice();
 //	static RealTimeRiskTrustAnalysisEngine s2MobileRt2aeForUser1;
 	
 	static Asset materialForPublicMarketingPoster;
@@ -94,7 +94,7 @@ public class TestMusesConfiguration {
 						}
 					}
 					for (RiskTreatment riskTreatment : decision
-							.getRiskCommunication().getRiskTreatment()) {
+							.getRiskCommunication().getRiskTreatments()) {
 						if (!riskTreatment
 								.equals(RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
 							if (user1
@@ -160,7 +160,7 @@ public class TestMusesConfiguration {
 							}
 						}
 						for (RiskTreatment riskTreatment : decision
-								.getRiskCommunication().getRiskTreatment()) {
+								.getRiskCommunication().getRiskTreatments()) {
 							if (!riskTreatment
 									.equals(RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
 								if (user1

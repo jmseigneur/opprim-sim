@@ -14,8 +14,6 @@ public abstract class UserDevice {
 	
 	private String owner;
 	
-	
-	
 	public void installs(MusesClientApp musesClientApp) {
 		// TODO Auto-generated method stub
 		this.keyPair = generateKeyPair();

@@ -1,16 +1,19 @@
 package eu.muses.sim.sim;
 
+import java.util.Collection;
+
 import eu.muses.sim.Outcome;
 import eu.muses.sim.RealTimeRiskTrustAnalysisEngine;
+import eu.muses.sim.context.location.Location;
 import eu.muses.sim.context.location.PublicAccessPoint;
 import eu.muses.sim.corporate.Corporation;
-import eu.muses.sim.coworking.CoworkingOffice;
-import eu.muses.sim.decision.CorporateUserAccessRequestDecision;
 import eu.muses.sim.decision.Decision;
-import eu.muses.sim.decision.DecisionManager;
 import eu.muses.sim.request.AccessRequest;
+import eu.muses.sim.riskman.PersonalUserDevice;
+import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.SecurityIncident;
+import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.asset.CorporateAsset;
 import eu.muses.sim.riskman.asset.UserDevice;
 import eu.muses.sim.riskman.opportunity.Opportunity;
@@ -22,21 +25,27 @@ public class TestMuses {
 		SimUser alice = new SimUser("alice", 120);
 		PublicAccessPoint genevaAirportGateAPublicWiFi = new PublicAccessPoint("genevaAirportGateAPublicWiFiAP", 0.0, 0.0);
 		PublicAccessPoint genevaAirportSecuredCorporateLoungeWiFi = new PublicAccessPoint("genevaAirportSecureCorporateLoungeWiFiAP", 0.0, 0.0);
-		UserDevice aliceLaptop = new UserDevice();
+		UserDevice aliceLaptop = new PersonalUserDevice();
 		alice.movesTo(genevaAirportGateAPublicWiFi);	
 		Corporation s2 = new Corporation();
 		EventProcessor eventCorrelatorS2 = new EventProcessor();
-		RealTimeRiskTrustAnalysisEngine s2Rt2ae = new RealTimeRiskTrustAnalysisEngine(eventCorrelatorS2);
+		RealTimeRiskTrustAnalysisEngine s2Rt2ae = new RealTimeRiskTrustAnalysisEngine(eventCorrelatorS2, RiskPolicy.TEST_NO_RISK);
 		s2.installs(s2Rt2ae);	
-		RealTimeRiskTrustAnalysisEngine s2MobileRt2aeForAlice = new RealTimeRiskTrustAnalysisEngine(eventCorrelatorS2);
-		aliceLaptop.installs(s2MobileRt2aeForAlice);		
+		RealTimeRiskTrustAnalysisEngine s2MobileRt2aeForAlice = new RealTimeRiskTrustAnalysisEngine(eventCorrelatorS2, RiskPolicy.TEST_NO_RISK);
+		MusesClientApp aliceClientApp = new MusesClientApp();
+		aliceLaptop.installs(aliceClientApp);		
 		CorporateAsset newPatentProposal = new CorporateAsset(s2, 800000); 
 		CorporateAsset publicMarketingPoster = new CorporateAsset(s2, 0);
-		CorporateAsset docsFor150kEurosBid = new CorporateAsset(s2, 150000);		
-		Opportunity aliceMustSubmitThe150000BidNow = new Opportunity("Alice must access documents for a 150 000 kEuros bid to win a new project to submit it now or it will be too late because the deadline will have passed", 150000); 	
-		Opportunity aliceHasOneHourToWorkOnThePublicMarketingPoster = new Opportunity("Alice has one hour to work on a marketing poster at an airport that will be public with public material otherwise one hour of her working time will be lost", 100);		
-		CorporateAsset[] corporateAssets = {docsFor150kEurosBid};
-		AccessRequest accessRequest = alice.requestsAccessToAssetsForOpportunity(corporateAssets, aliceMustSubmitThe150000BidNow, genevaAirportGateAPublicWiFi, aliceLaptop); //aliceLaptop is for example inferred by the sensed MUSES WP6 context observation and their events correlation with MUSES WP5		
+		CorporateAsset docsFor150kEurosBid = new CorporateAsset(s2, 150000);	
+		Collection<Outcome> outcomesOpportunity = null;
+		Opportunity aliceMustSubmitThe150000BidNow = new Opportunity(
+				"Alice must access documents for a 150 000 kEuros bid to win a new project to submit it now or it will be too late because the deadline will have passed",
+				new Probability(), outcomesOpportunity); 	
+		Opportunity aliceHasOneHourToWorkOnThePublicMarketingPoster = new Opportunity(
+				"Alice has one hour to work on a marketing poster at an airport that will be public with public material otherwise one hour of her working time will be lost",
+				new Probability(), outcomesOpportunity);		
+		Collection<Asset> corporateAssets = null;//;{docsFor150kEurosBid};
+		AccessRequest accessRequest = alice.requestsAccessToAssetsForOpportunity(corporateAssets, aliceMustSubmitThe150000BidNow, (Location) genevaAirportGateAPublicWiFi, aliceLaptop); //aliceLaptop is for example inferred by the sensed MUSES WP6 context observation and their events correlation with MUSES WP5		
 		s2.computeCorporateAccessRequestOpportunity(accessRequest);	//it is computed by the MUSES WP5 event correlator
 		s2.computeCorporateAccessRequestThreats(accessRequest);	//it is computed by the MUSES WP5 event correlator	
 		s2.computeCorporateAccessRequestRisk(accessRequest); //it is computed by the MUSES WP3 RT2AE
@@ -46,15 +55,15 @@ public class TestMuses {
 		if (!accessRequest.getCorporateAccessRequestDecision().equals(Decision.MAYBE_ACCESS)) {
 			alice.readsAccessRiskCommunicationIncludingPotentialRiskTreatments(accessRequest.getAccessRiskCommunication()); //including some potential other behaviours, risk treatments that would allow the user to access the asset with less risk, such as going to a company lounge with secure WiFi
 			if (alice.decidesAccessingAssetInSpiteOfRisk(accessRequest)) {
-				CorporateAsset corporateAsset = alice.getCorporateAsset(accessRequest);
+				Asset[] usedCorporateAssets = alice.getCorporateAssets(accessRequest);
 				s2.logsAccessRequestUserDecisionInMusesCompanyInstance();
-				alice.usesCorporateAssets(corporateAsset);
+				alice.usesCorporateAssets(usedCorporateAssets);
 				s2.logsBeneficialOutcomeBasedOnTheAchievedOpportunity(accessRequest);
 			} else {
 				if (alice.decidesToApplyAProposedRiskTreatment(accessRequest)) {
 					alice.movesTo(genevaAirportSecuredCorporateLoungeWiFi); //this risk treatment allows her to access the asset
-					CorporateAsset corporateAsset = alice.getCorporateAsset(accessRequest);
-					alice.usesCorporateAssets(corporateAsset);
+					Asset[] usedCorporateAssets = alice.getCorporateAssets(accessRequest);
+					alice.usesCorporateAssets(usedCorporateAssets);
 					s2.logsBeneficialOutcomeBasedOnTheAchievedOpportunity(accessRequest);
 				} else {
 					s2.logsAccessRequestUserDecisionInMusesCompanyInstance(); //It may be important to also log when a user decides not taking the opportunity due to risk, e.g., to avoid never taking opportunities even when there is no risk due to laziness or risk aversion... 
@@ -64,7 +73,7 @@ public class TestMuses {
 			alice.readsAccessDenialDecisionReasons(accessRequest.getDenialDecisionReasons());
 		}
 		//Much later assuming there is a security incident on the asset
-		Outcome securityIncidentOnPatent = new SecurityIncident(newPatentProposal); //the MUSES WP5 event correlator would detect this incident
+		Outcome securityIncidentOnPatent = new SecurityIncident("New patent proposal comprised", newPatentProposal.getValue()); //the MUSES WP5 event correlator would detect this incident
 		s2.reportsSecurityIncident(securityIncidentOnPatent);
 		if (s2.seemsUserInvolvedInSecurityIncident(alice) > 0.8) {
 			s2.warnsUserResponsibleForSecurityIncident(alice, securityIncidentOnPatent);
