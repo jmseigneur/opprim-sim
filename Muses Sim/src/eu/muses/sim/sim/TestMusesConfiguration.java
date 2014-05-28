@@ -44,6 +44,7 @@ public class TestMusesConfiguration {
 		s2.setCso(userCso);
 		
 		musesUsersDevicesAndAssetsConfigurationsSteps();
+		s2Rt2ae.initCluesThreatTable();
 		
 	//	PublicAccessPoint genevaAirportGateAPublicWiFi = new PublicAccessPoint("genevaAirportGateAPublicWiFiAP", 0.0, 0.0);
 	//	PublicAccessPoint genevaAirportSecuredCorporateLoungeWiFi = new PublicAccessPoint("genevaAirportSecureCorporateLoungeWiFiAP", 0.0, 0.0);
@@ -233,7 +234,7 @@ public class TestMusesConfiguration {
 //			vulnerabilitiesNewPatent.add(patentInvalidationTrial);
 //			newPatentProposal.setVulnerabilities(vulnerabilitiesNewPatent);
 
-			materialForPatentProposal = userCso.addsNewAssetToRt2ae(s2Rt2ae, new Asset("materialForPatentProposal", newPatentProposal.getValue()));
+			//materialForPatentProposal = userCso.addsNewAssetToRt2ae(s2Rt2ae, new Asset("materialForPatentProposal", newPatentProposal.getValue()));
 //			Collection<Vulnerability> vulnerabilitiesPatentMaterial = s2EventCorrelator.getVulnerabilities(materialForPatentProposal);
 //			Vulnerability materialInterceptedOverTheNetwork = new Vulnerability();
 //			vulnerabilitiesPatentMaterial.add(materialInterceptedOverTheNetwork);

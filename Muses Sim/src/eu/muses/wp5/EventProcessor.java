@@ -2,6 +2,7 @@ package eu.muses.wp5;
 
 import java.security.Certificate;
 import java.util.Collection;
+import java.util.List;
 
 import eu.muses.sim.Outcome;
 import eu.muses.sim.request.AccessRequest;
@@ -49,7 +50,7 @@ public class EventProcessor {
 		return null;
 	}
 	
-	public Clue[] getClues(Asset asset) {
+	public List<Clue> getClues(Asset asset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
