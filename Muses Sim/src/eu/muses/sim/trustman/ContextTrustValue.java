@@ -9,7 +9,7 @@ public class ContextTrustValue extends TrustValue {
 	 * @uml.property   name="contextable"
 	 * @uml.associationEnd   multiplicity="(1 1)" inverse="contextTrust:eu.muses.sim.context.Contextable"
 	 */
-	private Contextable contextable = new eu.muses.sim.context.Contextable();
+	private Contextable contextable;
 
 	/**
 	 * Getter of the property <tt>contextable</tt>

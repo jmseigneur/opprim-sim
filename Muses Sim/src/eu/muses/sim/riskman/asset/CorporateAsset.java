@@ -7,8 +7,8 @@ public class CorporateAsset extends Asset {
 	
 	private Corporation owningCorporation;
 
-	public CorporateAsset(Corporation owningCorporation, double value) {
-		super(value);
+	public CorporateAsset(String assetDescription, Corporation owningCorporation, double value) {
+		super(assetDescription, value);
 		this.owningCorporation = owningCorporation;
 		this.value = value;
 	}

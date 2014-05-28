@@ -34,9 +34,9 @@ public class TestMuses {
 		RealTimeRiskTrustAnalysisEngine s2MobileRt2aeForAlice = new RealTimeRiskTrustAnalysisEngine(eventCorrelatorS2, RiskPolicy.TEST_NO_RISK);
 		MusesClientApp aliceClientApp = new MusesClientApp();
 		aliceLaptop.installs(aliceClientApp);		
-		CorporateAsset newPatentProposal = new CorporateAsset(s2, 800000); 
-		CorporateAsset publicMarketingPoster = new CorporateAsset(s2, 0);
-		CorporateAsset docsFor150kEurosBid = new CorporateAsset(s2, 150000);	
+		CorporateAsset newPatentProposal = new CorporateAsset("newPatentProposal", s2, 800000); 
+		CorporateAsset publicMarketingPoster = new CorporateAsset("publicMarketingPoster", s2, 0);
+		CorporateAsset docsFor150kEurosBid = new CorporateAsset("docsFor150kEurosBid", s2, 150000);	
 		Collection<Outcome> outcomesOpportunity = null;
 		Opportunity aliceMustSubmitThe150000BidNow = new Opportunity(
 				"Alice must access documents for a 150 000 kEuros bid to win a new project to submit it now or it will be too late because the deadline will have passed",

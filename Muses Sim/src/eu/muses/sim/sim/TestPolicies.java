@@ -4,7 +4,6 @@ import java.util.Date;
 
 import eu.muses.sim.RealTimeRiskTrustAnalysisEngine;
 import eu.muses.sim.context.location.Location;
-import eu.muses.sim.corporate.policy.CorporatePolicy;
 import eu.muses.sim.corporate.policy.CorporateSecurityPolicy;
 import eu.muses.sim.corporate.policy.DeviceSecurityLevel;
 import eu.muses.sim.corporate.policy.EnvironmentalContext;

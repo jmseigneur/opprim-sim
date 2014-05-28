@@ -1,5 +1,7 @@
 package eu.muses.sim.corporate.policy.rule;
 
+import eu.muses.sim.riskman.RiskCommunication;
+
 public class CombinedRule extends Rule {
 
 	private final Rule rule1;
@@ -30,6 +32,18 @@ public class CombinedRule extends Rule {
 			}
 		}
 		return validated;
+	}
+
+	@Override
+	public RiskCommunication getValidatedRiskCommunication() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public RiskCommunication getNotValidatedRiskCommunication() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

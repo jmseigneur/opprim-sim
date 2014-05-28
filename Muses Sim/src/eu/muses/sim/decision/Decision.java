@@ -18,7 +18,7 @@ abstract public class Decision {
 	 * @uml.associationEnd  multiplicity="(1 1)" inverse="decision:eu.muses.sim.riskman.RiskCommunication"
 	 * @uml.association  name="has"
 	 */
-	private RiskCommunication riskCommunication = new eu.muses.sim.riskman.RiskCommunication();
+	private RiskCommunication riskCommunication = null; //TODO to create a default RiskCommunication
 
 	/**
 	 * Getter of the property <tt>riskCommunication</tt>
