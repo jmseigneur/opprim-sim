@@ -14,6 +14,7 @@ public class Asset {
 	public Asset(String assetName, double value) {
 		super();
 		this.value = value;
+		this.assetName = assetName;
 	}
 
 	public double getValue() {

@@ -8,4 +8,12 @@ public class CorporateUserAccessRequestDecision extends Decision {
 		this.textualDecisionDescription = textualDecisionDescription;
 	}
 
+	public String getTextualDecisionDescription() {
+		return textualDecisionDescription;
+	}
+
+	public void setTextualDecisionDescription(String textualDecisionDescription) {
+		this.textualDecisionDescription = textualDecisionDescription;
+	}
+
 }

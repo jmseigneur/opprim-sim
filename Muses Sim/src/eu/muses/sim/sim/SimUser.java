@@ -96,15 +96,15 @@ public class SimUser extends User {
 		
 	}
 
-	public boolean hasCsoConfiguredAssets() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean hasCsoConfiguredAssets(RealTimeRiskTrustAnalysisEngine s2Rt2ae) {
+
+		return s2Rt2ae.hasAssets();
 	}
 
 	public Asset addsNewAssetToRt2ae(RealTimeRiskTrustAnalysisEngine rt2ae,
 			Asset asset) {
-		// TODO Auto-generated method stub
-		return null;
+		rt2ae.addAsset(asset);
+		return asset;
 	}
 
 	public boolean checksIfDeviceIsTrustworthyEnough() {

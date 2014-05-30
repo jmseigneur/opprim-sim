@@ -14,6 +14,10 @@ public class OpportunityDescriptor {
 	
 	private Collection<Outcome> outcomes = new Vector<Outcome>();
 	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public void addRequestedAsset(Asset asset) {
 		requestedAssets.add(asset);
 	}

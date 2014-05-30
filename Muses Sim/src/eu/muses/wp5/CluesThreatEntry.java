@@ -34,7 +34,7 @@ public class CluesThreatEntry {
 		
 		int count = 0;
 		for (Clue clue : clues) {
-		if(clueList.contains(clue));
+		if(clueList.contains(clue))
 		count++;
 		}
 		

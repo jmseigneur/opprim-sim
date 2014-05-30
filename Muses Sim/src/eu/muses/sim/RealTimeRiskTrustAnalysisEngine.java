@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 
+import sun.security.krb5.Asn1Exception;
 import eu.muses.wp5.Clue;
 import eu.muses.wp5.CluesThreatEntry;
 import eu.muses.wp5.CluesThreatTable;
@@ -27,6 +28,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 	private EventProcessor eventProcessor;
 	private CluesThreatTable cluesThreatTable;
 	private RiskPolicy riskPolicy;
+	private List<Asset> assetList = new ArrayList<Asset>();
 
 	public RealTimeRiskTrustAnalysisEngine(EventProcessor eventProcessor, RiskPolicy riskPolicy) {
 		super();
@@ -61,8 +63,18 @@ public class RealTimeRiskTrustAnalysisEngine {
 	}
 
 	public Asset getAsset(String assetName) {
-		// TODO Auto-generated method stub
+		
+		for (Asset asset : assetList) {
+			if(asset.getAssetName().equalsIgnoreCase(assetName))
+				return asset;
+		}
 		return null;
+	}
+	
+	public void addAsset(Asset asset){
+		
+		this.assetList.add(asset);
+		
 	}
 	
 	public void initCluesThreatTable() {
@@ -89,7 +101,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 		
 		OpportunityDescriptor opportunityDescriptor = accessRequest.getOpportunityDescriptor(); 
 		if (opportunityDescriptor != null) {
-			opportunityDescriptor.addRequestedAsset(null);//TODO change for real assets
+			//opportunityDescriptor.addRequestedAsset(null);//TODO change for real assets
 			requestedAssests = opportunityDescriptor.getRequestedAssets();
 			userSpecifiedOutcomes = opportunityDescriptor.getOutcomes();
 		}
@@ -99,11 +111,17 @@ public class RealTimeRiskTrustAnalysisEngine {
 		for (Asset asset : requestedAssests) {
 			//currentThreats = eventProcessor.getThreats(asset, this.getTrustValue(accessRequest.getUser()));
 			clues = eventProcessor.getClues(asset);
+			for (Clue clue : clues) {
+				System.out.println("The clue associated with Asset " + asset.getAssetName() + " is " + clue.getId());
+			}
 		} 
 		
 		
 		List<Threat> currentThreats = new ArrayList<Threat>();
 		currentThreats = cluesThreatTable.getThreatsFromClues(clues);
+		for (Threat threat : currentThreats) {
+			System.out.println("The inferred Threats from the Clues are: " + threat.getDescription());
+		}
 		
 		Collection<Probability> outcomesProbabilites = new Vector<Probability>();
 		
@@ -159,7 +177,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 	
 	private Probability computeOverallProbability(Collection<Probability> probabilites) {
 		//TODO implement computing probability of multiple probabilities
-		return null;
+		return new Probability(0.75);
 	}
 	
 	private Decision decide(RiskEvent[] riskEvents, RiskPolicy riskPolicy) {
@@ -170,6 +188,11 @@ public class RealTimeRiskTrustAnalysisEngine {
 	public void updateTrustValue() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public boolean hasAssets() {
+		// TODO Auto-generated method stub
+		return !assetList.isEmpty();
 	}
 
 }

@@ -11,6 +11,14 @@ import eu.muses.sim.riskman.vulnerability.Vulnerability;
 
 public class Threat extends RiskEvent {
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	/**
 	 * @uml.property  name="probability"
 	 */

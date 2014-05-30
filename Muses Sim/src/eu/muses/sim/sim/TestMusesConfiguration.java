@@ -8,6 +8,7 @@ import eu.muses.sim.Outcome;
 import eu.muses.sim.RealTimeRiskTrustAnalysisEngine;
 import eu.muses.sim.corporate.Corporation;
 import eu.muses.sim.corporate.policy.CorporateSecurityPolicy;
+import eu.muses.sim.decision.CorporateUserAccessRequestDecision;
 import eu.muses.sim.decision.Decision;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.PersonalUserDevice;
@@ -17,6 +18,7 @@ import eu.muses.sim.riskman.RiskValue;
 import eu.muses.sim.riskman.SecurityIncident;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.asset.UserDevice;
+import eu.muses.sim.riskman.opportunity.Opportunity;
 import eu.muses.sim.userman.Credential;
 import eu.muses.wp5.EventProcessor;
 
@@ -59,11 +61,16 @@ public class TestMusesConfiguration {
 		//"user1 must access documents for a 150 000 kEuros bid to win a new project to submit it now or it will be too late because the deadline will have passed" 	
 		//"user1 wants to work on a patent with confidential material"	
 		AccessRequest accessRequest = user1.requestsAccessToAsset(materialForPatentProposal);
+		OpportunityDescriptor opDesc = new OpportunityDescriptor();
+		opDesc.setDescription("user1 must access documents for a 150 000 kEuros bid to win a new project to submit it now or it will be too late because the deadline will have passed");
+		opDesc.addRequestedAsset(materialForPatentProposal);
+		accessRequest.setOpportunityDescriptor(opDesc);
 		
 		//XXX //user1Laptop is for example inferred by the sensed MUSES WP6 context observation and their events correlation with MUSES WP5			
 		
 					
 		Decision decision = s2Rt2ae.decidesBasedOnConfiguredRiskPolicy(accessRequest);	
+		System.out.println("The computed decision for the asset " + accessRequest.getRequestedCorporateAsset().iterator().next().getAssetName() + " with oportunity description " + accessRequest.getOpportunityDescriptor().getDescription() + " was: " + ((CorporateUserAccessRequestDecision)decision).getTextualDecisionDescription());
 		if (!decision.equals(Decision.STRONG_DENY_ACCESS)) {
 			if (!decision.equals(Decision.ALLOW_ACCESS)) {
 				user1.readsAccessRiskCommunicationIncludingPotentialRiskTreatments(decision
@@ -79,6 +86,7 @@ public class TestMusesConfiguration {
 							.hasRiskTreatment(
 									RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
 						if (user1.acceptsToRefineOpportunity()) {
+							System.out.println("User accepted to refine the access oportunity");
 							OpportunityDescriptor opportunityDescriptor = user1
 									.refinesOpportunity(); //in our example it corresponds to refinesOpportunity() below
 							accessRequest
@@ -227,7 +235,7 @@ public class TestMusesConfiguration {
 	
 		s2MusesClientApp = userCso.configureMusesClientApp(s2MusesServerApp);
 		
-		if(userCso.hasCsoConfiguredAssets()) {
+		if(userCso.hasCsoConfiguredAssets(s2Rt2ae)) {
 			materialForPublicMarketingPoster = s2Rt2ae.getAsset("materialForPublicMarketingPoster");
 			materialForBid = s2Rt2ae.getAsset("materialForBid");
 			newPatentProposal = s2Rt2ae.getAsset("newPatentProposal");
@@ -239,7 +247,7 @@ public class TestMusesConfiguration {
 //			vulnerabilitiesNewPatent.add(patentInvalidationTrial);
 //			newPatentProposal.setVulnerabilities(vulnerabilitiesNewPatent);
 
-			//materialForPatentProposal = userCso.addsNewAssetToRt2ae(s2Rt2ae, new Asset("materialForPatentProposal", newPatentProposal.getValue()));
+			materialForPatentProposal = userCso.addsNewAssetToRt2ae(s2Rt2ae, new Asset("materialForPatentProposal", newPatentProposal.getValue()));
 //			Collection<Vulnerability> vulnerabilitiesPatentMaterial = s2EventCorrelator.getVulnerabilities(materialForPatentProposal);
 //			Vulnerability materialInterceptedOverTheNetwork = new Vulnerability();
 //			vulnerabilitiesPatentMaterial.add(materialInterceptedOverTheNetwork);
