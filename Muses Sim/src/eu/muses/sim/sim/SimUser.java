@@ -189,24 +189,25 @@ public class SimUser extends User {
 
 	public MusesClientApp configureMusesClientApp(MusesServerApp musesServerApp) {
 		// TODO Auto-generated method stub
-		return null;
+		return new MusesClientApp();
 	}
 
 	public EventProcessor configureEventCorrelator() {
 		// TODO Auto-generated method stub
-		return null;
+		return new EventProcessor();
 	}
 
 	public RealTimeRiskTrustAnalysisEngine configureRt2ae(
 			EventProcessor eventProcessor, RiskPolicy riskPolicy) {
+		
 		// TODO Auto-generated method stub
-		return null;
+		return new RealTimeRiskTrustAnalysisEngine(eventProcessor, riskPolicy);
 	}
 
 	public MusesServerApp configureMusesServerApp(
 			RealTimeRiskTrustAnalysisEngine rt2ae) {
 		// TODO Auto-generated method stub
-		return null;
+		return new MusesServerApp(rt2ae);
 	}
 
 	public String typePassword() {

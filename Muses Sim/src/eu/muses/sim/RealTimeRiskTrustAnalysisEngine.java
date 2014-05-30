@@ -65,14 +65,21 @@ public class RealTimeRiskTrustAnalysisEngine {
 		return null;
 	}
 	
-	public void initCluesThreatTable(){
+	public void initCluesThreatTable() {
 		
+		try{
 		Collection<CluesThreatEntry> entries = new Vector<CluesThreatEntry>();
 		
 		entries.add(new CluesThreatEntry(Arrays.asList(Clue.antivirusClue, Clue.firewallClue), new Threat("Threat1", null, null)));
 		entries.add(new CluesThreatEntry(Arrays.asList(Clue.firewallClue), new Threat("Threat2", null, null)));
 		entries.add(new CluesThreatEntry(Arrays.asList(Clue.vpnClue, Clue.antivirusClue), new Threat("Threat3", null, null)));
+		cluesThreatTable = new CluesThreatTable(entries);
 		
+		}catch (Exception e){
+			
+			e.printStackTrace();
+			
+		}
 	}
 
 	public Decision decidesBasedOnConfiguredRiskPolicy(AccessRequest accessRequest) {
@@ -82,6 +89,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 		
 		OpportunityDescriptor opportunityDescriptor = accessRequest.getOpportunityDescriptor(); 
 		if (opportunityDescriptor != null) {
+			opportunityDescriptor.addRequestedAsset(null);//TODO change for real assets
 			requestedAssests = opportunityDescriptor.getRequestedAssets();
 			userSpecifiedOutcomes = opportunityDescriptor.getOutcomes();
 		}

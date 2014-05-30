@@ -1,6 +1,7 @@
 package eu.muses.wp5;
 
 import java.security.Certificate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,6 +19,13 @@ import eu.muses.sim.sim.SimUser;
 import eu.muses.sim.trustman.TrustValue;
        
 public class EventProcessor {
+	
+	
+
+	public EventProcessor() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Collection<Vulnerability> getVulnerabilities(Asset materialForPatentProposal) {
 		// TODO Auto-generated method stub
@@ -51,8 +59,11 @@ public class EventProcessor {
 	}
 	
 	public List<Clue> getClues(Asset asset) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Clue> clueList = new ArrayList<Clue>();
+		clueList.add(Clue.antivirusClue);
+		clueList.add(Clue.firewallClue);
+		return clueList;
 	}
 
 	public void logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(

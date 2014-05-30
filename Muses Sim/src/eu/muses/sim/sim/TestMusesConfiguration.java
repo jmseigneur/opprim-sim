@@ -7,6 +7,7 @@ import eu.muses.sim.OpportunityDescriptor;
 import eu.muses.sim.Outcome;
 import eu.muses.sim.RealTimeRiskTrustAnalysisEngine;
 import eu.muses.sim.corporate.Corporation;
+import eu.muses.sim.corporate.policy.CorporateSecurityPolicy;
 import eu.muses.sim.decision.Decision;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.PersonalUserDevice;
@@ -42,10 +43,14 @@ public class TestMusesConfiguration {
 	public static void main(String[] args) {
 					
 		s2.setCso(userCso);
-		
 		musesUsersDevicesAndAssetsConfigurationsSteps();
+		try{
 		s2Rt2ae.initCluesThreatTable();
-		
+		}catch (Exception e){
+			
+			e.printStackTrace();
+			
+		}
 	//	PublicAccessPoint genevaAirportGateAPublicWiFi = new PublicAccessPoint("genevaAirportGateAPublicWiFiAP", 0.0, 0.0);
 	//	PublicAccessPoint genevaAirportSecuredCorporateLoungeWiFi = new PublicAccessPoint("genevaAirportSecureCorporateLoungeWiFiAP", 0.0, 0.0);
 	//	user1.movesTo(genevaAirportGateAPublicWiFi);	
