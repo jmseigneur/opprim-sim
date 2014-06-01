@@ -1,3 +1,10 @@
+/*
+ * Copyright
+ * Jean-Marc Seigneur, Carlos Ballester Lafuente, Xavier Titi
+ * University of Geneva
+ * 2013 /2014
+ *
+ */
 package eu.muses.sim.riskman.opportunity;
 
 import java.util.Collection;
@@ -7,40 +14,51 @@ import eu.muses.sim.Outcome;
 import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.RiskEvent;
 
-
+/**
+ * The Class Opportunity.
+ */
 public class Opportunity extends RiskEvent {
-		
-	private String description;
 
-	public Opportunity(String description, Probability probability, Collection<Outcome> outcomes) {
-		super(probability, outcomes);
-		this.description = description;
-	}
+    /**
+     * The opportunity descriptor.
+     *
+     * @uml.property name="opportunityDescriptor"
+     * @uml.associationEnd multiplicity="(1 1)" inverse="opportunity:eu.muses.sim.OpportunityDescriptor"
+     * @uml.association name="has"
+     */
+    private OpportunityDescriptor opportunityDescriptor = new eu.muses.sim.OpportunityDescriptor();
 
-	/**
-	 * @uml.property  name="opportunityDescriptor"
-	 * @uml.associationEnd  multiplicity="(1 1)" inverse="opportunity:eu.muses.sim.OpportunityDescriptor"
-	 * @uml.association  name="has"
-	 */
-	private OpportunityDescriptor opportunityDescriptor = new eu.muses.sim.OpportunityDescriptor();
+    /**
+     * Instantiates a new opportunity.
+     *
+     * @param description
+     *            the description
+     * @param probability
+     *            the probability
+     * @param outcomes
+     *            the outcomes
+     */
+    public Opportunity(String description, Probability probability, Collection<Outcome> outcomes) {
+        super(probability, outcomes);
+    }
 
-	/**
-	 * Getter of the property <tt>opportunityDescriptor</tt>
-	 * @return  Returns the opportunityDescriptor.
-	 * @uml.property  name="opportunityDescriptor"
-	 */
-	public OpportunityDescriptor getOpportunityDescriptor() {
-		return opportunityDescriptor;
-	}
+    /**
+     * Gets the opportunity descriptor.
+     *
+     * @return the opportunity descriptor
+     */
+    public OpportunityDescriptor getOpportunityDescriptor() {
+        return this.opportunityDescriptor;
+    }
 
-	/**
-	 * Setter of the property <tt>opportunityDescriptor</tt>
-	 * @param opportunityDescriptor  The opportunityDescriptor to set.
-	 * @uml.property  name="opportunityDescriptor"
-	 */
-	public void setOpportunityDescriptor(
-			OpportunityDescriptor opportunityDescriptor) {
-		this.opportunityDescriptor = opportunityDescriptor;
-	}
+    /**
+     * Sets the opportunity descriptor.
+     *
+     * @param opportunityDescriptor
+     *            the new opportunity descriptor
+     */
+    public void setOpportunityDescriptor(OpportunityDescriptor opportunityDescriptor) {
+        this.opportunityDescriptor = opportunityDescriptor;
+    }
 
 }

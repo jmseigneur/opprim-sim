@@ -1,6 +1,13 @@
+/*
+ * Copyright
+ * Jean-Marc Seigneur, Carlos Ballester Lafuente, Xavier Titi
+ * University of Geneva
+ * 2013 /2014
+ *
+ */
 package eu.muses.wp5;
 
-import java.security.Certificate;
+import java.security.cert.Certificate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,90 +19,176 @@ import eu.muses.sim.riskman.RiskTreatment;
 import eu.muses.sim.riskman.SecurityIncident;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.asset.MusesCertificateRequest;
-import eu.muses.sim.riskman.asset.UserDevice;
 import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.sim.riskman.vulnerability.Vulnerability;
-import eu.muses.sim.sim.SimUser;
+import eu.muses.sim.test.SimUser;
 import eu.muses.sim.trustman.TrustValue;
-       
+
+/**
+ * The Class EventProcessor.
+ */
 public class EventProcessor {
-	
-	
 
-	public EventProcessor() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * Instantiates a new event processor.
+     */
+    public EventProcessor() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	public Collection<Vulnerability> getVulnerabilities(Asset materialForPatentProposal) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * Compute outcome probability.
+     *
+     * @param outcome
+     *            the outcome
+     * @param userTrustValue
+     *            the user trust value
+     * @return the probability
+     */
+    public Probability computeOutcomeProbability(Outcome outcome, TrustValue userTrustValue) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public void reportsSecurityIncident(SecurityIncident securityIncident) {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * Gets the clues.
+     *
+     * @param asset
+     *            the asset
+     * @return the clues
+     */
+    public List<Clue> getClues(Asset asset) {
 
-	public double seemsUserInvolvedInSecurityIncident(SimUser user1) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+        List<Clue> clueList = new ArrayList<Clue>();
+        clueList.add(Clue.antivirusClue);
+        clueList.add(Clue.firewallClue);
+        return clueList;
+    }
 
-	public void logsAccessRequestUserDecisionInMusesCompanyInstance() {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * Gets the threats.
+     *
+     * @param asset
+     *            the asset
+     * @param userTrustValue
+     *            the user trust value
+     * @return the threats
+     */
+    public Threat[] getThreats(Asset asset, TrustValue userTrustValue) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public void logsPositiveOutcomeBasedOnTheAchievedOpportunity(
-			AccessRequest accessRequest) {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * Gets the vulnerabilities.
+     *
+     * @param materialForPatentProposal
+     *            the material for patent proposal
+     * @return the vulnerabilities
+     */
+    public Collection<Vulnerability> getVulnerabilities(Asset materialForPatentProposal) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public Threat[] getThreats(Asset asset, TrustValue userTrustValue) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	public List<Clue> getClues(Asset asset) {
-		
-		List<Clue> clueList = new ArrayList<Clue>();
-		clueList.add(Clue.antivirusClue);
-		clueList.add(Clue.firewallClue);
-		return clueList;
-	}
+    /**
+     * Log denied request.
+     *
+     * @param accessRequest
+     *            the access request
+     */
+    public void logDeniedRequest(AccessRequest accessRequest) {
+        // TODO Auto-generated method stub
 
-	public void logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(
-			AccessRequest accessRequest) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	public void logsUserUsesAssetInMusesCompanyInstance() {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * Log new device.
+     *
+     * @param cryptoId
+     *            the crypto id
+     * @param owner
+     *            the owner
+     * @param certificateSignatureRequest
+     *            the certificate signature request
+     * @return the certificate
+     */
+    public Certificate logNewDevice(String cryptoId, Object owner, MusesCertificateRequest certificateSignatureRequest) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public void logsSuccessfullyAppliedRiskTreatment(RiskTreatment riskTreatment) {
-		// TODO Auto-generated method stub
-		
-	}
+    /**
+     * Logs access request user decision in muses company instance.
+     */
+    public void logsAccessRequestUserDecisionInMusesCompanyInstance() {
+        // TODO Auto-generated method stub
 
-	public Probability computeOutcomeProbability(Outcome outcome, TrustValue userTrustValue) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	public Certificate logNewDevice(String cryptoId, Object owner,
-			MusesCertificateRequest certificateSignatureRequest) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * Logs negative outcome based on the non achieved opportunity.
+     *
+     * @param accessRequest
+     *            the access request
+     */
+    public void logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(AccessRequest accessRequest) {
+        // TODO Auto-generated method stub
 
-	public void logDeniedRequest(AccessRequest accessRequest) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
+
+    /**
+     * Logs positive outcome based on the achieved opportunity.
+     *
+     * @param accessRequest
+     *            the access request
+     */
+    public void logsPositiveOutcomeBasedOnTheAchievedOpportunity(AccessRequest accessRequest) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /**
+     * Logs successfully applied risk treatment.
+     *
+     * @param riskTreatment
+     *            the risk treatment
+     */
+    public void logsSuccessfullyAppliedRiskTreatment(RiskTreatment riskTreatment) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /**
+     * Logs user uses asset in muses company instance.
+     */
+    public void logsUserUsesAssetInMusesCompanyInstance() {
+        // TODO Auto-generated method stub
+
+    }
+
+    /**
+     * Reports security incident.
+     *
+     * @param securityIncident
+     *            the security incident
+     */
+    public void reportsSecurityIncident(SecurityIncident securityIncident) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /**
+     * Seems user involved in security incident.
+     *
+     * @param user1
+     *            the user1
+     * @return the double
+     */
+    public double seemsUserInvolvedInSecurityIncident(SimUser user1) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
 }

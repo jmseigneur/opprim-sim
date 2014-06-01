@@ -1,3 +1,10 @@
+/*
+ * Copyright
+ * Jean-Marc Seigneur, Carlos Ballester Lafuente, Xavier Titi
+ * University of Geneva
+ * 2013 /2014
+ *
+ */
 package eu.muses.sim;
 
 import java.util.Collection;
@@ -5,37 +12,75 @@ import java.util.Vector;
 
 import eu.muses.sim.riskman.asset.Asset;
 
-
+/**
+ * The Class OpportunityDescriptor.
+ */
 public class OpportunityDescriptor {
-	
-	private String description;
-	
-	private Collection<Asset> requestedAssets = new Vector<Asset>();
-	
-	private Collection<Outcome> outcomes = new Vector<Outcome>();
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
-	public void addRequestedAsset(Asset asset) {
-		requestedAssets.add(asset);
-	}
+    /** The description. */
+    private String description;
 
-	public void addOutcome(Outcome outcome) {
-		outcomes.add(outcome);
-	}
+    /** The requested assets. */
+    private Collection<Asset> requestedAssets = new Vector<Asset>();
 
-	public Collection<Asset> getRequestedAssets() {
-		return requestedAssets;
-	}
+    /** The outcomes. */
+    private Collection<Outcome> outcomes = new Vector<Outcome>();
 
-	public Collection<Outcome> getOutcomes() {
-		return outcomes;
-	}
+    /**
+     * Adds the outcome.
+     *
+     * @param outcome
+     *            the outcome
+     */
+    public void addOutcome(Outcome outcome) {
+        this.outcomes.add(outcome);
+    }
 
-	public String getDescription() {
-		return description;
-	}
-	
+    /**
+     * Adds the requested asset.
+     *
+     * @param asset
+     *            the asset
+     */
+    public void addRequestedAsset(Asset asset) {
+        this.requestedAssets.add(asset);
+    }
+
+    /**
+     * Gets the description.
+     *
+     * @return the description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Gets the outcomes.
+     *
+     * @return the outcomes
+     */
+    public Collection<Outcome> getOutcomes() {
+        return this.outcomes;
+    }
+
+    /**
+     * Gets the requested assets.
+     *
+     * @return the requested assets
+     */
+    public Collection<Asset> getRequestedAssets() {
+        return this.requestedAssets;
+    }
+
+    /**
+     * Sets the description.
+     *
+     * @param description
+     *            the new description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }

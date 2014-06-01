@@ -1,100 +1,188 @@
+/*
+ * Copyright
+ * Jean-Marc Seigneur, Carlos Ballester Lafuente, Xavier Titi
+ * University of Geneva
+ * 2013 /2014
+ *
+ */
 package eu.muses.sim.request;
 
 import java.util.Collection;
-import java.util.Hashtable;
 import java.util.Vector;
 
 import eu.muses.sim.OpportunityDescriptor;
-import eu.muses.sim.context.location.Location;
 import eu.muses.sim.decision.CorporateUserAccessRequestDecision;
 import eu.muses.sim.decision.UserAccessDecision;
 import eu.muses.sim.riskman.RiskCommunication;
 import eu.muses.sim.riskman.RiskEvent;
 import eu.muses.sim.riskman.asset.Asset;
-import eu.muses.sim.riskman.asset.CorporateAsset;
-import eu.muses.sim.riskman.asset.UserDevice;
-import eu.muses.sim.riskman.opportunity.Opportunity;
-import eu.muses.sim.sim.SimUser;
+import eu.muses.sim.test.SimUser;
 
-
+/**
+ * The Class AccessRequest.
+ */
 public class AccessRequest extends Request {
-	
-	
-	private RiskCommunication riskCommunication;
-	private CorporateUserAccessRequestDecision corporateAccessRequestDecision;
-	private UserAccessDecision userAccessDecision;
-	private OpportunityDescriptor opportunityDescriptor;
-	
-	private Collection<Asset> requestedCorporateAssets = new Vector<Asset>();
-	private Location location;
-	private UserDevice device;
-	private SimUser user;
-	
-	public AccessRequest(Asset asset) {
-		super();
-		requestedCorporateAssets.add(asset);
 
-	}
-	public RiskCommunication getAccessRiskCommunication() {
-		return riskCommunication;
-	}
-	public void setAccessRisk(RiskCommunication riskCommunication) {
-		this.riskCommunication = riskCommunication;
-	}
-	public CorporateUserAccessRequestDecision getCorporateAccessRequestDecision() {
-		return corporateAccessRequestDecision;
-	}
-	public void setCorporateAccessRequestDecision(
-			CorporateUserAccessRequestDecision corporateAccessRequestDecision) {
-		this.corporateAccessRequestDecision = corporateAccessRequestDecision;
-	}
-	public UserAccessDecision getUserAccessDecision() {
-		return userAccessDecision;
-	}
-	public void setUserAccessDecision(UserAccessDecision userAccessDecision) {
-		this.userAccessDecision = userAccessDecision;
-	}
-	public AccessRequest getDenialDecisionReasons() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	/**
-	 * @uml.property  name="riskEvent"
-	 * @uml.associationEnd  multiplicity="(0 -1)" dimension="1" inverse="accessRequest:eu.muses.sim.riskman.RiskEvent"
-	 * @uml.association  name="generates"
-	 */
-	private RiskEvent[] riskEvents;
+    /** The risk communication. */
+    private RiskCommunication riskCommunication;
 
-	/**
-	 * Getter of the property <tt>riskEvent</tt>
-	 * @return  Returns the riskEvents.
-	 * @uml.property  name="riskEvent"
-	 */
-	public RiskEvent[] getRiskEvent() {
-		return riskEvents;
-	}
-	/**
-	 * Setter of the property <tt>riskEvent</tt>
-	 * @param riskEvent  The riskEvents to set.
-	 * @uml.property  name="riskEvent"
-	 */
-	public void setRiskEvent(RiskEvent[] riskEvent) {
-		riskEvents = riskEvent;
-	}
-	public OpportunityDescriptor getOpportunityDescriptor() {
-		return opportunityDescriptor;
-	}
-	public void setOpportunityDescriptor(OpportunityDescriptor opportunityDescriptor) {
-		this.opportunityDescriptor = opportunityDescriptor;
-		this.requestedCorporateAssets = opportunityDescriptor.getRequestedAssets();
-	}
-	public SimUser getUser() {
-		return user;
-	}
-	public Collection<Asset> getRequestedCorporateAsset() {
-		return requestedCorporateAssets;
-	}
-	
-	
+    /** The corporate access request decision. */
+    private CorporateUserAccessRequestDecision corporateAccessRequestDecision;
+
+    /** The user access decision. */
+    private UserAccessDecision userAccessDecision;
+
+    /** The opportunity descriptor. */
+    private OpportunityDescriptor opportunityDescriptor;
+
+    /** The requested corporate assets. */
+    private Collection<Asset> requestedCorporateAssets = new Vector<Asset>();
+
+    /** The user. */
+    private SimUser user;
+
+    /**
+     * The risk events.
+     *
+     * @uml.property name="riskEvent"
+     * @uml.associationEnd multiplicity="(0 -1)" dimension="1" inverse="accessRequest:eu.muses.sim.riskman.RiskEvent"
+     * @uml.association name="generates"
+     */
+    private RiskEvent[] riskEvents;
+
+    /**
+     * Instantiates a new access request.
+     *
+     * @param asset
+     *            the asset
+     */
+    public AccessRequest(Asset asset) {
+        super();
+        this.requestedCorporateAssets.add(asset);
+
+    }
+
+    /**
+     * Gets the access risk communication.
+     *
+     * @return the access risk communication
+     */
+    public RiskCommunication getAccessRiskCommunication() {
+        return this.riskCommunication;
+    }
+
+    /**
+     * Gets the corporate access request decision.
+     *
+     * @return the corporate access request decision
+     */
+    public CorporateUserAccessRequestDecision getCorporateAccessRequestDecision() {
+        return this.corporateAccessRequestDecision;
+    }
+
+    /**
+     * Gets the denial decision reasons.
+     *
+     * @return the denial decision reasons
+     */
+    public AccessRequest getDenialDecisionReasons() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /**
+     * Gets the opportunity descriptor.
+     *
+     * @return the opportunity descriptor
+     */
+    public OpportunityDescriptor getOpportunityDescriptor() {
+        return this.opportunityDescriptor;
+    }
+
+    /**
+     * Gets the requested corporate asset.
+     *
+     * @return the requested corporate asset
+     */
+    public Collection<Asset> getRequestedCorporateAsset() {
+        return this.requestedCorporateAssets;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see eu.muses.sim.request.Request#getRiskEvent()
+     */
+    @Override
+    public RiskEvent[] getRiskEvent() {
+        return this.riskEvents;
+    }
+
+    /**
+     * Gets the user.
+     *
+     * @return the user
+     */
+    public SimUser getUser() {
+        return this.user;
+    }
+
+    /**
+     * Gets the user access decision.
+     *
+     * @return the user access decision
+     */
+    public UserAccessDecision getUserAccessDecision() {
+        return this.userAccessDecision;
+    }
+
+    /**
+     * Sets the access risk.
+     *
+     * @param riskCommunication
+     *            the new access risk
+     */
+    public void setAccessRisk(RiskCommunication riskCommunication) {
+        this.riskCommunication = riskCommunication;
+    }
+
+    /**
+     * Sets the corporate access request decision.
+     *
+     * @param corporateAccessRequestDecision
+     *            the new corporate access request decision
+     */
+    public void setCorporateAccessRequestDecision(CorporateUserAccessRequestDecision corporateAccessRequestDecision) {
+        this.corporateAccessRequestDecision = corporateAccessRequestDecision;
+    }
+
+    /**
+     * Sets the opportunity descriptor.
+     *
+     * @param opportunityDescriptor
+     *            the new opportunity descriptor
+     */
+    public void setOpportunityDescriptor(OpportunityDescriptor opportunityDescriptor) {
+        this.opportunityDescriptor = opportunityDescriptor;
+        this.requestedCorporateAssets = opportunityDescriptor.getRequestedAssets();
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see eu.muses.sim.request.Request#setRiskEvent(eu.muses.sim.riskman.RiskEvent[])
+     */
+    @Override
+    public void setRiskEvent(RiskEvent[] riskEvent) {
+        this.riskEvents = riskEvent;
+    }
+
+    /**
+     * Sets the user access decision.
+     *
+     * @param userAccessDecision
+     *            the new user access decision
+     */
+    public void setUserAccessDecision(UserAccessDecision userAccessDecision) {
+        this.userAccessDecision = userAccessDecision;
+    }
 
 }

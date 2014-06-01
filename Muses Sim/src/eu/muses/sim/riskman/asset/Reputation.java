@@ -1,12 +1,28 @@
+/*
+ * Copyright
+ * Jean-Marc Seigneur, Carlos Ballester Lafuente, Xavier Titi
+ * University of Geneva
+ * 2013 /2014
+ *
+ */
 package eu.muses.sim.riskman.asset;
 
-
-
+/**
+ * The Class Reputation.
+ */
 public class Reputation extends Asset {
 
-	public Reputation(String assetName, double value) {
-		super(assetName, value);
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * Instantiates a new reputation.
+     *
+     * @param assetName
+     *            the asset name
+     * @param value
+     *            the value
+     */
+    public Reputation(String assetName, double value) {
+        super(assetName, value);
+        // TODO Auto-generated constructor stub
+    }
 
 }

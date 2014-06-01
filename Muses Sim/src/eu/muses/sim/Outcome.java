@@ -1,34 +1,57 @@
+/*
+ * Copyright
+ * Jean-Marc Seigneur, Carlos Ballester Lafuente, Xavier Titi
+ * University of Geneva
+ * 2013 /2014
+ *
+ */
 package eu.muses.sim;
 
-
+/**
+ * The Class Outcome.
+ */
 public class Outcome {
 
-	/**
-	 * @uml.property  name="costBenefit"
-	 */
-	private double costBenefit;
-	
-	private String description;
+    /**
+     * The cost benefit.
+     *
+     * @uml.property name="costBenefit"
+     */
+    private double costBenefit;
 
-	public Outcome(String description, double costBenefit) {
-		super();
-		this.costBenefit = costBenefit;
-		this.description = description;
-	}
+    /** The description. */
+    private String description;
 
-	/**
-	 * Getter of the property <tt>costBenefit</tt>
-	 * @return  Returns the costBenefit.
-	 * @uml.property  name="costBenefit"
-	 */
-	public double getCostBenefit() {
-		return costBenefit;
-	}
+    /**
+     * Instantiates a new outcome.
+     *
+     * @param description
+     *            the description
+     * @param costBenefit
+     *            the cost benefit
+     */
+    public Outcome(String description, double costBenefit) {
+        super();
+        this.costBenefit = costBenefit;
+        this.description = description;
+    }
 
-	public String getDescription() {
-		return description;
-	}
-	
-	
+    /**
+     * Gets the cost benefit.
+     *
+     * @return the cost benefit
+     */
+    public double getCostBenefit() {
+        return this.costBenefit;
+    }
+
+    /**
+     * Gets the description.
+     *
+     * @return the description
+     */
+    public String getDescription() {
+        return this.description;
+    }
 
 }

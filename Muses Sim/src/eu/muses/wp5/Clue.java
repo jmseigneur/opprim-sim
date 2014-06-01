@@ -1,28 +1,64 @@
+/*
+ * Copyright
+ * Jean-Marc Seigneur, Carlos Ballester Lafuente, Xavier Titi
+ * University of Geneva
+ * 2013 /2014
+ *
+ */
 package eu.muses.wp5;
 
+/**
+ * The Class Clue.
+ */
 public class Clue {
 
-	String id;
-	
-	public final static Clue antivirusClue = new Clue("ANTIVIRUS");
-	public final static Clue vpnClue = new Clue("VPN");
-	public final static Clue firewallClue = new Clue ("FIREWALL");
+    /** The id. */
+    String id;
 
-	public Clue() {
-		super();
-	}
+    /** The Constant antivirusClue. */
+    public final static Clue antivirusClue = new Clue("ANTIVIRUS");
 
-	public Clue(String clueId) {
-		super();
-		this.id = clueId;
-	}
+    /** The Constant vpnClue. */
+    public final static Clue vpnClue = new Clue("VPN");
 
-	public String getId() {
-		return id;
-	}
+    /** The Constant firewallClue. */
+    public final static Clue firewallClue = new Clue("FIREWALL");
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    /**
+     * Instantiates a new clue.
+     */
+    public Clue() {
+        super();
+    }
+
+    /**
+     * Instantiates a new clue.
+     *
+     * @param clueId
+     *            the clue id
+     */
+    public Clue(String clueId) {
+        super();
+        this.id = clueId;
+    }
+
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 
 }
