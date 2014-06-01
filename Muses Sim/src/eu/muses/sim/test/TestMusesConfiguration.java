@@ -95,11 +95,12 @@ public class TestMusesConfiguration {
         // it now or it will be too late because the deadline will have passed"
         // "user1 wants to work on a patent with confidential material"
         AccessRequest accessRequest = SimUser.requestsAccessToAsset(TestMusesConfiguration.materialForPatentProposal);
-        OpportunityDescriptor opDesc = new OpportunityDescriptor();
-        opDesc.setDescription("user1 must access documents for a 150 000 kEuros bid to win a new project to submit it"
-                + " now or it will be too late because the deadline will have passed");
-        opDesc.addRequestedAsset(TestMusesConfiguration.materialForPatentProposal);
-        accessRequest.setOpportunityDescriptor(opDesc);
+        OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor();
+        opportunityDescriptor
+                .setDescription("user1 must access documents for a 150 000 kEuros bid to win a new project to submit it"
+                        + " now or it will be too late because the deadline will have passed");
+        opportunityDescriptor.addRequestedAsset(TestMusesConfiguration.materialForPatentProposal);
+        accessRequest.setOpportunityDescriptor(opportunityDescriptor);
 
         // XXX //user1Laptop is for example inferred by the sensed MUSES WP6 context observation and their events
         // correlation with MUSES WP5
@@ -128,12 +129,14 @@ public class TestMusesConfiguration {
                             RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
                         if (TestMusesConfiguration.user1.acceptsToRefineOpportunity()) {
                             System.out.println("User accepted to refine the access oportunity");
-                            OpportunityDescriptor opportunityDescriptor = TestMusesConfiguration.user1
-                                    .refinesOpportunity(); // in our example it corresponds to refinesOpportunity()
+                            opportunityDescriptor = TestMusesConfiguration.user1.refinesOpportunity(); // in our example
+                            // it corresponds
+                            // to
+                            // refinesOpportunity()
                             // below
                             accessRequest.setOpportunityDescriptor(opportunityDescriptor);
                             TestMusesConfiguration.s2EventCorrelator
-                                    .logsSuccessfullyAppliedRiskTreatment(RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY);
+                            .logsSuccessfullyAppliedRiskTreatment(RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY);
                         }
                     }
                     for (RiskTreatment riskTreatment : decision.getRiskCommunication().getRiskTreatments()) {
@@ -142,9 +145,9 @@ public class TestMusesConfiguration {
                                 // e.g. user1.movesTo(genevaAirportSecuredCorporateLoungeWiFi); //this risk treatment
                                 // allows her to access the asset
                                 TestMusesConfiguration.user1
-                                        .isInformedOfSuccessfullyAppliedRiskTreatment(riskTreatment);
+                                .isInformedOfSuccessfullyAppliedRiskTreatment(riskTreatment);
                                 TestMusesConfiguration.s2EventCorrelator
-                                        .logsSuccessfullyAppliedRiskTreatment(riskTreatment);
+                                .logsSuccessfullyAppliedRiskTreatment(riskTreatment);
                             }
                             else {
                                 TestMusesConfiguration.user1.isInformedOfUnsuccessfullRiskTreatmentApplication();
@@ -178,13 +181,13 @@ public class TestMusesConfiguration {
                                 .successfullyUseCorporateAssetsGivenTheSpecifiedOpportunity(accessRequest
                                         .getOpportunityDescriptor())) {
                             TestMusesConfiguration.s2EventCorrelator
-                                    .logsPositiveOutcomeBasedOnTheAchievedOpportunity(accessRequest);
+                            .logsPositiveOutcomeBasedOnTheAchievedOpportunity(accessRequest);
                             TestMusesConfiguration.s2Rt2ae.updatesTrustInUserGivenPositiveOutcome(
                                     TestMusesConfiguration.user1, accessRequest.getOpportunityDescriptor());
                         }
                         else {
                             TestMusesConfiguration.s2EventCorrelator
-                                    .logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(accessRequest);
+                            .logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(accessRequest);
                             TestMusesConfiguration.s2Rt2ae.updatesTrustInUserGivenNegativeOutcome(
                                     TestMusesConfiguration.user1, accessRequest.getOpportunityDescriptor());
                         }
@@ -193,12 +196,12 @@ public class TestMusesConfiguration {
                         if (decision.getRiskCommunication().hasRiskTreatment(
                                 RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
                             if (TestMusesConfiguration.user1.acceptsToRefineOpportunity()) {
-                                OpportunityDescriptor opportunityDescriptor = TestMusesConfiguration.user1
-                                        .refinesOpportunity(); // in our example it corresponds to refinesOpportunity()
+                                opportunityDescriptor = TestMusesConfiguration.user1.refinesOpportunity();
+                                // in our example it corresponds to refinesOpportunity()
                                 // below
                                 accessRequest.setOpportunityDescriptor(opportunityDescriptor);
                                 TestMusesConfiguration.s2EventCorrelator
-                                        .logsSuccessfullyAppliedRiskTreatment(RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY);
+                                .logsSuccessfullyAppliedRiskTreatment(RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY);
                             }
                         }
                         for (RiskTreatment riskTreatment : decision.getRiskCommunication().getRiskTreatments()) {
@@ -207,9 +210,9 @@ public class TestMusesConfiguration {
                                     // e.g. user1.movesTo(genevaAirportSecuredCorporateLoungeWiFi); //this risk
                                     // treatment allows her to access the asset
                                     TestMusesConfiguration.user1
-                                            .isInformedOfSuccessfullyAppliedRiskTreatment(riskTreatment);
+                                    .isInformedOfSuccessfullyAppliedRiskTreatment(riskTreatment);
                                     TestMusesConfiguration.s2EventCorrelator
-                                            .logsSuccessfullyAppliedRiskTreatment(riskTreatment);
+                                    .logsSuccessfullyAppliedRiskTreatment(riskTreatment);
                                 }
                             }
                             else {
@@ -218,8 +221,8 @@ public class TestMusesConfiguration {
                         }
                         decision = TestMusesConfiguration.s2Rt2ae.decidesBasedOnConfiguredRiskPolicy(accessRequest);
                         TestMusesConfiguration.user1
-                                .readsAccessRiskCommunicationIncludingPotentialRiskTreatments(decision
-                                        .getRiskCommunication()); // including some potential other behaviours, risk
+                        .readsAccessRiskCommunicationIncludingPotentialRiskTreatments(decision
+                                .getRiskCommunication()); // including some potential other behaviours, risk
                         // treatments that would allow the user to access the
                         // asset with less risk, such as going to a company
                         // lounge with secure WiFi
@@ -235,13 +238,13 @@ public class TestMusesConfiguration {
                         .successfullyUseCorporateAssetsGivenTheSpecifiedOpportunity(accessRequest
                                 .getOpportunityDescriptor())) {
                     TestMusesConfiguration.s2EventCorrelator
-                            .logsPositiveOutcomeBasedOnTheAchievedOpportunity(accessRequest);
+                    .logsPositiveOutcomeBasedOnTheAchievedOpportunity(accessRequest);
                     TestMusesConfiguration.s2Rt2ae.updatesTrustInUserGivenPositiveOutcome(TestMusesConfiguration.user1,
                             accessRequest.getOpportunityDescriptor());
                 }
                 else {
                     TestMusesConfiguration.s2EventCorrelator
-                            .logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(accessRequest);
+                    .logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(accessRequest);
                     TestMusesConfiguration.s2Rt2ae.updatesTrustInUserGivenNegativeOutcome(TestMusesConfiguration.user1,
                             accessRequest.getOpportunityDescriptor());
                 }

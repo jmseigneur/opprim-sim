@@ -72,16 +72,13 @@ public class CluesThreatTable {
      * @return the threats from clues
      */
     public List<Threat> getThreatsFromClues(List<Clue> clues) {
-
         List<Threat> threats = new ArrayList<Threat>();
         for (CluesThreatEntry entry : this.cluesThreatTable) {
             if (entry.containsClues(clues)) {
                 threats.add(entry.getThreat());
             }
         }
-
         return threats;
-
     }
 
     /**

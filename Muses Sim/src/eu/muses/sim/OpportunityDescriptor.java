@@ -27,16 +27,6 @@ public class OpportunityDescriptor {
     private Collection<Outcome> outcomes = new Vector<Outcome>();
 
     /**
-     * Adds the outcome.
-     *
-     * @param outcome
-     *            the outcome
-     */
-    public void addOutcome(Outcome outcome) {
-        this.outcomes.add(outcome);
-    }
-
-    /**
      * Adds the requested asset.
      *
      * @param asset

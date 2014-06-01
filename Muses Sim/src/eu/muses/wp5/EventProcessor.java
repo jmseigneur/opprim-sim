@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import eu.muses.sim.Outcome;
 import eu.muses.sim.request.AccessRequest;
-import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.RiskTreatment;
 import eu.muses.sim.riskman.SecurityIncident;
 import eu.muses.sim.riskman.asset.Asset;
@@ -35,20 +33,6 @@ public class EventProcessor {
     public EventProcessor() {
         super();
         // TODO Auto-generated constructor stub
-    }
-
-    /**
-     * Compute outcome probability.
-     *
-     * @param outcome
-     *            the outcome
-     * @param userTrustValue
-     *            the user trust value
-     * @return the probability
-     */
-    public Probability computeOutcomeProbability(Outcome outcome, TrustValue userTrustValue) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     /**

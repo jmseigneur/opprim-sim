@@ -71,30 +71,26 @@ public class RealTimeRiskTrustAnalysisEngine {
 
     }
 
+    private Probability computeOpportunityOutcomeProbability(TrustValue trustValue, String string,
+            List<Threat> currentThreats) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     /**
-     * Call event correlator for probability.
+     * Compute outcome probability.
      *
      * @param outcome
      *            the outcome
      * @param userTrustValue
      *            the user trust value
+     * @param threats
+     *            the threats
      * @return the probability
      */
-    public Probability callEventCorrelatorForProbability(Outcome outcome, TrustValue userTrustValue) {
+    public Probability computeThreatOutcomeProbability(Outcome outcome, TrustValue userTrustValue, Threat[] threats) {
+        // TODO Auto-generated method stub
         return null;
-        // TODO implement link to event correlator call for probability
-    }
-
-    /**
-     * Compute overall probability.
-     *
-     * @param probabilites
-     *            the probabilites
-     * @return the probability
-     */
-    private Probability computeOverallProbability(Collection<Probability> probabilites) {
-        // TODO implement computing probability of multiple probabilities
-        return new Probability(0.75);
     }
 
     /**
@@ -121,14 +117,13 @@ public class RealTimeRiskTrustAnalysisEngine {
     public Decision decidesBasedOnConfiguredRiskPolicy(AccessRequest accessRequest) {
 
         Collection<Asset> requestedAssests = accessRequest.getRequestedCorporateAsset();
-        Collection<Outcome> userSpecifiedOutcomes = new Vector<Outcome>(); // TODO infer opportunities without user
-                                                                           // intervention
+        // TODO infer opportunities without user
+        // intervention
 
         OpportunityDescriptor opportunityDescriptor = accessRequest.getOpportunityDescriptor();
         if (opportunityDescriptor != null) {
             // opportunityDescriptor.addRequestedAsset(null);//TODO change for real assets
             requestedAssests = opportunityDescriptor.getRequestedAssets();
-            userSpecifiedOutcomes = opportunityDescriptor.getOutcomes();
         }
 
         List<Clue> clues = new ArrayList<Clue>();
@@ -144,26 +139,24 @@ public class RealTimeRiskTrustAnalysisEngine {
         List<Threat> currentThreats = new ArrayList<Threat>();
         currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
         for (Threat threat : currentThreats) {
-            System.out.println("The inferred Threats from the Clues are: " + threat.getDescription());
-        }
-
-        Collection<Probability> outcomesProbabilites = new Vector<Probability>();
-
-        for (Outcome outcome : userSpecifiedOutcomes) {
-            outcomesProbabilites.add(this.eventProcessor.computeOutcomeProbability(outcome,
-                    getTrustValue(accessRequest.getUser())));
+            System.out.println("The inferred Threat from the Clues is: "
+                    + threat.getDescription()
+                    + " with probability "
+                    + threat.getProbability());
         }
 
         Vector<RiskEvent> riskEvents = new Vector<RiskEvent>();
 
-        if (userSpecifiedOutcomes.isEmpty()) {
-            Opportunity opportunity = new Opportunity(opportunityDescriptor.getDescription(),
-                    computeOverallProbability(outcomesProbabilites), userSpecifiedOutcomes);
-            riskEvents.add(opportunity);
-        }
-
         for (RiskEvent riskEvent : currentThreats) {
             riskEvents.add(riskEvent);
+        }
+
+        if (opportunityDescriptor != null) {
+            Opportunity opportunity = new Opportunity(opportunityDescriptor.getDescription(),
+                    computeOpportunityOutcomeProbability(getTrustValue(accessRequest.getUser()),
+                            opportunityDescriptor.getDescription(), currentThreats),
+                    opportunityDescriptor.getOutcomes());
+            riskEvents.add(opportunity);
         }
 
         return decide(riskEvents.toArray(new RiskEvent[0]), this.riskPolicy);
