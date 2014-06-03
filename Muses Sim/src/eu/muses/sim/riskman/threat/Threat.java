@@ -21,13 +21,6 @@ import eu.muses.sim.riskman.vulnerability.Vulnerability;
 public class Threat extends RiskEvent {
 
     /**
-     * The probability.
-     *
-     * @uml.property name="probability"
-     */
-    private Probability probability;
-
-    /**
      * @uml.property name="vulnerabilities"
      * @uml.associationEnd multiplicity="(0 -1)" inverse="threat:eu.muses.sim.riskman.vulnerability.Vulnerability"
      * @uml.association name="exploits"
@@ -49,6 +42,21 @@ public class Threat extends RiskEvent {
      */
     public Threat(String description, Probability probability, Collection<Outcome> outcomes) {
         super(probability, outcomes);
+        this.description = description;
+    }
+    
+    /**
+     * Instantiates a new threat with a single outcome.
+     *
+     * @param description
+     *            the description
+     * @param probability
+     *            the probability
+     * @param outcome
+     *            the outcome
+     */
+    public Threat(String description, Probability probability, Outcome outcome) {
+        super(probability, outcome);
         this.description = description;
     }
 
@@ -117,6 +125,10 @@ public class Threat extends RiskEvent {
     @Override
     public Probability getProbability() {
         return this.probability;
+    }
+    
+    public double getProbabilityValue() {
+        return this.probability.getProb();
     }
 
     /**

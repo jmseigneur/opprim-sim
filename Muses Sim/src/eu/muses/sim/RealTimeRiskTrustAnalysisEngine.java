@@ -34,302 +34,449 @@ import eu.muses.wp5.EventProcessor;
  */
 public class RealTimeRiskTrustAnalysisEngine {
 
-    /** The event processor. */
-    private EventProcessor eventProcessor;
+	/** The event processor. */
+	private EventProcessor eventProcessor;
 
-    /** The clues threat table. */
-    private CluesThreatTable cluesThreatTable;
+	/** The clues threat table. */
+	private CluesThreatTable cluesThreatTable;
 
-    /** The risk policy. */
-    private RiskPolicy riskPolicy;
+	/** The risk policy. */
+	private RiskPolicy riskPolicy;
 
-    /** The asset list. */
-    private List<Asset> assetList = new ArrayList<Asset>();
+	/** The asset list. */
+	private List<Asset> assetList = new ArrayList<Asset>();
 
-    /**
-     * Instantiates a new real time risk trust analysis engine.
-     *
-     * @param eventProcessor
-     *            the event processor
-     * @param riskPolicy
-     *            the risk policy
-     */
-    public RealTimeRiskTrustAnalysisEngine(EventProcessor eventProcessor, RiskPolicy riskPolicy) {
-        super();
-        this.eventProcessor = eventProcessor;
-    }
+	/**
+	 * Instantiates a new real time risk trust analysis engine.
+	 * 
+	 * @param eventProcessor
+	 *            the event processor
+	 * @param riskPolicy
+	 *            the risk policy
+	 */
+	public RealTimeRiskTrustAnalysisEngine(EventProcessor eventProcessor,
+			RiskPolicy riskPolicy) {
+		super();
+		this.eventProcessor = eventProcessor;
+		this.riskPolicy = riskPolicy;
+	}
 
-    /**
-     * Adds the asset.
-     *
-     * @param asset
-     *            the asset
-     */
-    public void addAsset(Asset asset) {
+	/**
+	 * Adds the asset.
+	 * 
+	 * @param asset
+	 *            the asset
+	 */
+	public void addAsset(Asset asset) {
 
-        this.assetList.add(asset);
+		this.assetList.add(asset);
 
-    }
+	}
 
-    private Probability computeOpportunityOutcomeProbability(TrustValue trustValue, String string,
-            List<Threat> currentThreats) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	private Probability computeOpportunityOutcomeProbability(
+			TrustValue trustValue, String string, List<Threat> currentThreats) {
+		// TODO Auto-generated method stub
+		return new Probability(trustValue.getValue());
+	}
 
-    /**
-     * Compute outcome probability.
-     *
-     * @param outcome
-     *            the outcome
-     * @param userTrustValue
-     *            the user trust value
-     * @param threats
-     *            the threats
-     * @return the probability
-     */
-    public Probability computeThreatOutcomeProbability(Outcome outcome, TrustValue userTrustValue, Threat[] threats) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/**
+	 * Compute outcome probability.
+	 * 
+	 * @param outcome
+	 *            the outcome
+	 * @param userTrustValue
+	 *            the user trust value
+	 * @param threats
+	 *            the threats
+	 * @return the probability
+	 */
+	public Probability computeThreatOutcomeProbability(Outcome outcome,
+			TrustValue userTrustValue, Threat[] threats) {
+		// TODO Auto-generated method stub
+		return new Probability(userTrustValue.getValue());
+	}
 
-    /**
-     * Decide.
-     *
-     * @param riskEvents
-     *            the risk events
-     * @param riskPolicy
-     *            the risk policy
-     * @return the decision
-     */
-    private Decision decide(RiskEvent[] riskEvents, RiskPolicy riskPolicy) {
-        // TODO implement risk events risk policies
-        return Decision.MAYBE_ACCESS;
-    }
+	/**
+	 * Decide.
+	 * 
+	 * @param riskEvents
+	 *            the risk events
+	 * @param riskPolicy
+	 *            the risk policy
+	 * @return the decision
+	 */
+	private Decision decide(RiskEvent[] riskEvents, RiskPolicy riskPolicy) {
 
-    /**
-     * Decides based on configured risk policy.
-     *
-     * @param accessRequest
-     *            the access request
-     * @return the decision
-     */
-    public Decision decidesBasedOnConfiguredRiskPolicy(AccessRequest accessRequest) {
+		double temp = 0.0;
+		double costOpportunity = 0.0;
+		double combinedProbability = 0.0;
 
-        Collection<Asset> requestedAssests = accessRequest.getRequestedCorporateAsset();
-        // TODO infer opportunities without user
-        // intervention
+		for (RiskEvent riskEvent : riskEvents) {
+			temp += riskEvent.getProbability().getProb();
+			costOpportunity += riskEvent.getOutcomes().iterator().next()
+					.getCostBenefit();
+		}
 
-        OpportunityDescriptor opportunityDescriptor = accessRequest.getOpportunityDescriptor();
-        if (opportunityDescriptor != null) {
-            // opportunityDescriptor.addRequestedAsset(null);//TODO change for real assets
-            requestedAssests = opportunityDescriptor.getRequestedAssets();
-        }
+		combinedProbability = temp / riskEvents.length;
 
-        List<Clue> clues = new ArrayList<Clue>();
+		System.out.println("Decission data is: ");
+		System.out.println("- Risk Policy threshold: "
+				+ riskPolicy.getRiskValue().getValue());
+		System.out.println("- Cost Oportunity: " + costOpportunity);
+		System.out.println("- Combined Probability: " + combinedProbability);
 
-        for (Asset asset : requestedAssests) {
-            // currentThreats = eventProcessor.getThreats(asset, this.getTrustValue(accessRequest.getUser()));
-            clues = this.eventProcessor.getClues(asset);
-            for (Clue clue : clues) {
-                System.out.println("The clue associated with Asset " + asset.getAssetName() + " is " + clue.getId());
-            }
-        }
+		System.out.println("Making a decision...");
+		System.out.println(".");
+		System.out.println("..");
+		System.out.println("...");
 
-        List<Threat> currentThreats = new ArrayList<Threat>();
-        currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
-        for (Threat threat : currentThreats) {
-            System.out.println("The inferred Threat from the Clues is: "
-                    + threat.getDescription()
-                    + " with probability "
-                    + threat.getProbability());
-        }
+		if (costOpportunity > 0 || riskPolicy == RiskPolicy.TAKE_FULL_RISK) {
+			return Decision.ALLOW_ACCESS;
+		}
+		if (riskPolicy == RiskPolicy.TAKE_NO_RISK && costOpportunity < 0) {
+			return Decision.STRONG_DENY_ACCESS;
+		}
+		if (riskPolicy == RiskPolicy.TAKE_MEDIUM_RISK) {
+			if (costOpportunity < 0
+					&& combinedProbability < riskPolicy.getRiskValue()
+							.getValue()) {
+				return Decision.ALLOW_ACCESS;
+			} else {
+				return Decision.ON_YOUR_RISK_ACCESS;
+			}
+		}
+		if (riskPolicy == RiskPolicy.TAKE_CORPORATE_RISK) {
+			if (costOpportunity < 0
+					&& combinedProbability < riskPolicy.getRiskValue()
+							.getValue()) {
+				return Decision.ALLOW_ACCESS;
+			} else {
+				return Decision.MAYBE_ACCESS;
+			}
+		}
+		return Decision.MAYBE_ACCESS;
+	}
 
-        Vector<RiskEvent> riskEvents = new Vector<RiskEvent>();
+	/**
+	 * Decides based on configured risk policy.
+	 * 
+	 * @param accessRequest
+	 *            the access request
+	 * @return the decision
+	 */
+	public Decision decidesBasedOnConfiguredRiskPolicy(
+			AccessRequest accessRequest) {
 
-        for (RiskEvent riskEvent : currentThreats) {
-            riskEvents.add(riskEvent);
-        }
+		Collection<Asset> requestedAssests = accessRequest
+				.getRequestedCorporateAsset();
+		// TODO infer opportunities without user
+		// intervention
 
-        if (opportunityDescriptor != null) {
-            Opportunity opportunity = new Opportunity(opportunityDescriptor.getDescription(),
-                    computeOpportunityOutcomeProbability(getTrustValue(accessRequest.getUser()),
-                            opportunityDescriptor.getDescription(), currentThreats),
-                    opportunityDescriptor.getOutcomes());
-            riskEvents.add(opportunity);
-        }
+		OpportunityDescriptor opportunityDescriptor = accessRequest
+				.getOpportunityDescriptor();
+		if (opportunityDescriptor != null) {
+			// opportunityDescriptor.addRequestedAsset(null);//TODO change for
+			// real assets
+			requestedAssests = opportunityDescriptor.getRequestedAssets();
+		}
 
-        return decide(riskEvents.toArray(new RiskEvent[0]), this.riskPolicy);
+		List<Clue> clues = new ArrayList<Clue>();
 
-        // double denyBestCaseCostBenefit = lostBid.getCostBenefit() + lostTwoHoursWorkOfUser1.getCostBenefit() +
-        // newPatentProposalIsNotInvalidated.getCostBenefit();
-        // double denyWorstCaseCostBenefit = lostBid.getCostBenefit() + lostTwoHoursWorkOfUser1.getCostBenefit();
-        // double allowWorstCaseCostBenefit = gainedTwoHoursWorkOfUser1.getCostBenefit() +
-        // materialForPatentProposalIsStolen.getCostBenefit();
-        // double allowMiddleCaseCostBenefit = gainedTwoHoursWorkOfUser1.getCostBenefit() +
-        // gainedSubmittedBid.getCostBenefit() + materialForPatentProposalIsStolen.getCostBenefit();
-        // double allowBestCaseCostBenefit = gainedTwoHoursWorkOfUser1.getCostBenefit() +
-        // gainedSubmittedBid.getCostBenefit();
-        // double allowBestBestCaseCostBenefit = gainedTwoHoursWorkOfUser1.getCostBenefit() +
-        // gainedSubmittedBid.getCostBenefit() + newPatentProposalIsNotInvalidated.getCostBenefit();
+		for (Asset asset : requestedAssests) {
+			// currentThreats = eventProcessor.getThreats(asset,
+			// this.getTrustValue(accessRequest.getUser()));
+			clues = this.eventProcessor.getClues(asset);
+			for (Clue clue : clues) {
+				System.out.println("The clue associated with Asset "
+						+ asset.getAssetName() + " is " + clue.getId() + "\n");
+			}
+		}
 
-        // Probability denyBestCaseProbability = lostBid. + lostTwoHoursWorkOfUser1.getCostBenefit() +
-        // newPatentProposalIsNotInvalidated.getCostBenefit();
-        // Probability denyWorstCaseCostProbability = lostBid.getCostBenefit() +
-        // lostTwoHoursWorkOfUser1.getCostBenefit();
-        // Probability allowWorstCaseProbability = gainedTwoHoursWorkOfUser1.getCostBenefit() +
-        // materialForPatentProposalIsStolen.getCostBenefit();
-        // Probability allowMiddleCaseProbabiliyt = gainedTwoHoursWorkOfUser1.getCostBenefit() +
-        // gainedSubmittedBid.getCostBenefit() + materialForPatentProposalIsStolen.getCostBenefit();
-        // Probability allowBestCaseProbability = gainedTwoHoursWorkOfUser1.getCostBenefit() +
-        // gainedSubmittedBid.getCostBenefit();
-        // Probability allowBestBestCaseProbability = gainedTwoHoursWorkOfUser1.getCostBenefit() +
-        // gainedSubmittedBid.getCostBenefit() + newPatentProposalIsNotInvalidated.getCostBenefit();
-    }
+		List<Threat> currentThreats = new ArrayList<Threat>();
+		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
+		for (Threat threat : currentThreats) {
+			System.out.println("The inferred Threat from the Clues is: "
+					+ threat.getDescription() + " with probability "
+					+ threat.getProbabilityValue()
+					+ " for the following outcome: \""
+					+ threat.getOutcomes().iterator().next().getDescription()
+					+ "\" with the following potential cost (in kEUR): "
+					+ threat.getOutcomes().iterator().next().getCostBenefit()
+					+ "\n");
+		}
 
-    /**
-     * Decreases trust in user.
-     *
-     * @param user1
-     *            the user1
-     * @param opportunityDescriptor
-     *            the opportunity descriptor
-     */
-    public void decreasesTrustInUser(SimUser user1, OpportunityDescriptor opportunityDescriptor) {
-        // TODO Auto-generated method stub
+		Vector<RiskEvent> riskEvents = new Vector<RiskEvent>();
 
-    }
+		for (RiskEvent riskEvent : currentThreats) {
+			riskEvents.add(riskEvent);
+		}
 
-    /**
-     * Decreases trust in user.
-     *
-     * @param user
-     *            the user
-     * @param securityIncidentOnPatent
-     *            the security incident on patent
-     */
-    public void decreasesTrustInUser(SimUser user, SecurityIncident securityIncidentOnPatent) {
-        // TODO Auto-generated method stub
+		if (opportunityDescriptor != null) {
 
-    }
+			System.out
+					.println("There is an oportunity descriptor associated with this action: \""
+							+ opportunityDescriptor.getDescription()
+							+ "\" with the following possible outcome: "
+							+ opportunityDescriptor.getOutcomes().iterator()
+									.next().getDescription()
+							+ " which can yield the following benefit (in kEUR): "
+							+ opportunityDescriptor.getOutcomes().iterator()
+									.next().getCostBenefit() + "\n");
 
-    /**
-     * Gets the asset.
-     *
-     * @param assetName
-     *            the asset name
-     * @return the asset
-     */
-    public Asset getAsset(String assetName) {
+			Opportunity opportunity = new Opportunity(
+					opportunityDescriptor.getDescription(),
+					computeOpportunityOutcomeProbability(
+							getTrustValue(accessRequest.getUser()),
+							opportunityDescriptor.getDescription(),
+							currentThreats),
+					opportunityDescriptor.getOutcomes());
+			riskEvents.add(opportunity);
+		}
 
-        for (Asset asset : this.assetList) {
-            if (asset.getAssetName().equalsIgnoreCase(assetName)) {
-                return asset;
-            }
-        }
-        return null;
-    }
+		return decide(riskEvents.toArray(new RiskEvent[0]), this.riskPolicy);
 
-    /**
-     * Gets the trust value.
-     *
-     * @param user1
-     *            the user1
-     * @return the trust value
-     */
-    public TrustValue getTrustValue(SimUser user1) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+		// double denyBestCaseCostBenefit = lostBid.getCostBenefit() +
+		// lostTwoHoursWorkOfUser1.getCostBenefit() +
+		// newPatentProposalIsNotInvalidated.getCostBenefit();
+		// double denyWorstCaseCostBenefit = lostBid.getCostBenefit() +
+		// lostTwoHoursWorkOfUser1.getCostBenefit();
+		// double allowWorstCaseCostBenefit =
+		// gainedTwoHoursWorkOfUser1.getCostBenefit() +
+		// materialForPatentProposalIsStolen.getCostBenefit();
+		// double allowMiddleCaseCostBenefit =
+		// gainedTwoHoursWorkOfUser1.getCostBenefit() +
+		// gainedSubmittedBid.getCostBenefit() +
+		// materialForPatentProposalIsStolen.getCostBenefit();
+		// double allowBestCaseCostBenefit =
+		// gainedTwoHoursWorkOfUser1.getCostBenefit() +
+		// gainedSubmittedBid.getCostBenefit();
+		// double allowBestBestCaseCostBenefit =
+		// gainedTwoHoursWorkOfUser1.getCostBenefit() +
+		// gainedSubmittedBid.getCostBenefit() +
+		// newPatentProposalIsNotInvalidated.getCostBenefit();
 
-    /**
-     * Checks for assets.
-     *
-     * @return true, if successful
-     */
-    public boolean hasAssets() {
-        // TODO Auto-generated method stub
-        return !this.assetList.isEmpty();
-    }
+		// Probability denyBestCaseProbability = lostBid. +
+		// lostTwoHoursWorkOfUser1.getCostBenefit() +
+		// newPatentProposalIsNotInvalidated.getCostBenefit();
+		// Probability denyWorstCaseCostProbability = lostBid.getCostBenefit() +
+		// lostTwoHoursWorkOfUser1.getCostBenefit();
+		// Probability allowWorstCaseProbability =
+		// gainedTwoHoursWorkOfUser1.getCostBenefit() +
+		// materialForPatentProposalIsStolen.getCostBenefit();
+		// Probability allowMiddleCaseProbabiliyt =
+		// gainedTwoHoursWorkOfUser1.getCostBenefit() +
+		// gainedSubmittedBid.getCostBenefit() +
+		// materialForPatentProposalIsStolen.getCostBenefit();
+		// Probability allowBestCaseProbability =
+		// gainedTwoHoursWorkOfUser1.getCostBenefit() +
+		// gainedSubmittedBid.getCostBenefit();
+		// Probability allowBestBestCaseProbability =
+		// gainedTwoHoursWorkOfUser1.getCostBenefit() +
+		// gainedSubmittedBid.getCostBenefit() +
+		// newPatentProposalIsNotInvalidated.getCostBenefit();
+	}
 
-    /**
-     * Checks for cso configured assets.
-     *
-     * @return true, if successful
-     */
-    public boolean hasCsoConfiguredAssets() {
-        // TODO Auto-generated method stub
-        return false;
-    }
+	/**
+	 * Decreases trust in user.
+	 * 
+	 * @param user1
+	 *            the user1
+	 * @param opportunityDescriptor
+	 *            the opportunity descriptor
+	 */
+	public void decreasesTrustInUser(SimUser user1,
+			OpportunityDescriptor opportunityDescriptor) {
+		// TODO Auto-generated method stub
 
-    /**
-     * Inits the clues threat table.
-     */
-    public void initCluesThreatTable() {
+	}
 
-        try {
-            Collection<CluesThreatEntry> entries = new Vector<CluesThreatEntry>();
+	/**
+	 * Decreases trust in user.
+	 * 
+	 * @param user
+	 *            the user
+	 * @param securityIncidentOnPatent
+	 *            the security incident on patent
+	 */
+	public void decreasesTrustInUser(SimUser user,
+			SecurityIncident securityIncidentOnPatent) {
+		// TODO Auto-generated method stub
 
-            entries.add(new CluesThreatEntry(Arrays.asList(Clue.antivirusClue, Clue.firewallClue), new Threat(
-                    "Threat1", null, null)));
-            entries.add(new CluesThreatEntry(Arrays.asList(Clue.firewallClue), new Threat("Threat2", null, null)));
-            entries.add(new CluesThreatEntry(Arrays.asList(Clue.vpnClue, Clue.antivirusClue), new Threat("Threat3",
-                    null, null)));
-            this.cluesThreatTable = new CluesThreatTable(entries);
+	}
 
-        }
-        catch (Exception e) {
+	/**
+	 * Gets the asset.
+	 * 
+	 * @param assetName
+	 *            the asset name
+	 * @return the asset
+	 */
+	public Asset getAsset(String assetName) {
 
-            e.printStackTrace();
+		for (Asset asset : this.assetList) {
+			if (asset.getAssetName().equalsIgnoreCase(assetName)) {
+				return asset;
+			}
+		}
+		return null;
+	}
 
-        }
-    }
+	/**
+	 * Gets the trust value.
+	 * 
+	 * @param user1
+	 *            the user1
+	 * @return the trust value
+	 */
+	public TrustValue getTrustValue(SimUser user1) {
+		// TODO Auto-generated method stub
+		return user1.getTrustValue();
+	}
 
-    /**
-     * Updates trust in user given negative outcome.
-     *
-     * @param user1
-     *            the user1
-     * @param opportunityDescriptor
-     *            the opportunity descriptor
-     */
-    public void updatesTrustInUserGivenNegativeOutcome(SimUser user1, OpportunityDescriptor opportunityDescriptor) {
-        // TODO Auto-generated method stub
+	/**
+	 * Checks for assets.
+	 * 
+	 * @return true, if successful
+	 */
+	public boolean hasAssets() {
+		// TODO Auto-generated method stub
+		return !this.assetList.isEmpty();
+	}
 
-    }
+	/**
+	 * Checks for cso configured assets.
+	 * 
+	 * @return true, if successful
+	 */
+	public boolean hasCsoConfiguredAssets() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
-    /**
-     * Updates trust in user given positive outcome.
-     *
-     * @param user1
-     *            the user1
-     * @param opportunityDescriptor
-     *            the opportunity descriptor
-     */
-    public void updatesTrustInUserGivenPositiveOutcome(SimUser user1, OpportunityDescriptor opportunityDescriptor) {
-        // TODO Auto-generated method stub
+	/**
+	 * Updates trust in user given negative outcome.
+	 * 
+	 * @param user1
+	 *            the user1
+	 * @param opportunityDescriptor
+	 *            the opportunity descriptor
+	 */
+	public void updatesTrustInUserGivenNegativeOutcome(SimUser user1,
+			OpportunityDescriptor opportunityDescriptor) {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    /**
-     * Update trust value.
-     */
-    public void updateTrustValue() {
-        // TODO Auto-generated method stub
+	/**
+	 * Inits the clues threat table.
+	 */
+	public void initCluesThreatTable() {
 
-    }
+		this.cluesThreatTable = new CluesThreatTable();
+		this.cluesThreatTable
+				.addMapping(
+						Arrays.asList(Clue.antivirusClue, Clue.firewallClue),
+						new Threat(
+								"Deletion threat",
+								new Probability(0.5),
+								new Outcome(
+										"Lack of Firewall and Antivirus might let the attacker to install a trojan and delete the file",
+										-90.0)));
+		this.cluesThreatTable
+				.addMapping(
+						Arrays.asList(Clue.firewallClue, Clue.vpnClue),
+						new Threat(
+								"Capture threat",
+								new Probability(0.5),
+								new Outcome(
+										"Lack of Firewall might let the attacker to infiltrate the network and steal the document",
+										-50.0)));
+		this.cluesThreatTable
+				.addMapping(
+						Arrays.asList(Clue.vpnClue),
+						new Threat(
+								"Tampering threat",
+								new Probability(0.5),
+								new Outcome(
+										"Lack of Vpn might let the attacker intercept the traffic and modify the file",
+										-20.0)));
 
-    /**
-     * Warns user responsible for security incident.
-     *
-     * @param user
-     *            the user
-     * @param securityIncidentOnPatent
-     *            the security incident on patent
-     */
-    public void warnsUserResponsibleForSecurityIncident(SimUser user, SecurityIncident securityIncidentOnPatent) {
-        // TODO Auto-generated method stub
+	}
 
-    }
+	/**
+	 * Updates trust in user given positive outcome.
+	 * 
+	 * @param user1
+	 *            the user1
+	 * @param opportunityDescriptor
+	 *            the opportunity descriptor
+	 */
+	public void updatesTrustInUserGivenPositiveOutcome(SimUser user1,
+			OpportunityDescriptor opportunityDescriptor) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * Update trust value.
+	 */
+	public void updateTrustValue() {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * Warns user responsible for security incident.
+	 * 
+	 * @param user
+	 *            the user
+	 * @param securityIncidentOnPatent
+	 *            the security incident on patent
+	 */
+	public void warnsUserResponsibleForSecurityIncident(SimUser user,
+			SecurityIncident securityIncidentOnPatent) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void recalculateThreatProbabilities(AccessRequest accessRequest) {
+
+		Collection<Asset> requestedAssests = accessRequest
+				.getRequestedCorporateAsset();
+
+		OpportunityDescriptor opportunityDescriptor = accessRequest
+				.getOpportunityDescriptor();
+		if (opportunityDescriptor != null) {
+			requestedAssests = opportunityDescriptor.getRequestedAssets();
+		}
+
+		List<Clue> clues = new ArrayList<Clue>();
+
+		for (Asset asset : requestedAssests) {
+			clues = this.eventProcessor.getClues(asset);
+		}
+
+		List<Threat> currentThreats = new ArrayList<Threat>();
+		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
+		for (Threat threat : currentThreats) {
+
+			double newProbability = threat.getProbability().getProb() + 0.1;
+			this.cluesThreatTable.updateThreatProbability(threat,
+					newProbability);
+
+		}
+
+		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
+		for (Threat threat : currentThreats) {
+
+			System.out
+					.println("The new probability associated with the threat \""
+							+ threat.getDescription()
+							+ "\" is: "
+							+ threat.getProbability().getProb());
+
+		}
+
+	}
 
 }

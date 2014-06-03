@@ -64,7 +64,7 @@ public class TestPolicies {
 
         CorporateSecurityPolicy corporateSecuritypolicy = new CorporateSecurityPolicy(combinedRule);
 
-        RiskPolicy riskPolicy = new RiskPolicy(RiskValue.NO_MORE_RISK_THAN_CREATED_BY_CORPORATE_SECURITY_POLICY,
+        RiskPolicy riskPolicy = new RiskPolicy(RiskValue.TAKE_NO_MORE_RISK_THAN_CREATED_BY_CORPORATE_SECURITY_POLICY,
                 corporateSecuritypolicy);
 
         EventProcessor musesEventProcessor = new EventProcessor();

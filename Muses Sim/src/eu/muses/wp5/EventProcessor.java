@@ -172,7 +172,7 @@ public class EventProcessor {
      */
     public double seemsUserInvolvedInSecurityIncident(SimUser user1) {
         // TODO Auto-generated method stub
-        return 0;
+        return 0.9;
     }
 
 }

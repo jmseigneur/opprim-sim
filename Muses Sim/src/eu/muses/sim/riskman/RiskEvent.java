@@ -9,6 +9,7 @@ package eu.muses.sim.riskman;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Vector;
 
 import eu.muses.sim.Outcome;
 
@@ -31,7 +32,7 @@ public abstract class RiskEvent {
      * @uml.associationEnd multiplicity="(0 -1)" inverse="event:eu.muses.sim.Outcome"
      * @uml.association name="has"
      */
-    private Collection<Outcome> outcome;
+    private Collection<Outcome> outcome = new Vector<Outcome>() ;
 
     /**
      * Instantiates a new risk event.
@@ -44,7 +45,21 @@ public abstract class RiskEvent {
     public RiskEvent(Probability probability, Collection<Outcome> outcomes) {
         super();
         this.probability = probability;
-        this.outcome = this.outcome;
+        this.outcome = outcomes;
+    }
+    
+    /**
+     * Instantiates a new risk event with a single possible outcome.
+     *
+     * @param probability
+     *            the probability
+     * @param outcome
+     *            the single outcome
+     */
+    public RiskEvent(Probability probability, Outcome outcome) {
+        super();
+        this.probability = probability;
+        this.outcome.add(outcome);
     }
 
     /**

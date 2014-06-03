@@ -20,6 +20,7 @@ import eu.muses.sim.riskman.RiskValue;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.asset.UserDevice;
 import eu.muses.sim.riskman.opportunity.Opportunity;
+import eu.muses.sim.trustman.TrustValue;
 import eu.muses.sim.userman.Credential;
 import eu.muses.sim.userman.User;
 import eu.muses.wp5.EventProcessor;
@@ -43,8 +44,25 @@ public class SimUser extends User {
 
     /** The hourly cost. */
     private double hourlyCost;
+    
+    /** The TrustValue */
+    private TrustValue trustValue;
+    
+    
 
-    /**
+    public TrustValue getTrustValue() {
+		return trustValue;
+	}
+
+	public void setTrustValue(TrustValue trustValue) {
+		this.trustValue = trustValue;
+	}
+
+	public void setHourlyCost(double hourlyCost) {
+		this.hourlyCost = hourlyCost;
+	}
+
+	/**
      * Instantiates a new sim user.
      *
      * @param nickname
@@ -180,7 +198,7 @@ public class SimUser extends User {
      */
     public RiskPolicy configureRiskPolicy(RiskValue riskValue) {
         // TODO Auto-generated method stub
-        return null;
+        return new RiskPolicy(riskValue, null);
     }
 
     /**

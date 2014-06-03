@@ -7,19 +7,24 @@
  */
 package eu.muses.sim.riskman;
 
+import java.util.Random;
+
 /**
  * The Class RiskValue.
  */
 public class RiskValue {
 
-    /** The Constant FULL_RISK. */
-    public final static RiskValue FULL_RISK = new RiskValue(0.0);
+    /** The Constant TAKE_FULL_RISK. */
+    public final static RiskValue TAKE_FULL_RISK = new RiskValue(0.0);
 
     /** The Constant NO_MORE_RISK_THAN_CREATED_BY_CORPORATE_SECURITY_POLICY. */
-    public final static RiskValue NO_MORE_RISK_THAN_CREATED_BY_CORPORATE_SECURITY_POLICY = new RiskValue(0.0);
+    public final static RiskValue TAKE_NO_MORE_RISK_THAN_CREATED_BY_CORPORATE_SECURITY_POLICY = new RiskValue(new Random().nextDouble());
 
-    /** The Constant NO_RISK. */
-    public final static RiskValue NO_RISK = new RiskValue(1.0);
+    /** The Constant TAKE_NO_RISK. */
+    public final static RiskValue TAKE_NO_RISK = new RiskValue(1.0);
+    
+    /** The Constant TAKE_AVERAGE_MEDIUM_RISK. */
+    public final static RiskValue TAKE_AVERAGE_RISK = new RiskValue(0.5);
 
     /** The value. */
     private double value;

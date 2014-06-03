@@ -23,6 +23,7 @@ import eu.muses.sim.riskman.RiskValue;
 import eu.muses.sim.riskman.SecurityIncident;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.asset.UserDevice;
+import eu.muses.sim.trustman.TrustValue;
 import eu.muses.wp5.EventProcessor;
 
 /**
@@ -75,6 +76,7 @@ public class TestMusesConfiguration {
      */
     public static void main(String[] args) {
 
+    	userCso.setTrustValue(new TrustValue(0.5));
         TestMusesConfiguration.s2.setCso(TestMusesConfiguration.userCso);
         TestMusesConfiguration.musesUsersDevicesAndAssetsConfigurationsSteps();
         try {
@@ -99,8 +101,10 @@ public class TestMusesConfiguration {
         opportunityDescriptor
                 .setDescription("user1 must access documents for a 150 000 kEuros bid to win a new project to submit it"
                         + " now or it will be too late because the deadline will have passed");
+        opportunityDescriptor.addOutcome(new Outcome("150k eur can be won if the material is used and submitted", 150.0));
         opportunityDescriptor.addRequestedAsset(TestMusesConfiguration.materialForPatentProposal);
         accessRequest.setOpportunityDescriptor(opportunityDescriptor);
+        accessRequest.setUser(userCso);
 
         // XXX //user1Laptop is for example inferred by the sensed MUSES WP6 context observation and their events
         // correlation with MUSES WP5
@@ -108,10 +112,8 @@ public class TestMusesConfiguration {
         Decision decision = TestMusesConfiguration.s2Rt2ae.decidesBasedOnConfiguredRiskPolicy(accessRequest);
         System.out.println("The computed decision for the asset "
                 + accessRequest.getRequestedCorporateAsset().iterator().next().getAssetName()
-                + " with oportunity description "
-                + accessRequest.getOpportunityDescriptor().getDescription()
                 + " was: "
-                + ((CorporateUserAccessRequestDecision) decision).getTextualDecisionDescription());
+                + ((CorporateUserAccessRequestDecision) decision).getTextualDecisionDescription() + "\n");
         if (!decision.equals(Decision.STRONG_DENY_ACCESS)) {
             if (!decision.equals(Decision.ALLOW_ACCESS)) {
                 TestMusesConfiguration.user1.readsAccessRiskCommunicationIncludingPotentialRiskTreatments(decision
@@ -256,10 +258,12 @@ public class TestMusesConfiguration {
             TestMusesConfiguration.s2EventCorrelator.reportsSecurityIncident(securityIncidentOnPatent);
             if (TestMusesConfiguration.s2EventCorrelator
                     .seemsUserInvolvedInSecurityIncident(TestMusesConfiguration.user1) > 0.8) {
+            	System.out.println("S2 Event Correlator detected a security incident possibly linked to the user");
                 TestMusesConfiguration.s2MusesClientApp.warnsUserResponsibleForSecurityIncident(
                         TestMusesConfiguration.user1, securityIncidentOnPatent);
                 TestMusesConfiguration.s2Rt2ae.decreasesTrustInUser(TestMusesConfiguration.user1,
                         securityIncidentOnPatent);
+                s2Rt2ae.recalculateThreatProbabilities(accessRequest);
             }
         }
         else {
@@ -283,7 +287,7 @@ public class TestMusesConfiguration {
      */
     public static void musesUsersDevicesAndAssetsConfigurationsSteps() {
 
-        RiskPolicy riskPolicy = TestMusesConfiguration.userCso.configureRiskPolicy(RiskValue.NO_RISK); // The risk
+        RiskPolicy riskPolicy = TestMusesConfiguration.userCso.configureRiskPolicy(RiskValue.TAKE_AVERAGE_RISK); // The risk
         // policy would
         // be specified
         // as risk
@@ -294,7 +298,7 @@ public class TestMusesConfiguration {
         // benefits
         TestMusesConfiguration.s2EventCorrelator = TestMusesConfiguration.userCso.configureEventCorrelator();
         TestMusesConfiguration.s2Rt2ae = TestMusesConfiguration.userCso.configureRt2ae(
-                TestMusesConfiguration.s2EventCorrelator, riskPolicy);
+                TestMusesConfiguration.s2EventCorrelator, RiskPolicy.TAKE_MEDIUM_RISK);
         TestMusesConfiguration.s2MusesServerApp = TestMusesConfiguration.userCso
                 .configureMusesServerApp(TestMusesConfiguration.s2Rt2ae);
 

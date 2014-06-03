@@ -125,6 +125,15 @@ public class AccessRequest extends Request {
     public SimUser getUser() {
         return this.user;
     }
+    
+    /**
+     * Sets the user.
+     *
+     * @param the user
+     */
+    public void setUser(SimUser user) {
+        this.user = user;
+    }
 
     /**
      * Gets the user access decision.

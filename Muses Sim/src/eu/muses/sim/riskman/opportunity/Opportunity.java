@@ -27,6 +27,9 @@ public class Opportunity extends RiskEvent {
      * @uml.association name="has"
      */
     private OpportunityDescriptor opportunityDescriptor = new eu.muses.sim.OpportunityDescriptor();
+    
+    /** The textual description */
+    private String description;
 
     /**
      * Instantiates a new opportunity.
@@ -40,6 +43,12 @@ public class Opportunity extends RiskEvent {
      */
     public Opportunity(String description, Probability probability, Collection<Outcome> outcomes) {
         super(probability, outcomes);
+        this.description = description;
+    }
+    
+    public Opportunity(String description, Probability probability, Outcome outcome) {
+        super(probability, outcome);
+        this.description = description;
     }
 
     /**

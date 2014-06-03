@@ -16,14 +16,17 @@ import eu.muses.sim.riskman.vulnerability.Vulnerability;
  */
 public class RiskPolicy {
 
-    /** The probability. */
-    private Probability probability;
+    /** The RiskValue. */
+    private RiskValue riskValue;
 
-    /** The cost benefit. */
-    private CostBenefit costBenefit;
+    /** The corporate security policy. */
+    private CorporateSecurityPolicy corporateSecurityPolicy;
 
     /** The test no risk. */
-    public static RiskPolicy TEST_NO_RISK = new RiskPolicy(RiskValue.NO_RISK, null);
+    public static RiskPolicy TAKE_NO_RISK = new RiskPolicy(RiskValue.TAKE_NO_RISK, null);
+    public static RiskPolicy TAKE_FULL_RISK = new RiskPolicy(RiskValue.TAKE_FULL_RISK, null);
+    public static RiskPolicy TAKE_MEDIUM_RISK = new RiskPolicy(RiskValue.TAKE_AVERAGE_RISK, null);
+    public static RiskPolicy TAKE_CORPORATE_RISK = new RiskPolicy(RiskValue.TAKE_NO_MORE_RISK_THAN_CREATED_BY_CORPORATE_SECURITY_POLICY, null);
 
     /**
      * Instantiates a new risk policy.
@@ -34,6 +37,9 @@ public class RiskPolicy {
      *            the corporate security policy
      */
     public RiskPolicy(RiskValue noRisk, CorporateSecurityPolicy corporateSecurityPolicy) {
+    	super();
+    	this.riskValue = noRisk;
+    	this.corporateSecurityPolicy = corporateSecurityPolicy;
     }
 
     /**
@@ -51,22 +57,21 @@ public class RiskPolicy {
         return 0;
     }
 
-    /**
-     * Gets the cost benefit.
-     *
-     * @return the cost benefit
-     */
-    public CostBenefit getCostBenefit() {
-        return this.costBenefit;
-    }
+	public RiskValue getRiskValue() {
+		return riskValue;
+	}
 
-    /**
-     * Gets the probability.
-     *
-     * @return the probability
-     */
-    public Probability getProbability() {
-        return this.probability;
-    }
+	public void setRiskValue(RiskValue riskValue) {
+		this.riskValue = riskValue;
+	}
+
+	public CorporateSecurityPolicy getCorporateSecurityPolicy() {
+		return corporateSecurityPolicy;
+	}
+
+	public void setCorporateSecurityPolicy(
+			CorporateSecurityPolicy corporateSecurityPolicy) {
+		this.corporateSecurityPolicy = corporateSecurityPolicy;
+	}
 
 }

@@ -10,7 +10,9 @@ package eu.muses.wp5;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Vector;
 
+import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.threat.Threat;
 
 /**
@@ -26,7 +28,7 @@ public class CluesThreatTable {
      */
     public CluesThreatTable() {
         super();
-        // this.cluesThreatTable = new Vector<CluesThreatEntry>();
+        this.cluesThreatTable = new Vector<CluesThreatEntry>();
     }
 
     /**
@@ -89,6 +91,18 @@ public class CluesThreatTable {
      */
     public void setCluesThreatTable(Collection<CluesThreatEntry> cluesThreatTable) {
         this.cluesThreatTable = cluesThreatTable;
+    }
+    
+    public void updateThreatProbability(Threat threat, double newProbability){
+    	
+    	for (CluesThreatEntry entry : cluesThreatTable) {
+			if(entry.getThreat() == threat){
+				Threat temp = entry.getThreat();
+				temp.setProbability(new Probability(newProbability));
+				entry.setThreat(temp);
+			}
+		}
+    	
     }
 
 }

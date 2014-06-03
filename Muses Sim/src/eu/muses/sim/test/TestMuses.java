@@ -44,9 +44,9 @@ public class TestMuses {
         Corporation s2 = new Corporation();
         EventProcessor eventCorrelatorS2 = new EventProcessor();
         RealTimeRiskTrustAnalysisEngine s2Rt2ae = new RealTimeRiskTrustAnalysisEngine(eventCorrelatorS2,
-                RiskPolicy.TEST_NO_RISK);
+                RiskPolicy.TAKE_NO_RISK);
         s2.installs(s2Rt2ae);
-        new RealTimeRiskTrustAnalysisEngine(eventCorrelatorS2, RiskPolicy.TEST_NO_RISK);
+        new RealTimeRiskTrustAnalysisEngine(eventCorrelatorS2, RiskPolicy.TAKE_NO_RISK);
         MusesClientApp aliceClientApp = new MusesClientApp();
         aliceLaptop.installs(aliceClientApp);
         CorporateAsset newPatentProposal = new CorporateAsset("newPatentProposal", s2, 800000);

@@ -13,7 +13,7 @@ package eu.muses.sim.riskman;
 public class Probability {
 
     /** The prob. */
-    double prob;
+    private double prob;
 
     /**
      * Instantiates a new probability.
@@ -30,8 +30,15 @@ public class Probability {
      *            the prob
      */
     public Probability(double prob) {
-        super();
         this.prob = prob;
     }
+
+	public double getProb() {
+		return prob;
+	}
+
+	public void setProb(double prob) {
+		this.prob = prob;
+	}
 
 }
