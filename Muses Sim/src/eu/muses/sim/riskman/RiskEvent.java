@@ -33,6 +33,9 @@ public abstract class RiskEvent {
      * @uml.association name="has"
      */
     private Collection<Outcome> outcome = new Vector<Outcome>() ;
+    
+    private double occurences = 0;
+    private double badOutcomeCount = 0;
 
     /**
      * Instantiates a new risk event.
@@ -160,5 +163,23 @@ public abstract class RiskEvent {
     public void setProbability(Probability probability) {
         this.probability = probability;
     }
+
+	public double getOccurences() {
+		return occurences;
+	}
+
+	public void setOccurences(double occurences) {
+		this.occurences = occurences;
+	}
+
+	public double getBadOutcomeCount() {
+		return badOutcomeCount;
+	}
+
+	public void setBadOutcomeCount(double badOutcomeCount) {
+		this.badOutcomeCount = badOutcomeCount;
+	}
+    
+    
 
 }

@@ -107,23 +107,45 @@ public class RealTimeRiskTrustAnalysisEngine {
 	 */
 	private Decision decide(RiskEvent[] riskEvents, RiskPolicy riskPolicy) {
 
-		double temp = 0.0;
 		double costOpportunity = 0.0;
-		double combinedProbability = 0.0;
+		double combinedProbabilityThreats = 1.0;
+		double combinedProbabilityOpportunities = 1.0;
+		double singleThreatProbabibility = 0.0;
+		double singleOpportunityProbability = 0.0;
+		int opcount = 0;
+		int threatcount = 0;
 
 		for (RiskEvent riskEvent : riskEvents) {
-			temp += riskEvent.getProbability().getProb();
+			
 			costOpportunity += riskEvent.getOutcomes().iterator().next()
 					.getCostBenefit();
+			
+			if (riskEvent.getOutcomes().iterator().next()
+					.getCostBenefit() < 0){
+			combinedProbabilityThreats = combinedProbabilityThreats * riskEvent.getProbability().getProb();
+			singleThreatProbabibility = singleThreatProbabibility + riskEvent.getProbability().getProb();
+			threatcount++;
+			}else{
+			combinedProbabilityOpportunities = combinedProbabilityOpportunities * riskEvent.getProbability().getProb();
+			singleOpportunityProbability = singleOpportunityProbability + riskEvent.getProbability().getProb();
+			opcount++;
+			}
 		}
 
-		combinedProbability = temp / riskEvents.length;
+		if(threatcount > 1)
+		singleThreatProbabibility = singleThreatProbabibility - combinedProbabilityThreats;
+		if(opcount > 1)
+		singleOpportunityProbability = singleOpportunityProbability - combinedProbabilityOpportunities;
+		
 
 		System.out.println("Decission data is: ");
 		System.out.println("- Risk Policy threshold: "
 				+ riskPolicy.getRiskValue().getValue());
 		System.out.println("- Cost Oportunity: " + costOpportunity);
-		System.out.println("- Combined Probability: " + combinedProbability);
+		System.out.println("- Combined Probability of the all possible Threats happening together: " + combinedProbabilityThreats);
+		System.out.println("- Combined Probability of the all the possible Opportunities happening together: " + combinedProbabilityOpportunities);
+		System.out.println("- Combined Probability of only one of the possible Threats happening: " + singleThreatProbabibility);
+		System.out.println("- Combined Probability of only one of the possible Opportunities happening: " + singleOpportunityProbability);
 
 		System.out.println("Making a decision...");
 		System.out.println(".");
@@ -138,7 +160,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 		}
 		if (riskPolicy == RiskPolicy.TAKE_MEDIUM_RISK) {
 			if (costOpportunity < 0
-					&& combinedProbability < riskPolicy.getRiskValue()
+					&& combinedProbabilityThreats < riskPolicy.getRiskValue()
 							.getValue()) {
 				return Decision.ALLOW_ACCESS;
 			} else {
@@ -147,7 +169,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 		}
 		if (riskPolicy == RiskPolicy.TAKE_CORPORATE_RISK) {
 			if (costOpportunity < 0
-					&& combinedProbability < riskPolicy.getRiskValue()
+					&& combinedProbabilityThreats < riskPolicy.getRiskValue()
 							.getValue()) {
 				return Decision.ALLOW_ACCESS;
 			} else {
@@ -195,6 +217,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 		List<Threat> currentThreats = new ArrayList<Threat>();
 		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
 		for (Threat threat : currentThreats) {
+			this.cluesThreatTable.updateThreatOccurences(threat);
 			System.out.println("The inferred Threat from the Clues is: "
 					+ threat.getDescription() + " with probability "
 					+ threat.getProbabilityValue()
@@ -380,16 +403,16 @@ public class RealTimeRiskTrustAnalysisEngine {
 								"Deletion threat",
 								new Probability(0.5),
 								new Outcome(
-										"Lack of Firewall and Antivirus might let the attacker to install a trojan and delete the file",
+										"Lack of Firewall and Antivirus allowed the attacker to install a trojan and delete the file",
 										-90.0)));
 		this.cluesThreatTable
 				.addMapping(
-						Arrays.asList(Clue.firewallClue, Clue.vpnClue),
+						Arrays.asList(Clue.firewallClue),
 						new Threat(
 								"Capture threat",
 								new Probability(0.5),
 								new Outcome(
-										"Lack of Firewall might let the attacker to infiltrate the network and steal the document",
+										"Lack of Firewall allowed the attacker to infiltrate the network and steal the file",
 										-50.0)));
 		this.cluesThreatTable
 				.addMapping(
@@ -398,7 +421,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 								"Tampering threat",
 								new Probability(0.5),
 								new Outcome(
-										"Lack of Vpn might let the attacker intercept the traffic and modify the file",
+										"Lack of Vpn allowed the attacker to intercept the traffic and modify the file",
 										-20.0)));
 
 	}
@@ -439,7 +462,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 
 	}
 
-	public void recalculateThreatProbabilities(AccessRequest accessRequest) {
+	public void recalculateThreatProbabilitiesWhenIncident(AccessRequest accessRequest) {
 
 		Collection<Asset> requestedAssests = accessRequest
 				.getRequestedCorporateAsset();
@@ -459,11 +482,44 @@ public class RealTimeRiskTrustAnalysisEngine {
 		List<Threat> currentThreats = new ArrayList<Threat>();
 		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
 		for (Threat threat : currentThreats) {
+			this.cluesThreatTable.updateThreatBadOutcomeCount(threat);
+			this.cluesThreatTable.updateThreatProbability(threat);
+		}
 
-			double newProbability = threat.getProbability().getProb() + 0.1;
-			this.cluesThreatTable.updateThreatProbability(threat,
-					newProbability);
+		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
+		for (Threat threat : currentThreats) {
 
+			System.out
+					.println("The new probability associated with the threat \""
+							+ threat.getDescription()
+							+ "\" is: "
+							+ threat.getProbability().getProb());
+
+		}
+
+	}
+	
+	public void recalculateThreatProbabilitiesWhenNoIncident(AccessRequest accessRequest) {
+
+		Collection<Asset> requestedAssests = accessRequest
+				.getRequestedCorporateAsset();
+
+		OpportunityDescriptor opportunityDescriptor = accessRequest
+				.getOpportunityDescriptor();
+		if (opportunityDescriptor != null) {
+			requestedAssests = opportunityDescriptor.getRequestedAssets();
+		}
+
+		List<Clue> clues = new ArrayList<Clue>();
+
+		for (Asset asset : requestedAssests) {
+			clues = this.eventProcessor.getClues(asset);
+		}
+
+		List<Threat> currentThreats = new ArrayList<Threat>();
+		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
+		for (Threat threat : currentThreats) {
+			this.cluesThreatTable.updateThreatProbability(threat);
 		}
 
 		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);

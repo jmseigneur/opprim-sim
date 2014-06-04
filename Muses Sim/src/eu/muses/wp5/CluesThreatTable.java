@@ -93,16 +93,43 @@ public class CluesThreatTable {
         this.cluesThreatTable = cluesThreatTable;
     }
     
-    public void updateThreatProbability(Threat threat, double newProbability){
+    public void updateThreatProbability(Threat threat){
     	
     	for (CluesThreatEntry entry : cluesThreatTable) {
 			if(entry.getThreat() == threat){
 				Threat temp = entry.getThreat();
+				double newProbability = temp.getBadOutcomeCount()/ temp.getOccurences();
 				temp.setProbability(new Probability(newProbability));
 				entry.setThreat(temp);
 			}
 		}
     	
     }
+    
+ public void updateThreatOccurences(Threat threat){
+    	
+    	for (CluesThreatEntry entry : cluesThreatTable) {
+			if(entry.getThreat() == threat){
+				Threat temp = entry.getThreat();
+				double newOccurence = temp.getOccurences() + 1;
+				temp.setOccurences(newOccurence);
+				entry.setThreat(temp);
+			}
+		}
+    	
+    }
+ 
+ public void updateThreatBadOutcomeCount(Threat threat){
+ 	
+ 	for (CluesThreatEntry entry : cluesThreatTable) {
+			if(entry.getThreat() == threat){
+				Threat temp = entry.getThreat();
+				double newBadOutcomeCount = temp.getBadOutcomeCount() + 1;
+				temp.setBadOutcomeCount(newBadOutcomeCount);
+				entry.setThreat(temp);
+			}
+		}
+ 	
+ }
 
 }

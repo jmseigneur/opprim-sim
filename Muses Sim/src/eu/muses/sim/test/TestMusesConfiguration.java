@@ -114,6 +114,7 @@ public class TestMusesConfiguration {
                 + accessRequest.getRequestedCorporateAsset().iterator().next().getAssetName()
                 + " was: "
                 + ((CorporateUserAccessRequestDecision) decision).getTextualDecisionDescription() + "\n");
+        s2Rt2ae.recalculateThreatProbabilitiesWhenNoIncident(accessRequest);
         if (!decision.equals(Decision.STRONG_DENY_ACCESS)) {
             if (!decision.equals(Decision.ALLOW_ACCESS)) {
                 TestMusesConfiguration.user1.readsAccessRiskCommunicationIncludingPotentialRiskTreatments(decision
@@ -263,7 +264,7 @@ public class TestMusesConfiguration {
                         TestMusesConfiguration.user1, securityIncidentOnPatent);
                 TestMusesConfiguration.s2Rt2ae.decreasesTrustInUser(TestMusesConfiguration.user1,
                         securityIncidentOnPatent);
-                s2Rt2ae.recalculateThreatProbabilities(accessRequest);
+                s2Rt2ae.recalculateThreatProbabilitiesWhenIncident(accessRequest);
             }
         }
         else {
