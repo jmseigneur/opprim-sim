@@ -1,44 +1,21 @@
 package eu.muses.sim.gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JButton;
-
-import java.awt.BorderLayout;
-
-import javax.swing.ImageIcon;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.UIManager;
-
-import com.alee.laf.WebLookAndFeel;
-
-import javax.swing.JProgressBar;
-import javax.swing.JSpinner;
-
-import com.alee.extended.checkbox.WebTristateCheckBox;
-import com.alee.extended.filechooser.WebDirectoryChooser;
-
-import java.awt.Window;
-
-import com.alee.extended.filechooser.WebFileTable;
-import com.alee.extended.statusbar.WebStatusBar;
-import com.alee.extended.tree.WebAsyncTree;
-import com.alee.managers.glasspane.WebGlassPane;
-
-import javax.swing.JRootPane;
-
-import com.alee.laf.slider.WebSlider;
-import com.alee.laf.tabbedpane.WebTabbedPane;
-import com.alee.laf.menu.WebMenuBar;
-import com.alee.laf.menu.WebMenuItem;
-import com.alee.laf.menu.WebMenu;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class GuiMain {
 
@@ -64,85 +41,185 @@ public class GuiMain {
 	 * Create the application.
 	 */
 	public GuiMain() {
-		
-		try
-		{
-		    // Setting up WebLookAndFeel style
-		    UIManager.setLookAndFeel (WebLookAndFeel.class.getCanonicalName ());
-		}
-		catch ( Throwable e )
-		{
-		    // Something went wrong
-		}
+
 		initialize();
-		
+
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame, menus and app panels.
 	 */
 	private void initialize() {
+
+		// Frame initialization
 		frmMusesRtae = new JFrame();
-		frmMusesRtae.setFont(new Font("Rockwell", Font.PLAIN, 16));
-		frmMusesRtae.setForeground(Color.WHITE);
+		frmMusesRtae.getContentPane().setBackground(new Color(255, 255, 255));
 		frmMusesRtae.setTitle("MUSES RT2AE");
-		
-		ImageIcon img = new ImageIcon("C:\\Users\\cballest\\Desktop\\muses-logo.png");
+		frmMusesRtae.setSize(800, 600);
+		frmMusesRtae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ImageIcon img = new ImageIcon(
+				"/muses-logo.png");
 		frmMusesRtae.setIconImage(img.getImage());
-		
+
+		// Main panel initialization
+		JLabel backgroundImage = new JLabel();
+		backgroundImage.setIcon(new ImageIcon(
+				"/muses-title.png"));
+		JPanel mainPanel = new JPanel();
+		mainPanel.setBackground(new Color(255, 255, 255));
+		BoxLayout layout = new BoxLayout(mainPanel, BoxLayout.X_AXIS);
+		mainPanel.setLayout(layout);
+		mainPanel.add(Box.createHorizontalGlue());
+		mainPanel.add(backgroundImage);
+		mainPanel.add(Box.createHorizontalGlue());
+		switchPanel(mainPanel);
+
+		// Menu bar and sub menus initialization
 		JMenuBar menuBar = new JMenuBar();
 		frmMusesRtae.setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("Configure");
-		menuBar.add(mnNewMenu);
+		JMenu mnHome = new JMenu("Home");
+		menuBar.add(mnHome);
 		
+		JMenuItem mntmBackHome = new JMenuItem("Back Home");
+		mntmBackHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JLabel backgroundImage = new JLabel();
+				backgroundImage.setIcon(new ImageIcon(
+						"/muses-title.png"));
+				JPanel mainPanel = new JPanel();
+				mainPanel.setBackground(new Color(255, 255, 255));
+				BoxLayout layout = new BoxLayout(mainPanel, BoxLayout.X_AXIS);
+				mainPanel.setLayout(layout);
+				mainPanel.add(Box.createHorizontalGlue());
+				mainPanel.add(backgroundImage);
+				mainPanel.add(Box.createHorizontalGlue());
+				switchPanel(mainPanel);
+			}
+		});
+		mnHome.add(mntmBackHome);
+
+		JMenu mnConfigurationMenu = new JMenu("Configure");
+		menuBar.add(mnConfigurationMenu);
+
 		JMenuItem mntmAssets = new JMenuItem("Assets");
-		mnNewMenu.add(mntmAssets);
-		
+		mntmAssets.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Asset panel initialization
+				JPanel assetPanel = new JPanel();
+				assetPanel.setBackground(new Color(255, 255, 255));
+				JTextArea title = new JTextArea("Add a New Asset");
+				title.setFont(new Font("Arial", Font.BOLD, 16));
+				assetPanel.add(title);
+				JTextArea name = new JTextArea("Name the Asset:");
+				name.setFont(new Font("Arial", Font.PLAIN, 14));
+				assetPanel.add(name);
+				switchPanel(assetPanel);
+
+			}
+		});
+		mnConfigurationMenu.add(mntmAssets);
+
 		JMenuItem mntmRiskPolicies = new JMenuItem("Risk Policies");
-		mnNewMenu.add(mntmRiskPolicies);
-		
+		mntmRiskPolicies.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Risk panel initialization
+				JPanel riskPanel = new JPanel();
+				riskPanel.setBackground(new Color(255, 255, 255));
+				JTextArea title = new JTextArea("Add a New Risk");
+				title.setFont(new Font("Arial", Font.BOLD, 16));
+				riskPanel.add(title);
+				switchPanel(riskPanel);
+			}
+		});
+		mnConfigurationMenu.add(mntmRiskPolicies);
+
 		JMenuItem mntmClues = new JMenuItem("Clues");
-		mnNewMenu.add(mntmClues);
-		
+		mntmClues.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Clue panel initialization
+				JPanel cluePanel = new JPanel();
+				cluePanel.setBackground(new Color(255, 255, 255));
+				JTextArea title = new JTextArea("Add a New Clue");
+				title.setFont(new Font("Arial", Font.BOLD, 16));
+				cluePanel.add(title);
+				switchPanel(cluePanel);
+			}
+		});
+		mnConfigurationMenu.add(mntmClues);
+
 		JMenuItem mntmThreats = new JMenuItem("Threats");
-		mnNewMenu.add(mntmThreats);
-		
+		mntmThreats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Threat panel initialization
+				JPanel threatPanel = new JPanel();
+				threatPanel.setBackground(new Color(255, 255, 255));
+				JTextArea title = new JTextArea("Add a New Threat");
+				title.setFont(new Font("Arial", Font.BOLD, 16));
+				threatPanel.add(title);
+				switchPanel(threatPanel);
+			}
+		});
+		mnConfigurationMenu.add(mntmThreats);
+
 		JMenuItem mntmOpportunities = new JMenuItem("Opportunities");
-		mnNewMenu.add(mntmOpportunities);
-		
+		mntmOpportunities.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Opportunity panel initialization
+				JPanel opportunityPanel = new JPanel();
+				opportunityPanel.setBackground(new Color(255, 255, 255));
+				JTextArea title = new JTextArea("Add a New Opportunity");
+				title.setFont(new Font("Arial", Font.BOLD, 16));
+				opportunityPanel.add(title);
+				switchPanel(opportunityPanel);
+			}
+		});
+		mnConfigurationMenu.add(mntmOpportunities);
+
 		JMenu mnView = new JMenu("View");
 		menuBar.add(mnView);
-		
+
 		JMenuItem mntmUserTurstValue = new JMenuItem("User Trust Value");
 		mnView.add(mntmUserTurstValue);
-		
+
 		JMenuItem mntmDeviceTrustValue = new JMenuItem("Device Trust Value");
 		mnView.add(mntmDeviceTrustValue);
-		
+
 		JMenuItem mntmSecurityState = new JMenuItem("Security State");
 		mnView.add(mntmSecurityState);
-		
-		JMenuItem mntmThreatsProbabilities = new JMenuItem("Threats Probabilities");
+
+		JMenuItem mntmThreatsProbabilities = new JMenuItem(
+				"Threats Probabilities");
 		mnView.add(mntmThreatsProbabilities);
-		
-		JMenuItem mntmOpportunitiesProbabilities = new JMenuItem("Opportunities Probabilities");
+
+		JMenuItem mntmOpportunitiesProbabilities = new JMenuItem(
+				"Opportunities Probabilities");
 		mnView.add(mntmOpportunitiesProbabilities);
-		
+
 		JMenu mnScenarios = new JMenu("Scenarios");
 		menuBar.add(mnScenarios);
-		
-		JMenuItem mntmAliceRequestsPatent = new JMenuItem("Alice Requests Patent Material");
+
+		JMenuItem mntmAliceRequestsPatent = new JMenuItem(
+				"Alice Requests Patent Material");
 		mnScenarios.add(mntmAliceRequestsPatent);
-		
-		JMenuItem mntmSecurityIncidentOn = new JMenuItem("Security Incident on Patent Material");
+
+		JMenuItem mntmSecurityIncidentOn = new JMenuItem(
+				"Security Incident on Patent Material");
 		mnScenarios.add(mntmSecurityIncidentOn);
-		
+
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
-		
+
 		JMenuItem mntmFaq = new JMenuItem("F.A.Q.");
 		mnHelp.add(mntmFaq);
+	}
+
+	private void switchPanel(JPanel panel) {
+
+		frmMusesRtae.getContentPane().removeAll();
+		frmMusesRtae.getContentPane().add(panel);
+		frmMusesRtae.getContentPane().revalidate();
+
 	}
 
 }
