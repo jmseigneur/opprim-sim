@@ -58,13 +58,13 @@ public class GuiMain {
 		frmMusesRtae.setSize(800, 600);
 		frmMusesRtae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ImageIcon img = new ImageIcon(
-				"/muses-logo.png");
+				GuiMain.class.getResource("/eu/muses/sim/gui/muses-logo.png"));
 		frmMusesRtae.setIconImage(img.getImage());
 
 		// Main panel initialization
 		JLabel backgroundImage = new JLabel();
-		backgroundImage.setIcon(new ImageIcon(
-				"/muses-title.png"));
+		backgroundImage.setIcon(new ImageIcon(GuiMain.class
+				.getResource("/eu/muses/sim/gui/muses-title.png")));
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(new Color(255, 255, 255));
 		BoxLayout layout = new BoxLayout(mainPanel, BoxLayout.X_AXIS);
@@ -77,16 +77,16 @@ public class GuiMain {
 		// Menu bar and sub menus initialization
 		JMenuBar menuBar = new JMenuBar();
 		frmMusesRtae.setJMenuBar(menuBar);
-		
+
 		JMenu mnHome = new JMenu("Home");
 		menuBar.add(mnHome);
-		
+
 		JMenuItem mntmBackHome = new JMenuItem("Back Home");
 		mntmBackHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JLabel backgroundImage = new JLabel();
-				backgroundImage.setIcon(new ImageIcon(
-						"/muses-title.png"));
+				backgroundImage.setIcon(new ImageIcon(GuiMain.class
+						.getResource("/eu/muses/sim/gui/muses-title.png")));
 				JPanel mainPanel = new JPanel();
 				mainPanel.setBackground(new Color(255, 255, 255));
 				BoxLayout layout = new BoxLayout(mainPanel, BoxLayout.X_AXIS);
