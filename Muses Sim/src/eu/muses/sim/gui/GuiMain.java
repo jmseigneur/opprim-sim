@@ -2,7 +2,6 @@ package eu.muses.sim.gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,7 +14,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.UIManager;
 
 public class GuiMain {
 
@@ -52,6 +51,12 @@ public class GuiMain {
 	private void initialize() {
 
 		// Frame initialization
+		try {
+			// Set System L&F
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		frmMusesRtae = new JFrame();
 		frmMusesRtae.getContentPane().setBackground(new Color(255, 255, 255));
 		frmMusesRtae.setTitle("MUSES RT2AE");
@@ -106,14 +111,7 @@ public class GuiMain {
 		mntmAssets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Asset panel initialization
-				JPanel assetPanel = new JPanel();
-				assetPanel.setBackground(new Color(255, 255, 255));
-				JTextArea title = new JTextArea("Add a New Asset");
-				title.setFont(new Font("Arial", Font.BOLD, 16));
-				assetPanel.add(title);
-				JTextArea name = new JTextArea("Name the Asset:");
-				name.setFont(new Font("Arial", Font.PLAIN, 14));
-				assetPanel.add(name);
+				JPanel assetPanel = new AssetPanel();
 				switchPanel(assetPanel);
 
 			}
@@ -124,11 +122,7 @@ public class GuiMain {
 		mntmRiskPolicies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Risk panel initialization
-				JPanel riskPanel = new JPanel();
-				riskPanel.setBackground(new Color(255, 255, 255));
-				JTextArea title = new JTextArea("Add a New Risk");
-				title.setFont(new Font("Arial", Font.BOLD, 16));
-				riskPanel.add(title);
+				JPanel riskPanel = new RiskPolicyPanel();
 				switchPanel(riskPanel);
 			}
 		});
@@ -138,11 +132,7 @@ public class GuiMain {
 		mntmClues.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Clue panel initialization
-				JPanel cluePanel = new JPanel();
-				cluePanel.setBackground(new Color(255, 255, 255));
-				JTextArea title = new JTextArea("Add a New Clue");
-				title.setFont(new Font("Arial", Font.BOLD, 16));
-				cluePanel.add(title);
+				JPanel cluePanel = new CluePanel();
 				switchPanel(cluePanel);
 			}
 		});
@@ -152,25 +142,27 @@ public class GuiMain {
 		mntmThreats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Threat panel initialization
-				JPanel threatPanel = new JPanel();
-				threatPanel.setBackground(new Color(255, 255, 255));
-				JTextArea title = new JTextArea("Add a New Threat");
-				title.setFont(new Font("Arial", Font.BOLD, 16));
-				threatPanel.add(title);
+				JPanel threatPanel = new ThreatPanel();
 				switchPanel(threatPanel);
 			}
 		});
+		
+		JMenuItem mntmOutcomes = new JMenuItem("Outcomes");
+		mntmOutcomes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Outcome panel initialization
+				JPanel outcomePanel = new OutcomePanel();
+				switchPanel(outcomePanel);
+			}
+		});
+		mnConfigurationMenu.add(mntmOutcomes);
 		mnConfigurationMenu.add(mntmThreats);
 
 		JMenuItem mntmOpportunities = new JMenuItem("Opportunities");
 		mntmOpportunities.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Opportunity panel initialization
-				JPanel opportunityPanel = new JPanel();
-				opportunityPanel.setBackground(new Color(255, 255, 255));
-				JTextArea title = new JTextArea("Add a New Opportunity");
-				title.setFont(new Font("Arial", Font.BOLD, 16));
-				opportunityPanel.add(title);
+				JPanel opportunityPanel = new OpportunityPanel();
 				switchPanel(opportunityPanel);
 			}
 		});
