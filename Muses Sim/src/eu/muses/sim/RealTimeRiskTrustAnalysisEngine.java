@@ -38,7 +38,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 	private EventProcessor eventProcessor;
 
 	/** The clues threat table. */
-	private CluesThreatTable cluesThreatTable;
+	private static CluesThreatTable cluesThreatTable;
 
 	/** The risk policy. */
 	private RiskPolicy riskPolicy;
@@ -534,5 +534,21 @@ public class RealTimeRiskTrustAnalysisEngine {
 		}
 
 	}
+
+	/**
+	 * @return the cluesThreatTable
+	 */
+	public static CluesThreatTable getCluesThreatTable() {
+		return cluesThreatTable;
+	}
+
+	/**
+	 * @param cluesThreatTable the cluesThreatTable to set
+	 */
+	public static void setCluesThreatTable(CluesThreatTable cluesThreatTable) {
+		RealTimeRiskTrustAnalysisEngine.cluesThreatTable = cluesThreatTable;
+	}
+	
+	
 
 }

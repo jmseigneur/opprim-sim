@@ -11,12 +11,16 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+
 import java.awt.Component;
+
 import javax.swing.Box;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -113,6 +117,11 @@ public class RiskPolicyPanel extends JPanel {
 		JButton btnSavePolicy = new JButton("Save Policy");
 		btnSavePolicy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				GuiMain.initializeHomePanel();
+				JPanel mainPanel = GuiMain.getMainPanel();
+				GuiMain.switchPanel(mainPanel);
+				
 			}
 		});
 		GridBagConstraints gbc_btnSavePolicy = new GridBagConstraints();

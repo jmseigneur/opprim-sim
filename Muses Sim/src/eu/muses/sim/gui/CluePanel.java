@@ -11,12 +11,20 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.Component;
+
 import javax.swing.Box;
+
+import eu.muses.wp5.Clue;
+import eu.muses.wp5.CluesThreatTable;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
 
 public class CluePanel extends JPanel {
 
@@ -86,6 +94,14 @@ public class CluePanel extends JPanel {
 		JButton btnSaveClue = new JButton("Save Clue");
 		btnSaveClue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Clue c = new Clue(textField.getText());
+				CluesThreatTable table = GuiMain.getS2Rt2ae().getCluesThreatTable();
+				table.addMapping(Arrays.asList(c), null);
+				GuiMain.getS2Rt2ae().setCluesThreatTable(table);
+				GuiMain.initializeHomePanel();
+				JPanel mainPanel = GuiMain.getMainPanel();
+				GuiMain.switchPanel(mainPanel);
+				
 			}
 		});
 		GridBagConstraints gbc_btnSaveClue = new GridBagConstraints();

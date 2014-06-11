@@ -11,14 +11,27 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+
 import java.awt.Component;
+
 import javax.swing.Box;
+
+import eu.muses.sim.Outcome;
+import eu.muses.sim.riskman.Probability;
+import eu.muses.sim.riskman.threat.Threat;
+import eu.muses.wp5.Clue;
+import eu.muses.wp5.CluesThreatEntry;
+import eu.muses.wp5.CluesThreatTable;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Collection;
+import java.util.List;
 
 public class ThreatPanel extends JPanel {
 
@@ -79,14 +92,44 @@ public class ThreatPanel extends JPanel {
 		lblAttachAnOutcome.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAttachAnOutcome, gbc_lblAttachAnOutcome);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"OUTCOME A", "OUTCOME B", "OUTCOME C"}));
+		final JComboBox<Outcome> comboBox = new JComboBox<Outcome>();
+		if(GuiMain.getOutcomes() != null && !GuiMain.getOutcomes().isEmpty()){
+			for (Outcome o : GuiMain.getOutcomes()) {
+				comboBox.addItem(o);
+			}
+			}else{
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"ADD OUTCOMES FIRST"}));
+			}
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.anchor = GridBagConstraints.WEST;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.gridx = 0;
 		gbc_comboBox.gridy = 4;
 		add(comboBox, gbc_comboBox);
+		
+		JLabel lblAttachAClue = new JLabel("Attach a Clue to the Threat:");
+		GridBagConstraints gbc_lblAttachAClue = new GridBagConstraints();
+		gbc_lblAttachAClue.anchor = GridBagConstraints.WEST;
+		gbc_lblAttachAClue.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAttachAClue.gridx = 0;
+		gbc_lblAttachAClue.gridy = 5;
+		lblAttachAClue.setFont(new Font("Arial", Font.BOLD, 12));
+		add(lblAttachAClue, gbc_lblAttachAClue);
+		
+		final JComboBox<Clue> comboBox_1 = new JComboBox<Clue>();
+		CluesThreatTable table = GuiMain.getS2Rt2ae().getCluesThreatTable();
+		for (CluesThreatEntry entry : table.getCluesThreatTable()) {
+			List<Clue> clues = entry.getClues();
+			for (Clue clue : clues) {
+				comboBox_1.addItem(clue);
+			}
+		}
+		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
+		gbc_comboBox_1.anchor = GridBagConstraints.WEST;
+		gbc_comboBox_1.insets = new Insets(0, 0, 0, 5);
+		gbc_comboBox_1.gridx = 0;
+		gbc_comboBox_1.gridy = 6;
+		add(comboBox_1, gbc_comboBox_1);
 		
 		Component verticalStrut = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
@@ -98,8 +141,27 @@ public class ThreatPanel extends JPanel {
 		JButton btnSaveThreat = new JButton("Save Threat");
 		btnSaveThreat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Threat t = new Threat(textField.getText(), new Probability(0.5), (Outcome) comboBox.getSelectedItem());
+				CluesThreatTable table = GuiMain.getS2Rt2ae().getCluesThreatTable();
+				Collection<CluesThreatEntry> entries = table.getCluesThreatTable();
+				for (CluesThreatEntry entry : entries) {
+					List<Clue> clues = entry.getClues();
+					if(clues.contains(comboBox_1.getSelectedItem())){
+					entry.setThreat(t);
+					}
+				}
+				
+				table.setCluesThreatTable(entries);
+				System.out.println(table.toString());
+				GuiMain.getS2Rt2ae().setCluesThreatTable(table);
+				GuiMain.initializeHomePanel();
+				JPanel mainPanel = GuiMain.getMainPanel();
+				GuiMain.switchPanel(mainPanel);
+				
 			}
 		});
+		
 		GridBagConstraints gbc_btnSaveThreat = new GridBagConstraints();
 		gbc_btnSaveThreat.insets = new Insets(0, 0, 0, 5);
 		gbc_btnSaveThreat.gridx = 10;

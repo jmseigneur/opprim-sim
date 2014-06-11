@@ -11,15 +11,22 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
+
 import java.awt.Component;
+
 import javax.swing.Box;
+
+import eu.muses.sim.Outcome;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class OutcomePanel extends JPanel {
 
@@ -120,6 +127,15 @@ public class OutcomePanel extends JPanel {
 		JButton btnSaveAsset = new JButton("Save Outcome");
 		btnSaveAsset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Outcome o = new Outcome(txtAddAsset.getText(), Double.parseDouble(textField.getText()));
+				List<Outcome> olist = GuiMain.getOutcomes();
+				olist.add(o);
+				GuiMain.setOutcomes(olist);
+				GuiMain.initializeHomePanel();
+				JPanel mainPanel = GuiMain.getMainPanel();
+				GuiMain.switchPanel(mainPanel);
+				
 			}
 		});
 		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();

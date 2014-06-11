@@ -16,9 +16,14 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 
+import eu.muses.sim.Outcome;
+import eu.muses.sim.riskman.Probability;
+import eu.muses.sim.riskman.opportunity.Opportunity;
+
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class OpportunityPanel extends JPanel {
 
@@ -58,7 +63,7 @@ public class OpportunityPanel extends JPanel {
 		lblAddAThreat.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAddAThreat, gbc_lblAddAThreat);
 		
-		JTextField textField = new JTextField();
+		final JTextField textField = new JTextField();
 		textField.setToolTipText("add a textual description of the opportunity...");
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 13;
@@ -78,8 +83,14 @@ public class OpportunityPanel extends JPanel {
 		lblAttachAnOutcome.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAttachAnOutcome, gbc_lblAttachAnOutcome);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"OUTCOME A", "OUTCOME B", "OUTCOME C"}));
+		final JComboBox<Outcome> comboBox = new JComboBox<Outcome>();
+		if(GuiMain.getOutcomes() != null && !GuiMain.getOutcomes().isEmpty()){
+		for (Outcome o : GuiMain.getOutcomes()) {
+			comboBox.addItem(o);
+		}
+		}else{
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ADD OUTCOMES FIRST"}));
+		}
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.anchor = GridBagConstraints.WEST;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -97,6 +108,15 @@ public class OpportunityPanel extends JPanel {
 		JButton btnSaveThreat = new JButton("Save Opportunity");
 		btnSaveThreat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Opportunity op = new Opportunity(textField.getText(), new Probability(0.5), (Outcome) comboBox.getSelectedItem());
+				List<Opportunity> opList = GuiMain.getOpportunities();
+				opList.add(op);
+				GuiMain.setOpportunities(opList);
+				GuiMain.initializeHomePanel();
+				JPanel mainPanel = GuiMain.getMainPanel();
+				GuiMain.switchPanel(mainPanel);
+				
 			}
 		});
 		GridBagConstraints gbc_btnSaveThreat = new GridBagConstraints();

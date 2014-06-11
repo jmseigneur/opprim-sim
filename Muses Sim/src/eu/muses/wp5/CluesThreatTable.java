@@ -132,4 +132,25 @@ public class CluesThreatTable {
  	
  }
 
+/* (non-Javadoc)
+ * @see java.lang.Object#toString()
+ */
+@Override
+public String toString() {
+	// TODO Auto-generated method stub
+	String toString = "Content of the table is:\n";
+	for (CluesThreatEntry entry : cluesThreatTable){
+		toString = toString.concat("Clues: ");
+		for (Clue clue : entry.getClues()) {
+			toString = toString.concat(clue.getId() + " - ");
+		}
+		toString = toString.concat("Threat: ");
+		toString = toString.concat(entry.getThreat().getDescription() + "\n");		
+	}
+	
+	return toString;
+}
+ 
+ 
+
 }

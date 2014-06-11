@@ -54,4 +54,15 @@ public class Outcome {
         return this.description;
     }
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.description + " - " + this.costBenefit;
+	}
+
+    
+    
 }

@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.security.cert.Certificate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -17,6 +19,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import eu.muses.sim.Outcome;
 import eu.muses.sim.RealTimeRiskTrustAnalysisEngine;
 import eu.muses.sim.corporate.Corporation;
 import eu.muses.sim.riskman.PersonalUserDevice;
@@ -24,6 +27,7 @@ import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.RiskValue;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.asset.UserDevice;
+import eu.muses.sim.riskman.opportunity.Opportunity;
 import eu.muses.sim.test.MusesClientApp;
 import eu.muses.sim.test.MusesServerApp;
 import eu.muses.sim.test.SimUser;
@@ -32,7 +36,8 @@ import eu.muses.wp5.EventProcessor;
 
 public class GuiMain {
 
-	private JFrame frmMusesRtae;
+	private static JFrame frmMusesRtae;
+	private static JPanel mainPanel;
 
 	/** The s2. */
 	static Corporation s2 = new Corporation();
@@ -70,6 +75,12 @@ public class GuiMain {
 
 	/** The material for patent proposal. */
 	static Asset materialForPatentProposal;
+	
+	/** The outcomes */
+	static List<Outcome> outcomes = new ArrayList<Outcome>();
+	
+	/** The opportunities */
+	static List<Opportunity> opportunities = new ArrayList<Opportunity>();
 
 	/**
 	 * Launch the application.
@@ -124,18 +135,7 @@ public class GuiMain {
 		ImageIcon img = new ImageIcon(
 				GuiMain.class.getResource("/eu/muses/sim/gui/muses-logo.png"));
 		frmMusesRtae.setIconImage(img.getImage());
-
-		// Main panel initialization
-		JLabel backgroundImage = new JLabel();
-		backgroundImage.setIcon(new ImageIcon(GuiMain.class
-				.getResource("/eu/muses/sim/gui/muses-title.png")));
-		JPanel mainPanel = new JPanel();
-		mainPanel.setBackground(new Color(255, 255, 255));
-		BoxLayout layout = new BoxLayout(mainPanel, BoxLayout.X_AXIS);
-		mainPanel.setLayout(layout);
-		mainPanel.add(Box.createHorizontalGlue());
-		mainPanel.add(backgroundImage);
-		mainPanel.add(Box.createHorizontalGlue());
+		initializeHomePanel();
 		switchPanel(mainPanel);
 
 		// Menu bar and sub menus initialization
@@ -148,16 +148,7 @@ public class GuiMain {
 		JMenuItem mntmBackHome = new JMenuItem("Back Home");
 		mntmBackHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JLabel backgroundImage = new JLabel();
-				backgroundImage.setIcon(new ImageIcon(GuiMain.class
-						.getResource("/eu/muses/sim/gui/muses-title.png")));
-				JPanel mainPanel = new JPanel();
-				mainPanel.setBackground(new Color(255, 255, 255));
-				BoxLayout layout = new BoxLayout(mainPanel, BoxLayout.X_AXIS);
-				mainPanel.setLayout(layout);
-				mainPanel.add(Box.createHorizontalGlue());
-				mainPanel.add(backgroundImage);
-				mainPanel.add(Box.createHorizontalGlue());
+				initializeHomePanel();
 				switchPanel(mainPanel);
 			}
 		});
@@ -265,7 +256,7 @@ public class GuiMain {
 		mnHelp.add(mntmFaq);
 	}
 
-	private void switchPanel(JPanel panel) {
+	public static void switchPanel(JPanel panel) {
 
 		frmMusesRtae.getContentPane().removeAll();
 		frmMusesRtae.getContentPane().add(panel);
@@ -344,4 +335,249 @@ public class GuiMain {
 		}
 
 	}
+
+	/**
+	 * @return the frmMusesRtae
+	 */
+	public JFrame getFrmMusesRtae() {
+		return frmMusesRtae;
+	}
+
+	/**
+	 * @param frmMusesRtae the frmMusesRtae to set
+	 */
+	public void setFrmMusesRtae(JFrame frmMusesRtae) {
+		this.frmMusesRtae = frmMusesRtae;
+	}
+
+	/**
+	 * @return the s2
+	 */
+	public static Corporation getS2() {
+		return s2;
+	}
+
+	/**
+	 * @param s2 the s2 to set
+	 */
+	public static void setS2(Corporation s2) {
+		GuiMain.s2 = s2;
+	}
+
+	/**
+	 * @return the s2EventCorrelator
+	 */
+	public static EventProcessor getS2EventCorrelator() {
+		return s2EventCorrelator;
+	}
+
+	/**
+	 * @param s2EventCorrelator the s2EventCorrelator to set
+	 */
+	public static void setS2EventCorrelator(EventProcessor s2EventCorrelator) {
+		GuiMain.s2EventCorrelator = s2EventCorrelator;
+	}
+
+	/**
+	 * @return the s2Rt2ae
+	 */
+	public static RealTimeRiskTrustAnalysisEngine getS2Rt2ae() {
+		return s2Rt2ae;
+	}
+
+	/**
+	 * @param s2Rt2ae the s2Rt2ae to set
+	 */
+	public static void setS2Rt2ae(RealTimeRiskTrustAnalysisEngine s2Rt2ae) {
+		GuiMain.s2Rt2ae = s2Rt2ae;
+	}
+
+	/**
+	 * @return the s2MusesServerApp
+	 */
+	public static MusesServerApp getS2MusesServerApp() {
+		return s2MusesServerApp;
+	}
+
+	/**
+	 * @param s2MusesServerApp the s2MusesServerApp to set
+	 */
+	public static void setS2MusesServerApp(MusesServerApp s2MusesServerApp) {
+		GuiMain.s2MusesServerApp = s2MusesServerApp;
+	}
+
+	/**
+	 * @return the s2MusesClientApp
+	 */
+	public static MusesClientApp getS2MusesClientApp() {
+		return s2MusesClientApp;
+	}
+
+	/**
+	 * @param s2MusesClientApp the s2MusesClientApp to set
+	 */
+	public static void setS2MusesClientApp(MusesClientApp s2MusesClientApp) {
+		GuiMain.s2MusesClientApp = s2MusesClientApp;
+	}
+
+	/**
+	 * @return the userCso
+	 */
+	public static SimUser getUserCso() {
+		return userCso;
+	}
+
+	/**
+	 * @param userCso the userCso to set
+	 */
+	public static void setUserCso(SimUser userCso) {
+		GuiMain.userCso = userCso;
+	}
+
+	/**
+	 * @return the user1
+	 */
+	public static SimUser getUser1() {
+		return user1;
+	}
+
+	/**
+	 * @param user1 the user1 to set
+	 */
+	public static void setUser1(SimUser user1) {
+		GuiMain.user1 = user1;
+	}
+
+	/**
+	 * @return the user1Laptop
+	 */
+	public static UserDevice getUser1Laptop() {
+		return user1Laptop;
+	}
+
+	/**
+	 * @param user1Laptop the user1Laptop to set
+	 */
+	public static void setUser1Laptop(UserDevice user1Laptop) {
+		GuiMain.user1Laptop = user1Laptop;
+	}
+
+	/**
+	 * @return the materialForPublicMarketingPoster
+	 */
+	public static Asset getMaterialForPublicMarketingPoster() {
+		return materialForPublicMarketingPoster;
+	}
+
+	/**
+	 * @param materialForPublicMarketingPoster the materialForPublicMarketingPoster to set
+	 */
+	public static void setMaterialForPublicMarketingPoster(
+			Asset materialForPublicMarketingPoster) {
+		GuiMain.materialForPublicMarketingPoster = materialForPublicMarketingPoster;
+	}
+
+	/**
+	 * @return the materialForBid
+	 */
+	public static Asset getMaterialForBid() {
+		return materialForBid;
+	}
+
+	/**
+	 * @param materialForBid the materialForBid to set
+	 */
+	public static void setMaterialForBid(Asset materialForBid) {
+		GuiMain.materialForBid = materialForBid;
+	}
+
+	/**
+	 * @return the newPatentProposal
+	 */
+	public static Asset getNewPatentProposal() {
+		return newPatentProposal;
+	}
+
+	/**
+	 * @param newPatentProposal the newPatentProposal to set
+	 */
+	public static void setNewPatentProposal(Asset newPatentProposal) {
+		GuiMain.newPatentProposal = newPatentProposal;
+	}
+
+	/**
+	 * @return the materialForPatentProposal
+	 */
+	public static Asset getMaterialForPatentProposal() {
+		return materialForPatentProposal;
+	}
+
+	/**
+	 * @param materialForPatentProposal the materialForPatentProposal to set
+	 */
+	public static void setMaterialForPatentProposal(Asset materialForPatentProposal) {
+		GuiMain.materialForPatentProposal = materialForPatentProposal;
+	}
+	
+	public static void initializeHomePanel (){
+		
+		// Main panel initialization
+				JLabel backgroundImage = new JLabel();
+				backgroundImage.setIcon(new ImageIcon(GuiMain.class
+						.getResource("/eu/muses/sim/gui/muses-title.png")));
+				mainPanel = new JPanel();
+				mainPanel.setBackground(new Color(255, 255, 255));
+				BoxLayout layout = new BoxLayout(mainPanel, BoxLayout.X_AXIS);
+				mainPanel.setLayout(layout);
+				mainPanel.add(Box.createHorizontalGlue());
+				mainPanel.add(backgroundImage);
+				mainPanel.add(Box.createHorizontalGlue());
+		
+	}
+
+	/**
+	 * @return the mainPanel
+	 */
+	public static JPanel getMainPanel() {
+		return mainPanel;
+	}
+
+	/**
+	 * @param mainPanel the mainPanel to set
+	 */
+	public void setMainPanel(JPanel mainPanel) {
+		this.mainPanel = mainPanel;
+	}
+
+	/**
+	 * @return the outcomes
+	 */
+	public static List<Outcome> getOutcomes() {
+		return outcomes;
+	}
+
+	/**
+	 * @param outcomes the outcomes to set
+	 */
+	public static void setOutcomes(List<Outcome> outcomes) {
+		GuiMain.outcomes = outcomes;
+	}
+
+	/**
+	 * @return the opportunities
+	 */
+	public static List<Opportunity> getOpportunities() {
+		return opportunities;
+	}
+
+	/**
+	 * @param opportunities the opportunities to set
+	 */
+	public static void setOpportunities(List<Opportunity> opportunities) {
+		GuiMain.opportunities = opportunities;
+	}
+	
+	
+	
+	
 }
