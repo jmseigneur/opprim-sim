@@ -227,22 +227,57 @@ public class GuiMain {
 
 		JMenu mnView = new JMenu("View");
 		menuBar.add(mnView);
+		
+				JMenuItem mntmSecurityState = new JMenuItem("Security State");
+				mntmSecurityState.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						// Security State panel initialization
+						JPanel securityStatePanel = new SecurityStatePanel();
+						switchPanel(securityStatePanel);
+					}
+				});
+				mnView.add(mntmSecurityState);
 
-		JMenuItem mntmUserTurstValue = new JMenuItem("User Trust Value");
+		JMenuItem mntmUserTurstValue = new JMenuItem("Trust Values");
+		mntmUserTurstValue.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Trust Values panel initialization
+				JPanel trustValuesPanel = new TrustValuesPanel();
+				switchPanel(trustValuesPanel);
+			}
+		});
 		mnView.add(mntmUserTurstValue);
+		
+				JMenuItem mntmThreatsProbabilities = new JMenuItem(
+						"Assets");
+				mntmThreatsProbabilities.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						// View Assets panel initialization
+						JPanel viewAssetsPanel = new ViewAssetsPanel();
+						switchPanel(viewAssetsPanel);
+					}
+				});
+				mnView.add(mntmThreatsProbabilities);
 
-		JMenuItem mntmDeviceTrustValue = new JMenuItem("Device Trust Value");
+		JMenuItem mntmDeviceTrustValue = new JMenuItem("Clues and Threats Table");
+		mntmDeviceTrustValue.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Clues and Threats Table panel initialization
+				JPanel cluesAndThreatsPanel = new CluesandThreatsPanel();
+				switchPanel(cluesAndThreatsPanel);
+			}
+		});
 		mnView.add(mntmDeviceTrustValue);
 
-		JMenuItem mntmSecurityState = new JMenuItem("Security State");
-		mnView.add(mntmSecurityState);
-
-		JMenuItem mntmThreatsProbabilities = new JMenuItem(
-				"Threats Probabilities");
-		mnView.add(mntmThreatsProbabilities);
-
 		JMenuItem mntmOpportunitiesProbabilities = new JMenuItem(
-				"Opportunities Probabilities");
+				"Opportunities");
+		mntmOpportunitiesProbabilities.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// View Opportunities panel initialization
+				JPanel viewOpportunitiesPanel = new ViewOpportunitiesPanel();
+				switchPanel(viewOpportunitiesPanel);
+			}
+		});
 		mnView.add(mntmOpportunitiesProbabilities);
 
 		JMenu mnScenarios = new JMenu("Scenarios");
