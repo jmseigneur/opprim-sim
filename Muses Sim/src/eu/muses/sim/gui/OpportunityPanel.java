@@ -4,6 +4,7 @@ import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -109,6 +110,7 @@ public class OpportunityPanel extends JPanel {
 		btnSaveThreat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				try{
 				Opportunity op = new Opportunity(textField.getText(), new Probability(0.5), (Outcome) comboBox.getSelectedItem());
 				List<Opportunity> opList = GuiMain.getOpportunities();
 				opList.add(op);
@@ -116,6 +118,13 @@ public class OpportunityPanel extends JPanel {
 				GuiMain.initializeHomePanel();
 				JPanel mainPanel = GuiMain.getMainPanel();
 				GuiMain.switchPanel(mainPanel);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane.showConfirmDialog(null,
+							"Input should be correctly filled", "Wrong Input",
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
 				
 			}
 		});

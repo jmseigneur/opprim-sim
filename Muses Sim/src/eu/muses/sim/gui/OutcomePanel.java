@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -45,12 +46,16 @@ public class OutcomePanel extends JPanel {
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		JLabel lblNewAsset = new JLabel("New Outcome");
 		GridBagConstraints gbc_lblNewAsset = new GridBagConstraints();
 		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 0);
@@ -59,7 +64,7 @@ public class OutcomePanel extends JPanel {
 		gbc_lblNewAsset.gridy = 0;
 		lblNewAsset.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(lblNewAsset, gbc_lblNewAsset);
-		
+
 		JLabel lblAssetDescription = new JLabel("Outcome Description:");
 		GridBagConstraints gbc_lblAssetDescription = new GridBagConstraints();
 		gbc_lblAssetDescription.anchor = GridBagConstraints.WEST;
@@ -68,7 +73,7 @@ public class OutcomePanel extends JPanel {
 		gbc_lblAssetDescription.gridy = 1;
 		lblAssetDescription.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAssetDescription, gbc_lblAssetDescription);
-		
+
 		txtAddAsset = new JTextField();
 		txtAddAsset.setToolTipText("add the outcome textual description...");
 		GridBagConstraints gbc_txtAddAsset = new GridBagConstraints();
@@ -79,7 +84,7 @@ public class OutcomePanel extends JPanel {
 		gbc_txtAddAsset.gridy = 2;
 		add(txtAddAsset, gbc_txtAddAsset);
 		txtAddAsset.setColumns(10);
-		
+
 		JLabel lblAssetValue = new JLabel("Outcome Cost:");
 		GridBagConstraints gbc_lblAssetValue = new GridBagConstraints();
 		gbc_lblAssetValue.anchor = GridBagConstraints.WEST;
@@ -88,9 +93,10 @@ public class OutcomePanel extends JPanel {
 		gbc_lblAssetValue.gridy = 3;
 		lblAssetValue.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAssetValue, gbc_lblAssetValue);
-		
+
 		textField = new JTextField();
-		textField.setToolTipText("add the cost of the outcome, either positive or negative...");
+		textField
+				.setToolTipText("add the cost of the outcome, either positive or negative...");
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 3;
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
@@ -99,9 +105,10 @@ public class OutcomePanel extends JPanel {
 		gbc_textField.gridy = 4;
 		add(textField, gbc_textField);
 		textField.setColumns(10);
-		
+
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"euros (\u20AC)", "k\u20AC "}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {
+				"euros (\u20AC)", "k\u20AC " }));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridwidth = 4;
@@ -109,33 +116,41 @@ public class OutcomePanel extends JPanel {
 		gbc_comboBox.gridx = 3;
 		gbc_comboBox.gridy = 4;
 		add(comboBox, gbc_comboBox);
-		
+
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
 		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
 		gbc_verticalStrut_1.gridx = 12;
 		gbc_verticalStrut_1.gridy = 5;
 		add(verticalStrut_1, gbc_verticalStrut_1);
-		
+
 		Component verticalStrut = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
 		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
 		gbc_verticalStrut.gridx = 12;
 		gbc_verticalStrut.gridy = 6;
 		add(verticalStrut, gbc_verticalStrut);
-		
+
 		JButton btnSaveAsset = new JButton("Save Outcome");
 		btnSaveAsset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				Outcome o = new Outcome(txtAddAsset.getText(), Double.parseDouble(textField.getText()));
-				List<Outcome> olist = GuiMain.getOutcomes();
-				olist.add(o);
-				GuiMain.setOutcomes(olist);
-				GuiMain.initializeHomePanel();
-				JPanel mainPanel = GuiMain.getMainPanel();
-				GuiMain.switchPanel(mainPanel);
-				
+
+				try {
+					Outcome o = new Outcome(txtAddAsset.getText(), Double
+							.parseDouble(textField.getText()));
+					List<Outcome> olist = GuiMain.getOutcomes();
+					olist.add(o);
+					GuiMain.setOutcomes(olist);
+					GuiMain.initializeHomePanel();
+					JPanel mainPanel = GuiMain.getMainPanel();
+					GuiMain.switchPanel(mainPanel);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane.showConfirmDialog(null,
+							"Input should be correctly filled", "Wrong Input",
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();

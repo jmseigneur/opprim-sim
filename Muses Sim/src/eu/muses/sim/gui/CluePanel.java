@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -32,7 +33,7 @@ public class CluePanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
+	private static JTextField textField;
 
 	/**
 	 * Create the panel.
@@ -94,13 +95,22 @@ public class CluePanel extends JPanel {
 		JButton btnSaveClue = new JButton("Save Clue");
 		btnSaveClue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try{
 				Clue c = new Clue(textField.getText());
 				CluesThreatTable table = GuiMain.getS2Rt2ae().getCluesThreatTable();
 				table.addMapping(Arrays.asList(c), null);
 				GuiMain.getS2Rt2ae().setCluesThreatTable(table);
+				GuiMain.getClues().add(c);
 				GuiMain.initializeHomePanel();
 				JPanel mainPanel = GuiMain.getMainPanel();
 				GuiMain.switchPanel(mainPanel);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane.showConfirmDialog(null,
+							"Input should be correctly filled", "Wrong Input",
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
 				
 			}
 		});

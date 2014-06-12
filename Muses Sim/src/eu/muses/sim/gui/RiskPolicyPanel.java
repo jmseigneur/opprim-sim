@@ -12,6 +12,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -21,8 +23,13 @@ import java.awt.Component;
 
 import javax.swing.Box;
 
+import eu.muses.sim.riskman.RiskPolicy;
+import eu.muses.sim.riskman.RiskValue;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JCheckBox;
 
 public class RiskPolicyPanel extends JPanel {
 
@@ -73,6 +80,14 @@ public class RiskPolicyPanel extends JPanel {
 		add(textField, gbc_textField);
 		textField.setColumns(10);
 		
+		final JCheckBox chckbxNewCheckBox = new JCheckBox("Use custom Risk Value");
+		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
+		gbc_chckbxNewCheckBox.anchor = GridBagConstraints.WEST;
+		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxNewCheckBox.gridx = 2;
+		gbc_chckbxNewCheckBox.gridy = 2;
+		add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
+		
 		JLabel lblOr = new JLabel("- OR -");
 		GridBagConstraints gbc_lblOr = new GridBagConstraints();
 		gbc_lblOr.anchor = GridBagConstraints.WEST;
@@ -90,8 +105,10 @@ public class RiskPolicyPanel extends JPanel {
 		lblSelectAPredefined.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblSelectAPredefined, gbc_lblSelectAPredefined);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"TAKE FULL RISK (0.0)", "TAKE AVERAGE RISK (0.5)", "TAKE NO RISK (1.0)"}));
+		final JComboBox<RiskValue> comboBox = new JComboBox<RiskValue>();
+		comboBox.addItem(RiskValue.TAKE_NO_RISK);
+		comboBox.addItem(RiskValue.TAKE_AVERAGE_RISK);
+		comboBox.addItem(RiskValue.TAKE_FULL_RISK);
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 4;
 		gbc_comboBox.anchor = GridBagConstraints.WEST;
@@ -118,9 +135,25 @@ public class RiskPolicyPanel extends JPanel {
 		btnSavePolicy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				GuiMain.initializeHomePanel();
-				JPanel mainPanel = GuiMain.getMainPanel();
-				GuiMain.switchPanel(mainPanel);
+				if(chckbxNewCheckBox.isSelected()){
+					try{
+					RiskPolicy rp = new RiskPolicy(new RiskValue(Double.parseDouble(textField.getText()), "Custom Policy"), null);
+					GuiMain.getRiskPolicies().add(rp);
+					GuiMain.initializeHomePanel();
+					JPanel mainPanel = GuiMain.getMainPanel();
+					GuiMain.switchPanel(mainPanel);
+					}catch (Exception ex){
+						ex.printStackTrace();
+						JOptionPane.showConfirmDialog(null, "Input should be a number between 0 and 1", "Wrong Input", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+					}
+				}else{
+					RiskPolicy rp = new RiskPolicy((RiskValue) comboBox.getSelectedItem(), null);
+					GuiMain.getRiskPolicies().add(rp);
+					GuiMain.initializeHomePanel();
+					JPanel mainPanel = GuiMain.getMainPanel();
+					GuiMain.switchPanel(mainPanel);
+				}
+				
 				
 			}
 		});

@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -124,13 +125,22 @@ public class AssetPanel extends JPanel {
 		
 		JButton btnSaveAsset = new JButton("Save Asset");
 		btnSaveAsset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {			
+			public void actionPerformed(ActionEvent e) {
+				try{
 				Asset a = new Asset(txtAddAsset.getText(), Double.parseDouble(textField.getText()));
 				GuiMain.getS2Rt2ae().addAsset(a);
+				GuiMain.getAssets().add(a);
 				System.out.println("Asset " + GuiMain.getS2Rt2ae().getAsset(txtAddAsset.getText()).getAssetName() + " was added with cost " + GuiMain.getS2Rt2ae().getAsset(txtAddAsset.getText()).getValue());
 				GuiMain.initializeHomePanel();
 				JPanel mainPanel = GuiMain.getMainPanel();
 				GuiMain.switchPanel(mainPanel);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane.showConfirmDialog(null,
+							"Input should be correctly filled", "Wrong Input",
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();

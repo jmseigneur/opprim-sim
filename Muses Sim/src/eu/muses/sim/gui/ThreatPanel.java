@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -142,6 +143,7 @@ public class ThreatPanel extends JPanel {
 		btnSaveThreat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				try{
 				Threat t = new Threat(textField.getText(), new Probability(0.5), (Outcome) comboBox.getSelectedItem());
 				CluesThreatTable table = GuiMain.getS2Rt2ae().getCluesThreatTable();
 				Collection<CluesThreatEntry> entries = table.getCluesThreatTable();
@@ -158,6 +160,13 @@ public class ThreatPanel extends JPanel {
 				GuiMain.initializeHomePanel();
 				JPanel mainPanel = GuiMain.getMainPanel();
 				GuiMain.switchPanel(mainPanel);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane.showConfirmDialog(null,
+							"Input should be correctly filled", "Wrong Input",
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
 				
 			}
 		});

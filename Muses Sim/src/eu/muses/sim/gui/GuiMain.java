@@ -28,10 +28,12 @@ import eu.muses.sim.riskman.RiskValue;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.asset.UserDevice;
 import eu.muses.sim.riskman.opportunity.Opportunity;
+import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.sim.test.MusesClientApp;
 import eu.muses.sim.test.MusesServerApp;
 import eu.muses.sim.test.SimUser;
 import eu.muses.sim.trustman.TrustValue;
+import eu.muses.wp5.Clue;
 import eu.muses.wp5.EventProcessor;
 
 public class GuiMain {
@@ -75,12 +77,24 @@ public class GuiMain {
 
 	/** The material for patent proposal. */
 	static Asset materialForPatentProposal;
-	
+
 	/** The outcomes */
 	static List<Outcome> outcomes = new ArrayList<Outcome>();
-	
+
 	/** The opportunities */
 	static List<Opportunity> opportunities = new ArrayList<Opportunity>();
+
+	/** The assets */
+	static List<Asset> assets = new ArrayList<Asset>();
+
+	/** The threats */
+	static List<Threat> threats = new ArrayList<Threat>();
+
+	/** The clues */
+	static List<Clue> clues = new ArrayList<Clue>();
+
+	/** The risk Policies */
+	static List<RiskPolicy> riskPolicies = new ArrayList<RiskPolicy>();
 
 	/**
 	 * Launch the application.
@@ -120,13 +134,6 @@ public class GuiMain {
 	 */
 	private void initialize() {
 
-		// Frame initialization
-		try {
-			// Set System L&F
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		frmMusesRtae = new JFrame();
 		frmMusesRtae.getContentPane().setBackground(new Color(255, 255, 255));
 		frmMusesRtae.setTitle("MUSES RT2AE");
@@ -344,7 +351,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param frmMusesRtae the frmMusesRtae to set
+	 * @param frmMusesRtae
+	 *            the frmMusesRtae to set
 	 */
 	public void setFrmMusesRtae(JFrame frmMusesRtae) {
 		this.frmMusesRtae = frmMusesRtae;
@@ -358,7 +366,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param s2 the s2 to set
+	 * @param s2
+	 *            the s2 to set
 	 */
 	public static void setS2(Corporation s2) {
 		GuiMain.s2 = s2;
@@ -372,7 +381,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param s2EventCorrelator the s2EventCorrelator to set
+	 * @param s2EventCorrelator
+	 *            the s2EventCorrelator to set
 	 */
 	public static void setS2EventCorrelator(EventProcessor s2EventCorrelator) {
 		GuiMain.s2EventCorrelator = s2EventCorrelator;
@@ -386,7 +396,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param s2Rt2ae the s2Rt2ae to set
+	 * @param s2Rt2ae
+	 *            the s2Rt2ae to set
 	 */
 	public static void setS2Rt2ae(RealTimeRiskTrustAnalysisEngine s2Rt2ae) {
 		GuiMain.s2Rt2ae = s2Rt2ae;
@@ -400,7 +411,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param s2MusesServerApp the s2MusesServerApp to set
+	 * @param s2MusesServerApp
+	 *            the s2MusesServerApp to set
 	 */
 	public static void setS2MusesServerApp(MusesServerApp s2MusesServerApp) {
 		GuiMain.s2MusesServerApp = s2MusesServerApp;
@@ -414,7 +426,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param s2MusesClientApp the s2MusesClientApp to set
+	 * @param s2MusesClientApp
+	 *            the s2MusesClientApp to set
 	 */
 	public static void setS2MusesClientApp(MusesClientApp s2MusesClientApp) {
 		GuiMain.s2MusesClientApp = s2MusesClientApp;
@@ -428,7 +441,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param userCso the userCso to set
+	 * @param userCso
+	 *            the userCso to set
 	 */
 	public static void setUserCso(SimUser userCso) {
 		GuiMain.userCso = userCso;
@@ -442,7 +456,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param user1 the user1 to set
+	 * @param user1
+	 *            the user1 to set
 	 */
 	public static void setUser1(SimUser user1) {
 		GuiMain.user1 = user1;
@@ -456,7 +471,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param user1Laptop the user1Laptop to set
+	 * @param user1Laptop
+	 *            the user1Laptop to set
 	 */
 	public static void setUser1Laptop(UserDevice user1Laptop) {
 		GuiMain.user1Laptop = user1Laptop;
@@ -470,7 +486,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param materialForPublicMarketingPoster the materialForPublicMarketingPoster to set
+	 * @param materialForPublicMarketingPoster
+	 *            the materialForPublicMarketingPoster to set
 	 */
 	public static void setMaterialForPublicMarketingPoster(
 			Asset materialForPublicMarketingPoster) {
@@ -485,7 +502,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param materialForBid the materialForBid to set
+	 * @param materialForBid
+	 *            the materialForBid to set
 	 */
 	public static void setMaterialForBid(Asset materialForBid) {
 		GuiMain.materialForBid = materialForBid;
@@ -499,7 +517,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param newPatentProposal the newPatentProposal to set
+	 * @param newPatentProposal
+	 *            the newPatentProposal to set
 	 */
 	public static void setNewPatentProposal(Asset newPatentProposal) {
 		GuiMain.newPatentProposal = newPatentProposal;
@@ -513,26 +532,28 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param materialForPatentProposal the materialForPatentProposal to set
+	 * @param materialForPatentProposal
+	 *            the materialForPatentProposal to set
 	 */
-	public static void setMaterialForPatentProposal(Asset materialForPatentProposal) {
+	public static void setMaterialForPatentProposal(
+			Asset materialForPatentProposal) {
 		GuiMain.materialForPatentProposal = materialForPatentProposal;
 	}
-	
-	public static void initializeHomePanel (){
-		
+
+	public static void initializeHomePanel() {
+
 		// Main panel initialization
-				JLabel backgroundImage = new JLabel();
-				backgroundImage.setIcon(new ImageIcon(GuiMain.class
-						.getResource("/eu/muses/sim/gui/muses-title.png")));
-				mainPanel = new JPanel();
-				mainPanel.setBackground(new Color(255, 255, 255));
-				BoxLayout layout = new BoxLayout(mainPanel, BoxLayout.X_AXIS);
-				mainPanel.setLayout(layout);
-				mainPanel.add(Box.createHorizontalGlue());
-				mainPanel.add(backgroundImage);
-				mainPanel.add(Box.createHorizontalGlue());
-		
+		JLabel backgroundImage = new JLabel();
+		backgroundImage.setIcon(new ImageIcon(GuiMain.class
+				.getResource("/eu/muses/sim/gui/muses-title.png")));
+		mainPanel = new JPanel();
+		mainPanel.setBackground(new Color(255, 255, 255));
+		BoxLayout layout = new BoxLayout(mainPanel, BoxLayout.X_AXIS);
+		mainPanel.setLayout(layout);
+		mainPanel.add(Box.createHorizontalGlue());
+		mainPanel.add(backgroundImage);
+		mainPanel.add(Box.createHorizontalGlue());
+
 	}
 
 	/**
@@ -543,7 +564,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param mainPanel the mainPanel to set
+	 * @param mainPanel
+	 *            the mainPanel to set
 	 */
 	public void setMainPanel(JPanel mainPanel) {
 		this.mainPanel = mainPanel;
@@ -557,7 +579,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param outcomes the outcomes to set
+	 * @param outcomes
+	 *            the outcomes to set
 	 */
 	public static void setOutcomes(List<Outcome> outcomes) {
 		GuiMain.outcomes = outcomes;
@@ -571,13 +594,71 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param opportunities the opportunities to set
+	 * @param opportunities
+	 *            the opportunities to set
 	 */
 	public static void setOpportunities(List<Opportunity> opportunities) {
 		GuiMain.opportunities = opportunities;
 	}
-	
-	
-	
-	
+
+	/**
+	 * @return the assets
+	 */
+	public static List<Asset> getAssets() {
+		return assets;
+	}
+
+	/**
+	 * @param assets
+	 *            the assets to set
+	 */
+	public static void setAssets(List<Asset> assets) {
+		GuiMain.assets = assets;
+	}
+
+	/**
+	 * @return the threats
+	 */
+	public static List<Threat> getThreats() {
+		return threats;
+	}
+
+	/**
+	 * @param threats
+	 *            the threats to set
+	 */
+	public static void setThreats(List<Threat> threats) {
+		GuiMain.threats = threats;
+	}
+
+	/**
+	 * @return the clues
+	 */
+	public static List<Clue> getClues() {
+		return clues;
+	}
+
+	/**
+	 * @param clues
+	 *            the clues to set
+	 */
+	public static void setClues(List<Clue> clues) {
+		GuiMain.clues = clues;
+	}
+
+	/**
+	 * @return the riskPolicies
+	 */
+	public static List<RiskPolicy> getRiskPolicies() {
+		return riskPolicies;
+	}
+
+	/**
+	 * @param riskPolicies
+	 *            the riskPolicies to set
+	 */
+	public static void setRiskPolicies(List<RiskPolicy> riskPolicies) {
+		GuiMain.riskPolicies = riskPolicies;
+	}
+
 }
