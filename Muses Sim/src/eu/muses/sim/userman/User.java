@@ -42,4 +42,15 @@ public class User {
         return this.nickname;
     }
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.nickname;
+	}
+
+    
+    
 }

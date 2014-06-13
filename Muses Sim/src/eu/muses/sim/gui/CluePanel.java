@@ -42,12 +42,16 @@ public class CluePanel extends JPanel {
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		JLabel lblNewAsset = new JLabel("New Clue");
 		GridBagConstraints gbc_lblNewAsset = new GridBagConstraints();
 		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 0);
@@ -56,7 +60,7 @@ public class CluePanel extends JPanel {
 		gbc_lblNewAsset.gridy = 0;
 		lblNewAsset.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(lblNewAsset, gbc_lblNewAsset);
-		
+
 		JLabel lblAddClue = new JLabel("Add Clue:");
 		GridBagConstraints gbc_lblAddClue = new GridBagConstraints();
 		gbc_lblAddClue.gridwidth = 4;
@@ -66,7 +70,7 @@ public class CluePanel extends JPanel {
 		gbc_lblAddClue.gridy = 1;
 		lblAddClue.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAddClue, gbc_lblAddClue);
-		
+
 		textField = new JTextField();
 		textField.setToolTipText("name the clue...");
 		GridBagConstraints gbc_textField = new GridBagConstraints();
@@ -77,33 +81,34 @@ public class CluePanel extends JPanel {
 		gbc_textField.gridy = 2;
 		add(textField, gbc_textField);
 		textField.setColumns(10);
-		
+
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
 		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
 		gbc_verticalStrut_1.gridx = 12;
 		gbc_verticalStrut_1.gridy = 3;
 		add(verticalStrut_1, gbc_verticalStrut_1);
-		
+
 		Component verticalStrut = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
 		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
 		gbc_verticalStrut.gridx = 12;
 		gbc_verticalStrut.gridy = 4;
 		add(verticalStrut, gbc_verticalStrut);
-		
+
 		JButton btnSaveClue = new JButton("Save Clue");
 		btnSaveClue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try{
-				Clue c = new Clue(textField.getText());
-				CluesThreatTable table = GuiMain.getS2Rt2ae().getCluesThreatTable();
-				table.addMapping(Arrays.asList(c), null);
-				GuiMain.getS2Rt2ae().setCluesThreatTable(table);
-				GuiMain.getClues().add(c);
-				GuiMain.initializeHomePanel();
-				JPanel mainPanel = GuiMain.getMainPanel();
-				GuiMain.switchPanel(mainPanel);
+				try {
+					Clue c = new Clue(textField.getText());
+					CluesThreatTable table = GuiMain.getS2Rt2ae()
+							.getCluesThreatTable();
+					table.addMapping(Arrays.asList(c), null);
+					GuiMain.getS2Rt2ae().setCluesThreatTable(table);
+					GuiMain.getClues().add(c);
+					GuiMain.initializeHomePanel();
+					JPanel mainPanel = GuiMain.getMainPanel();
+					GuiMain.switchPanel(mainPanel);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 					JOptionPane.showConfirmDialog(null,
@@ -111,7 +116,7 @@ public class CluePanel extends JPanel {
 							JOptionPane.OK_CANCEL_OPTION,
 							JOptionPane.ERROR_MESSAGE);
 				}
-				
+
 			}
 		});
 		GridBagConstraints gbc_btnSaveClue = new GridBagConstraints();

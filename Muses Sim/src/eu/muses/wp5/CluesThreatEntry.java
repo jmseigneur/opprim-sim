@@ -105,5 +105,15 @@ public class CluesThreatEntry {
     public void setThreat(Threat threat) {
         this.threat = threat;
     }
+    
+    public String getCluesAsString(){
+    	
+    	String clueNames = "";
+    	for (Clue clue : this.clues) {
+			clueNames = clueNames + clue.getId() + " - ";
+		}
+    	
+    	return clueNames.substring(0, clueNames.length()-2);
+    }
 
 }

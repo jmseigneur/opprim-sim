@@ -40,12 +40,16 @@ public class OpportunityPanel extends JPanel {
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		JLabel lblNewAsset = new JLabel("New Opportunity");
 		GridBagConstraints gbc_lblNewAsset = new GridBagConstraints();
 		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 0);
@@ -54,7 +58,7 @@ public class OpportunityPanel extends JPanel {
 		gbc_lblNewAsset.gridy = 0;
 		lblNewAsset.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(lblNewAsset, gbc_lblNewAsset);
-		
+
 		JLabel lblAddAThreat = new JLabel("Add an Opportunity Description:");
 		GridBagConstraints gbc_lblAddAThreat = new GridBagConstraints();
 		gbc_lblAddAThreat.anchor = GridBagConstraints.WEST;
@@ -63,9 +67,10 @@ public class OpportunityPanel extends JPanel {
 		gbc_lblAddAThreat.gridy = 1;
 		lblAddAThreat.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAddAThreat, gbc_lblAddAThreat);
-		
+
 		final JTextField textField = new JTextField();
-		textField.setToolTipText("add a textual description of the opportunity...");
+		textField
+				.setToolTipText("add a textual description of the opportunity...");
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 13;
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
@@ -74,8 +79,9 @@ public class OpportunityPanel extends JPanel {
 		gbc_textField.gridy = 2;
 		add(textField, gbc_textField);
 		textField.setColumns(10);
-		
-		JLabel lblAttachAnOutcome = new JLabel("Attach an Outcome to the Opportunity:");
+
+		JLabel lblAttachAnOutcome = new JLabel(
+				"Attach an Outcome to the Opportunity:");
 		GridBagConstraints gbc_lblAttachAnOutcome = new GridBagConstraints();
 		gbc_lblAttachAnOutcome.anchor = GridBagConstraints.WEST;
 		gbc_lblAttachAnOutcome.insets = new Insets(0, 0, 5, 5);
@@ -83,14 +89,15 @@ public class OpportunityPanel extends JPanel {
 		gbc_lblAttachAnOutcome.gridy = 3;
 		lblAttachAnOutcome.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAttachAnOutcome, gbc_lblAttachAnOutcome);
-		
+
 		final JComboBox<Outcome> comboBox = new JComboBox<Outcome>();
-		if(GuiMain.getOutcomes() != null && !GuiMain.getOutcomes().isEmpty()){
-		for (Outcome o : GuiMain.getOutcomes()) {
-			comboBox.addItem(o);
-		}
-		}else{
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ADD OUTCOMES FIRST"}));
+		if (GuiMain.getOutcomes() != null && !GuiMain.getOutcomes().isEmpty()) {
+			for (Outcome o : GuiMain.getOutcomes()) {
+				comboBox.addItem(o);
+			}
+		} else {
+			comboBox.setModel(new DefaultComboBoxModel(
+					new String[] { "ADD OUTCOMES FIRST" }));
 		}
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.anchor = GridBagConstraints.WEST;
@@ -98,26 +105,28 @@ public class OpportunityPanel extends JPanel {
 		gbc_comboBox.gridx = 0;
 		gbc_comboBox.gridy = 4;
 		add(comboBox, gbc_comboBox);
-		
+
 		Component verticalStrut = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
 		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
 		gbc_verticalStrut.gridx = 10;
 		gbc_verticalStrut.gridy = 5;
 		add(verticalStrut, gbc_verticalStrut);
-		
+
 		JButton btnSaveThreat = new JButton("Save Opportunity");
 		btnSaveThreat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				try{
-				Opportunity op = new Opportunity(textField.getText(), new Probability(0.5), (Outcome) comboBox.getSelectedItem());
-				List<Opportunity> opList = GuiMain.getOpportunities();
-				opList.add(op);
-				GuiMain.setOpportunities(opList);
-				GuiMain.initializeHomePanel();
-				JPanel mainPanel = GuiMain.getMainPanel();
-				GuiMain.switchPanel(mainPanel);
+
+				try {
+					Opportunity op = new Opportunity(textField.getText(),
+							new Probability(0.5), (Outcome) comboBox
+									.getSelectedItem());
+					List<Opportunity> opList = GuiMain.getOpportunities();
+					opList.add(op);
+					GuiMain.setOpportunities(opList);
+					GuiMain.initializeHomePanel();
+					JPanel mainPanel = GuiMain.getMainPanel();
+					GuiMain.switchPanel(mainPanel);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 					JOptionPane.showConfirmDialog(null,
@@ -125,7 +134,7 @@ public class OpportunityPanel extends JPanel {
 							JOptionPane.OK_CANCEL_OPTION,
 							JOptionPane.ERROR_MESSAGE);
 				}
-				
+
 			}
 		});
 		GridBagConstraints gbc_btnSaveThreat = new GridBagConstraints();

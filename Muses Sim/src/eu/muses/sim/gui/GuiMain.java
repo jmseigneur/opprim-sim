@@ -134,6 +134,14 @@ public class GuiMain {
 	 */
 	private void initialize() {
 
+		// Frame initialization
+		try {
+			// Set System L&F
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		frmMusesRtae = new JFrame();
 		frmMusesRtae.getContentPane().setBackground(new Color(255, 255, 255));
 		frmMusesRtae.setTitle("MUSES RT2AE");
@@ -227,16 +235,16 @@ public class GuiMain {
 
 		JMenu mnView = new JMenu("View");
 		menuBar.add(mnView);
-		
-				JMenuItem mntmSecurityState = new JMenuItem("Security State");
-				mntmSecurityState.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						// Security State panel initialization
-						JPanel securityStatePanel = new SecurityStatePanel();
-						switchPanel(securityStatePanel);
-					}
-				});
-				mnView.add(mntmSecurityState);
+
+		JMenuItem mntmSecurityState = new JMenuItem("Security State");
+		mntmSecurityState.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Security State panel initialization
+				JPanel securityStatePanel = new SecurityStatePanel();
+				switchPanel(securityStatePanel);
+			}
+		});
+		mnView.add(mntmSecurityState);
 
 		JMenuItem mntmUserTurstValue = new JMenuItem("Trust Values");
 		mntmUserTurstValue.addActionListener(new ActionListener() {
@@ -247,19 +255,19 @@ public class GuiMain {
 			}
 		});
 		mnView.add(mntmUserTurstValue);
-		
-				JMenuItem mntmThreatsProbabilities = new JMenuItem(
-						"Assets");
-				mntmThreatsProbabilities.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						// View Assets panel initialization
-						JPanel viewAssetsPanel = new ViewAssetsPanel();
-						switchPanel(viewAssetsPanel);
-					}
-				});
-				mnView.add(mntmThreatsProbabilities);
 
-		JMenuItem mntmDeviceTrustValue = new JMenuItem("Clues and Threats Table");
+		JMenuItem mntmThreatsProbabilities = new JMenuItem("Assets");
+		mntmThreatsProbabilities.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// View Assets panel initialization
+				JPanel viewAssetsPanel = new ViewAssetsPanel();
+				switchPanel(viewAssetsPanel);
+			}
+		});
+		mnView.add(mntmThreatsProbabilities);
+
+		JMenuItem mntmDeviceTrustValue = new JMenuItem(
+				"Clues and Threats Table");
 		mntmDeviceTrustValue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Clues and Threats Table panel initialization
@@ -285,10 +293,26 @@ public class GuiMain {
 
 		JMenuItem mntmAliceRequestsPatent = new JMenuItem(
 				"Alice Requests Patent Material");
+		mntmAliceRequestsPatent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				JPanel aliceRequestsAssetPanel = new AliceRequestsAssetPanel();
+				switchPanel(aliceRequestsAssetPanel);
+
+			}
+		});
 		mnScenarios.add(mntmAliceRequestsPatent);
 
 		JMenuItem mntmSecurityIncidentOn = new JMenuItem(
 				"Security Incident on Patent Material");
+		mntmSecurityIncidentOn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				JPanel securityIncidentOnAssetPanel = new SecurityIncidentOnAssetPanel();
+				switchPanel(securityIncidentOnAssetPanel);
+
+			}
+		});
 		mnScenarios.add(mntmSecurityIncidentOn);
 
 		JMenu mnHelp = new JMenu("Help");
