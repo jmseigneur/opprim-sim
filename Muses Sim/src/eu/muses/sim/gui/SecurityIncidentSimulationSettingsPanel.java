@@ -27,7 +27,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 
-public class CluePanel extends JPanel {
+public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 
 	/**
 	 * 
@@ -38,7 +38,7 @@ public class CluePanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public CluePanel() {
+	public SecurityIncidentSimulationSettingsPanel() {
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -101,6 +101,10 @@ public class CluePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Clue c = new Clue(textField.getText());
+					CluesThreatTable table = GuiMain.getS2Rt2ae()
+							.getCluesThreatTable();
+					table.addMapping(Arrays.asList(c), null);
+					GuiMain.getS2Rt2ae().setCluesThreatTable(table);
 					GuiMain.getClues().add(c);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();

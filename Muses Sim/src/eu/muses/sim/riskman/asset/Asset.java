@@ -185,4 +185,13 @@ public class Asset {
         return this.vulnerabilities.toArray(new Vulnerability[this.vulnerabilities.size()]);
     }
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.assetName + " - " + this.value;
+	}
+    
 }

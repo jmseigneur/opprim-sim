@@ -22,6 +22,7 @@ import javax.swing.UIManager;
 import eu.muses.sim.Outcome;
 import eu.muses.sim.RealTimeRiskTrustAnalysisEngine;
 import eu.muses.sim.corporate.Corporation;
+import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.PersonalUserDevice;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.RiskValue;
@@ -95,6 +96,18 @@ public class GuiMain {
 
 	/** The risk Policies */
 	static List<RiskPolicy> riskPolicies = new ArrayList<RiskPolicy>();
+
+	/** The Sim Users */
+	static List<SimUser> simUsers = new ArrayList<SimUser>();
+
+	/** The amount of simulations */
+	static int simAmount = 0;
+
+	/** The amount of security incidents */
+	static int incidentAmount = 0;
+	
+	/** The access request */
+	static AccessRequest accessRequest;
 
 	/**
 	 * Launch the application.
@@ -191,6 +204,17 @@ public class GuiMain {
 				switchPanel(riskPanel);
 			}
 		});
+		
+		JMenuItem mntmUsers = new JMenuItem("Users");
+		mntmUsers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				// User panel initialization
+				JPanel userPanel = new UserPanel();
+				switchPanel(userPanel);
+			}
+		});
+		mnConfigurationMenu.add(mntmUsers);
 		mnConfigurationMenu.add(mntmRiskPolicies);
 
 		JMenuItem mntmClues = new JMenuItem("Clues");
@@ -203,14 +227,14 @@ public class GuiMain {
 		});
 		mnConfigurationMenu.add(mntmClues);
 
-		JMenuItem mntmThreats = new JMenuItem("Threats");
+		/*JMenuItem mntmThreats = new JMenuItem("Threats");
 		mntmThreats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Threat panel initialization
 				JPanel threatPanel = new ThreatPanel();
 				switchPanel(threatPanel);
 			}
-		});
+		});*/
 
 		JMenuItem mntmOutcomes = new JMenuItem("Outcomes");
 		mntmOutcomes.addActionListener(new ActionListener() {
@@ -221,7 +245,7 @@ public class GuiMain {
 			}
 		});
 		mnConfigurationMenu.add(mntmOutcomes);
-		mnConfigurationMenu.add(mntmThreats);
+		/*mnConfigurationMenu.add(mntmThreats);*/
 
 		JMenuItem mntmOpportunities = new JMenuItem("Opportunities");
 		mntmOpportunities.addActionListener(new ActionListener() {
@@ -236,7 +260,7 @@ public class GuiMain {
 		JMenu mnView = new JMenu("View");
 		menuBar.add(mnView);
 
-		JMenuItem mntmSecurityState = new JMenuItem("Security State");
+		/*JMenuItem mntmSecurityState = new JMenuItem("Security State");
 		mntmSecurityState.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Security State panel initialization
@@ -244,7 +268,7 @@ public class GuiMain {
 				switchPanel(securityStatePanel);
 			}
 		});
-		mnView.add(mntmSecurityState);
+		mnView.add(mntmSecurityState);*/
 
 		JMenuItem mntmUserTurstValue = new JMenuItem("Trust Values");
 		mntmUserTurstValue.addActionListener(new ActionListener() {
@@ -296,8 +320,8 @@ public class GuiMain {
 		mntmAliceRequestsPatent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				JPanel aliceRequestsAssetPanel = new AliceRequestsAssetPanel();
-				switchPanel(aliceRequestsAssetPanel);
+				JPanel requestAssetSimulationSettingsPanel = new RequestAssetSimulationSettingsPanel();
+				switchPanel(requestAssetSimulationSettingsPanel);
 
 			}
 		});
@@ -718,6 +742,65 @@ public class GuiMain {
 	 */
 	public static void setRiskPolicies(List<RiskPolicy> riskPolicies) {
 		GuiMain.riskPolicies = riskPolicies;
+	}
+
+	/**
+	 * @return the simUsers
+	 */
+	public static List<SimUser> getSimUsers() {
+		return simUsers;
+	}
+
+	/**
+	 * @param simUsers
+	 *            the simUsers to set
+	 */
+	public static void setSimUsers(List<SimUser> simUsers) {
+		GuiMain.simUsers = simUsers;
+	}
+
+	/**
+	 * @return the simAmount
+	 */
+	public static int getSimAmount() {
+		return simAmount;
+	}
+
+	/**
+	 * @param simAmount
+	 *            the simAmount to set
+	 */
+	public static void setSimAmount(int simAmount) {
+		GuiMain.simAmount = simAmount;
+	}
+
+	/**
+	 * @return the incidentAmount
+	 */
+	public static int getIncidentAmount() {
+		return incidentAmount;
+	}
+
+	/**
+	 * @param incidentAmount
+	 *            the incidentAmount to set
+	 */
+	public static void setIncidentAmount(int incidentAmount) {
+		GuiMain.incidentAmount = incidentAmount;
+	}
+
+	/**
+	 * @return the accessRequest
+	 */
+	public static AccessRequest getAccessRequest() {
+		return accessRequest;
+	}
+
+	/**
+	 * @param accessRequest the accessRequest to set
+	 */
+	public static void setAccessRequest(AccessRequest accessRequest) {
+		GuiMain.accessRequest = accessRequest;
 	}
 
 }

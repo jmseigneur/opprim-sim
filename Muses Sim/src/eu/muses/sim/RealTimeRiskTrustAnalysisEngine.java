@@ -215,9 +215,28 @@ public class RealTimeRiskTrustAnalysisEngine {
 		}
 
 		List<Threat> currentThreats = new ArrayList<Threat>();
-		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
+		currentThreats = cluesThreatTable.getThreatsFromClues(clues);
+		if(currentThreats.isEmpty()){
+			String threatName = "";
+			for (Clue clue : clues) {
+				threatName = threatName + clue.getId().substring(0, 1);
+			}
+			threatName = threatName + accessRequest.getUser().getNickname() + requestedAssests.iterator().next().getAssetName();
+			Threat threat = new Threat("Threat" + threatName, new Probability(0.5), new Outcome("Compromised Asset", requestedAssests.iterator().next().getValue()));
+			cluesThreatTable.addMapping(clues, threat);
+			cluesThreatTable.updateThreatOccurences(threat);
+			System.out.println("The inferred Threat from the Clues is: "
+					+ threat.getDescription() + " with probability "
+					+ threat.getProbabilityValue()
+					+ " for the following outcome: \""
+					+ threat.getOutcomes().iterator().next().getDescription()
+					+ "\" with the following potential cost (in kEUR): "
+					+ threat.getOutcomes().iterator().next().getCostBenefit()
+					+ "\n");
+			currentThreats.add(threat);
+		}else{
 		for (Threat threat : currentThreats) {
-			this.cluesThreatTable.updateThreatOccurences(threat);
+			cluesThreatTable.updateThreatOccurences(threat);
 			System.out.println("The inferred Threat from the Clues is: "
 					+ threat.getDescription() + " with probability "
 					+ threat.getProbabilityValue()
@@ -227,7 +246,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 					+ threat.getOutcomes().iterator().next().getCostBenefit()
 					+ "\n");
 		}
-
+		}
 		Vector<RiskEvent> riskEvents = new Vector<RiskEvent>();
 
 		for (RiskEvent riskEvent : currentThreats) {
@@ -548,7 +567,33 @@ public class RealTimeRiskTrustAnalysisEngine {
 	public static void setCluesThreatTable(CluesThreatTable cluesThreatTable) {
 		RealTimeRiskTrustAnalysisEngine.cluesThreatTable = cluesThreatTable;
 	}
-	
-	
+
+	/**
+	 * @return the riskPolicy
+	 */
+	public RiskPolicy getRiskPolicy() {
+		return riskPolicy;
+	}
+
+	/**
+	 * @param riskPolicy the riskPolicy to set
+	 */
+	public void setRiskPolicy(RiskPolicy riskPolicy) {
+		this.riskPolicy = riskPolicy;
+	}
+
+	/**
+	 * @return the assetList
+	 */
+	public List<Asset> getAssetList() {
+		return assetList;
+	}
+
+	/**
+	 * @param assetList the assetList to set
+	 */
+	public void setAssetList(List<Asset> assetList) {
+		this.assetList = assetList;
+	}
 
 }

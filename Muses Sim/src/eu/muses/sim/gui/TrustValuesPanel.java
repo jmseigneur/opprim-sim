@@ -65,6 +65,9 @@ public class TrustValuesPanel extends JPanel {
 		add(lblNewAsset, gbc_lblNewAsset);
 
 		final JComboBox<SimUser> comboBox = new JComboBox<SimUser>();
+		for (SimUser user : GuiMain.getSimUsers()) {
+			comboBox.addItem(user);
+		}
 		comboBox.addItem(GuiMain.getUserCso());
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.anchor = GridBagConstraints.WEST;

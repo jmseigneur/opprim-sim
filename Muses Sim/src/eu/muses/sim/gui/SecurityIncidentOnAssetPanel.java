@@ -113,23 +113,13 @@ public class SecurityIncidentOnAssetPanel extends JPanel {
 		JButton btnRunSimulation = new JButton("Run Simulation");
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				if (GuiMain.getSimAmount() > GuiMain.getIncidentAmount()){
+				
 				try {
-					AccessRequest accessRequest = SimUser
-							.requestsAccessToAsset(GuiMain
-									.getMaterialForPatentProposal());
-					OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor();
-					opportunityDescriptor
-							.setDescription("user1 must access documents for a 150 000 kEuros bid to win a new project to submit it"
-									+ " now or it will be too late because the deadline will have passed");
-					opportunityDescriptor
-							.addOutcome(new Outcome(
-									"150k eur can be won if the material is used and submitted",
-									150.0));
-					opportunityDescriptor.addRequestedAsset(GuiMain
-							.getMaterialForPatentProposal());
-					accessRequest
-							.setOpportunityDescriptor(opportunityDescriptor);
-					accessRequest.setUser(GuiMain.getUserCso());
+					
+					GuiMain.setIncidentAmount(GuiMain.getIncidentAmount()+1);
+					AccessRequest accessRequest = GuiMain.getAccessRequest();
 
 					// Much later assuming there is a security incident on the
 					// asset
@@ -167,6 +157,14 @@ public class SecurityIncidentOnAssetPanel extends JPanel {
 							"Error", JOptionPane.OK_CANCEL_OPTION,
 							JOptionPane.ERROR_MESSAGE);
 				}
+			}else{
+				
+				JOptionPane.showConfirmDialog(null,
+						"There was already a security incident reported for the last asset access request",
+						"Notice", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.INFORMATION_MESSAGE);
+				
+			}
 			}
 		});
 		GridBagConstraints gbc_btnRunSimulation = new GridBagConstraints();

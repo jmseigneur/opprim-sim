@@ -24,21 +24,13 @@ import java.awt.Component;
 import javax.swing.Box;
 
 import eu.muses.sim.riskman.asset.Asset;
-import eu.muses.wp5.CluesThreatEntry;
-import eu.muses.wp5.CluesThreatTable;
+import eu.muses.sim.test.SimUser;
+import eu.muses.sim.trustman.TrustValue;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
-import javax.swing.JTable;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
-
-public class CluesandThreatsPanel extends JPanel {
+public class UserPanel extends JPanel {
 
 	/**
 	 * 
@@ -46,13 +38,12 @@ public class CluesandThreatsPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtAddAsset;
 	private JTextField textField;
-	private JTable table;
 
 	/**
 	 * Create the panel.
 	 */
-	public CluesandThreatsPanel() {
-
+	public UserPanel() {
+		setToolTipText("");
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -62,11 +53,11 @@ public class CluesandThreatsPanel extends JPanel {
 		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0,
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JLabel lblNewAsset = new JLabel("Clues and Threats Table");
+		JLabel lblNewAsset = new JLabel("New User");
 		GridBagConstraints gbc_lblNewAsset = new GridBagConstraints();
 		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewAsset.gridwidth = 17;
@@ -75,41 +66,44 @@ public class CluesandThreatsPanel extends JPanel {
 		lblNewAsset.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(lblNewAsset, gbc_lblNewAsset);
 
-		CluesThreatTable tableCluesThreats = GuiMain.getS2Rt2ae()
-				.getCluesThreatTable();
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Clues");
-		model.addColumn("Threat");
-		model.addColumn("Probability");
+		JLabel lblAssetDescription = new JLabel("User Nickname:");
+		GridBagConstraints gbc_lblAssetDescription = new GridBagConstraints();
+		gbc_lblAssetDescription.anchor = GridBagConstraints.WEST;
+		gbc_lblAssetDescription.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAssetDescription.gridx = 0;
+		gbc_lblAssetDescription.gridy = 1;
+		lblAssetDescription.setFont(new Font("Arial", Font.BOLD, 12));
+		add(lblAssetDescription, gbc_lblAssetDescription);
 
-		Collection<CluesThreatEntry> cluesThreatEntries = tableCluesThreats.getCluesThreatTable();
-		
-		for (CluesThreatEntry entry : cluesThreatEntries) {
-			System.out.println(entry.getCluesAsString());
-			System.out.println(
-					entry.getThreat().getDescription());
-			System.out.println(
-					String.valueOf(entry.getThreat().getProbability().getProb()));
-			model.addRow(new String[] {
-					entry.getCluesAsString(),
-					entry.getThreat().getDescription(),
-					String.valueOf(entry.getThreat().getProbability().getProb())});
-		}
+		txtAddAsset = new JTextField();
+		txtAddAsset.setToolTipText("add the asset description...");
+		GridBagConstraints gbc_txtAddAsset = new GridBagConstraints();
+		gbc_txtAddAsset.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtAddAsset.gridwidth = 13;
+		gbc_txtAddAsset.insets = new Insets(0, 0, 5, 5);
+		gbc_txtAddAsset.gridx = 0;
+		gbc_txtAddAsset.gridy = 2;
+		add(txtAddAsset, gbc_txtAddAsset);
+		txtAddAsset.setColumns(10);
 
-		JScrollPane scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 2;
-		add(scrollPane, gbc_scrollPane);
+		JLabel lblAssetValue = new JLabel("Trust Level:");
+		GridBagConstraints gbc_lblAssetValue = new GridBagConstraints();
+		gbc_lblAssetValue.anchor = GridBagConstraints.WEST;
+		gbc_lblAssetValue.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAssetValue.gridx = 0;
+		gbc_lblAssetValue.gridy = 3;
+		lblAssetValue.setFont(new Font("Arial", Font.BOLD, 12));
+		add(lblAssetValue, gbc_lblAssetValue);
 
-		table = new JTable(model);
-		scrollPane.setViewportView(table);
-		scrollPane.setBackground(Color.WHITE);
-		table.setRowSelectionAllowed(false);
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setBackground(Color.WHITE);
+		textField = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.gridwidth = 3;
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 0;
+		gbc_textField.gridy = 4;
+		add(textField, gbc_textField);
+		textField.setColumns(10);
 
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
@@ -125,21 +119,23 @@ public class CluesandThreatsPanel extends JPanel {
 		gbc_verticalStrut.gridy = 6;
 		add(verticalStrut, gbc_verticalStrut);
 
-		JButton btnSaveAsset = new JButton("Go Back");
+		JButton btnSaveAsset = new JButton("Save User");
 		btnSaveAsset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					SimUser u = new SimUser(txtAddAsset.getText(), 60);
+					u.setTrustValue(new TrustValue(Double
+							.parseDouble(textField.getText())));
+					GuiMain.getSimUsers().add(u);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);
 				} catch (Exception ex) {
 					ex.printStackTrace();
-					JOptionPane
-							.showConfirmDialog(
-									null,
-									"Clues and Threats couldn't be retrieved, try later",
-									"Error", JOptionPane.OK_CANCEL_OPTION,
-									JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showConfirmDialog(null,
+							"Input should be correctly filled", "Wrong Input",
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
