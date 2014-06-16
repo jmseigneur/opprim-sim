@@ -36,7 +36,12 @@ public class Outcome {
         this.description = description;
     }
 
-    /**
+    public Outcome() {
+		// TODO Auto-generated constructor stub
+    	super();
+	}
+
+	/**
      * Gets the cost benefit.
      *
      * @return the cost benefit
@@ -61,6 +66,20 @@ public class Outcome {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return this.description + " - " + this.costBenefit;
+	}
+
+	/**
+	 * @param costBenefit the costBenefit to set
+	 */
+	public void setCostBenefit(double costBenefit) {
+		this.costBenefit = costBenefit;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
     

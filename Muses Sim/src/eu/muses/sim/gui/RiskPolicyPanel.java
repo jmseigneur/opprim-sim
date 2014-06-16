@@ -38,6 +38,7 @@ public class RiskPolicyPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Create the panel.
@@ -83,45 +84,23 @@ public class RiskPolicyPanel extends JPanel {
 		gbc_textField.gridy = 2;
 		add(textField, gbc_textField);
 		textField.setColumns(10);
-
-		final JCheckBox chckbxNewCheckBox = new JCheckBox(
-				"Use custom Risk Value");
-		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
-		gbc_chckbxNewCheckBox.anchor = GridBagConstraints.WEST;
-		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxNewCheckBox.gridx = 2;
-		gbc_chckbxNewCheckBox.gridy = 2;
-		add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
-
-		JLabel lblOr = new JLabel("- OR -");
-		GridBagConstraints gbc_lblOr = new GridBagConstraints();
-		gbc_lblOr.anchor = GridBagConstraints.WEST;
-		gbc_lblOr.insets = new Insets(0, 0, 5, 5);
-		gbc_lblOr.gridx = 0;
-		gbc_lblOr.gridy = 3;
-		lblOr.setFont(new Font("Arial", Font.BOLD, 12));
-		add(lblOr, gbc_lblOr);
-
-		JLabel lblSelectAPredefined = new JLabel(
-				"Select a Predefined Risk Level:");
-		GridBagConstraints gbc_lblSelectAPredefined = new GridBagConstraints();
-		gbc_lblSelectAPredefined.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSelectAPredefined.gridx = 0;
-		gbc_lblSelectAPredefined.gridy = 4;
-		lblSelectAPredefined.setFont(new Font("Arial", Font.BOLD, 12));
-		add(lblSelectAPredefined, gbc_lblSelectAPredefined);
-
-		final JComboBox<RiskValue> comboBox = new JComboBox<RiskValue>();
-		comboBox.addItem(RiskValue.TAKE_NO_RISK);
-		comboBox.addItem(RiskValue.TAKE_AVERAGE_RISK);
-		comboBox.addItem(RiskValue.TAKE_FULL_RISK);
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 4;
-		gbc_comboBox.anchor = GridBagConstraints.WEST;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.gridx = 0;
-		gbc_comboBox.gridy = 5;
-		add(comboBox, gbc_comboBox);
+		
+		JLabel lblAddPolicyName = new JLabel("Add Policy Name:");
+		GridBagConstraints gbc_lblAddPolicyName = new GridBagConstraints();
+		gbc_lblAddPolicyName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAddPolicyName.gridx = 0;
+		gbc_lblAddPolicyName.gridy = 3;
+		lblAddPolicyName.setFont(new Font("Arial", Font.BOLD, 12));
+		add(lblAddPolicyName, gbc_lblAddPolicyName);
+		
+		textField_1 = new JTextField();
+		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 0;
+		gbc_textField_1.gridy = 4;
+		add(textField_1, gbc_textField_1);
+		textField_1.setColumns(10);
 
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
@@ -141,11 +120,12 @@ public class RiskPolicyPanel extends JPanel {
 		btnSavePolicy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (chckbxNewCheckBox.isSelected()) {
 					try {
+						if(Double.parseDouble(textField.getText()) > 1.0)
+							throw new Exception();
 						RiskPolicy rp = new RiskPolicy(new RiskValue(Double
 								.parseDouble(textField.getText()),
-								"Custom Policy"), null);
+								textField_1.getText()), null);
 						GuiMain.getRiskPolicies().add(rp);
 						GuiMain.initializeHomePanel();
 						JPanel mainPanel = GuiMain.getMainPanel();
@@ -157,15 +137,6 @@ public class RiskPolicyPanel extends JPanel {
 								"Wrong Input", JOptionPane.OK_CANCEL_OPTION,
 								JOptionPane.ERROR_MESSAGE);
 					}
-				} else {
-					RiskPolicy rp = new RiskPolicy((RiskValue) comboBox
-							.getSelectedItem(), null);
-					GuiMain.getRiskPolicies().add(rp);
-					GuiMain.initializeHomePanel();
-					JPanel mainPanel = GuiMain.getMainPanel();
-					GuiMain.switchPanel(mainPanel);
-				}
-
 			}
 		});
 		GridBagConstraints gbc_btnSavePolicy = new GridBagConstraints();

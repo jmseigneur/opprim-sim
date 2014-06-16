@@ -38,7 +38,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 	private EventProcessor eventProcessor;
 
 	/** The clues threat table. */
-	private static CluesThreatTable cluesThreatTable;
+	private static CluesThreatTable cluesThreatTable = new CluesThreatTable();
 
 	/** The risk policy. */
 	private RiskPolicy riskPolicy;
@@ -208,6 +208,8 @@ public class RealTimeRiskTrustAnalysisEngine {
 			// currentThreats = eventProcessor.getThreats(asset,
 			// this.getTrustValue(accessRequest.getUser()));
 			clues = this.eventProcessor.getClues(asset);
+			clues.add(new Clue(accessRequest.getUser().getNickname()));
+			clues.add(new Clue(requestedAssests.iterator().next().getAssetName()));
 			for (Clue clue : clues) {
 				System.out.println("The clue associated with Asset "
 						+ asset.getAssetName() + " is " + clue.getId() + "\n");

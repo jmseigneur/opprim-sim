@@ -132,12 +132,21 @@ public class GuiMain {
 
 		userCso.setTrustValue(new TrustValue(0.5));
 		GuiMain.s2.setCso(GuiMain.userCso);
+		clues.add(Clue.antivirusClue);
+		clues.add(Clue.firewallClue);
+		clues.add(Clue.vpnClue);
+		assets.add(new Asset("Important File", 1000));
+		assets.add(new Asset("Irrelevant File", 0));
+		riskPolicies.add(RiskPolicy.TAKE_FULL_RISK);
+		riskPolicies.add(RiskPolicy.TAKE_MEDIUM_RISK);
+		riskPolicies.add(RiskPolicy.TAKE_NO_RISK);
+		
 		GuiMain.musesUsersDevicesAndAssetsConfigurationsSteps();
-		try {
+		/*try {
 			GuiMain.s2Rt2ae.initCluesThreatTable();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		initialize();
 
 	}
@@ -236,7 +245,7 @@ public class GuiMain {
 			}
 		});*/
 
-		JMenuItem mntmOutcomes = new JMenuItem("Outcomes");
+		/*JMenuItem mntmOutcomes = new JMenuItem("Outcomes");
 		mntmOutcomes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Outcome panel initialization
@@ -244,7 +253,7 @@ public class GuiMain {
 				switchPanel(outcomePanel);
 			}
 		});
-		mnConfigurationMenu.add(mntmOutcomes);
+		mnConfigurationMenu.add(mntmOutcomes);*/
 		/*mnConfigurationMenu.add(mntmThreats);*/
 
 		JMenuItem mntmOpportunities = new JMenuItem("Opportunities");
