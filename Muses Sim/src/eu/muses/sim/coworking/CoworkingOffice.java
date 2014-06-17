@@ -14,18 +14,18 @@ import eu.muses.sim.context.location.Location;
  */
 public class CoworkingOffice extends Location {
 
-    /**
-     * Instantiates a new coworking office.
-     *
-     * @param name
-     *            the name
-     * @param lat
-     *            the lat
-     * @param lon
-     *            the lon
-     */
-    public CoworkingOffice(String name, double lat, double lon) {
-        super(name, lat, lon);
-    }
+	/**
+	 * Instantiates a new coworking office.
+	 *
+	 * @param name
+	 *            the name
+	 * @param lat
+	 *            the lat
+	 * @param lon
+	 *            the lon
+	 */
+	public CoworkingOffice(String name, double lat, double lon) {
+		super(name, lat, lon);
+	}
 
 }

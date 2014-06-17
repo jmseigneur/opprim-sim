@@ -20,6 +20,7 @@ import java.awt.Component;
 
 import javax.swing.Box;
 
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.wp5.Clue;
 import eu.muses.wp5.CluesThreatTable;
 
@@ -101,11 +102,11 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Clue c = new Clue(textField.getText());
-					CluesThreatTable table = GuiMain.getS2Rt2ae()
+					CluesThreatTable table = InMemoryPersistenceManager
 							.getCluesThreatTable();
 					table.addMapping(Arrays.asList(c), null);
-					GuiMain.getS2Rt2ae().setCluesThreatTable(table);
-					GuiMain.getClues().add(c);
+					InMemoryPersistenceManager.setCluesThreatTable(table);
+					InMemoryPersistenceManager.getClues().add(c);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

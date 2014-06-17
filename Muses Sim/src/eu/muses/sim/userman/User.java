@@ -16,33 +16,35 @@ import eu.muses.sim.request.AccessRequest;
  */
 public class User {
 
-    /** The access requests. */
-    private Vector<AccessRequest> accessRequests = new Vector<AccessRequest>();
+	/** The access requests. */
+	private Vector<AccessRequest> accessRequests = new Vector<AccessRequest>();
 
-    /** The nickname. */
-    private String nickname;
+	/** The nickname. */
+	private String nickname;
 
-    /**
-     * Instantiates a new user.
-     *
-     * @param nickname
-     *            the nickname
-     */
-    public User(String nickname) {
-        super();
-        this.nickname = nickname;
-    }
+	/**
+	 * Instantiates a new user.
+	 *
+	 * @param nickname
+	 *            the nickname
+	 */
+	public User(String nickname) {
+		super();
+		this.nickname = nickname;
+	}
 
-    /**
-     * Gets the nickname.
-     *
-     * @return the nickname
-     */
-    public String getNickname() {
-        return this.nickname;
-    }
+	/**
+	 * Gets the nickname.
+	 *
+	 * @return the nickname
+	 */
+	public String getNickname() {
+		return this.nickname;
+	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -51,6 +53,4 @@ public class User {
 		return this.nickname;
 	}
 
-    
-    
 }

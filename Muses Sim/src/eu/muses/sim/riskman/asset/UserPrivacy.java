@@ -12,17 +12,17 @@ package eu.muses.sim.riskman.asset;
  */
 public class UserPrivacy extends Asset {
 
-    /**
-     * Instantiates a new user privacy.
-     *
-     * @param assetName
-     *            the asset name
-     * @param value
-     *            the value
-     */
-    public UserPrivacy(String assetName, double value) {
-        super(assetName, value);
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Instantiates a new user privacy.
+	 *
+	 * @param assetName
+	 *            the asset name
+	 * @param value
+	 *            the value
+	 */
+	public UserPrivacy(String assetName, double value) {
+		super(assetName, value);
+		// TODO Auto-generated constructor stub
+	}
 
 }

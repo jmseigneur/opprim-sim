@@ -12,17 +12,17 @@ package eu.muses.sim.riskman.asset;
  */
 public class Reputation extends Asset {
 
-    /**
-     * Instantiates a new reputation.
-     *
-     * @param assetName
-     *            the asset name
-     * @param value
-     *            the value
-     */
-    public Reputation(String assetName, double value) {
-        super(assetName, value);
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Instantiates a new reputation.
+	 *
+	 * @param assetName
+	 *            the asset name
+	 * @param value
+	 *            the value
+	 */
+	public Reputation(String assetName, double value) {
+		super(assetName, value);
+		// TODO Auto-generated constructor stub
+	}
 
 }

@@ -16,104 +16,107 @@ import eu.muses.sim.riskman.threat.Threat;
  */
 public class CluesThreatEntry {
 
-    /** The clues. */
-    private List<Clue> clues;
+	/** The clues. */
+	private List<Clue> clues;
 
-    /** The threat. */
-    private Threat threat;
+	/** The threat. */
+	private Threat threat;
 
-    /**
-     * Instantiates a new clues threat entry.
-     */
-    public CluesThreatEntry() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Instantiates a new clues threat entry.
+	 */
+	public CluesThreatEntry() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    /**
-     * Instantiates a new clues threat entry.
-     *
-     * @param clues
-     *            the clues
-     * @param threat
-     *            the threat
-     */
-    public CluesThreatEntry(List<Clue> clues, Threat threat) {
-        super();
-        this.clues = clues;
-        this.threat = threat;
-    }
+	/**
+	 * Instantiates a new clues threat entry.
+	 *
+	 * @param clues
+	 *            the clues
+	 * @param threat
+	 *            the threat
+	 */
+	public CluesThreatEntry(List<Clue> clues, Threat threat) {
+		super();
+		this.clues = clues;
+		this.threat = threat;
+	}
 
-    /**
-     * Contains clues.
-     *
-     * @param clueList
-     *            the clue list
-     * @return true, if successful
-     */
-    public boolean containsClues(List<Clue> clueList) {
+	/**
+	 * Contains clues.
+	 *
+	 * @param clueList
+	 *            the clue list
+	 * @return true, if successful
+	 */
+	public boolean containsClues(List<Clue> clueList) {
 
-        int count = 0;
-        for (Clue clue : this.clues) {
-            if (clueList.contains(clue)) {
-                count++;
-            }
-        }
+		int count = 0;
+		for (Clue clue : this.clues) {
+			for (Clue cl : clueList) {
 
-        if (count == this.clues.size()) {
-            return true;
-        }
+				if (cl.getId() == clue.getId()) {
+					count++;
+				}
+			}
+		}
 
-        return false;
+		if (count == this.clues.size()) {
+			return true;
+		}
 
-    }
+		return false;
 
-    /**
-     * Gets the clues.
-     *
-     * @return the clues
-     */
-    public List<Clue> getClues() {
-        return this.clues;
-    }
+	}
 
-    /**
-     * Gets the threat.
-     *
-     * @return the threat
-     */
-    public Threat getThreat() {
-        return this.threat;
-    }
+	/**
+	 * Gets the clues.
+	 *
+	 * @return the clues
+	 */
+	public List<Clue> getClues() {
+		return this.clues;
+	}
 
-    /**
-     * Sets the clues.
-     *
-     * @param clues
-     *            the new clues
-     */
-    public void setClues(List<Clue> clues) {
-        this.clues = clues;
-    }
+	/**
+	 * Gets the threat.
+	 *
+	 * @return the threat
+	 */
+	public Threat getThreat() {
+		return this.threat;
+	}
 
-    /**
-     * Sets the threat.
-     *
-     * @param threat
-     *            the new threat
-     */
-    public void setThreat(Threat threat) {
-        this.threat = threat;
-    }
-    
-    public String getCluesAsString(){
-    	
-    	String clueNames = "";
-    	for (Clue clue : this.clues) {
+	/**
+	 * Sets the clues.
+	 *
+	 * @param clues
+	 *            the new clues
+	 */
+	public void setClues(List<Clue> clues) {
+		this.clues = clues;
+	}
+
+	/**
+	 * Sets the threat.
+	 *
+	 * @param threat
+	 *            the new threat
+	 */
+	public void setThreat(Threat threat) {
+		this.threat = threat;
+	}
+
+	public String getCluesAsString() {
+
+		String clueNames = "";
+		for (Clue clue : this.clues) {
 			clueNames = clueNames + clue.getId() + " - ";
 		}
-    	
-    	return clueNames.substring(0, clueNames.length()-2);
-    }
+
+		return clueNames.substring(0, clueNames.length() - 2);
+	}
 
 }

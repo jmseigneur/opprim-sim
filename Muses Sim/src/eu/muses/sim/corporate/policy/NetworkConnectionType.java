@@ -12,36 +12,39 @@ package eu.muses.sim.corporate.policy;
  */
 public class NetworkConnectionType {
 
-    /** The name. */
-    private String name;
+	/** The name. */
+	private String name;
 
-    /** The Constant COMPANY_INTRANET. */
-    public final static NetworkConnectionType COMPANY_INTRANET = new NetworkConnectionType("Company Intranet");
+	/** The Constant COMPANY_INTRANET. */
+	public final static NetworkConnectionType COMPANY_INTRANET = new NetworkConnectionType(
+			"Company Intranet");
 
-    /** The Constant VPN. */
-    public final static NetworkConnectionType VPN = new NetworkConnectionType("VPN");
+	/** The Constant VPN. */
+	public final static NetworkConnectionType VPN = new NetworkConnectionType(
+			"VPN");
 
-    /** The Constant EXTERNAL. */
-    public final static NetworkConnectionType EXTERNAL = new NetworkConnectionType("External");
+	/** The Constant EXTERNAL. */
+	public final static NetworkConnectionType EXTERNAL = new NetworkConnectionType(
+			"External");
 
-    /**
-     * Instantiates a new network connection type.
-     *
-     * @param name
-     *            the name
-     */
-    public NetworkConnectionType(String name) {
-        super();
-        this.name = name;
-    }
+	/**
+	 * Instantiates a new network connection type.
+	 *
+	 * @param name
+	 *            the name
+	 */
+	public NetworkConnectionType(String name) {
+		super();
+		this.name = name;
+	}
 
-    /**
-     * Gets the name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return this.name;
-    }
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
+	public String getName() {
+		return this.name;
+	}
 
 }

@@ -24,6 +24,7 @@ import java.awt.Component;
 import javax.swing.Box;
 
 import eu.muses.sim.Outcome;
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -138,9 +139,10 @@ public class OutcomePanel extends JPanel {
 				try {
 					Outcome o = new Outcome(txtAddAsset.getText(), Double
 							.parseDouble(textField.getText()));
-					List<Outcome> olist = GuiMain.getOutcomes();
+					List<Outcome> olist = InMemoryPersistenceManager
+							.getOutcomes();
 					olist.add(o);
-					GuiMain.setOutcomes(olist);
+					InMemoryPersistenceManager.setOutcomes(olist);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

@@ -113,58 +113,64 @@ public class SecurityIncidentOnAssetPanel extends JPanel {
 		JButton btnRunSimulation = new JButton("Run Simulation");
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if (GuiMain.getSimAmount() > GuiMain.getIncidentAmount()){
-				
-				try {
-					
-					GuiMain.setIncidentAmount(GuiMain.getIncidentAmount()+1);
-					AccessRequest accessRequest = GuiMain.getAccessRequest();
 
-					// Much later assuming there is a security incident on the
-					// asset
-					SecurityIncident securityIncidentOnPatent = new SecurityIncident(
-							"Patent is invalidated", GuiMain
-									.getMaterialForPatentProposal().getValue()); // the
-																					// MUSES
-																					// WP5
-																					// event
-																					// correlator
-																					// would
-																					// detect
-					// this incident
-					GuiMain.getS2EventCorrelator().reportsSecurityIncident(
-							securityIncidentOnPatent);
-					if (GuiMain.getS2EventCorrelator()
-							.seemsUserInvolvedInSecurityIncident(
-									GuiMain.getUser1()) > 0.8) {
-						System.out
-								.println("S2 Event Correlator detected a security incident possibly linked to the user");
-						GuiMain.getS2MusesClientApp()
-								.warnsUserResponsibleForSecurityIncident(
-										GuiMain.getUser1(),
-										securityIncidentOnPatent);
-						GuiMain.getS2Rt2ae().decreasesTrustInUser(
-								GuiMain.getUser1(), securityIncidentOnPatent);
-						GuiMain.getS2Rt2ae()
-								.recalculateThreatProbabilitiesWhenIncident(
-										accessRequest);
+				if (GuiMain.getSimAmount() > GuiMain.getIncidentAmount()) {
+
+					try {
+
+						GuiMain.setIncidentAmount(GuiMain.getIncidentAmount() + 1);
+						AccessRequest accessRequest = GuiMain
+								.getAccessRequest();
+
+						// Much later assuming there is a security incident on
+						// the
+						// asset
+						SecurityIncident securityIncidentOnPatent = new SecurityIncident(
+								"Patent is invalidated", GuiMain
+										.getMaterialForPatentProposal()
+										.getValue()); // the
+														// MUSES
+														// WP5
+														// event
+														// correlator
+														// would
+														// detect
+						// this incident
+						GuiMain.getS2EventCorrelator().reportsSecurityIncident(
+								securityIncidentOnPatent);
+						if (GuiMain.getS2EventCorrelator()
+								.seemsUserInvolvedInSecurityIncident(
+										GuiMain.getUser1()) > 0.8) {
+							System.out
+									.println("S2 Event Correlator detected a security incident possibly linked to the user");
+							GuiMain.getS2MusesClientApp()
+									.warnsUserResponsibleForSecurityIncident(
+											GuiMain.getUser1(),
+											securityIncidentOnPatent);
+							GuiMain.getS2Rt2ae().decreasesTrustInUser(
+									GuiMain.getUser1(),
+									securityIncidentOnPatent);
+							GuiMain.getS2Rt2ae()
+									.recalculateThreatProbabilitiesWhenIncident(
+											accessRequest);
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+						JOptionPane.showConfirmDialog(null,
+								"Something went wrong with the simulation",
+								"Error", JOptionPane.OK_CANCEL_OPTION,
+								JOptionPane.ERROR_MESSAGE);
 					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-					JOptionPane.showConfirmDialog(null,
-							"Something went wrong with the simulation",
-							"Error", JOptionPane.OK_CANCEL_OPTION,
-							JOptionPane.ERROR_MESSAGE);
+				} else {
+
+					JOptionPane
+							.showConfirmDialog(
+									null,
+									"There was already a security incident reported for the last asset access request",
+									"Notice", JOptionPane.OK_CANCEL_OPTION,
+									JOptionPane.INFORMATION_MESSAGE);
+
 				}
-			}else{
-				
-				JOptionPane.showConfirmDialog(null,
-						"There was already a security incident reported for the last asset access request",
-						"Notice", JOptionPane.OK_CANCEL_OPTION,
-						JOptionPane.INFORMATION_MESSAGE);
-				
-			}
 			}
 		});
 		GridBagConstraints gbc_btnRunSimulation = new GridBagConstraints();

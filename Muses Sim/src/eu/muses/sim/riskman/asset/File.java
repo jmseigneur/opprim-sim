@@ -12,17 +12,17 @@ package eu.muses.sim.riskman.asset;
  */
 public class File extends Asset {
 
-    /**
-     * Instantiates a new equipment.
-     *
-     * @param assetName
-     *            the asset name
-     * @param value
-     *            the value
-     */
-    public File(String assetName, double value) {
-        super(assetName, value);
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Instantiates a new equipment.
+	 *
+	 * @param assetName
+	 *            the asset name
+	 * @param value
+	 *            the value
+	 */
+	public File(String assetName, double value) {
+		super(assetName, value);
+		// TODO Auto-generated constructor stub
+	}
 
 }

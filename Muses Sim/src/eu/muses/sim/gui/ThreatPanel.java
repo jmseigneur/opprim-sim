@@ -23,6 +23,7 @@ import java.awt.Component;
 import javax.swing.Box;
 
 import eu.muses.sim.Outcome;
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.wp5.Clue;
@@ -99,8 +100,9 @@ public class ThreatPanel extends JPanel {
 		add(lblAttachAnOutcome, gbc_lblAttachAnOutcome);
 
 		final JComboBox<Outcome> comboBox = new JComboBox<Outcome>();
-		if (GuiMain.getOutcomes() != null && !GuiMain.getOutcomes().isEmpty()) {
-			for (Outcome o : GuiMain.getOutcomes()) {
+		if (InMemoryPersistenceManager.getOutcomes() != null
+				&& !InMemoryPersistenceManager.getOutcomes().isEmpty()) {
+			for (Outcome o : InMemoryPersistenceManager.getOutcomes()) {
 				comboBox.addItem(o);
 			}
 		} else {
@@ -124,7 +126,8 @@ public class ThreatPanel extends JPanel {
 		add(lblAttachAClue, gbc_lblAttachAClue);
 
 		final JComboBox<Clue> comboBox_1 = new JComboBox<Clue>();
-		CluesThreatTable table = GuiMain.getS2Rt2ae().getCluesThreatTable();
+		CluesThreatTable table = InMemoryPersistenceManager
+				.getCluesThreatTable();
 		for (CluesThreatEntry entry : table.getCluesThreatTable()) {
 			List<Clue> clues = entry.getClues();
 			for (Clue clue : clues) {
@@ -152,7 +155,7 @@ public class ThreatPanel extends JPanel {
 				try {
 					Threat t = new Threat(textField.getText(), new Probability(
 							0.5), (Outcome) comboBox.getSelectedItem());
-					CluesThreatTable table = GuiMain.getS2Rt2ae()
+					CluesThreatTable table = InMemoryPersistenceManager
 							.getCluesThreatTable();
 					Collection<CluesThreatEntry> entries = table
 							.getCluesThreatTable();
@@ -165,7 +168,7 @@ public class ThreatPanel extends JPanel {
 
 					table.setCluesThreatTable(entries);
 					System.out.println(table.toString());
-					GuiMain.getS2Rt2ae().setCluesThreatTable(table);
+					InMemoryPersistenceManager.setCluesThreatTable(table);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

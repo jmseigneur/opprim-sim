@@ -20,208 +20,218 @@ import eu.muses.sim.riskman.vulnerability.Vulnerability;
  */
 public class Threat extends RiskEvent {
 
-    /**
-     * @uml.property name="vulnerabilities"
-     * @uml.associationEnd multiplicity="(0 -1)" inverse="threat:eu.muses.sim.riskman.vulnerability.Vulnerability"
-     * @uml.association name="exploits"
-     */
-    private Collection<Vulnerability> vulnerabilities;
+	/**
+	 * @uml.property name="vulnerabilities"
+	 * @uml.associationEnd multiplicity="(0 -1)"
+	 *                     inverse="threat:eu.muses.sim.riskman.vulnerability.Vulnerability"
+	 * @uml.association name="exploits"
+	 */
+	private Collection<Vulnerability> vulnerabilities;
 
-    /** The description. */
-    private String description;
+	/** The description. */
+	private String description;
 
-    /**
-     * Instantiates a new threat.
-     *
-     * @param description
-     *            the description
-     * @param probability
-     *            the probability
-     * @param outcomes
-     *            the outcomes
-     */
-    public Threat(String description, Probability probability, Collection<Outcome> outcomes) {
-        super(probability, outcomes);
-        this.description = description;
-    }
-    
-    /**
-     * Instantiates a new threat with a single outcome.
-     *
-     * @param description
-     *            the description
-     * @param probability
-     *            the probability
-     * @param outcome
-     *            the outcome
-     */
-    public Threat(String description, Probability probability, Outcome outcome) {
-        super(probability, outcome);
-        this.description = description;
-    }
+	/**
+	 * Instantiates a new threat.
+	 *
+	 * @param description
+	 *            the description
+	 * @param probability
+	 *            the probability
+	 * @param outcomes
+	 *            the outcomes
+	 */
+	public Threat(String description, Probability probability,
+			Collection<Outcome> outcomes) {
+		super(probability, outcomes);
+		this.description = description;
+	}
 
-    /**
-     * Ensures that this collection contains the specified element (optional operation).
-     *
-     * @param vulnerability
-     *            the vulnerability
-     * @return true, if successful
-     * @see java.util.Collection#add(Object)
-     * @uml.property name="vulnerabilities"
-     */
-    public boolean addVulnerabilities(Vulnerability vulnerability) {
-        return this.vulnerabilities.add(vulnerability);
-    }
+	/**
+	 * Instantiates a new threat with a single outcome.
+	 *
+	 * @param description
+	 *            the description
+	 * @param probability
+	 *            the probability
+	 * @param outcome
+	 *            the outcome
+	 */
+	public Threat(String description, Probability probability, Outcome outcome) {
+		super(probability, outcome);
+		this.description = description;
+	}
 
-    /**
-     * Removes all of the elements from this collection (optional operation).
-     * 
-     * @see java.util.Collection#clear()
-     * @uml.property name="vulnerabilities"
-     */
-    public void clearVulnerabilities() {
-        this.vulnerabilities.clear();
-    }
+	/**
+	 * Ensures that this collection contains the specified element (optional
+	 * operation).
+	 *
+	 * @param vulnerability
+	 *            the vulnerability
+	 * @return true, if successful
+	 * @see java.util.Collection#add(Object)
+	 * @uml.property name="vulnerabilities"
+	 */
+	public boolean addVulnerabilities(Vulnerability vulnerability) {
+		return this.vulnerabilities.add(vulnerability);
+	}
 
-    /**
-     * Returns <tt>true</tt> if this collection contains all of the elements in the specified collection.
-     *
-     * @param vulnerabilities
-     *            the vulnerabilities
-     * @return true, if successful
-     * @see java.util.Collection#containsAll(Collection)
-     * @uml.property name="vulnerabilities"
-     */
-    public boolean containsAllVulnerabilities(Collection<? extends Vulnerability> vulnerabilities) {
-        return vulnerabilities.containsAll(vulnerabilities);
-    }
+	/**
+	 * Removes all of the elements from this collection (optional operation).
+	 * 
+	 * @see java.util.Collection#clear()
+	 * @uml.property name="vulnerabilities"
+	 */
+	public void clearVulnerabilities() {
+		this.vulnerabilities.clear();
+	}
 
-    /**
-     * Returns <tt>true</tt> if this collection contains the specified element.
-     *
-     * @param vulnerability
-     *            the vulnerability
-     * @return true, if successful
-     * @see java.util.Collection#contains(Object)
-     * @uml.property name="vulnerabilities"
-     */
-    public boolean containsVulnerabilities(Vulnerability vulnerability) {
-        return this.vulnerabilities.contains(vulnerability);
-    }
+	/**
+	 * Returns <tt>true</tt> if this collection contains all of the elements in
+	 * the specified collection.
+	 *
+	 * @param vulnerabilities
+	 *            the vulnerabilities
+	 * @return true, if successful
+	 * @see java.util.Collection#containsAll(Collection)
+	 * @uml.property name="vulnerabilities"
+	 */
+	public boolean containsAllVulnerabilities(
+			Collection<? extends Vulnerability> vulnerabilities) {
+		return vulnerabilities.containsAll(vulnerabilities);
+	}
 
-    /**
-     * Gets the description.
-     *
-     * @return the description
-     */
-    public String getDescription() {
-        return this.description;
-    }
+	/**
+	 * Returns <tt>true</tt> if this collection contains the specified element.
+	 *
+	 * @param vulnerability
+	 *            the vulnerability
+	 * @return true, if successful
+	 * @see java.util.Collection#contains(Object)
+	 * @uml.property name="vulnerabilities"
+	 */
+	public boolean containsVulnerabilities(Vulnerability vulnerability) {
+		return this.vulnerabilities.contains(vulnerability);
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see eu.muses.sim.riskman.RiskEvent#getProbability()
-     */
-    @Override
-    public Probability getProbability() {
-        return this.probability;
-    }
-    
-    public double getProbabilityValue() {
-        return this.probability.getProb();
-    }
+	/**
+	 * Gets the description.
+	 *
+	 * @return the description
+	 */
+	public String getDescription() {
+		return this.description;
+	}
 
-    /**
-     * Gets the vulnerabilities.
-     *
-     * @return the vulnerabilities
-     */
-    public Collection<Vulnerability> getVulnerabilities() {
-        return this.vulnerabilities;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see eu.muses.sim.riskman.RiskEvent#getProbability()
+	 */
+	@Override
+	public Probability getProbability() {
+		return this.probability;
+	}
 
-    /**
-     * Checks if is vulnerabilities empty.
-     *
-     * @return true, if is vulnerabilities empty
-     */
-    public boolean isVulnerabilitiesEmpty() {
-        return this.vulnerabilities.isEmpty();
-    }
+	public double getProbabilityValue() {
+		return this.probability.getProb();
+	}
 
-    /**
-     * Removes a single instance of the specified element from this collection, if it is present (optional operation).
-     *
-     * @param vulnerability
-     *            the vulnerability
-     * @return true, if successful
-     * @see java.util.Collection#add(Object)
-     * @uml.property name="vulnerabilities"
-     */
-    public boolean removeVulnerabilities(Vulnerability vulnerability) {
-        return this.vulnerabilities.remove(vulnerability);
-    }
+	/**
+	 * Gets the vulnerabilities.
+	 *
+	 * @return the vulnerabilities
+	 */
+	public Collection<Vulnerability> getVulnerabilities() {
+		return this.vulnerabilities;
+	}
 
-    /**
-     * Sets the description.
-     *
-     * @param description
-     *            the new description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * Checks if is vulnerabilities empty.
+	 *
+	 * @return true, if is vulnerabilities empty
+	 */
+	public boolean isVulnerabilitiesEmpty() {
+		return this.vulnerabilities.isEmpty();
+	}
 
-    /*
-     * (non-Javadoc)
-     * @see eu.muses.sim.riskman.RiskEvent#setProbability(eu.muses.sim.riskman.Probability)
-     */
-    @Override
-    public void setProbability(Probability probability) {
-        this.probability = probability;
-    }
+	/**
+	 * Removes a single instance of the specified element from this collection,
+	 * if it is present (optional operation).
+	 *
+	 * @param vulnerability
+	 *            the vulnerability
+	 * @return true, if successful
+	 * @see java.util.Collection#add(Object)
+	 * @uml.property name="vulnerabilities"
+	 */
+	public boolean removeVulnerabilities(Vulnerability vulnerability) {
+		return this.vulnerabilities.remove(vulnerability);
+	}
 
-    /**
-     * Sets the vulnerabilities.
-     *
-     * @param vulnerabilities
-     *            the new vulnerabilities
-     */
-    public void setVulnerabilities(Collection<Vulnerability> vulnerabilities) {
-        this.vulnerabilities = vulnerabilities;
-    }
+	/**
+	 * Sets the description.
+	 *
+	 * @param description
+	 *            the new description
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    /**
-     * Returns an iterator over the elements in this collection.
-     * 
-     * @return an <tt>Iterator</tt> over the elements in this collection
-     * @see java.util.Collection#iterator()
-     * @uml.property name="vulnerabilities"
-     */
-    public Iterator<Vulnerability> vulnerabilitiesIterator() {
-        return this.vulnerabilities.iterator();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see eu.muses.sim.riskman.RiskEvent#setProbability(eu.muses.sim.riskman.
+	 * Probability)
+	 */
+	@Override
+	public void setProbability(Probability probability) {
+		this.probability = probability;
+	}
 
-    /**
-     * Returns the number of elements in this collection.
-     * 
-     * @return the number of elements in this collection
-     * @see java.util.Collection#size()
-     * @uml.property name="vulnerabilities"
-     */
-    public int vulnerabilitiesSize() {
-        return this.vulnerabilities.size();
-    }
+	/**
+	 * Sets the vulnerabilities.
+	 *
+	 * @param vulnerabilities
+	 *            the new vulnerabilities
+	 */
+	public void setVulnerabilities(Collection<Vulnerability> vulnerabilities) {
+		this.vulnerabilities = vulnerabilities;
+	}
 
-    /**
-     * Returns all elements of this collection in an array.
-     * 
-     * @return an array containing all of the elements in this collection
-     * @see java.util.Collection#toArray()
-     * @uml.property name="vulnerabilities"
-     */
-    public Vulnerability[] vulnerabilitiesToArray() {
-        return this.vulnerabilities.toArray(new Vulnerability[this.vulnerabilities.size()]);
-    }
+	/**
+	 * Returns an iterator over the elements in this collection.
+	 * 
+	 * @return an <tt>Iterator</tt> over the elements in this collection
+	 * @see java.util.Collection#iterator()
+	 * @uml.property name="vulnerabilities"
+	 */
+	public Iterator<Vulnerability> vulnerabilitiesIterator() {
+		return this.vulnerabilities.iterator();
+	}
+
+	/**
+	 * Returns the number of elements in this collection.
+	 * 
+	 * @return the number of elements in this collection
+	 * @see java.util.Collection#size()
+	 * @uml.property name="vulnerabilities"
+	 */
+	public int vulnerabilitiesSize() {
+		return this.vulnerabilities.size();
+	}
+
+	/**
+	 * Returns all elements of this collection in an array.
+	 * 
+	 * @return an array containing all of the elements in this collection
+	 * @see java.util.Collection#toArray()
+	 * @uml.property name="vulnerabilities"
+	 */
+	public Vulnerability[] vulnerabilitiesToArray() {
+		return this.vulnerabilities
+				.toArray(new Vulnerability[this.vulnerabilities.size()]);
+	}
 
 }

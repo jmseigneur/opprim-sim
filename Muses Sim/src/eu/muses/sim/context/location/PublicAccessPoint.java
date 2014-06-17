@@ -12,18 +12,18 @@ package eu.muses.sim.context.location;
  */
 public class PublicAccessPoint extends Location {
 
-    /**
-     * Instantiates a new public access point.
-     *
-     * @param name
-     *            the name
-     * @param lat
-     *            the lat
-     * @param lon
-     *            the lon
-     */
-    public PublicAccessPoint(String name, double lat, double lon) {
-        super(name, lat, lon);
-    }
+	/**
+	 * Instantiates a new public access point.
+	 *
+	 * @param name
+	 *            the name
+	 * @param lat
+	 *            the lat
+	 * @param lon
+	 *            the lon
+	 */
+	public PublicAccessPoint(String name, double lat, double lon) {
+		super(name, lat, lon);
+	}
 
 }

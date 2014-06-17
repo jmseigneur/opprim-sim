@@ -23,6 +23,7 @@ import java.awt.Component;
 
 import javax.swing.Box;
 
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.RiskValue;
 
@@ -30,6 +31,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JCheckBox;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 
 public class RiskPolicyPanel extends JPanel {
 
@@ -49,8 +52,8 @@ public class RiskPolicyPanel extends JPanel {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0,
+		gridBagLayout.rowHeights = new int[] { 0, 225, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -66,12 +69,26 @@ public class RiskPolicyPanel extends JPanel {
 		lblNewAsset.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(lblNewAsset, gbc_lblNewAsset);
 
+		JScrollPane scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 1;
+		add(scrollPane, gbc_scrollPane);
+
+		JTextPane txtpnInOrderTo = new JTextPane();
+		txtpnInOrderTo
+				.setText("In order to define a custom Risk Policy, the Risk Value of such policy should be first defined in the interval [0...1]. \r\n\r\nA Risk Value of 1.0 implies that the policy user is not allowed or willing to take any risk, whereas a Risk Value of 0.0 implies that the policy user is allowed or willing to take any existing risk.\r\n\r\nThe policy name is the custom name for this particular policy being defined.");
+		txtpnInOrderTo.setEditable(false);
+		scrollPane.setViewportView(txtpnInOrderTo);
+
 		JLabel lblAddRiskValue = new JLabel("Add Risk Value:");
 		GridBagConstraints gbc_lblAddRiskValue = new GridBagConstraints();
 		gbc_lblAddRiskValue.anchor = GridBagConstraints.WEST;
 		gbc_lblAddRiskValue.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAddRiskValue.gridx = 0;
-		gbc_lblAddRiskValue.gridy = 1;
+		gbc_lblAddRiskValue.gridy = 3;
 		lblAddRiskValue.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAddRiskValue, gbc_lblAddRiskValue);
 
@@ -81,24 +98,25 @@ public class RiskPolicyPanel extends JPanel {
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 0;
-		gbc_textField.gridy = 2;
+		gbc_textField.gridy = 4;
 		add(textField, gbc_textField);
 		textField.setColumns(10);
-		
+
 		JLabel lblAddPolicyName = new JLabel("Add Policy Name:");
 		GridBagConstraints gbc_lblAddPolicyName = new GridBagConstraints();
+		gbc_lblAddPolicyName.anchor = GridBagConstraints.WEST;
 		gbc_lblAddPolicyName.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAddPolicyName.gridx = 0;
-		gbc_lblAddPolicyName.gridy = 3;
+		gbc_lblAddPolicyName.gridy = 5;
 		lblAddPolicyName.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAddPolicyName, gbc_lblAddPolicyName);
-		
+
 		textField_1 = new JTextField();
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField_1.gridx = 0;
-		gbc_textField_1.gridy = 4;
+		gbc_textField_1.gridy = 6;
 		add(textField_1, gbc_textField_1);
 		textField_1.setColumns(10);
 
@@ -120,23 +138,23 @@ public class RiskPolicyPanel extends JPanel {
 		btnSavePolicy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-					try {
-						if(Double.parseDouble(textField.getText()) > 1.0)
-							throw new Exception();
-						RiskPolicy rp = new RiskPolicy(new RiskValue(Double
-								.parseDouble(textField.getText()),
-								textField_1.getText()), null);
-						GuiMain.getRiskPolicies().add(rp);
-						GuiMain.initializeHomePanel();
-						JPanel mainPanel = GuiMain.getMainPanel();
-						GuiMain.switchPanel(mainPanel);
-					} catch (Exception ex) {
-						ex.printStackTrace();
-						JOptionPane.showConfirmDialog(null,
-								"Input should be a number between 0 and 1",
-								"Wrong Input", JOptionPane.OK_CANCEL_OPTION,
-								JOptionPane.ERROR_MESSAGE);
-					}
+				try {
+					if (Double.parseDouble(textField.getText()) > 1.0)
+						throw new Exception();
+					RiskPolicy rp = new RiskPolicy(new RiskValue(Double
+							.parseDouble(textField.getText()), textField_1
+							.getText()), null);
+					InMemoryPersistenceManager.getRiskPolicies().add(rp);
+					GuiMain.initializeHomePanel();
+					JPanel mainPanel = GuiMain.getMainPanel();
+					GuiMain.switchPanel(mainPanel);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane.showConfirmDialog(null,
+							"Input should be a number between 0 and 1",
+							"Wrong Input", JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnSavePolicy = new GridBagConstraints();

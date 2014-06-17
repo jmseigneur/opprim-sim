@@ -23,6 +23,7 @@ import java.awt.Component;
 
 import javax.swing.Box;
 
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.test.SimUser;
 
@@ -65,7 +66,7 @@ public class TrustValuesPanel extends JPanel {
 		add(lblNewAsset, gbc_lblNewAsset);
 
 		final JComboBox<SimUser> comboBox = new JComboBox<SimUser>();
-		for (SimUser user : GuiMain.getSimUsers()) {
+		for (SimUser user : InMemoryPersistenceManager.getSimUsers()) {
 			comboBox.addItem(user);
 		}
 		comboBox.addItem(GuiMain.getUserCso());

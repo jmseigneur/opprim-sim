@@ -12,17 +12,17 @@ package eu.muses.sim.riskman.asset;
  */
 public class IntellectualPropertyConfidentiality extends Asset {
 
-    /**
-     * Instantiates a new intellectual property confidentiality.
-     *
-     * @param assetName
-     *            the asset name
-     * @param value
-     *            the value
-     */
-    public IntellectualPropertyConfidentiality(String assetName, double value) {
-        super(assetName, value);
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Instantiates a new intellectual property confidentiality.
+	 *
+	 * @param assetName
+	 *            the asset name
+	 * @param value
+	 *            the value
+	 */
+	public IntellectualPropertyConfidentiality(String assetName, double value) {
+		super(assetName, value);
+		// TODO Auto-generated constructor stub
+	}
 
 }

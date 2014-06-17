@@ -20,6 +20,7 @@ import java.awt.Component;
 
 import javax.swing.Box;
 
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.wp5.Clue;
 import eu.muses.wp5.CluesThreatTable;
 
@@ -101,7 +102,7 @@ public class CluePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Clue c = new Clue(textField.getText());
-					GuiMain.getClues().add(c);
+					InMemoryPersistenceManager.getClues().add(c);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

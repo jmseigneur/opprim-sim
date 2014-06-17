@@ -14,25 +14,25 @@ import eu.muses.sim.riskman.RiskCommunication;
  */
 public abstract class Rule {
 
-    /**
-     * Gets the not validated risk communication.
-     *
-     * @return the not validated risk communication
-     */
-    public abstract RiskCommunication getNotValidatedRiskCommunication();
+	/**
+	 * Gets the not validated risk communication.
+	 *
+	 * @return the not validated risk communication
+	 */
+	public abstract RiskCommunication getNotValidatedRiskCommunication();
 
-    /**
-     * Gets the validated risk communication.
-     *
-     * @return the validated risk communication
-     */
-    public abstract RiskCommunication getValidatedRiskCommunication();
+	/**
+	 * Gets the validated risk communication.
+	 *
+	 * @return the validated risk communication
+	 */
+	public abstract RiskCommunication getValidatedRiskCommunication();
 
-    /**
-     * Checks if is validated.
-     *
-     * @return true, if is validated
-     */
-    public abstract boolean isValidated();
+	/**
+	 * Checks if is validated.
+	 *
+	 * @return true, if is validated
+	 */
+	public abstract boolean isValidated();
 
 }

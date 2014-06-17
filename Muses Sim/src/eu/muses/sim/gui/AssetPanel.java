@@ -24,6 +24,7 @@ import java.awt.Component;
 import javax.swing.Box;
 
 import eu.muses.sim.Outcome;
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.riskman.asset.Asset;
 
 import java.awt.event.ActionListener;
@@ -37,7 +38,7 @@ public class AssetPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtAddAsset;
 	private JTextField textField;
-	
+
 	Outcome badOutcome = new Outcome();
 
 	/**
@@ -116,7 +117,7 @@ public class AssetPanel extends JPanel {
 		gbc_comboBox.gridx = 3;
 		gbc_comboBox.gridy = 4;
 		add(comboBox, gbc_comboBox);
-		
+
 		JLabel lblAssetType = new JLabel("Asset Type:");
 		lblAssetType.setFont(new Font("Arial", Font.BOLD, 12));
 		GridBagConstraints gbc_lblAssetType = new GridBagConstraints();
@@ -124,7 +125,7 @@ public class AssetPanel extends JPanel {
 		gbc_lblAssetType.gridx = 0;
 		gbc_lblAssetType.gridy = 5;
 		add(lblAssetType, gbc_lblAssetType);
-		
+
 		JLabel lblInferredOutcomes = new JLabel("Inferred Outcomes:");
 		lblInferredOutcomes.setFont(new Font("Arial", Font.BOLD, 12));
 		GridBagConstraints gbc_lblInferredOutcomes = new GridBagConstraints();
@@ -140,7 +141,7 @@ public class AssetPanel extends JPanel {
 		gbc_verticalStrut_1.gridx = 12;
 		gbc_verticalStrut_1.gridy = 5;
 		add(verticalStrut_1, gbc_verticalStrut_1);
-		
+
 		final JComboBox<String> comboBox_1 = new JComboBox<String>();
 		comboBox_1.addItem("File");
 		comboBox_1.addItem("Equipment");
@@ -151,7 +152,7 @@ public class AssetPanel extends JPanel {
 		gbc_comboBox_1.gridx = 0;
 		gbc_comboBox_1.gridy = 6;
 		add(comboBox_1, gbc_comboBox_1);
-		
+
 		final JLabel label_1 = new JLabel("");
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
 		gbc_label_1.anchor = GridBagConstraints.WEST;
@@ -159,33 +160,38 @@ public class AssetPanel extends JPanel {
 		gbc_label_1.gridx = 2;
 		gbc_label_1.gridy = 7;
 		add(label_1, gbc_label_1);
-		
+
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				try{
-				if(comboBox_1.getSelectedItem().equals("File")){
-					badOutcome.setDescription("File is compromised, lost " + - Double
-							.parseDouble(textField.getText()) + "€");
-					badOutcome.setCostBenefit(- Double
-							.parseDouble(textField.getText()));
-					label_1.setText(badOutcome.getDescription());
-				}
-				if(comboBox_1.getSelectedItem().equals("Equipment")){
-					badOutcome.setDescription("Equipment was damaged, lost " + - Double
-							.parseDouble(textField.getText()) + "€");
-					badOutcome.setCostBenefit(- Double
-							.parseDouble(textField.getText()));
-					label_1.setText(badOutcome.getDescription());
-				}
-				if(comboBox_1.getSelectedItem().equals("Other")){
-					badOutcome.setDescription("Bad Outcome resulting in a loss of " + - Double
-							.parseDouble(textField.getText()) + "€");
-					badOutcome.setCostBenefit(- Double
-							.parseDouble(textField.getText()));
-					label_1.setText(badOutcome.getDescription());
-				}
-				}catch (Exception ex) {
+
+				try {
+					if (comboBox_1.getSelectedItem().equals("File")) {
+						badOutcome.setDescription("File is compromised, lost "
+								+ -Double.parseDouble(textField.getText())
+								+ "€");
+						badOutcome.setCostBenefit(-Double.parseDouble(textField
+								.getText()));
+						label_1.setText(badOutcome.getDescription());
+					}
+					if (comboBox_1.getSelectedItem().equals("Equipment")) {
+						badOutcome
+								.setDescription("Equipment was damaged, lost "
+										+ -Double.parseDouble(textField
+												.getText()) + "€");
+						badOutcome.setCostBenefit(-Double.parseDouble(textField
+								.getText()));
+						label_1.setText(badOutcome.getDescription());
+					}
+					if (comboBox_1.getSelectedItem().equals("Other")) {
+						badOutcome
+								.setDescription("Bad Outcome resulting in a loss of "
+										+ -Double.parseDouble(textField
+												.getText()) + "€");
+						badOutcome.setCostBenefit(-Double.parseDouble(textField
+								.getText()));
+						label_1.setText(badOutcome.getDescription());
+					}
+				} catch (Exception ex) {
 					ex.printStackTrace();
 					JOptionPane.showConfirmDialog(null,
 							"Input should be correctly filled", "Wrong Input",
@@ -206,11 +212,11 @@ public class AssetPanel extends JPanel {
 		btnSaveAsset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					
+
 					Asset a = new Asset(txtAddAsset.getText(), Double
 							.parseDouble(textField.getText()));
 					GuiMain.getS2Rt2ae().addAsset(a);
-					GuiMain.getAssets().add(a);
+					InMemoryPersistenceManager.getAssets().add(a);
 					System.out.println("Asset "
 							+ GuiMain.getS2Rt2ae()
 									.getAsset(txtAddAsset.getText())
@@ -218,7 +224,7 @@ public class AssetPanel extends JPanel {
 							+ " was added with cost "
 							+ GuiMain.getS2Rt2ae()
 									.getAsset(txtAddAsset.getText()).getValue());
-					GuiMain.getOutcomes().add(badOutcome);
+					InMemoryPersistenceManager.getOutcomes().add(badOutcome);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);
@@ -231,7 +237,7 @@ public class AssetPanel extends JPanel {
 				}
 			}
 		});
-		
+
 		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();
 		gbc_btnSaveAsset.insets = new Insets(0, 0, 0, 5);
 		gbc_btnSaveAsset.gridx = 12;

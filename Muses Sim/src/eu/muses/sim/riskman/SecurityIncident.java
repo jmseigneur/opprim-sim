@@ -14,17 +14,17 @@ import eu.muses.sim.Outcome;
  */
 public class SecurityIncident extends Outcome {
 
-    /**
-     * Instantiates a new security incident.
-     *
-     * @param description
-     *            the description
-     * @param costBenefit
-     *            the cost benefit
-     */
-    public SecurityIncident(String description, double costBenefit) {
-        super(description, costBenefit);
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Instantiates a new security incident.
+	 *
+	 * @param description
+	 *            the description
+	 * @param costBenefit
+	 *            the cost benefit
+	 */
+	public SecurityIncident(String description, double costBenefit) {
+		super(description, costBenefit);
+		// TODO Auto-generated constructor stub
+	}
 
 }

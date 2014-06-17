@@ -22,6 +22,8 @@ import javax.swing.UIManager;
 import eu.muses.sim.Outcome;
 import eu.muses.sim.RealTimeRiskTrustAnalysisEngine;
 import eu.muses.sim.corporate.Corporation;
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
+import eu.muses.sim.persistence.PersistenceManager;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.PersonalUserDevice;
 import eu.muses.sim.riskman.RiskPolicy;
@@ -58,10 +60,10 @@ public class GuiMain {
 	static MusesClientApp s2MusesClientApp;
 
 	/** The user cso. */
-	static SimUser userCso = new SimUser("userCSO", 300);
+	static SimUser userCso = new SimUser("userCSO", 300, new TrustValue(0.5));
 
 	/** The user1. */
-	static SimUser user1 = new SimUser("user1", 120);
+	static SimUser user1 = new SimUser("user1", 120, new TrustValue(0.5));
 
 	/** The user1 laptop. */
 	static UserDevice user1Laptop = new PersonalUserDevice();
@@ -79,35 +81,17 @@ public class GuiMain {
 	/** The material for patent proposal. */
 	static Asset materialForPatentProposal;
 
-	/** The outcomes */
-	static List<Outcome> outcomes = new ArrayList<Outcome>();
-
-	/** The opportunities */
-	static List<Opportunity> opportunities = new ArrayList<Opportunity>();
-
-	/** The assets */
-	static List<Asset> assets = new ArrayList<Asset>();
-
-	/** The threats */
-	static List<Threat> threats = new ArrayList<Threat>();
-
-	/** The clues */
-	static List<Clue> clues = new ArrayList<Clue>();
-
-	/** The risk Policies */
-	static List<RiskPolicy> riskPolicies = new ArrayList<RiskPolicy>();
-
-	/** The Sim Users */
-	static List<SimUser> simUsers = new ArrayList<SimUser>();
-
 	/** The amount of simulations */
 	static int simAmount = 0;
 
 	/** The amount of security incidents */
 	static int incidentAmount = 0;
-	
+
 	/** The access request */
 	static AccessRequest accessRequest;
+
+	/** The in memory persistence manager */
+	static InMemoryPersistenceManager inMemoryPersistenceManager;
 
 	/**
 	 * Launch the application.
@@ -116,6 +100,7 @@ public class GuiMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					inMemoryPersistenceManager = new InMemoryPersistenceManager();
 					GuiMain window = new GuiMain();
 					window.frmMusesRtae.setVisible(true);
 				} catch (Exception e) {
@@ -132,21 +117,27 @@ public class GuiMain {
 
 		userCso.setTrustValue(new TrustValue(0.5));
 		GuiMain.s2.setCso(GuiMain.userCso);
-		clues.add(Clue.antivirusClue);
-		clues.add(Clue.firewallClue);
-		clues.add(Clue.vpnClue);
-		assets.add(new Asset("Important File", 1000));
-		assets.add(new Asset("Irrelevant File", 0));
-		riskPolicies.add(RiskPolicy.TAKE_FULL_RISK);
-		riskPolicies.add(RiskPolicy.TAKE_MEDIUM_RISK);
-		riskPolicies.add(RiskPolicy.TAKE_NO_RISK);
-		
+		InMemoryPersistenceManager.getClues().add(Clue.antivirusClue);
+		InMemoryPersistenceManager.getClues().add(Clue.firewallClue);
+		InMemoryPersistenceManager.getClues().add(Clue.vpnClue);
+		InMemoryPersistenceManager.getAssets().add(
+				new Asset("Important File", 1000));
+		InMemoryPersistenceManager.getAssets().add(
+				new Asset("Irrelevant File", 0));
+		InMemoryPersistenceManager.getRiskPolicies().add(
+				RiskPolicy.TAKE_FULL_RISK);
+		InMemoryPersistenceManager.getRiskPolicies().add(
+				RiskPolicy.TAKE_MEDIUM_RISK);
+		InMemoryPersistenceManager.getRiskPolicies().add(
+				RiskPolicy.TAKE_NO_RISK);
+		InMemoryPersistenceManager.getSimUsers().add(
+				new SimUser("TestUser", 120, new TrustValue(0.5)));
+
 		GuiMain.musesUsersDevicesAndAssetsConfigurationsSteps();
-		/*try {
-			GuiMain.s2Rt2ae.initCluesThreatTable();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
+		/*
+		 * try { GuiMain.s2Rt2ae.initCluesThreatTable(); } catch (Exception e) {
+		 * e.printStackTrace(); }
+		 */
 		initialize();
 
 	}
@@ -213,11 +204,11 @@ public class GuiMain {
 				switchPanel(riskPanel);
 			}
 		});
-		
+
 		JMenuItem mntmUsers = new JMenuItem("Users");
 		mntmUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				// User panel initialization
 				JPanel userPanel = new UserPanel();
 				switchPanel(userPanel);
@@ -236,25 +227,22 @@ public class GuiMain {
 		});
 		mnConfigurationMenu.add(mntmClues);
 
-		/*JMenuItem mntmThreats = new JMenuItem("Threats");
-		mntmThreats.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Threat panel initialization
-				JPanel threatPanel = new ThreatPanel();
-				switchPanel(threatPanel);
-			}
-		});*/
+		/*
+		 * JMenuItem mntmThreats = new JMenuItem("Threats");
+		 * mntmThreats.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) { // Threat panel initialization
+		 * JPanel threatPanel = new ThreatPanel(); switchPanel(threatPanel); }
+		 * });
+		 */
 
-		/*JMenuItem mntmOutcomes = new JMenuItem("Outcomes");
-		mntmOutcomes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Outcome panel initialization
-				JPanel outcomePanel = new OutcomePanel();
-				switchPanel(outcomePanel);
-			}
-		});
-		mnConfigurationMenu.add(mntmOutcomes);*/
-		/*mnConfigurationMenu.add(mntmThreats);*/
+		/*
+		 * JMenuItem mntmOutcomes = new JMenuItem("Outcomes");
+		 * mntmOutcomes.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) { // Outcome panel initialization
+		 * JPanel outcomePanel = new OutcomePanel(); switchPanel(outcomePanel);
+		 * } }); mnConfigurationMenu.add(mntmOutcomes);
+		 */
+		/* mnConfigurationMenu.add(mntmThreats); */
 
 		JMenuItem mntmOpportunities = new JMenuItem("Opportunities");
 		mntmOpportunities.addActionListener(new ActionListener() {
@@ -269,15 +257,13 @@ public class GuiMain {
 		JMenu mnView = new JMenu("View");
 		menuBar.add(mnView);
 
-		/*JMenuItem mntmSecurityState = new JMenuItem("Security State");
-		mntmSecurityState.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Security State panel initialization
-				JPanel securityStatePanel = new SecurityStatePanel();
-				switchPanel(securityStatePanel);
-			}
-		});
-		mnView.add(mntmSecurityState);*/
+		/*
+		 * JMenuItem mntmSecurityState = new JMenuItem("Security State");
+		 * mntmSecurityState.addActionListener(new ActionListener() { public
+		 * void actionPerformed(ActionEvent e) { // Security State panel
+		 * initialization JPanel securityStatePanel = new SecurityStatePanel();
+		 * switchPanel(securityStatePanel); } }); mnView.add(mntmSecurityState);
+		 */
 
 		JMenuItem mntmUserTurstValue = new JMenuItem("Trust Values");
 		mntmUserTurstValue.addActionListener(new ActionListener() {
@@ -664,111 +650,6 @@ public class GuiMain {
 	}
 
 	/**
-	 * @return the outcomes
-	 */
-	public static List<Outcome> getOutcomes() {
-		return outcomes;
-	}
-
-	/**
-	 * @param outcomes
-	 *            the outcomes to set
-	 */
-	public static void setOutcomes(List<Outcome> outcomes) {
-		GuiMain.outcomes = outcomes;
-	}
-
-	/**
-	 * @return the opportunities
-	 */
-	public static List<Opportunity> getOpportunities() {
-		return opportunities;
-	}
-
-	/**
-	 * @param opportunities
-	 *            the opportunities to set
-	 */
-	public static void setOpportunities(List<Opportunity> opportunities) {
-		GuiMain.opportunities = opportunities;
-	}
-
-	/**
-	 * @return the assets
-	 */
-	public static List<Asset> getAssets() {
-		return assets;
-	}
-
-	/**
-	 * @param assets
-	 *            the assets to set
-	 */
-	public static void setAssets(List<Asset> assets) {
-		GuiMain.assets = assets;
-	}
-
-	/**
-	 * @return the threats
-	 */
-	public static List<Threat> getThreats() {
-		return threats;
-	}
-
-	/**
-	 * @param threats
-	 *            the threats to set
-	 */
-	public static void setThreats(List<Threat> threats) {
-		GuiMain.threats = threats;
-	}
-
-	/**
-	 * @return the clues
-	 */
-	public static List<Clue> getClues() {
-		return clues;
-	}
-
-	/**
-	 * @param clues
-	 *            the clues to set
-	 */
-	public static void setClues(List<Clue> clues) {
-		GuiMain.clues = clues;
-	}
-
-	/**
-	 * @return the riskPolicies
-	 */
-	public static List<RiskPolicy> getRiskPolicies() {
-		return riskPolicies;
-	}
-
-	/**
-	 * @param riskPolicies
-	 *            the riskPolicies to set
-	 */
-	public static void setRiskPolicies(List<RiskPolicy> riskPolicies) {
-		GuiMain.riskPolicies = riskPolicies;
-	}
-
-	/**
-	 * @return the simUsers
-	 */
-	public static List<SimUser> getSimUsers() {
-		return simUsers;
-	}
-
-	/**
-	 * @param simUsers
-	 *            the simUsers to set
-	 */
-	public static void setSimUsers(List<SimUser> simUsers) {
-		GuiMain.simUsers = simUsers;
-	}
-
-	/**
 	 * @return the simAmount
 	 */
 	public static int getSimAmount() {
@@ -806,10 +687,27 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param accessRequest the accessRequest to set
+	 * @param accessRequest
+	 *            the accessRequest to set
 	 */
 	public static void setAccessRequest(AccessRequest accessRequest) {
 		GuiMain.accessRequest = accessRequest;
+	}
+
+	/**
+	 * @return the inMemoryPersistenceManager
+	 */
+	public static InMemoryPersistenceManager getInMemoryPersistenceManager() {
+		return inMemoryPersistenceManager;
+	}
+
+	/**
+	 * @param inMemoryPersistenceManager
+	 *            the inMemoryPersistenceManager to set
+	 */
+	public static void setInMemoryPersistenceManager(
+			InMemoryPersistenceManager inMemoryPersistenceManager) {
+		GuiMain.inMemoryPersistenceManager = inMemoryPersistenceManager;
 	}
 
 }

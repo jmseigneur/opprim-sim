@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Vector;
 
 import eu.muses.sim.decision.Decision;
+import eu.muses.sim.gui.GuiMain;
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.RiskEvent;
@@ -34,11 +36,8 @@ import eu.muses.wp5.EventProcessor;
  */
 public class RealTimeRiskTrustAnalysisEngine {
 
-	/** The event processor. */
-	private EventProcessor eventProcessor;
-
-	/** The clues threat table. */
-	private static CluesThreatTable cluesThreatTable = new CluesThreatTable();
+	/** The event processor */
+	EventProcessor eventProcessor;
 
 	/** The risk policy. */
 	private RiskPolicy riskPolicy;
@@ -57,8 +56,8 @@ public class RealTimeRiskTrustAnalysisEngine {
 	public RealTimeRiskTrustAnalysisEngine(EventProcessor eventProcessor,
 			RiskPolicy riskPolicy) {
 		super();
-		this.eventProcessor = eventProcessor;
 		this.riskPolicy = riskPolicy;
+		this.eventProcessor = eventProcessor;
 	}
 
 	/**
@@ -116,36 +115,48 @@ public class RealTimeRiskTrustAnalysisEngine {
 		int threatcount = 0;
 
 		for (RiskEvent riskEvent : riskEvents) {
-			
+
 			costOpportunity += riskEvent.getOutcomes().iterator().next()
 					.getCostBenefit();
-			
-			if (riskEvent.getOutcomes().iterator().next()
-					.getCostBenefit() < 0){
-			combinedProbabilityThreats = combinedProbabilityThreats * riskEvent.getProbability().getProb();
-			singleThreatProbabibility = singleThreatProbabibility + riskEvent.getProbability().getProb();
-			threatcount++;
-			}else{
-			combinedProbabilityOpportunities = combinedProbabilityOpportunities * riskEvent.getProbability().getProb();
-			singleOpportunityProbability = singleOpportunityProbability + riskEvent.getProbability().getProb();
-			opcount++;
+
+			if (riskEvent.getOutcomes().iterator().next().getCostBenefit() < 0) {
+				combinedProbabilityThreats = combinedProbabilityThreats
+						* riskEvent.getProbability().getProb();
+				singleThreatProbabibility = singleThreatProbabibility
+						+ riskEvent.getProbability().getProb();
+				threatcount++;
+			} else {
+				combinedProbabilityOpportunities = combinedProbabilityOpportunities
+						* riskEvent.getProbability().getProb();
+				singleOpportunityProbability = singleOpportunityProbability
+						+ riskEvent.getProbability().getProb();
+				opcount++;
 			}
 		}
 
-		if(threatcount > 1)
-		singleThreatProbabibility = singleThreatProbabibility - combinedProbabilityThreats;
-		if(opcount > 1)
-		singleOpportunityProbability = singleOpportunityProbability - combinedProbabilityOpportunities;
-		
+		if (threatcount > 1)
+			singleThreatProbabibility = singleThreatProbabibility
+					- combinedProbabilityThreats;
+		if (opcount > 1)
+			singleOpportunityProbability = singleOpportunityProbability
+					- combinedProbabilityOpportunities;
 
 		System.out.println("Decission data is: ");
 		System.out.println("- Risk Policy threshold: "
 				+ riskPolicy.getRiskValue().getValue());
 		System.out.println("- Cost Oportunity: " + costOpportunity);
-		System.out.println("- Combined Probability of the all possible Threats happening together: " + combinedProbabilityThreats);
-		System.out.println("- Combined Probability of the all the possible Opportunities happening together: " + combinedProbabilityOpportunities);
-		System.out.println("- Combined Probability of only one of the possible Threats happening: " + singleThreatProbabibility);
-		System.out.println("- Combined Probability of only one of the possible Opportunities happening: " + singleOpportunityProbability);
+		System.out
+				.println("- Combined Probability of the all possible Threats happening together: "
+						+ combinedProbabilityThreats);
+		System.out
+				.println("- Combined Probability of the all the possible Opportunities happening together: "
+						+ combinedProbabilityOpportunities);
+		System.out
+				.println("- Combined Probability of only one of the possible Threats happening: "
+						+ singleThreatProbabibility);
+		System.out
+				.println("- Combined Probability of only one of the possible Opportunities happening: "
+						+ singleOpportunityProbability);
 
 		System.out.println("Making a decision...");
 		System.out.println(".");
@@ -209,7 +220,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 			// this.getTrustValue(accessRequest.getUser()));
 			clues = this.eventProcessor.getClues(asset);
 			clues.add(new Clue(accessRequest.getUser().getNickname()));
-			clues.add(new Clue(requestedAssests.iterator().next().getAssetName()));
+			clues.add(new Clue(asset.getAssetName()));
 			for (Clue clue : clues) {
 				System.out.println("The clue associated with Asset "
 						+ asset.getAssetName() + " is " + clue.getId() + "\n");
@@ -217,17 +228,24 @@ public class RealTimeRiskTrustAnalysisEngine {
 		}
 
 		List<Threat> currentThreats = new ArrayList<Threat>();
-		currentThreats = cluesThreatTable.getThreatsFromClues(clues);
-		if(currentThreats.isEmpty()){
+		currentThreats = InMemoryPersistenceManager.getCluesThreatTable()
+				.getThreatsFromClues(clues);
+		if (currentThreats.isEmpty()) {
 			String threatName = "";
 			for (Clue clue : clues) {
 				threatName = threatName + clue.getId().substring(0, 1);
 			}
-			threatName = threatName.substring(0, threatName.length()-2) + accessRequest.getUser().getNickname() + requestedAssests.iterator().next().getAssetName();
-			Threat threat = new Threat("Threat" + threatName, new Probability(0.5), new Outcome("Compromised Asset", requestedAssests.iterator().next().getValue()));
-			cluesThreatTable.addMapping(clues, threat);
-			cluesThreatTable.updateThreatOccurences(threat);
-			System.out.println("The inferred Threat from the Clues is: "
+			threatName = threatName.substring(0, threatName.length() - 2)
+					+ accessRequest.getUser().getNickname()
+					+ requestedAssests.iterator().next().getAssetName();
+			Threat threat = new Threat("Threat" + threatName, new Probability(
+					0.5), new Outcome("Compromised Asset", -requestedAssests
+					.iterator().next().getValue()));
+			InMemoryPersistenceManager.getCluesThreatTable().addMapping(clues,
+					threat);
+			InMemoryPersistenceManager.getCluesThreatTable()
+					.updateThreatOccurences(threat);
+			System.out.println("The newly created Threat from the Clues is: "
 					+ threat.getDescription() + " with probability "
 					+ threat.getProbabilityValue()
 					+ " for the following outcome: \""
@@ -236,18 +254,21 @@ public class RealTimeRiskTrustAnalysisEngine {
 					+ threat.getOutcomes().iterator().next().getCostBenefit()
 					+ "\n");
 			currentThreats.add(threat);
-		}else{
-		for (Threat threat : currentThreats) {
-			cluesThreatTable.updateThreatOccurences(threat);
-			System.out.println("The inferred Threat from the Clues is: "
-					+ threat.getDescription() + " with probability "
-					+ threat.getProbabilityValue()
-					+ " for the following outcome: \""
-					+ threat.getOutcomes().iterator().next().getDescription()
-					+ "\" with the following potential cost (in kEUR): "
-					+ threat.getOutcomes().iterator().next().getCostBenefit()
-					+ "\n");
-		}
+		} else {
+			for (Threat threat : currentThreats) {
+				InMemoryPersistenceManager.getCluesThreatTable()
+						.updateThreatOccurences(threat);
+				System.out.println("The inferred Threat from the Clues is: "
+						+ threat.getDescription()
+						+ " with probability "
+						+ threat.getProbabilityValue()
+						+ " for the following outcome: \""
+						+ threat.getOutcomes().iterator().next()
+								.getDescription()
+						+ "\" with the following potential cost (in kEUR): "
+						+ threat.getOutcomes().iterator().next()
+								.getCostBenefit() + "\n");
+			}
 		}
 		Vector<RiskEvent> riskEvents = new Vector<RiskEvent>();
 
@@ -412,42 +433,6 @@ public class RealTimeRiskTrustAnalysisEngine {
 	}
 
 	/**
-	 * Inits the clues threat table.
-	 */
-	public void initCluesThreatTable() {
-
-		this.cluesThreatTable = new CluesThreatTable();
-		this.cluesThreatTable
-				.addMapping(
-						Arrays.asList(Clue.antivirusClue, Clue.firewallClue),
-						new Threat(
-								"Deletion threat",
-								new Probability(0.5),
-								new Outcome(
-										"Lack of Firewall and Antivirus allowed the attacker to install a trojan and delete the file",
-										-90.0)));
-		this.cluesThreatTable
-				.addMapping(
-						Arrays.asList(Clue.firewallClue),
-						new Threat(
-								"Capture threat",
-								new Probability(0.5),
-								new Outcome(
-										"Lack of Firewall allowed the attacker to infiltrate the network and steal the file",
-										-50.0)));
-		this.cluesThreatTable
-				.addMapping(
-						Arrays.asList(Clue.vpnClue),
-						new Threat(
-								"Tampering threat",
-								new Probability(0.5),
-								new Outcome(
-										"Lack of Vpn allowed the attacker to intercept the traffic and modify the file",
-										-20.0)));
-
-	}
-
-	/**
 	 * Updates trust in user given positive outcome.
 	 * 
 	 * @param user1
@@ -483,7 +468,8 @@ public class RealTimeRiskTrustAnalysisEngine {
 
 	}
 
-	public void recalculateThreatProbabilitiesWhenIncident(AccessRequest accessRequest) {
+	public void recalculateThreatProbabilitiesWhenIncident(
+			AccessRequest accessRequest) {
 
 		Collection<Asset> requestedAssests = accessRequest
 				.getRequestedCorporateAsset();
@@ -501,13 +487,17 @@ public class RealTimeRiskTrustAnalysisEngine {
 		}
 
 		List<Threat> currentThreats = new ArrayList<Threat>();
-		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
+		currentThreats = InMemoryPersistenceManager.getCluesThreatTable()
+				.getThreatsFromClues(clues);
 		for (Threat threat : currentThreats) {
-			this.cluesThreatTable.updateThreatBadOutcomeCount(threat);
-			this.cluesThreatTable.updateThreatProbability(threat);
+			InMemoryPersistenceManager.getCluesThreatTable()
+					.updateThreatBadOutcomeCount(threat);
+			InMemoryPersistenceManager.getCluesThreatTable()
+					.updateThreatProbability(threat);
 		}
 
-		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
+		currentThreats = InMemoryPersistenceManager.getCluesThreatTable()
+				.getThreatsFromClues(clues);
 		for (Threat threat : currentThreats) {
 
 			System.out
@@ -519,8 +509,9 @@ public class RealTimeRiskTrustAnalysisEngine {
 		}
 
 	}
-	
-	public void recalculateThreatProbabilitiesWhenNoIncident(AccessRequest accessRequest) {
+
+	public void recalculateThreatProbabilitiesWhenNoIncident(
+			AccessRequest accessRequest) {
 
 		Collection<Asset> requestedAssests = accessRequest
 				.getRequestedCorporateAsset();
@@ -538,12 +529,15 @@ public class RealTimeRiskTrustAnalysisEngine {
 		}
 
 		List<Threat> currentThreats = new ArrayList<Threat>();
-		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
+		currentThreats = InMemoryPersistenceManager.getCluesThreatTable()
+				.getThreatsFromClues(clues);
 		for (Threat threat : currentThreats) {
-			this.cluesThreatTable.updateThreatProbability(threat);
+			InMemoryPersistenceManager.getCluesThreatTable()
+					.updateThreatProbability(threat);
 		}
 
-		currentThreats = this.cluesThreatTable.getThreatsFromClues(clues);
+		currentThreats = InMemoryPersistenceManager.getCluesThreatTable()
+				.getThreatsFromClues(clues);
 		for (Threat threat : currentThreats) {
 
 			System.out
@@ -554,20 +548,6 @@ public class RealTimeRiskTrustAnalysisEngine {
 
 		}
 
-	}
-
-	/**
-	 * @return the cluesThreatTable
-	 */
-	public static CluesThreatTable getCluesThreatTable() {
-		return cluesThreatTable;
-	}
-
-	/**
-	 * @param cluesThreatTable the cluesThreatTable to set
-	 */
-	public static void setCluesThreatTable(CluesThreatTable cluesThreatTable) {
-		RealTimeRiskTrustAnalysisEngine.cluesThreatTable = cluesThreatTable;
 	}
 
 	/**
@@ -578,7 +558,8 @@ public class RealTimeRiskTrustAnalysisEngine {
 	}
 
 	/**
-	 * @param riskPolicy the riskPolicy to set
+	 * @param riskPolicy
+	 *            the riskPolicy to set
 	 */
 	public void setRiskPolicy(RiskPolicy riskPolicy) {
 		this.riskPolicy = riskPolicy;
@@ -592,7 +573,8 @@ public class RealTimeRiskTrustAnalysisEngine {
 	}
 
 	/**
-	 * @param assetList the assetList to set
+	 * @param assetList
+	 *            the assetList to set
 	 */
 	public void setAssetList(List<Asset> assetList) {
 		this.assetList = assetList;

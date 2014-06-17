@@ -12,17 +12,17 @@ package eu.muses.sim.riskman.asset;
  */
 public class InformationSystemAvailability extends Asset {
 
-    /**
-     * Instantiates a new information system availability.
-     *
-     * @param assetName
-     *            the asset name
-     * @param value
-     *            the value
-     */
-    public InformationSystemAvailability(String assetName, double value) {
-        super(assetName, value);
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Instantiates a new information system availability.
+	 *
+	 * @param assetName
+	 *            the asset name
+	 * @param value
+	 *            the value
+	 */
+	public InformationSystemAvailability(String assetName, double value) {
+		super(assetName, value);
+		// TODO Auto-generated constructor stub
+	}
 
 }

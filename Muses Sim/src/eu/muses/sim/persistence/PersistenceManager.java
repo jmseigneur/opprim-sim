@@ -26,10 +26,11 @@ public abstract class PersistenceManager {
 	}
 
 	/**
-	 * @param outcomes the outcomes to set
+	 * @param outcomes
+	 *            the outcomes to set
 	 */
 	public static void setOutcomes(List<Outcome> outcomes) {
-		
+
 	}
 
 	/**
@@ -40,10 +41,11 @@ public abstract class PersistenceManager {
 	}
 
 	/**
-	 * @param opportunities the opportunities to set
+	 * @param opportunities
+	 *            the opportunities to set
 	 */
 	public static void setOpportunities(List<Opportunity> opportunities) {
-		
+
 	}
 
 	/**
@@ -54,10 +56,11 @@ public abstract class PersistenceManager {
 	}
 
 	/**
-	 * @param assets the assets to set
+	 * @param assets
+	 *            the assets to set
 	 */
 	public static void setAssets(List<Asset> assets) {
-		
+
 	}
 
 	/**
@@ -68,10 +71,11 @@ public abstract class PersistenceManager {
 	}
 
 	/**
-	 * @param threats the threats to set
+	 * @param threats
+	 *            the threats to set
 	 */
 	public static void setThreats(List<Threat> threats) {
-		
+
 	}
 
 	/**
@@ -82,10 +86,11 @@ public abstract class PersistenceManager {
 	}
 
 	/**
-	 * @param clues the clues to set
+	 * @param clues
+	 *            the clues to set
 	 */
 	public static void setClues(List<Clue> clues) {
-		
+
 	}
 
 	/**
@@ -96,10 +101,11 @@ public abstract class PersistenceManager {
 	}
 
 	/**
-	 * @param riskPolicies the riskPolicies to set
+	 * @param riskPolicies
+	 *            the riskPolicies to set
 	 */
 	public static void setRiskPolicies(List<RiskPolicy> riskPolicies) {
-		
+
 	}
 
 	/**
@@ -110,10 +116,11 @@ public abstract class PersistenceManager {
 	}
 
 	/**
-	 * @param simUsers the simUsers to set
+	 * @param simUsers
+	 *            the simUsers to set
 	 */
 	public static void setSimUsers(List<SimUser> simUsers) {
-		
+
 	}
 
 	/**
@@ -124,10 +131,11 @@ public abstract class PersistenceManager {
 	}
 
 	/**
-	 * @param cluesThreatTable the cluesThreatTable to set
+	 * @param cluesThreatTable
+	 *            the cluesThreatTable to set
 	 */
 	public static void setCluesThreatTable(CluesThreatTable cluesThreatTable) {
-		
+
 	}
-	
+
 }

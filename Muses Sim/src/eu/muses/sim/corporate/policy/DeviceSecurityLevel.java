@@ -12,6 +12,6 @@ package eu.muses.sim.corporate.policy;
  */
 public class DeviceSecurityLevel {
 
-    /** The Constant COMPLIANT_WITH_SECURITY_POLICY. */
-    public static final DeviceSecurityLevel COMPLIANT_WITH_SECURITY_POLICY = new DeviceSecurityLevel();
+	/** The Constant COMPLIANT_WITH_SECURITY_POLICY. */
+	public static final DeviceSecurityLevel COMPLIANT_WITH_SECURITY_POLICY = new DeviceSecurityLevel();
 }

@@ -24,6 +24,7 @@ import java.awt.Component;
 
 import javax.swing.Box;
 
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.opportunity.Opportunity;
 
@@ -81,7 +82,7 @@ public class ViewOpportunitiesPanel extends JPanel {
 		model.addColumn("Opportunity Description");
 		model.addColumn("Probability");
 
-		for (Opportunity op : GuiMain.getOpportunities()) {
+		for (Opportunity op : InMemoryPersistenceManager.getOpportunities()) {
 			model.addRow(new String[] { op.getDescription(),
 					String.valueOf(op.getProbability().getProb()) });
 		}

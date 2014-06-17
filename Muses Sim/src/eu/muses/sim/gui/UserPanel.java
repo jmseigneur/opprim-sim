@@ -23,6 +23,7 @@ import java.awt.Component;
 
 import javax.swing.Box;
 
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.test.SimUser;
 import eu.muses.sim.trustman.TrustValue;
@@ -95,7 +96,7 @@ public class UserPanel extends JPanel {
 		gbc_lblAssetValue.gridy = 3;
 		lblAssetValue.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAssetValue, gbc_lblAssetValue);
-		
+
 		JLabel lblHourlyWage = new JLabel("Hourly wage:");
 		lblHourlyWage.setFont(new Font("Arial", Font.BOLD, 12));
 		GridBagConstraints gbc_lblHourlyWage = new GridBagConstraints();
@@ -114,7 +115,7 @@ public class UserPanel extends JPanel {
 		gbc_textField.gridy = 4;
 		add(textField, gbc_textField);
 		textField.setColumns(10);
-		
+
 		textField_1 = new JTextField();
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
@@ -143,10 +144,10 @@ public class UserPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					SimUser u = new SimUser(txtAddAsset.getText(), Double
-							.parseDouble(textField_1.getText()));
-					u.setTrustValue(new TrustValue(Double
-							.parseDouble(textField.getText())));
-					GuiMain.getSimUsers().add(u);
+							.parseDouble(textField_1.getText()),
+							new TrustValue(Double.parseDouble(textField
+									.getText())));
+					InMemoryPersistenceManager.getSimUsers().add(u);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

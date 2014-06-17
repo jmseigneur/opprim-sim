@@ -66,11 +66,11 @@ public class OpportunityDescriptor {
 	public Collection<Outcome> getOutcomes() {
 		return this.outcomes;
 	}
-	
-	public void addOutcome(Outcome outcome){
-		
+
+	public void addOutcome(Outcome outcome) {
+
 		this.outcomes.add(outcome);
-		
+
 	}
 
 	/**

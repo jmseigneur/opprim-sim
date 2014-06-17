@@ -14,16 +14,16 @@ import eu.muses.sim.riskman.asset.Asset;
  */
 public class SensitivityLevel {
 
-    /**
-     * Compute asset sensitivity level.
-     *
-     * @param asset
-     *            the asset
-     * @return the int
-     */
-    public static int computeAssetSensitivityLevel(Asset asset) {
-        // TODO implement compute sensitivity level from asset
-        return -1;
-    }
+	/**
+	 * Compute asset sensitivity level.
+	 *
+	 * @param asset
+	 *            the asset
+	 * @return the int
+	 */
+	public static int computeAssetSensitivityLevel(Asset asset) {
+		// TODO implement compute sensitivity level from asset
+		return -1;
+	}
 
 }

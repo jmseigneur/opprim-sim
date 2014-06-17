@@ -12,26 +12,26 @@ package eu.muses.sim.riskman;
  */
 public class Probability {
 
-    /** The prob. */
-    private double prob;
+	/** The prob. */
+	private double prob;
 
-    /**
-     * Instantiates a new probability.
-     */
-    public Probability() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Instantiates a new probability.
+	 */
+	public Probability() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    /**
-     * Instantiates a new probability.
-     *
-     * @param prob
-     *            the prob
-     */
-    public Probability(double prob) {
-        this.prob = prob;
-    }
+	/**
+	 * Instantiates a new probability.
+	 *
+	 * @param prob
+	 *            the prob
+	 */
+	public Probability(double prob) {
+		this.prob = prob;
+	}
 
 	public double getProb() {
 		return prob;

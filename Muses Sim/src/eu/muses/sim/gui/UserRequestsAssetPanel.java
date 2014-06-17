@@ -36,7 +36,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 
-public class AliceRequestsAssetPanel extends JPanel {
+public class UserRequestsAssetPanel extends JPanel {
 
 	/**
 	 * 
@@ -46,7 +46,7 @@ public class AliceRequestsAssetPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public AliceRequestsAssetPanel() {
+	public UserRequestsAssetPanel() {
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -60,7 +60,7 @@ public class AliceRequestsAssetPanel extends JPanel {
 				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JLabel lblNewAsset = new JLabel("Alice Requests Asset Simulation");
+		JLabel lblNewAsset = new JLabel("User Requests Asset Simulation");
 		GridBagConstraints gbc_lblNewAsset = new GridBagConstraints();
 		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewAsset.gridwidth = 17;
@@ -116,12 +116,24 @@ public class AliceRequestsAssetPanel extends JPanel {
 			}
 		});
 
-		JButton btnRunSimulation = new JButton("Run Simulation");
+		final JButton btnRunSimulation = new JButton("Run Simulation");
+
+		GridBagConstraints gbc_btnRunSimulation = new GridBagConstraints();
+		gbc_btnRunSimulation.insets = new Insets(0, 0, 0, 5);
+		gbc_btnRunSimulation.gridx = 1;
+		gbc_btnRunSimulation.gridy = 7;
+		add(btnRunSimulation, gbc_btnRunSimulation);
+		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();
+		gbc_btnSaveAsset.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSaveAsset.gridx = 12;
+		gbc_btnSaveAsset.gridy = 7;
+		add(btnSaveAsset, gbc_btnSaveAsset);
+
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					
-					GuiMain.setSimAmount(GuiMain.getSimAmount()+1);
+
+					GuiMain.setSimAmount(GuiMain.getSimAmount() + 1);
 					AccessRequest accessRequest = GuiMain.getAccessRequest();
 
 					// XXX //user1Laptop is for example inferred by the sensed
@@ -391,6 +403,8 @@ public class AliceRequestsAssetPanel extends JPanel {
 								accessRequest);
 					}
 
+					btnRunSimulation.setVisible(false);
+
 				} catch (Exception ex) {
 					ex.printStackTrace();
 					JOptionPane.showConfirmDialog(null,
@@ -400,16 +414,6 @@ public class AliceRequestsAssetPanel extends JPanel {
 				}
 			}
 		});
-		GridBagConstraints gbc_btnRunSimulation = new GridBagConstraints();
-		gbc_btnRunSimulation.insets = new Insets(0, 0, 0, 5);
-		gbc_btnRunSimulation.gridx = 1;
-		gbc_btnRunSimulation.gridy = 7;
-		add(btnRunSimulation, gbc_btnRunSimulation);
-		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();
-		gbc_btnSaveAsset.insets = new Insets(0, 0, 0, 5);
-		gbc_btnSaveAsset.gridx = 12;
-		gbc_btnSaveAsset.gridy = 7;
-		add(btnSaveAsset, gbc_btnSaveAsset);
 
 	}
 

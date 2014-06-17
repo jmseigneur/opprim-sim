@@ -12,14 +12,14 @@ package eu.muses.sim.corporate.policy;
  */
 public class Group {
 
-    /**
-     * Instantiates a new group.
-     *
-     * @param name
-     *            the name
-     */
-    public Group(String name) {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Instantiates a new group.
+	 *
+	 * @param name
+	 *            the name
+	 */
+	public Group(String name) {
+		// TODO Auto-generated constructor stub
+	}
 
 }

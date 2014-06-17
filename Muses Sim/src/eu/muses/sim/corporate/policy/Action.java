@@ -12,20 +12,20 @@ package eu.muses.sim.corporate.policy;
  */
 public class Action {
 
-    /** The Constant WIPE_ALL. */
-    public static final Action WIPE_ALL = new Action("Wipe all");
+	/** The Constant WIPE_ALL. */
+	public static final Action WIPE_ALL = new Action("Wipe all");
 
-    /** The Constant LOCK. */
-    public static final Action LOCK = new Action("Lock");
+	/** The Constant LOCK. */
+	public static final Action LOCK = new Action("Lock");
 
-    /**
-     * Instantiates a new action.
-     *
-     * @param name
-     *            the name
-     */
-    public Action(String name) {
-        super();
-    }
+	/**
+	 * Instantiates a new action.
+	 *
+	 * @param name
+	 *            the name
+	 */
+	public Action(String name) {
+		super();
+	}
 
 }

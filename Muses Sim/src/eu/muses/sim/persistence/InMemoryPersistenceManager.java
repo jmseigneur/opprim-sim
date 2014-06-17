@@ -34,15 +34,14 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 
 	/** The Sim Users */
 	static List<SimUser> simUsers = new ArrayList<SimUser>();
-	
+
 	/** The clues threat table. */
 	private static CluesThreatTable cluesThreatTable = new CluesThreatTable();
-	
+
 	public InMemoryPersistenceManager() {
 		super();
 	}
 
-	
 	/**
 	 * @return the outcomes
 	 */
@@ -51,7 +50,8 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	}
 
 	/**
-	 * @param outcomes the outcomes to set
+	 * @param outcomes
+	 *            the outcomes to set
 	 */
 	public static void setOutcomes(List<Outcome> outcomes) {
 		InMemoryPersistenceManager.outcomes = outcomes;
@@ -65,7 +65,8 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	}
 
 	/**
-	 * @param opportunities the opportunities to set
+	 * @param opportunities
+	 *            the opportunities to set
 	 */
 	public static void setOpportunities(List<Opportunity> opportunities) {
 		InMemoryPersistenceManager.opportunities = opportunities;
@@ -79,7 +80,8 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	}
 
 	/**
-	 * @param assets the assets to set
+	 * @param assets
+	 *            the assets to set
 	 */
 	public static void setAssets(List<Asset> assets) {
 		InMemoryPersistenceManager.assets = assets;
@@ -93,7 +95,8 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	}
 
 	/**
-	 * @param threats the threats to set
+	 * @param threats
+	 *            the threats to set
 	 */
 	public static void setThreats(List<Threat> threats) {
 		InMemoryPersistenceManager.threats = threats;
@@ -107,7 +110,8 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	}
 
 	/**
-	 * @param clues the clues to set
+	 * @param clues
+	 *            the clues to set
 	 */
 	public static void setClues(List<Clue> clues) {
 		InMemoryPersistenceManager.clues = clues;
@@ -121,7 +125,8 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	}
 
 	/**
-	 * @param riskPolicies the riskPolicies to set
+	 * @param riskPolicies
+	 *            the riskPolicies to set
 	 */
 	public static void setRiskPolicies(List<RiskPolicy> riskPolicies) {
 		InMemoryPersistenceManager.riskPolicies = riskPolicies;
@@ -135,7 +140,8 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	}
 
 	/**
-	 * @param simUsers the simUsers to set
+	 * @param simUsers
+	 *            the simUsers to set
 	 */
 	public static void setSimUsers(List<SimUser> simUsers) {
 		InMemoryPersistenceManager.simUsers = simUsers;
@@ -149,12 +155,11 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	}
 
 	/**
-	 * @param cluesThreatTable the cluesThreatTable to set
+	 * @param cluesThreatTable
+	 *            the cluesThreatTable to set
 	 */
 	public static void setCluesThreatTable(CluesThreatTable cluesThreatTable) {
 		InMemoryPersistenceManager.cluesThreatTable = cluesThreatTable;
 	}
 
-	
-	
 }

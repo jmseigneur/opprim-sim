@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 
 import eu.muses.sim.Outcome;
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.opportunity.Opportunity;
 
@@ -91,8 +92,9 @@ public class OpportunityPanel extends JPanel {
 		add(lblAttachAnOutcome, gbc_lblAttachAnOutcome);
 
 		final JComboBox<Outcome> comboBox = new JComboBox<Outcome>();
-		if (GuiMain.getOutcomes() != null && !GuiMain.getOutcomes().isEmpty()) {
-			for (Outcome o : GuiMain.getOutcomes()) {
+		if (InMemoryPersistenceManager.getOutcomes() != null
+				&& !InMemoryPersistenceManager.getOutcomes().isEmpty()) {
+			for (Outcome o : InMemoryPersistenceManager.getOutcomes()) {
 				comboBox.addItem(o);
 			}
 		} else {
@@ -121,9 +123,10 @@ public class OpportunityPanel extends JPanel {
 					Opportunity op = new Opportunity(textField.getText(),
 							new Probability(0.5), (Outcome) comboBox
 									.getSelectedItem());
-					List<Opportunity> opList = GuiMain.getOpportunities();
+					List<Opportunity> opList = InMemoryPersistenceManager
+							.getOpportunities();
 					opList.add(op);
-					GuiMain.setOpportunities(opList);
+					InMemoryPersistenceManager.setOpportunities(opList);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

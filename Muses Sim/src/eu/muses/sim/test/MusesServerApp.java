@@ -14,14 +14,14 @@ import eu.muses.sim.RealTimeRiskTrustAnalysisEngine;
  */
 public class MusesServerApp {
 
-    /**
-     * Instantiates a new muses server app.
-     *
-     * @param s2Rt2ae
-     *            the s2 rt2ae
-     */
-    public MusesServerApp(RealTimeRiskTrustAnalysisEngine s2Rt2ae) {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Instantiates a new muses server app.
+	 *
+	 * @param s2Rt2ae
+	 *            the s2 rt2ae
+	 */
+	public MusesServerApp(RealTimeRiskTrustAnalysisEngine s2Rt2ae) {
+		// TODO Auto-generated constructor stub
+	}
 
 }

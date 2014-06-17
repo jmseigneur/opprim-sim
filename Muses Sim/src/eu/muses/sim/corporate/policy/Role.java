@@ -12,14 +12,14 @@ package eu.muses.sim.corporate.policy;
  */
 public class Role {
 
-    /**
-     * Instantiates a new role.
-     *
-     * @param name
-     *            the name
-     */
-    public Role(String name) {
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * Instantiates a new role.
+	 *
+	 * @param name
+	 *            the name
+	 */
+	public Role(String name) {
+		// TODO Auto-generated constructor stub
+	}
 
 }

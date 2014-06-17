@@ -24,6 +24,7 @@ import java.awt.Component;
 
 import javax.swing.Box;
 
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.riskman.asset.Asset;
 
 import java.awt.event.ActionListener;
@@ -80,7 +81,7 @@ public class ViewAssetsPanel extends JPanel {
 		model.addColumn("Asset Name");
 		model.addColumn("Asset Value");
 
-		for (Asset asset : GuiMain.getAssets()) {
+		for (Asset asset : InMemoryPersistenceManager.getAssets()) {
 			model.addRow(new String[] { asset.getAssetName(),
 					String.valueOf(asset.getValue()) });
 		}

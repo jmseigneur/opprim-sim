@@ -12,54 +12,56 @@ package eu.muses.sim;
  */
 public class Outcome {
 
-    /**
-     * The cost benefit.
-     *
-     * @uml.property name="costBenefit"
-     */
-    private double costBenefit;
+	/**
+	 * The cost benefit.
+	 *
+	 * @uml.property name="costBenefit"
+	 */
+	private double costBenefit;
 
-    /** The description. */
-    private String description;
+	/** The description. */
+	private String description;
 
-    /**
-     * Instantiates a new outcome.
-     *
-     * @param description
-     *            the description
-     * @param costBenefit
-     *            the cost benefit
-     */
-    public Outcome(String description, double costBenefit) {
-        super();
-        this.costBenefit = costBenefit;
-        this.description = description;
-    }
+	/**
+	 * Instantiates a new outcome.
+	 *
+	 * @param description
+	 *            the description
+	 * @param costBenefit
+	 *            the cost benefit
+	 */
+	public Outcome(String description, double costBenefit) {
+		super();
+		this.costBenefit = costBenefit;
+		this.description = description;
+	}
 
-    public Outcome() {
+	public Outcome() {
 		// TODO Auto-generated constructor stub
-    	super();
+		super();
 	}
 
 	/**
-     * Gets the cost benefit.
-     *
-     * @return the cost benefit
-     */
-    public double getCostBenefit() {
-        return this.costBenefit;
-    }
+	 * Gets the cost benefit.
+	 *
+	 * @return the cost benefit
+	 */
+	public double getCostBenefit() {
+		return this.costBenefit;
+	}
 
-    /**
-     * Gets the description.
-     *
-     * @return the description
-     */
-    public String getDescription() {
-        return this.description;
-    }
+	/**
+	 * Gets the description.
+	 *
+	 * @return the description
+	 */
+	public String getDescription() {
+		return this.description;
+	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -69,19 +71,19 @@ public class Outcome {
 	}
 
 	/**
-	 * @param costBenefit the costBenefit to set
+	 * @param costBenefit
+	 *            the costBenefit to set
 	 */
 	public void setCostBenefit(double costBenefit) {
 		this.costBenefit = costBenefit;
 	}
 
 	/**
-	 * @param description the description to set
+	 * @param description
+	 *            the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-    
-    
 }

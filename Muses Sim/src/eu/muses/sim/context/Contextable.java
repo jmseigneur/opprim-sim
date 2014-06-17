@@ -15,18 +15,18 @@ import eu.muses.sim.riskman.vulnerability.Vulnerability;
  */
 public interface Contextable {
 
-    /**
-     * Gets the vulnerabilities.
-     *
-     * @return the vulnerabilities
-     */
-    public Vulnerability[] getVulnerabilities();
+	/**
+	 * Gets the vulnerabilities.
+	 *
+	 * @return the vulnerabilities
+	 */
+	public Vulnerability[] getVulnerabilities();
 
-    /**
-     * Checks if is under attack.
-     *
-     * @return the probability
-     */
-    public Probability isUnderAttack();
+	/**
+	 * Checks if is under attack.
+	 *
+	 * @return the probability
+	 */
+	public Probability isUnderAttack();
 
 }

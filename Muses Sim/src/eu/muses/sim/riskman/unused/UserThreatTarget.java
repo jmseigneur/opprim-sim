@@ -14,33 +14,33 @@ import eu.muses.sim.riskman.asset.Asset;
  */
 public class UserThreatTarget extends ThreatTarget {
 
-    /**
-     * The asset.
-     *
-     * @uml.property name="asset"
-     * @uml.associationEnd multiplicity="(0 -1)" dimension="1"
-     *                     inverse="userThreatTarget:eu.muses.sim.riskman.asset.Asset"
-     * @uml.association name="onAssets"
-     */
-    private Asset[] asset;
+	/**
+	 * The asset.
+	 *
+	 * @uml.property name="asset"
+	 * @uml.associationEnd multiplicity="(0 -1)" dimension="1"
+	 *                     inverse="userThreatTarget:eu.muses.sim.riskman.asset.Asset"
+	 * @uml.association name="onAssets"
+	 */
+	private Asset[] asset;
 
-    /**
-     * Gets the asset.
-     *
-     * @return the asset
-     */
-    public Asset[] getAsset() {
-        return this.asset;
-    }
+	/**
+	 * Gets the asset.
+	 *
+	 * @return the asset
+	 */
+	public Asset[] getAsset() {
+		return this.asset;
+	}
 
-    /**
-     * Sets the asset.
-     *
-     * @param asset
-     *            the new asset
-     */
-    public void setAsset(Asset[] asset) {
-        this.asset = asset;
-    }
+	/**
+	 * Sets the asset.
+	 *
+	 * @param asset
+	 *            the new asset
+	 */
+	public void setAsset(Asset[] asset) {
+		this.asset = asset;
+	}
 
 }
