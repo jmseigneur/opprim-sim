@@ -38,6 +38,7 @@ public class UserPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtAddAsset;
 	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Create the panel.
@@ -50,7 +51,7 @@ public class UserPanel extends JPanel {
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0,
+		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 1.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -94,6 +95,15 @@ public class UserPanel extends JPanel {
 		gbc_lblAssetValue.gridy = 3;
 		lblAssetValue.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAssetValue, gbc_lblAssetValue);
+		
+		JLabel lblHourlyWage = new JLabel("Hourly wage:");
+		lblHourlyWage.setFont(new Font("Arial", Font.BOLD, 12));
+		GridBagConstraints gbc_lblHourlyWage = new GridBagConstraints();
+		gbc_lblHourlyWage.anchor = GridBagConstraints.WEST;
+		gbc_lblHourlyWage.insets = new Insets(0, 0, 5, 5);
+		gbc_lblHourlyWage.gridx = 3;
+		gbc_lblHourlyWage.gridy = 3;
+		add(lblHourlyWage, gbc_lblHourlyWage);
 
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
@@ -104,6 +114,15 @@ public class UserPanel extends JPanel {
 		gbc_textField.gridy = 4;
 		add(textField, gbc_textField);
 		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 3;
+		gbc_textField_1.gridy = 4;
+		add(textField_1, gbc_textField_1);
+		textField_1.setColumns(10);
 
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
@@ -123,7 +142,8 @@ public class UserPanel extends JPanel {
 		btnSaveAsset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					SimUser u = new SimUser(txtAddAsset.getText(), 60);
+					SimUser u = new SimUser(txtAddAsset.getText(), Double
+							.parseDouble(textField_1.getText()));
 					u.setTrustValue(new TrustValue(Double
 							.parseDouble(textField.getText())));
 					GuiMain.getSimUsers().add(u);

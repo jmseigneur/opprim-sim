@@ -72,6 +72,7 @@ public class SimUser extends User {
      */
     public SimUser(String nickname, double hourlyCost) {
         super(nickname);
+        this.hourlyCost = hourlyCost;
         // TODO Auto-generated constructor stub
     }
 

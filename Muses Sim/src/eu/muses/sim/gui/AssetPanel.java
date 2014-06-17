@@ -37,7 +37,7 @@ public class AssetPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtAddAsset;
 	private JTextField textField;
-	Outcome goodOutcome = new Outcome();
+	
 	Outcome badOutcome = new Outcome();
 
 	/**
@@ -128,6 +128,7 @@ public class AssetPanel extends JPanel {
 		JLabel lblInferredOutcomes = new JLabel("Inferred Outcomes:");
 		lblInferredOutcomes.setFont(new Font("Arial", Font.BOLD, 12));
 		GridBagConstraints gbc_lblInferredOutcomes = new GridBagConstraints();
+		gbc_lblInferredOutcomes.anchor = GridBagConstraints.WEST;
 		gbc_lblInferredOutcomes.insets = new Insets(0, 0, 5, 5);
 		gbc_lblInferredOutcomes.gridx = 2;
 		gbc_lblInferredOutcomes.gridy = 5;
@@ -151,15 +152,9 @@ public class AssetPanel extends JPanel {
 		gbc_comboBox_1.gridy = 6;
 		add(comboBox_1, gbc_comboBox_1);
 		
-		final JLabel label = new JLabel("");
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.insets = new Insets(0, 0, 5, 5);
-		gbc_label.gridx = 2;
-		gbc_label.gridy = 6;
-		add(label, gbc_label);
-		
 		final JLabel label_1 = new JLabel("");
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
+		gbc_label_1.anchor = GridBagConstraints.WEST;
 		gbc_label_1.insets = new Insets(0, 0, 0, 5);
 		gbc_label_1.gridx = 2;
 		gbc_label_1.gridy = 7;
@@ -170,39 +165,24 @@ public class AssetPanel extends JPanel {
 				
 				try{
 				if(comboBox_1.getSelectedItem().equals("File")){
-					goodOutcome.setDescription("Accessing the file will report a benefit of " + Double
-							.parseDouble(textField.getText()) + "€");
-					goodOutcome.setCostBenefit(Double
-							.parseDouble(textField.getText()));
 					badOutcome.setDescription("File is compromised, lost " + - Double
 							.parseDouble(textField.getText()) + "€");
 					badOutcome.setCostBenefit(- Double
 							.parseDouble(textField.getText()));
-					label.setText(goodOutcome.getDescription());
 					label_1.setText(badOutcome.getDescription());
 				}
 				if(comboBox_1.getSelectedItem().equals("Equipment")){
-					goodOutcome.setDescription("Using the equipment will report a benefit of " + Double
-							.parseDouble(textField.getText()) + "€");
-					goodOutcome.setCostBenefit(Double
-							.parseDouble(textField.getText()));
 					badOutcome.setDescription("Equipment was damaged, lost " + - Double
 							.parseDouble(textField.getText()) + "€");
 					badOutcome.setCostBenefit(- Double
 							.parseDouble(textField.getText()));
-					label.setText(goodOutcome.getDescription());
 					label_1.setText(badOutcome.getDescription());
 				}
 				if(comboBox_1.getSelectedItem().equals("Other")){
-					goodOutcome.setDescription("Good Outcome with a benefit of " + Double
-							.parseDouble(textField.getText()) + "€");
-					goodOutcome.setCostBenefit(Double
-							.parseDouble(textField.getText()));
 					badOutcome.setDescription("Bad Outcome resulting in a loss of " + - Double
 							.parseDouble(textField.getText()) + "€");
 					badOutcome.setCostBenefit(- Double
 							.parseDouble(textField.getText()));
-					label.setText(goodOutcome.getDescription());
 					label_1.setText(badOutcome.getDescription());
 				}
 				}catch (Exception ex) {
@@ -238,7 +218,6 @@ public class AssetPanel extends JPanel {
 							+ " was added with cost "
 							+ GuiMain.getS2Rt2ae()
 									.getAsset(txtAddAsset.getText()).getValue());
-					GuiMain.getOutcomes().add(goodOutcome);
 					GuiMain.getOutcomes().add(badOutcome);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();

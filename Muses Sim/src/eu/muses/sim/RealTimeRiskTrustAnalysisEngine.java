@@ -223,7 +223,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 			for (Clue clue : clues) {
 				threatName = threatName + clue.getId().substring(0, 1);
 			}
-			threatName = threatName + accessRequest.getUser().getNickname() + requestedAssests.iterator().next().getAssetName();
+			threatName = threatName.substring(0, threatName.length()-2) + accessRequest.getUser().getNickname() + requestedAssests.iterator().next().getAssetName();
 			Threat threat = new Threat("Threat" + threatName, new Probability(0.5), new Outcome("Compromised Asset", requestedAssests.iterator().next().getValue()));
 			cluesThreatTable.addMapping(clues, threat);
 			cluesThreatTable.updateThreatOccurences(threat);

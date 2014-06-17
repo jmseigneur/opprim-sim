@@ -25,6 +25,7 @@ import javax.swing.Box;
 import eu.muses.sim.OpportunityDescriptor;
 import eu.muses.sim.Outcome;
 import eu.muses.sim.request.AccessRequest;
+import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.opportunity.Opportunity;
@@ -50,6 +51,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private JTable table_1;
+	SimUser u;
 
 	/**
 	 * Create the panel.
@@ -61,7 +63,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 1.0, 0.0,
+		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 1.0, 1.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,
@@ -78,20 +80,13 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		add(lblNewAsset, gbc_lblNewAsset);
 		
 		JLabel lblAsset = new JLabel("Asset");
+		lblAsset.setFont(new Font("Arial", Font.BOLD, 12));
 		GridBagConstraints gbc_lblAsset = new GridBagConstraints();
 		gbc_lblAsset.anchor = GridBagConstraints.WEST;
 		gbc_lblAsset.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAsset.gridx = 1;
 		gbc_lblAsset.gridy = 1;
 		add(lblAsset, gbc_lblAsset);
-		
-		JLabel lblUser = new JLabel("User");
-		GridBagConstraints gbc_lblUser = new GridBagConstraints();
-		gbc_lblUser.anchor = GridBagConstraints.WEST;
-		gbc_lblUser.insets = new Insets(0, 0, 5, 5);
-		gbc_lblUser.gridx = 3;
-		gbc_lblUser.gridy = 1;
-		add(lblUser, gbc_lblUser);
 		
 		final JComboBox<Asset> comboBox = new JComboBox<Asset>();
 		if(!GuiMain.getAssets().isEmpty()){
@@ -102,12 +97,21 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 			comboBox.setModel(new DefaultComboBoxModel(
 					new String[] { "ADD ASSETS FIRST" }));
 		}
+		
+		JLabel lblUser = new JLabel("User");
+		lblUser.setFont(new Font("Arial", Font.BOLD, 12));
+		GridBagConstraints gbc_lblUser = new GridBagConstraints();
+		gbc_lblUser.anchor = GridBagConstraints.WEST;
+		gbc_lblUser.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUser.gridx = 4;
+		gbc_lblUser.gridy = 1;
+		add(lblUser, gbc_lblUser);
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 1;
 		gbc_comboBox.gridy = 2;
-		add(comboBox, gbc_comboBox);
+		add(comboBox, gbc_comboBox);	
 		
 		final JComboBox<SimUser> comboBox_1 = new JComboBox<SimUser>();
 		if(!GuiMain.getSimUsers().isEmpty()){
@@ -121,11 +125,12 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
 		gbc_comboBox_1.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_1.gridx = 3;
+		gbc_comboBox_1.gridx = 4;
 		gbc_comboBox_1.gridy = 2;
 		add(comboBox_1, gbc_comboBox_1);
 		
 		JLabel lblOpportunity = new JLabel("Opportunity");
+		lblOpportunity.setFont(new Font("Arial", Font.BOLD, 12));
 		GridBagConstraints gbc_lblOpportunity = new GridBagConstraints();
 		gbc_lblOpportunity.anchor = GridBagConstraints.WEST;
 		gbc_lblOpportunity.insets = new Insets(0, 0, 5, 5);
@@ -134,10 +139,11 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		add(lblOpportunity, gbc_lblOpportunity);
 		
 		JLabel lblClues = new JLabel("Clues");
+		lblClues.setFont(new Font("Arial", Font.BOLD, 12));
 		GridBagConstraints gbc_lblClues = new GridBagConstraints();
 		gbc_lblClues.anchor = GridBagConstraints.WEST;
 		gbc_lblClues.insets = new Insets(0, 0, 5, 5);
-		gbc_lblClues.gridx = 3;
+		gbc_lblClues.gridx = 4;
 		gbc_lblClues.gridy = 3;
 		add(lblClues, gbc_lblClues);
 
@@ -150,16 +156,24 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 3;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 4;
 		add(scrollPane, gbc_scrollPane);
 		
-		DefaultTableModel model = new DefaultTableModel();
+		final DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Opportunity Description");
 		model.addColumn("Probability");
-
+		
+		comboBox_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				u = (SimUser) comboBox_1.getSelectedItem();
+				model.addRow(new String[] {"If user works the company will not lose " + u.getHourlyCost() + " per hour of inactivity", String.valueOf(u.getTrustValue().getValue())});
+			}
+		});
+		
 		for (Opportunity op : GuiMain.getOpportunities()) {
 			model.addRow(new String[] { op.getDescription(),
 					String.valueOf(op.getProbability().getProb()) });
@@ -168,20 +182,20 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
-		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_1.gridx = 3;
-		gbc_scrollPane_1.gridy = 4;
-		add(scrollPane_1, gbc_scrollPane_1);
-		
 		DefaultTableModel model2 = new DefaultTableModel();
 		model2.addColumn("Clue Name");
 
 		for (Clue cl : GuiMain.getClues()) {
 			model2.addRow(new String[] { cl.getId()});
 		}
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridx = 4;
+		gbc_scrollPane_1.gridy = 4;
+		add(scrollPane_1, gbc_scrollPane_1);
 		
 		table_1 = new JTable(model2);
 		scrollPane_1.setViewportView(table_1);
@@ -194,6 +208,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		add(verticalStrut, gbc_verticalStrut);
 		
 		JLabel lblRiskPolicy = new JLabel("Risk Policy");
+		lblRiskPolicy.setFont(new Font("Arial", Font.BOLD, 12));
 		GridBagConstraints gbc_lblRiskPolicy = new GridBagConstraints();
 		gbc_lblRiskPolicy.anchor = GridBagConstraints.WEST;
 		gbc_lblRiskPolicy.insets = new Insets(0, 0, 5, 5);
@@ -231,8 +246,8 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 						.setDescription((String) table.getValueAt(opRow, 0));
 				opportunityDescriptor
 						.addOutcome(new Outcome(
-								"150k eur can be won if the material is used and submitted",
-								150.0));
+								(String) table.getValueAt(opRow, 0),
+								u.getHourlyCost()));
 				opportunityDescriptor.addRequestedAsset((Asset) comboBox.getSelectedItem());
 				accessRequest
 						.setOpportunityDescriptor(opportunityDescriptor);
