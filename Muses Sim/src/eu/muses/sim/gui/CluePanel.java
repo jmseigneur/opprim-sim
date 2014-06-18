@@ -46,7 +46,7 @@ public class CluePanel extends JPanel {
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0,
+		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -56,8 +56,8 @@ public class CluePanel extends JPanel {
 		JLabel lblNewAsset = new JLabel("New Clue");
 		GridBagConstraints gbc_lblNewAsset = new GridBagConstraints();
 		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewAsset.gridwidth = 15;
-		gbc_lblNewAsset.gridx = 1;
+		gbc_lblNewAsset.gridwidth = 16;
+		gbc_lblNewAsset.gridx = 0;
 		gbc_lblNewAsset.gridy = 0;
 		lblNewAsset.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(lblNewAsset, gbc_lblNewAsset);
@@ -73,15 +73,43 @@ public class CluePanel extends JPanel {
 		add(lblAddClue, gbc_lblAddClue);
 
 		textField = new JTextField();
-		textField.setToolTipText("name the clue...");
+		textField.setToolTipText("Name the clue");
 		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 10;
+		gbc_textField.gridwidth = 2;
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 0;
 		gbc_textField.gridy = 2;
 		add(textField, gbc_textField);
 		textField.setColumns(10);
+		
+				JButton btnSaveClue = new JButton("Save Clue");
+				btnSaveClue.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							if(textField.getText().isEmpty())
+								throw new Exception();
+							Clue c = new Clue(textField.getText());
+							GuiMain.getPersistenceManager().getClues().add(c);
+							GuiMain.initializeHomePanel();
+							JPanel mainPanel = GuiMain.getMainPanel();
+							GuiMain.switchPanel(mainPanel);
+						} catch (Exception ex) {
+							ex.printStackTrace();
+							JOptionPane.showConfirmDialog(null,
+									"Input should be correctly filled", "Wrong Input",
+									JOptionPane.OK_CANCEL_OPTION,
+									JOptionPane.ERROR_MESSAGE);
+						}
+
+					}
+				});
+				GridBagConstraints gbc_btnSaveClue = new GridBagConstraints();
+				gbc_btnSaveClue.anchor = GridBagConstraints.EAST;
+				gbc_btnSaveClue.insets = new Insets(0, 0, 5, 5);
+				gbc_btnSaveClue.gridx = 1;
+				gbc_btnSaveClue.gridy = 3;
+				add(btnSaveClue, gbc_btnSaveClue);
 
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
@@ -96,31 +124,6 @@ public class CluePanel extends JPanel {
 		gbc_verticalStrut.gridx = 12;
 		gbc_verticalStrut.gridy = 4;
 		add(verticalStrut, gbc_verticalStrut);
-
-		JButton btnSaveClue = new JButton("Save Clue");
-		btnSaveClue.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					Clue c = new Clue(textField.getText());
-					GuiMain.getPersistenceManager().getClues().add(c);
-					GuiMain.initializeHomePanel();
-					JPanel mainPanel = GuiMain.getMainPanel();
-					GuiMain.switchPanel(mainPanel);
-				} catch (Exception ex) {
-					ex.printStackTrace();
-					JOptionPane.showConfirmDialog(null,
-							"Input should be correctly filled", "Wrong Input",
-							JOptionPane.OK_CANCEL_OPTION,
-							JOptionPane.ERROR_MESSAGE);
-				}
-
-			}
-		});
-		GridBagConstraints gbc_btnSaveClue = new GridBagConstraints();
-		gbc_btnSaveClue.insets = new Insets(0, 0, 0, 5);
-		gbc_btnSaveClue.gridx = 12;
-		gbc_btnSaveClue.gridy = 5;
-		add(btnSaveClue, gbc_btnSaveClue);
 
 	}
 

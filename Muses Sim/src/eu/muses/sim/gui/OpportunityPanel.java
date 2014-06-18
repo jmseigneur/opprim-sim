@@ -53,9 +53,9 @@ public class OpportunityPanel extends JPanel {
 
 		JLabel lblNewAsset = new JLabel("New Opportunity");
 		GridBagConstraints gbc_lblNewAsset = new GridBagConstraints();
-		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewAsset.gridwidth = 10;
-		gbc_lblNewAsset.gridx = 1;
+		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewAsset.gridwidth = 16;
+		gbc_lblNewAsset.gridx = 0;
 		gbc_lblNewAsset.gridy = 0;
 		lblNewAsset.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(lblNewAsset, gbc_lblNewAsset);
@@ -71,7 +71,7 @@ public class OpportunityPanel extends JPanel {
 
 		final JTextField textField = new JTextField();
 		textField
-				.setToolTipText("add a textual description of the opportunity...");
+				.setToolTipText("Add a textual description of the opportunity");
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 13;
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
@@ -101,6 +101,37 @@ public class OpportunityPanel extends JPanel {
 			comboBox.setModel(new DefaultComboBoxModel(
 					new String[] { "ADD OUTCOMES FIRST" }));
 		}
+		
+				JButton btnSaveThreat = new JButton("Save Opportunity");
+				btnSaveThreat.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						try {
+							Opportunity op = new Opportunity(textField.getText(),
+									new Probability(0.5), (Outcome) comboBox
+											.getSelectedItem());
+							List<Opportunity> opList = GuiMain.getPersistenceManager()
+									.getOpportunities();
+							opList.add(op);
+							GuiMain.getPersistenceManager().setOpportunities(opList);
+							GuiMain.initializeHomePanel();
+							JPanel mainPanel = GuiMain.getMainPanel();
+							GuiMain.switchPanel(mainPanel);
+						} catch (Exception ex) {
+							ex.printStackTrace();
+							JOptionPane.showConfirmDialog(null,
+									"Input should be correctly filled", "Wrong Input",
+									JOptionPane.OK_CANCEL_OPTION,
+									JOptionPane.ERROR_MESSAGE);
+						}
+
+					}
+				});
+				GridBagConstraints gbc_btnSaveThreat = new GridBagConstraints();
+				gbc_btnSaveThreat.insets = new Insets(0, 0, 5, 5);
+				gbc_btnSaveThreat.gridx = 12;
+				gbc_btnSaveThreat.gridy = 3;
+				add(btnSaveThreat, gbc_btnSaveThreat);
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.anchor = GridBagConstraints.WEST;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -114,37 +145,6 @@ public class OpportunityPanel extends JPanel {
 		gbc_verticalStrut.gridx = 10;
 		gbc_verticalStrut.gridy = 5;
 		add(verticalStrut, gbc_verticalStrut);
-
-		JButton btnSaveThreat = new JButton("Save Opportunity");
-		btnSaveThreat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				try {
-					Opportunity op = new Opportunity(textField.getText(),
-							new Probability(0.5), (Outcome) comboBox
-									.getSelectedItem());
-					List<Opportunity> opList = GuiMain.getPersistenceManager()
-							.getOpportunities();
-					opList.add(op);
-					GuiMain.getPersistenceManager().setOpportunities(opList);
-					GuiMain.initializeHomePanel();
-					JPanel mainPanel = GuiMain.getMainPanel();
-					GuiMain.switchPanel(mainPanel);
-				} catch (Exception ex) {
-					ex.printStackTrace();
-					JOptionPane.showConfirmDialog(null,
-							"Input should be correctly filled", "Wrong Input",
-							JOptionPane.OK_CANCEL_OPTION,
-							JOptionPane.ERROR_MESSAGE);
-				}
-
-			}
-		});
-		GridBagConstraints gbc_btnSaveThreat = new GridBagConstraints();
-		gbc_btnSaveThreat.insets = new Insets(0, 0, 0, 5);
-		gbc_btnSaveThreat.gridx = 10;
-		gbc_btnSaveThreat.gridy = 6;
-		add(btnSaveThreat, gbc_btnSaveThreat);
 	}
 
 }
