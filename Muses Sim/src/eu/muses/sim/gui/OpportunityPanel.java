@@ -107,6 +107,8 @@ public class OpportunityPanel extends JPanel {
 					public void actionPerformed(ActionEvent e) {
 
 						try {
+							if(textField.getText().isEmpty())
+								throw new Exception();
 							Opportunity op = new Opportunity(textField.getText(),
 									new Probability(0.5), (Outcome) comboBox
 											.getSelectedItem());

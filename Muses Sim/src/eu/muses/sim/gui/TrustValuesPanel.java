@@ -47,76 +47,67 @@ public class TrustValuesPanel extends JPanel {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, Double.MIN_VALUE };
+				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
 		JLabel lblNewAsset = new JLabel("Trust Values");
 		GridBagConstraints gbc_lblNewAsset = new GridBagConstraints();
 		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewAsset.gridwidth = 17;
-		gbc_lblNewAsset.gridx = 0;
+		gbc_lblNewAsset.gridwidth = 20;
+		gbc_lblNewAsset.gridx = 2;
 		gbc_lblNewAsset.gridy = 0;
 		lblNewAsset.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(lblNewAsset, gbc_lblNewAsset);
 
 		final JComboBox<SimUser> comboBox = new JComboBox<SimUser>();
-		for (SimUser user : GuiMain.getPersistenceManager().getSimUsers()) {
-			comboBox.addItem(user);
-		}
-		comboBox.addItem(GuiMain.getUserCso());
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.anchor = GridBagConstraints.WEST;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.gridx = 1;
+		gbc_comboBox.gridx = 0;
 		gbc_comboBox.gridy = 2;
 		add(comboBox, gbc_comboBox);
 
 		JLabel lblUserTrustValue = new JLabel("User Trust Value: ");
 		GridBagConstraints gbc_lblUserTrustValue = new GridBagConstraints();
-		gbc_lblUserTrustValue.anchor = GridBagConstraints.WEST;
+		gbc_lblUserTrustValue.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblUserTrustValue.insets = new Insets(0, 0, 5, 5);
-		gbc_lblUserTrustValue.gridx = 1;
-		gbc_lblUserTrustValue.gridy = 4;
-		lblUserTrustValue.setFont(new Font("Arial", Font.PLAIN, 20));
+		gbc_lblUserTrustValue.gridx = 0;
+		gbc_lblUserTrustValue.gridy = 3;
+		lblUserTrustValue.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblUserTrustValue, gbc_lblUserTrustValue);
+
+		JLabel lblDeviceTrustValue = new JLabel("Device Trust Value: ");
+		GridBagConstraints gbc_lblDeviceTrustValue = new GridBagConstraints();
+		gbc_lblDeviceTrustValue.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblDeviceTrustValue.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDeviceTrustValue.gridx = 0;
+		gbc_lblDeviceTrustValue.gridy = 4;
+		lblDeviceTrustValue.setFont(new Font("Arial", Font.BOLD, 12));
+		add(lblDeviceTrustValue, gbc_lblDeviceTrustValue);
 
 		final JLabel lblNewLabel = new JLabel("");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 2;
-		gbc_lblNewLabel.gridy = 4;
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 3;
 		add(lblNewLabel, gbc_lblNewLabel);
 
-		Component verticalStrut_1 = Box.createVerticalStrut(20);
-		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
-		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
-		gbc_verticalStrut_1.gridx = 12;
-		gbc_verticalStrut_1.gridy = 5;
-		add(verticalStrut_1, gbc_verticalStrut_1);
-
-		JLabel lblDeviceTrustValue = new JLabel("Device Trust Value: ");
-		GridBagConstraints gbc_lblDeviceTrustValue = new GridBagConstraints();
-		gbc_lblDeviceTrustValue.anchor = GridBagConstraints.WEST;
-		gbc_lblDeviceTrustValue.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDeviceTrustValue.gridx = 1;
-		gbc_lblDeviceTrustValue.gridy = 6;
-		lblDeviceTrustValue.setFont(new Font("Arial", Font.PLAIN, 20));
-		add(lblDeviceTrustValue, gbc_lblDeviceTrustValue);
-
-		JLabel label = new JLabel("");
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.anchor = GridBagConstraints.WEST;
-		gbc_label.insets = new Insets(0, 0, 5, 5);
-		gbc_label.gridx = 3;
-		gbc_label.gridy = 6;
-		add(label, gbc_label);
+		if (GuiMain.getPersistenceManager().getSimUsers() != null
+				&& !GuiMain.getPersistenceManager().getSimUsers().isEmpty()) {
+			for (SimUser user : GuiMain.getPersistenceManager().getSimUsers()) {
+				comboBox.addItem(user);
+			}
+		} else {
+			comboBox.setModel(new DefaultComboBoxModel(
+					new String[] { "ADD USERS FIRST" }));
+		}
 
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -126,13 +117,6 @@ public class TrustValuesPanel extends JPanel {
 
 			}
 		});
-
-		Component verticalStrut = Box.createVerticalStrut(20);
-		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
-		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
-		gbc_verticalStrut.gridx = 12;
-		gbc_verticalStrut.gridy = 6;
-		add(verticalStrut, gbc_verticalStrut);
 
 		JButton btnSaveAsset = new JButton("Go Back");
 		btnSaveAsset.addActionListener(new ActionListener() {
@@ -151,10 +135,33 @@ public class TrustValuesPanel extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();
-		gbc_btnSaveAsset.insets = new Insets(0, 0, 0, 5);
-		gbc_btnSaveAsset.gridx = 12;
-		gbc_btnSaveAsset.gridy = 7;
+		gbc_btnSaveAsset.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSaveAsset.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnSaveAsset.gridx = 22;
+		gbc_btnSaveAsset.gridy = 4;
 		add(btnSaveAsset, gbc_btnSaveAsset);
+
+		Component verticalStrut_1 = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
+		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut_1.gridx = 12;
+		gbc_verticalStrut_1.gridy = 6;
+		add(verticalStrut_1, gbc_verticalStrut_1);
+
+		JLabel label = new JLabel("");
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.anchor = GridBagConstraints.WEST;
+		gbc_label.insets = new Insets(0, 0, 5, 5);
+		gbc_label.gridx = 1;
+		gbc_label.gridy = 4;
+		add(label, gbc_label);
+
+		Component verticalStrut = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut.gridx = 12;
+		gbc_verticalStrut.gridy = 7;
+		add(verticalStrut, gbc_verticalStrut);
 
 	}
 
