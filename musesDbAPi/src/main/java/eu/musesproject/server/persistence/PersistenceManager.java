@@ -3,6 +3,7 @@
  */
 package eu.musesproject.server.persistence;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import eu.musesproject.server.rt2ae.Asset;
 import eu.musesproject.server.rt2ae.Clue;
 import eu.musesproject.server.rt2ae.Opportunity;
+import eu.musesproject.server.rt2ae.Outcome;
 import eu.musesproject.server.rt2ae.SecurityIncident;
 import eu.musesproject.server.rt2ae.Threat;
 import eu.musesproject.server.rt2ae.User;
@@ -25,34 +27,50 @@ import eu.musesproject.server.rt2ae.User;
  */
 public class PersistenceManager {
 
+	
 	/**
 	 * 
 	 */
 	
 	public PersistenceManager() {
-		// TODO Auto-generated constructor stub
-		super();
+		new ClassPathXmlApplicationContext("classpath*:META-INF/spring/applicationContext*.xml");
+
 	}
 
 	/**
 	 * @return the outcomes
 	 */
-	/*public static List<Outcome> getOutcomes() {
-		return null;
+	public static List<Outcome> getOutcomes() {
+		
+		new PersistenceManager();
+		Outcome o = new Outcome();
+		return o.findAllOutcomes();
 	}
 
 	/**
 	 * @param outcomes the outcomes to set
 	 */
-	/*public static void setOutcomes(List<Outcome> outcomes) {
+	public static void setOutcomes(List<Outcome> outcomes) {
 		
+		new PersistenceManager();
+		
+		Iterator<Outcome> i = outcomes.iterator();
+		while(i.hasNext()){
+			Outcome o = (Outcome)i.next();
+			o.persist();
+		
+		}
+				
 	}
 
 	/**
 	 * @return the opportunities
 	 */
 	public static List<Opportunity> getOpportunities() {
-		return null;
+		
+		new PersistenceManager();
+		Opportunity o = new Opportunity();
+		return o.findAllOpportunitys();
 	}
 
 	/**
@@ -60,13 +78,24 @@ public class PersistenceManager {
 	 */
 	public static void setOpportunities(List<Opportunity> opportunities) {
 		
+		new PersistenceManager();
+		
+		Iterator<Opportunity> i = opportunities.iterator();
+		while(i.hasNext()){
+			Opportunity o = (Opportunity)i.next();
+			o.persist();
+		
+		}
 	}
 
 	/**
 	 * @return the assets
 	 */
 	public static List<Asset> getAssets() {
-		return null;
+		
+		new PersistenceManager();
+		Asset a = new Asset();
+		return a.findAllAssets();
 	}
 
 	/**
@@ -74,13 +103,24 @@ public class PersistenceManager {
 	 */
 	public static void setAssets(List<Asset> assets) {
 		
+		new PersistenceManager();
+		
+		Iterator<Asset> i = assets.iterator();
+		while(i.hasNext()){
+			Asset a = (Asset)i.next();
+			a.persist();
+		
+		}
 	}
 
 	/**
 	 * @return the threats
 	 */
 	public static List<Threat> getThreats() {
-		return null;
+		
+		new PersistenceManager();
+		Threat t = new Threat();
+		return t.findAllThreats();
 	}
 
 	/**
@@ -88,19 +128,40 @@ public class PersistenceManager {
 	 */
 	public static void setThreats(List<Threat> threats) {
 		
+		new PersistenceManager();
+		
+		Iterator<Threat> i = threats.iterator();
+		while(i.hasNext()){
+			Threat t = (Threat)i.next();
+			t.persist();
+		
+		}
+		
 	}
 
 	/**
 	 * @return the clues
 	 */
-	public static List<Clue> getClues() {
-		return null;
+	public static List<Clue> getClues() { 
+		
+		new PersistenceManager();
+		Clue c = new Clue();
+		return c.findAllClues();
 	}
 
 	/**
 	 * @param clues the clues to set
 	 */
 	public static void setClues(List<Clue> clues) {
+		
+		new PersistenceManager();
+		
+		Iterator<Clue> i = clues.iterator();
+		while(i.hasNext()){
+			Clue c = (Clue)i.next();
+			c.persist();
+		
+		}
 		
 	}
 
@@ -146,6 +207,7 @@ public class PersistenceManager {
 		
 	}*/
 	
+	@SuppressWarnings("static-access")
 	public List<User> getAllUser(){
 		
 		User u = new User();
@@ -156,14 +218,12 @@ public class PersistenceManager {
 	@SuppressWarnings({"resource" })
 	public static void main(String[] args) {
 		
-		new ClassPathXmlApplicationContext("classpath*:META-INF/spring/applicationContext*.xml");
+		PersistenceManager p = new PersistenceManager();
 		
-		SecurityIncident s = new SecurityIncident();
-		
-		
-		//System.out.println(u.findAllUsers().toString());
+		User u = new User();		
+		System.out.println("List of all users: "+u.findAllUsers());
 	}	
-	
+	    
 	
 
 }
