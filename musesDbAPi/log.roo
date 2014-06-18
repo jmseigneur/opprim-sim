@@ -1,0 +1,17 @@
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-06-17 15:51:17
+project --topLevelPackage eu.musesproject.server.rt2ae --projectName musesDbAPi --java 6 --packaging JAR
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-06-17 15:51:31
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-06-17 15:51:38
+jpa setup --database MYSQL --provider HIBERNATE 
+
+addon search mysql
+osgi obr url add --url http://spring-roo-repository.springsource.org/repository.xml
+osgi obr start --bundleSymbolicName org.springframework.roo.wrapping.mysql-connector-java
+osgi obr url remove --url http://spring-roo-repository.springsource.org/repository.xml
+addon install id 01
+database introspect --schema musesdatabase
+
+database reverse engineer --schema musesdatabase
+
+database reverse engineer --schema musesdatabase
+database reverse engineer --schema musesdatabase
