@@ -139,10 +139,10 @@ public class OutcomePanel extends JPanel {
 				try {
 					Outcome o = new Outcome(txtAddAsset.getText(), Double
 							.parseDouble(textField.getText()));
-					List<Outcome> olist = InMemoryPersistenceManager
+					List<Outcome> olist = GuiMain.getPersistenceManager()
 							.getOutcomes();
 					olist.add(o);
-					InMemoryPersistenceManager.setOutcomes(olist);
+					GuiMain.getPersistenceManager().setOutcomes(olist);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

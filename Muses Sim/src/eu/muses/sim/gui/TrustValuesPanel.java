@@ -66,7 +66,7 @@ public class TrustValuesPanel extends JPanel {
 		add(lblNewAsset, gbc_lblNewAsset);
 
 		final JComboBox<SimUser> comboBox = new JComboBox<SimUser>();
-		for (SimUser user : InMemoryPersistenceManager.getSimUsers()) {
+		for (SimUser user : GuiMain.getPersistenceManager().getSimUsers()) {
 			comboBox.addItem(user);
 		}
 		comboBox.addItem(GuiMain.getUserCso());

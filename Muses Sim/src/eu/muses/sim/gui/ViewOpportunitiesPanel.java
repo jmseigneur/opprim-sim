@@ -82,7 +82,7 @@ public class ViewOpportunitiesPanel extends JPanel {
 		model.addColumn("Opportunity Description");
 		model.addColumn("Probability");
 
-		for (Opportunity op : InMemoryPersistenceManager.getOpportunities()) {
+		for (Opportunity op : GuiMain.getPersistenceManager().getOpportunities()) {
 			model.addRow(new String[] { op.getDescription(),
 					String.valueOf(op.getProbability().getProb()) });
 		}

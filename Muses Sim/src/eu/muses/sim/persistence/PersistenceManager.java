@@ -21,121 +21,89 @@ public abstract class PersistenceManager {
 	/**
 	 * @return the outcomes
 	 */
-	public static List<Outcome> getOutcomes() {
-		return null;
-	}
+	public abstract List<Outcome> getOutcomes();
 
 	/**
 	 * @param outcomes
 	 *            the outcomes to set
 	 */
-	public static void setOutcomes(List<Outcome> outcomes) {
-
-	}
+	public abstract void setOutcomes(List<Outcome> outcomes);
 
 	/**
 	 * @return the opportunities
 	 */
-	public static List<Opportunity> getOpportunities() {
-		return null;
-	}
+	public abstract List<Opportunity> getOpportunities();
 
 	/**
 	 * @param opportunities
 	 *            the opportunities to set
 	 */
-	public static void setOpportunities(List<Opportunity> opportunities) {
-
-	}
+	public abstract void setOpportunities(List<Opportunity> opportunities);
 
 	/**
 	 * @return the assets
 	 */
-	public static List<Asset> getAssets() {
-		return null;
-	}
+	public abstract List<Asset> getAssets();
 
 	/**
 	 * @param assets
 	 *            the assets to set
 	 */
-	public static void setAssets(List<Asset> assets) {
-
-	}
+	public abstract void setAssets(List<Asset> assets);
 
 	/**
 	 * @return the threats
 	 */
-	public static List<Threat> getThreats() {
-		return null;
-	}
+	public abstract List<Threat> getThreats();
 
 	/**
 	 * @param threats
 	 *            the threats to set
 	 */
-	public static void setThreats(List<Threat> threats) {
-
-	}
+	public abstract void setThreats(List<Threat> threats);
 
 	/**
 	 * @return the clues
 	 */
-	public static List<Clue> getClues() {
-		return null;
-	}
+	public abstract List<Clue> getClues();
 
 	/**
 	 * @param clues
 	 *            the clues to set
 	 */
-	public static void setClues(List<Clue> clues) {
-
-	}
+	public abstract void setClues(List<Clue> clues);
 
 	/**
 	 * @return the riskPolicies
 	 */
-	public static List<RiskPolicy> getRiskPolicies() {
-		return null;
-	}
+	public abstract List<RiskPolicy> getRiskPolicies();
 
 	/**
 	 * @param riskPolicies
 	 *            the riskPolicies to set
 	 */
-	public static void setRiskPolicies(List<RiskPolicy> riskPolicies) {
-
-	}
+	public abstract void setRiskPolicies(List<RiskPolicy> riskPolicies);
 
 	/**
 	 * @return the simUsers
 	 */
-	public static List<SimUser> getSimUsers() {
-		return null;
-	}
+	public abstract List<SimUser> getSimUsers();
 
 	/**
 	 * @param simUsers
 	 *            the simUsers to set
 	 */
-	public static void setSimUsers(List<SimUser> simUsers) {
-
-	}
+	public abstract void setSimUsers(List<SimUser> simUsers);
 
 	/**
 	 * @return the cluesThreatTable
 	 */
-	public static CluesThreatTable getCluesThreatTable() {
-		return null;
-	}
+	public abstract CluesThreatTable getCluesThreatTable();
 
 	/**
 	 * @param cluesThreatTable
 	 *            the cluesThreatTable to set
 	 */
-	public static void setCluesThreatTable(CluesThreatTable cluesThreatTable) {
-
-	}
+	public abstract void setCluesThreatTable(CluesThreatTable cluesThreatTable);
 
 }

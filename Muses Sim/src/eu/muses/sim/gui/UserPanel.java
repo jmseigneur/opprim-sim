@@ -147,7 +147,7 @@ public class UserPanel extends JPanel {
 							.parseDouble(textField_1.getText()),
 							new TrustValue(Double.parseDouble(textField
 									.getText())));
-					InMemoryPersistenceManager.getSimUsers().add(u);
+					GuiMain.getPersistenceManager().getSimUsers().add(u);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

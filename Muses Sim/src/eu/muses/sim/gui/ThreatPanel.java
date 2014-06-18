@@ -100,9 +100,9 @@ public class ThreatPanel extends JPanel {
 		add(lblAttachAnOutcome, gbc_lblAttachAnOutcome);
 
 		final JComboBox<Outcome> comboBox = new JComboBox<Outcome>();
-		if (InMemoryPersistenceManager.getOutcomes() != null
-				&& !InMemoryPersistenceManager.getOutcomes().isEmpty()) {
-			for (Outcome o : InMemoryPersistenceManager.getOutcomes()) {
+		if (GuiMain.getPersistenceManager().getOutcomes() != null
+				&& !GuiMain.getPersistenceManager().getOutcomes().isEmpty()) {
+			for (Outcome o : GuiMain.getPersistenceManager().getOutcomes()) {
 				comboBox.addItem(o);
 			}
 		} else {
@@ -126,7 +126,7 @@ public class ThreatPanel extends JPanel {
 		add(lblAttachAClue, gbc_lblAttachAClue);
 
 		final JComboBox<Clue> comboBox_1 = new JComboBox<Clue>();
-		CluesThreatTable table = InMemoryPersistenceManager
+		CluesThreatTable table = GuiMain.getPersistenceManager()
 				.getCluesThreatTable();
 		for (CluesThreatEntry entry : table.getCluesThreatTable()) {
 			List<Clue> clues = entry.getClues();
@@ -155,7 +155,7 @@ public class ThreatPanel extends JPanel {
 				try {
 					Threat t = new Threat(textField.getText(), new Probability(
 							0.5), (Outcome) comboBox.getSelectedItem());
-					CluesThreatTable table = InMemoryPersistenceManager
+					CluesThreatTable table = GuiMain.getPersistenceManager()
 							.getCluesThreatTable();
 					Collection<CluesThreatEntry> entries = table
 							.getCluesThreatTable();
@@ -168,7 +168,7 @@ public class ThreatPanel extends JPanel {
 
 					table.setCluesThreatTable(entries);
 					System.out.println(table.toString());
-					InMemoryPersistenceManager.setCluesThreatTable(table);
+					GuiMain.getPersistenceManager().setCluesThreatTable(table);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

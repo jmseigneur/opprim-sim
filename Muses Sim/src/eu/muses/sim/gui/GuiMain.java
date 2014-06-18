@@ -90,8 +90,8 @@ public class GuiMain {
 	/** The access request */
 	static AccessRequest accessRequest;
 
-	/** The in memory persistence manager */
-	static InMemoryPersistenceManager inMemoryPersistenceManager;
+	/** The persistence manager */
+	static PersistenceManager persistenceManager;
 
 	/**
 	 * Launch the application.
@@ -100,7 +100,7 @@ public class GuiMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					inMemoryPersistenceManager = new InMemoryPersistenceManager();
+					persistenceManager = new InMemoryPersistenceManager();
 					GuiMain window = new GuiMain();
 					window.frmMusesRtae.setVisible(true);
 				} catch (Exception e) {
@@ -117,20 +117,20 @@ public class GuiMain {
 
 		userCso.setTrustValue(new TrustValue(0.5));
 		GuiMain.s2.setCso(GuiMain.userCso);
-		InMemoryPersistenceManager.getClues().add(Clue.antivirusClue);
-		InMemoryPersistenceManager.getClues().add(Clue.firewallClue);
-		InMemoryPersistenceManager.getClues().add(Clue.vpnClue);
-		InMemoryPersistenceManager.getAssets().add(
+		persistenceManager.getClues().add(Clue.antivirusClue);
+		persistenceManager.getClues().add(Clue.firewallClue);
+		persistenceManager.getClues().add(Clue.vpnClue);
+		persistenceManager.getAssets().add(
 				new Asset("Important File", 1000));
-		InMemoryPersistenceManager.getAssets().add(
+		persistenceManager.getAssets().add(
 				new Asset("Irrelevant File", 0));
-		InMemoryPersistenceManager.getRiskPolicies().add(
+		persistenceManager.getRiskPolicies().add(
 				RiskPolicy.TAKE_FULL_RISK);
-		InMemoryPersistenceManager.getRiskPolicies().add(
+		persistenceManager.getRiskPolicies().add(
 				RiskPolicy.TAKE_MEDIUM_RISK);
-		InMemoryPersistenceManager.getRiskPolicies().add(
+		persistenceManager.getRiskPolicies().add(
 				RiskPolicy.TAKE_NO_RISK);
-		InMemoryPersistenceManager.getSimUsers().add(
+		persistenceManager.getSimUsers().add(
 				new SimUser("TestUser", 120, new TrustValue(0.5)));
 
 		GuiMain.musesUsersDevicesAndAssetsConfigurationsSteps();
@@ -697,17 +697,17 @@ public class GuiMain {
 	/**
 	 * @return the inMemoryPersistenceManager
 	 */
-	public static InMemoryPersistenceManager getInMemoryPersistenceManager() {
-		return inMemoryPersistenceManager;
+	public static PersistenceManager getPersistenceManager() {
+		return persistenceManager;
 	}
 
 	/**
 	 * @param inMemoryPersistenceManager
 	 *            the inMemoryPersistenceManager to set
 	 */
-	public static void setInMemoryPersistenceManager(
-			InMemoryPersistenceManager inMemoryPersistenceManager) {
-		GuiMain.inMemoryPersistenceManager = inMemoryPersistenceManager;
+	public static void setPersistenceManager(
+			PersistenceManager pManager) {
+		persistenceManager = pManager;
 	}
 
 }

@@ -92,9 +92,9 @@ public class OpportunityPanel extends JPanel {
 		add(lblAttachAnOutcome, gbc_lblAttachAnOutcome);
 
 		final JComboBox<Outcome> comboBox = new JComboBox<Outcome>();
-		if (InMemoryPersistenceManager.getOutcomes() != null
-				&& !InMemoryPersistenceManager.getOutcomes().isEmpty()) {
-			for (Outcome o : InMemoryPersistenceManager.getOutcomes()) {
+		if (GuiMain.getPersistenceManager().getOutcomes() != null
+				&& !GuiMain.getPersistenceManager().getOutcomes().isEmpty()) {
+			for (Outcome o : GuiMain.getPersistenceManager().getOutcomes()) {
 				comboBox.addItem(o);
 			}
 		} else {
@@ -123,10 +123,10 @@ public class OpportunityPanel extends JPanel {
 					Opportunity op = new Opportunity(textField.getText(),
 							new Probability(0.5), (Outcome) comboBox
 									.getSelectedItem());
-					List<Opportunity> opList = InMemoryPersistenceManager
+					List<Opportunity> opList = GuiMain.getPersistenceManager()
 							.getOpportunities();
 					opList.add(op);
-					InMemoryPersistenceManager.setOpportunities(opList);
+					GuiMain.getPersistenceManager().setOpportunities(opList);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

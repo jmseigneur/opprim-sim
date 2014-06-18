@@ -15,151 +15,167 @@ import eu.muses.wp5.CluesThreatTable;
 public class InMemoryPersistenceManager extends PersistenceManager {
 
 	/** The outcomes */
-	static List<Outcome> outcomes = new ArrayList<Outcome>();
+	private List<Outcome> outcomes = new ArrayList<Outcome>();
 
 	/** The opportunities */
-	static List<Opportunity> opportunities = new ArrayList<Opportunity>();
+	private List<Opportunity> opportunities = new ArrayList<Opportunity>();
 
 	/** The assets */
-	static List<Asset> assets = new ArrayList<Asset>();
+	private List<Asset> assets = new ArrayList<Asset>();
 
 	/** The threats */
-	static List<Threat> threats = new ArrayList<Threat>();
+	private List<Threat> threats = new ArrayList<Threat>();
 
 	/** The clues */
-	static List<Clue> clues = new ArrayList<Clue>();
+	private List<Clue> clues = new ArrayList<Clue>();
 
 	/** The risk Policies */
-	static List<RiskPolicy> riskPolicies = new ArrayList<RiskPolicy>();
+	private List<RiskPolicy> riskPolicies = new ArrayList<RiskPolicy>();
 
 	/** The Sim Users */
-	static List<SimUser> simUsers = new ArrayList<SimUser>();
+	private List<SimUser> simUsers = new ArrayList<SimUser>();
 
 	/** The clues threat table. */
-	private static CluesThreatTable cluesThreatTable = new CluesThreatTable();
+	private CluesThreatTable cluesThreatTable = new CluesThreatTable();
 
 	public InMemoryPersistenceManager() {
 		super();
 	}
 
+	@Override
 	/**
 	 * @return the outcomes
 	 */
-	public static List<Outcome> getOutcomes() {
+	public List<Outcome> getOutcomes() {
 		return outcomes;
 	}
 
+	@Override
 	/**
 	 * @param outcomes
 	 *            the outcomes to set
 	 */
-	public static void setOutcomes(List<Outcome> outcomes) {
-		InMemoryPersistenceManager.outcomes = outcomes;
+	public void setOutcomes(List<Outcome> outcomes) {
+		this.outcomes = outcomes;
 	}
 
+	@Override
 	/**
 	 * @return the opportunities
 	 */
-	public static List<Opportunity> getOpportunities() {
+	public List<Opportunity> getOpportunities() {
 		return opportunities;
 	}
 
+	@Override
 	/**
 	 * @param opportunities
 	 *            the opportunities to set
 	 */
-	public static void setOpportunities(List<Opportunity> opportunities) {
-		InMemoryPersistenceManager.opportunities = opportunities;
+	public void setOpportunities(List<Opportunity> opportunities) {
+		this.opportunities = opportunities;
 	}
 
+	@Override
 	/**
 	 * @return the assets
 	 */
-	public static List<Asset> getAssets() {
+	public List<Asset> getAssets() {
 		return assets;
 	}
 
+	@Override
 	/**
 	 * @param assets
 	 *            the assets to set
 	 */
-	public static void setAssets(List<Asset> assets) {
-		InMemoryPersistenceManager.assets = assets;
+	public void setAssets(List<Asset> assets) {
+		this.assets = assets;
 	}
 
+	@Override
 	/**
 	 * @return the threats
 	 */
-	public static List<Threat> getThreats() {
+	public List<Threat> getThreats() {
 		return threats;
 	}
 
+	@Override
 	/**
 	 * @param threats
 	 *            the threats to set
 	 */
-	public static void setThreats(List<Threat> threats) {
-		InMemoryPersistenceManager.threats = threats;
+	public void setThreats(List<Threat> threats) {
+		this.threats = threats;
 	}
 
+	@Override
 	/**
 	 * @return the clues
 	 */
-	public static List<Clue> getClues() {
+	public List<Clue> getClues() {
 		return clues;
 	}
 
+	@Override
 	/**
 	 * @param clues
 	 *            the clues to set
 	 */
-	public static void setClues(List<Clue> clues) {
-		InMemoryPersistenceManager.clues = clues;
+	public void setClues(List<Clue> clues) {
+		this.clues = clues;
 	}
 
+	@Override
 	/**
 	 * @return the riskPolicies
 	 */
-	public static List<RiskPolicy> getRiskPolicies() {
+	public List<RiskPolicy> getRiskPolicies() {
 		return riskPolicies;
 	}
 
+	@Override
 	/**
 	 * @param riskPolicies
 	 *            the riskPolicies to set
 	 */
-	public static void setRiskPolicies(List<RiskPolicy> riskPolicies) {
-		InMemoryPersistenceManager.riskPolicies = riskPolicies;
+	public void setRiskPolicies(List<RiskPolicy> riskPolicies) {
+		this.riskPolicies = riskPolicies;
 	}
 
+	@Override
 	/**
 	 * @return the simUsers
 	 */
-	public static List<SimUser> getSimUsers() {
+	public List<SimUser> getSimUsers() {
 		return simUsers;
 	}
 
+	@Override
 	/**
 	 * @param simUsers
 	 *            the simUsers to set
 	 */
-	public static void setSimUsers(List<SimUser> simUsers) {
-		InMemoryPersistenceManager.simUsers = simUsers;
+	public void setSimUsers(List<SimUser> simUsers) {
+		this.simUsers = simUsers;
 	}
 
+	@Override
 	/**
 	 * @return the cluesThreatTable
 	 */
-	public static CluesThreatTable getCluesThreatTable() {
+	public CluesThreatTable getCluesThreatTable() {
 		return cluesThreatTable;
 	}
 
+	@Override
 	/**
 	 * @param cluesThreatTable
 	 *            the cluesThreatTable to set
 	 */
-	public static void setCluesThreatTable(CluesThreatTable cluesThreatTable) {
-		InMemoryPersistenceManager.cluesThreatTable = cluesThreatTable;
+	public void setCluesThreatTable(CluesThreatTable cluesThreatTable) {
+		this.cluesThreatTable = cluesThreatTable;
 	}
 
 }

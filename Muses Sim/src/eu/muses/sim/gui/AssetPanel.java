@@ -216,7 +216,7 @@ public class AssetPanel extends JPanel {
 					Asset a = new Asset(txtAddAsset.getText(), Double
 							.parseDouble(textField.getText()));
 					GuiMain.getS2Rt2ae().addAsset(a);
-					InMemoryPersistenceManager.getAssets().add(a);
+					GuiMain.getPersistenceManager().getAssets().add(a);
 					System.out.println("Asset "
 							+ GuiMain.getS2Rt2ae()
 									.getAsset(txtAddAsset.getText())
@@ -224,7 +224,7 @@ public class AssetPanel extends JPanel {
 							+ " was added with cost "
 							+ GuiMain.getS2Rt2ae()
 									.getAsset(txtAddAsset.getText()).getValue());
-					InMemoryPersistenceManager.getOutcomes().add(badOutcome);
+					GuiMain.getPersistenceManager().getOutcomes().add(badOutcome);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

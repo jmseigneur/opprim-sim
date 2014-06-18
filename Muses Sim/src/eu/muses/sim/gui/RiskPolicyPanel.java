@@ -144,7 +144,7 @@ public class RiskPolicyPanel extends JPanel {
 					RiskPolicy rp = new RiskPolicy(new RiskValue(Double
 							.parseDouble(textField.getText()), textField_1
 							.getText()), null);
-					InMemoryPersistenceManager.getRiskPolicies().add(rp);
+					GuiMain.getPersistenceManager().getRiskPolicies().add(rp);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

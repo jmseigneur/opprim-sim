@@ -81,7 +81,7 @@ public class ViewAssetsPanel extends JPanel {
 		model.addColumn("Asset Name");
 		model.addColumn("Asset Value");
 
-		for (Asset asset : InMemoryPersistenceManager.getAssets()) {
+		for (Asset asset : GuiMain.getPersistenceManager().getAssets()) {
 			model.addRow(new String[] { asset.getAssetName(),
 					String.valueOf(asset.getValue()) });
 		}

@@ -76,7 +76,7 @@ public class CluesandThreatsPanel extends JPanel {
 		lblNewAsset.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(lblNewAsset, gbc_lblNewAsset);
 
-		CluesThreatTable tableCluesThreats = InMemoryPersistenceManager
+		CluesThreatTable tableCluesThreats = GuiMain.getPersistenceManager()
 				.getCluesThreatTable();
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Clues");

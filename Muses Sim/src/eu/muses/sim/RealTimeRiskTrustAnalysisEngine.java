@@ -228,7 +228,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 		}
 
 		List<Threat> currentThreats = new ArrayList<Threat>();
-		currentThreats = InMemoryPersistenceManager.getCluesThreatTable()
+		currentThreats = GuiMain.getPersistenceManager().getCluesThreatTable()
 				.getThreatsFromClues(clues);
 		if (currentThreats.isEmpty()) {
 			String threatName = "";
@@ -241,9 +241,9 @@ public class RealTimeRiskTrustAnalysisEngine {
 			Threat threat = new Threat("Threat" + threatName, new Probability(
 					0.5), new Outcome("Compromised Asset", -requestedAssests
 					.iterator().next().getValue()));
-			InMemoryPersistenceManager.getCluesThreatTable().addMapping(clues,
+			GuiMain.getPersistenceManager().getCluesThreatTable().addMapping(clues,
 					threat);
-			InMemoryPersistenceManager.getCluesThreatTable()
+			GuiMain.getPersistenceManager().getCluesThreatTable()
 					.updateThreatOccurences(threat);
 			System.out.println("The newly created Threat from the Clues is: "
 					+ threat.getDescription() + " with probability "
@@ -256,7 +256,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 			currentThreats.add(threat);
 		} else {
 			for (Threat threat : currentThreats) {
-				InMemoryPersistenceManager.getCluesThreatTable()
+				GuiMain.getPersistenceManager().getCluesThreatTable()
 						.updateThreatOccurences(threat);
 				System.out.println("The inferred Threat from the Clues is: "
 						+ threat.getDescription()
@@ -487,16 +487,16 @@ public class RealTimeRiskTrustAnalysisEngine {
 		}
 
 		List<Threat> currentThreats = new ArrayList<Threat>();
-		currentThreats = InMemoryPersistenceManager.getCluesThreatTable()
+		currentThreats = GuiMain.getPersistenceManager().getCluesThreatTable()
 				.getThreatsFromClues(clues);
 		for (Threat threat : currentThreats) {
-			InMemoryPersistenceManager.getCluesThreatTable()
+			GuiMain.getPersistenceManager().getCluesThreatTable()
 					.updateThreatBadOutcomeCount(threat);
-			InMemoryPersistenceManager.getCluesThreatTable()
+			GuiMain.getPersistenceManager().getCluesThreatTable()
 					.updateThreatProbability(threat);
 		}
 
-		currentThreats = InMemoryPersistenceManager.getCluesThreatTable()
+		currentThreats = GuiMain.getPersistenceManager().getCluesThreatTable()
 				.getThreatsFromClues(clues);
 		for (Threat threat : currentThreats) {
 
@@ -529,14 +529,14 @@ public class RealTimeRiskTrustAnalysisEngine {
 		}
 
 		List<Threat> currentThreats = new ArrayList<Threat>();
-		currentThreats = InMemoryPersistenceManager.getCluesThreatTable()
+		currentThreats = GuiMain.getPersistenceManager().getCluesThreatTable()
 				.getThreatsFromClues(clues);
 		for (Threat threat : currentThreats) {
-			InMemoryPersistenceManager.getCluesThreatTable()
+			GuiMain.getPersistenceManager().getCluesThreatTable()
 					.updateThreatProbability(threat);
 		}
 
-		currentThreats = InMemoryPersistenceManager.getCluesThreatTable()
+		currentThreats = GuiMain.getPersistenceManager().getCluesThreatTable()
 				.getThreatsFromClues(clues);
 		for (Threat threat : currentThreats) {
 

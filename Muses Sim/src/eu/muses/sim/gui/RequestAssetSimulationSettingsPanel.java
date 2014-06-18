@@ -90,8 +90,8 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		add(lblAsset, gbc_lblAsset);
 
 		final JComboBox<Asset> comboBox = new JComboBox<Asset>();
-		if (!InMemoryPersistenceManager.getAssets().isEmpty()) {
-			for (Asset a : InMemoryPersistenceManager.getAssets()) {
+		if (!GuiMain.getPersistenceManager().getAssets().isEmpty()) {
+			for (Asset a : GuiMain.getPersistenceManager().getAssets()) {
 				comboBox.addItem(a);
 			}
 		} else {
@@ -115,8 +115,8 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		add(comboBox, gbc_comboBox);
 
 		final JComboBox<SimUser> comboBox_1 = new JComboBox<SimUser>();
-		if (!InMemoryPersistenceManager.getSimUsers().isEmpty()) {
-			for (SimUser u : InMemoryPersistenceManager.getSimUsers()) {
+		if (!GuiMain.getPersistenceManager().getSimUsers().isEmpty()) {
+			for (SimUser u : GuiMain.getPersistenceManager().getSimUsers()) {
 				comboBox_1.addItem(u);
 			}
 		} else {
@@ -178,7 +178,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 			}
 		});
 
-		for (Opportunity op : InMemoryPersistenceManager.getOpportunities()) {
+		for (Opportunity op : GuiMain.getPersistenceManager().getOpportunities()) {
 			model.addRow(new String[] { op.getDescription(),
 					String.valueOf(op.getProbability().getProb()) });
 		}
@@ -189,7 +189,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		DefaultTableModel model2 = new DefaultTableModel();
 		model2.addColumn("Clue Name");
 
-		for (Clue cl : InMemoryPersistenceManager.getClues()) {
+		for (Clue cl : GuiMain.getPersistenceManager().getClues()) {
 			model2.addRow(new String[] { cl.getId() });
 		}
 
@@ -221,8 +221,8 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		add(lblRiskPolicy, gbc_lblRiskPolicy);
 
 		final JComboBox<RiskPolicy> comboBox_2 = new JComboBox<RiskPolicy>();
-		if (!InMemoryPersistenceManager.getRiskPolicies().isEmpty()) {
-			for (RiskPolicy rp : InMemoryPersistenceManager.getRiskPolicies()) {
+		if (!GuiMain.getPersistenceManager().getRiskPolicies().isEmpty()) {
+			for (RiskPolicy rp : GuiMain.getPersistenceManager().getRiskPolicies()) {
 				comboBox_2.addItem(rp);
 			}
 		} else {

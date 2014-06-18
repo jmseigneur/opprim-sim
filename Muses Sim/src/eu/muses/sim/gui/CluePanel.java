@@ -102,7 +102,7 @@ public class CluePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Clue c = new Clue(textField.getText());
-					InMemoryPersistenceManager.getClues().add(c);
+					GuiMain.getPersistenceManager().getClues().add(c);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

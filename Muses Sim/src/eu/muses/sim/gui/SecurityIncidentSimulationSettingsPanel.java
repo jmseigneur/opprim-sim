@@ -102,11 +102,11 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Clue c = new Clue(textField.getText());
-					CluesThreatTable table = InMemoryPersistenceManager
+					CluesThreatTable table = GuiMain.getPersistenceManager()
 							.getCluesThreatTable();
 					table.addMapping(Arrays.asList(c), null);
-					InMemoryPersistenceManager.setCluesThreatTable(table);
-					InMemoryPersistenceManager.getClues().add(c);
+					GuiMain.getPersistenceManager().setCluesThreatTable(table);
+					GuiMain.getPersistenceManager().getClues().add(c);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);
