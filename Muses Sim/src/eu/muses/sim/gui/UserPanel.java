@@ -156,6 +156,11 @@ public class UserPanel extends JPanel {
 							"Hourly Wage should be a positive number",
 							"Wrong Input", JOptionPane.OK_CANCEL_OPTION,
 							JOptionPane.ERROR_MESSAGE);
+				} catch (Exception ex) {
+					JOptionPane.showConfirmDialog(null,
+							"Incorrect input, check all input fields",
+							"Wrong Input", JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
