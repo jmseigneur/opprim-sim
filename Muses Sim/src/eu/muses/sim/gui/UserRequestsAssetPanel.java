@@ -1,3 +1,10 @@
+/*
+ * Copyright
+ * Jean-Marc Seigneur, Carlos Ballester Lafuente, Xavier Titi
+ * University of Geneva
+ * 2013 /2014
+ *
+ */
 package eu.muses.sim.gui;
 
 import javax.swing.JPanel;
@@ -29,6 +36,8 @@ import eu.muses.sim.riskman.RiskTreatment;
 import eu.muses.sim.riskman.SecurityIncident;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.test.SimUser;
+import eu.muses.sim.userman.action.GiveUpAction;
+import eu.muses.sim.userman.action.UserAction;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -228,12 +237,15 @@ public class UserRequestsAssetPanel extends JPanel {
 						while (decision.equals(Decision.ON_YOUR_RISK_ACCESS)
 								&& GuiMain.getUser1().isStillMakingRequest(
 										accessRequest)) {
-							if (GuiMain.getUser1().givesUpRequestDueToRisk(
+							if (GuiMain.getUser1().givesUpRequestDueToRisk( //supposed to be given by the EventProcessor
 									accessRequest)) {
 								GuiMain.getUser1().setStillMakingRequest(
 										accessRequest, false);
-								GuiMain.getS2EventCorrelator()
-										.logsAccessRequestUserDecisionInMusesCompanyInstance();
+								//TODO Update threat to null
+								//TODO log this into the persitent storage
+								
+								//GuiMain.getS2EventCorrelator()
+									//	.logsAccessRequestUserDecisionInMusesCompanyInstance();
 								// It may be important to also log when a user
 								// decides not taking the opportunity due to
 								// risk,
@@ -242,6 +254,7 @@ public class UserRequestsAssetPanel extends JPanel {
 								// there is no risk due to laziness or risk
 								// aversion...
 							} else {
+								
 								if (GuiMain.getUser1()
 										.decidesAccessingAssetInSpiteOfRisk(
 												accessRequest)) {

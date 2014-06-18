@@ -1,3 +1,10 @@
+/*
+ * Copyright
+ * Jean-Marc Seigneur, Carlos Ballester Lafuente, Xavier Titi
+ * University of Geneva
+ * 2013 /2014
+ *
+ */
 package eu.muses.sim.gui;
 
 import javax.swing.JPanel;
@@ -31,6 +38,8 @@ import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.opportunity.Opportunity;
 import eu.muses.sim.test.SimUser;
+import eu.muses.sim.userman.action.AccessAction;
+import eu.muses.sim.userman.action.GiveUpAction;
 import eu.muses.wp5.Clue;
 import eu.muses.wp5.CluesThreatTable;
 
@@ -43,6 +52,7 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JCheckBox;
 
 public class RequestAssetSimulationSettingsPanel extends JPanel {
 
@@ -62,11 +72,11 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0 };
+				0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 1.0, 1.0,
+		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 1.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
+				0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
 				0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
@@ -74,7 +84,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		JLabel lblNewAsset = new JLabel("Asset Request Simulation Settings");
 		GridBagConstraints gbc_lblNewAsset = new GridBagConstraints();
 		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewAsset.gridwidth = 16;
+		gbc_lblNewAsset.gridwidth = 17;
 		gbc_lblNewAsset.gridx = 1;
 		gbc_lblNewAsset.gridy = 0;
 		lblNewAsset.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -152,7 +162,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
 		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
-		gbc_verticalStrut_1.gridx = 13;
+		gbc_verticalStrut_1.gridx = 14;
 		gbc_verticalStrut_1.gridy = 3;
 		add(verticalStrut_1, gbc_verticalStrut_1);
 
@@ -169,16 +179,6 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		model.addColumn("Opportunity Description");
 		model.addColumn("Probability");
 
-		comboBox_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				u = (SimUser) comboBox_1.getSelectedItem();
-				model.addRow(new String[] {
-						"If user works the company will not lose "
-								+ u.getHourlyCost() + " per hour of inactivity",
-						String.valueOf(u.getTrustValue().getValue()) });
-			}
-		});
-
 		for (Opportunity op : GuiMain.getPersistenceManager()
 				.getOpportunities()) {
 			model.addRow(new String[] { op.getDescription(),
@@ -189,6 +189,16 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		table.setToolTipText("Select an oportunity, you can select multiple items by holding Shift key");
 		scrollPane.setViewportView(table);
 
+		comboBox_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				u = (SimUser) comboBox_1.getSelectedItem();
+				model.addRow(new String[] {
+						"If user works the company will not lose "
+								+ u.getHourlyCost() + " per hour of inactivity",
+						String.valueOf(u.getTrustValue().getValue()) });
+			}
+		});
+
 		DefaultTableModel model2 = new DefaultTableModel();
 		model2.addColumn("Clue Name");
 
@@ -198,6 +208,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.gridwidth = 2;
 		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane_1.gridx = 4;
@@ -211,7 +222,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		Component verticalStrut = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
 		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
-		gbc_verticalStrut.gridx = 13;
+		gbc_verticalStrut.gridx = 14;
 		gbc_verticalStrut.gridy = 4;
 		add(verticalStrut, gbc_verticalStrut);
 
@@ -242,6 +253,16 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		gbc_comboBox_2.gridy = 6;
 		add(comboBox_2, gbc_comboBox_2);
 
+		final JCheckBox chckbxUserWillNot = new JCheckBox(
+				"User will not acces the asset");
+		chckbxUserWillNot
+				.setToolTipText("Decides whether the user will finally give up accessing the asset or not in case of an ambiguous or risky access recommendation");
+		GridBagConstraints gbc_chckbxUserWillNot = new GridBagConstraints();
+		gbc_chckbxUserWillNot.insets = new Insets(0, 0, 0, 5);
+		gbc_chckbxUserWillNot.gridx = 4;
+		gbc_chckbxUserWillNot.gridy = 6;
+		add(chckbxUserWillNot, gbc_chckbxUserWillNot);
+
 		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -262,6 +283,11 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 							.setOpportunityDescriptor(opportunityDescriptor);
 					accessRequest.setUser((SimUser) comboBox_1
 							.getSelectedItem());
+					if(chckbxUserWillNot.isSelected()){
+						accessRequest.setUserAction(new GiveUpAction());
+					}else{
+						accessRequest.setUserAction(new AccessAction());
+					}
 					List<Clue> clues = new ArrayList<Clue>();
 					for (int i : clueRows) {
 						clues.add(new Clue((String) table_1.getValueAt(i, 0)));
@@ -284,10 +310,11 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 				}
 			}
 		});
+
 		GridBagConstraints gbc_btnNext = new GridBagConstraints();
 		gbc_btnNext.anchor = GridBagConstraints.EAST;
 		gbc_btnNext.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNext.gridx = 4;
+		gbc_btnNext.gridx = 5;
 		gbc_btnNext.gridy = 6;
 		add(btnNext, gbc_btnNext);
 

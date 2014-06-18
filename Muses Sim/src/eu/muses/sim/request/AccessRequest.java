@@ -17,6 +17,8 @@ import eu.muses.sim.riskman.RiskCommunication;
 import eu.muses.sim.riskman.RiskEvent;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.test.SimUser;
+import eu.muses.sim.userman.action.UserAction;
+import eu.muses.wp5.CluesThreatEntry;
 
 /**
  * The Class AccessRequest.
@@ -40,6 +42,12 @@ public class AccessRequest extends Request {
 
 	/** The user. */
 	private SimUser user;
+	
+	/** The user action */
+	UserAction userAction;
+	
+	/** The clues threat entry */
+	private CluesThreatEntry cluesThreatEntry;
 
 	/**
 	 * The risk events.
@@ -201,6 +209,34 @@ public class AccessRequest extends Request {
 	 */
 	public void setUserAccessDecision(UserAccessDecision userAccessDecision) {
 		this.userAccessDecision = userAccessDecision;
+	}
+
+	/**
+	 * @return the userAction
+	 */
+	public UserAction getUserAction() {
+		return userAction;
+	}
+
+	/**
+	 * @param userAction the userAction to set
+	 */
+	public void setUserAction(UserAction userAction) {
+		this.userAction = userAction;
+	}
+
+	/**
+	 * @return the cluesThreatEntry
+	 */
+	public CluesThreatEntry getCluesThreatEntry() {
+		return cluesThreatEntry;
+	}
+
+	/**
+	 * @param cluesThreatEntry the cluesThreatEntry to set
+	 */
+	public void setCluesThreatEntry(CluesThreatEntry cluesThreatEntry) {
+		this.cluesThreatEntry = cluesThreatEntry;
 	}
 
 }

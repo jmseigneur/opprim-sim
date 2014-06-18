@@ -1,3 +1,10 @@
+/*
+ * Copyright
+ * Jean-Marc Seigneur, Carlos Ballester Lafuente, Xavier Titi
+ * University of Geneva
+ * 2013 /2014
+ *
+ */
 package eu.muses.sim.gui;
 
 import java.awt.Color;
@@ -306,7 +313,7 @@ public class GuiMain {
 		menuBar.add(mnScenarios);
 
 		JMenuItem mntmAliceRequestsPatent = new JMenuItem(
-				"Alice Requests Patent Material");
+				"User Requests Asset");
 		mntmAliceRequestsPatent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -318,7 +325,7 @@ public class GuiMain {
 		mnScenarios.add(mntmAliceRequestsPatent);
 
 		JMenuItem mntmSecurityIncidentOn = new JMenuItem(
-				"Security Incident on Patent Material");
+				"Security Incident on Asset");
 		mntmSecurityIncidentOn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 

@@ -3,6 +3,7 @@ package eu.muses.sim.persistence;
 import java.util.List;
 
 import eu.muses.sim.Outcome;
+import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.opportunity.Opportunity;
@@ -105,5 +106,16 @@ public abstract class PersistenceManager {
 	 *            the cluesThreatTable to set
 	 */
 	public abstract void setCluesThreatTable(CluesThreatTable cluesThreatTable);
+	
+	/**
+	 * @return the accessRequests
+	 */
+	public abstract List<AccessRequest> getAccessRequests();
+
+	/**
+	 * @param accessRequests
+	 *            the accessRequests to set
+	 */
+	public abstract void setAccessRequests(List<AccessRequest> accessRequests);
 
 }

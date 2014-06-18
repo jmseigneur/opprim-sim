@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.muses.sim.Outcome;
+import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.opportunity.Opportunity;
@@ -37,6 +38,9 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 
 	/** The clues threat table. */
 	private CluesThreatTable cluesThreatTable = new CluesThreatTable();
+	
+	/** The access requests */
+	private List<AccessRequest> accessRequests = new ArrayList<AccessRequest>();
 
 	public InMemoryPersistenceManager() {
 		super();
@@ -176,6 +180,23 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	 */
 	public void setCluesThreatTable(CluesThreatTable cluesThreatTable) {
 		this.cluesThreatTable = cluesThreatTable;
+	}
+
+	@Override
+	/**
+	 * @return the accessRequests
+	 */
+	public List<AccessRequest> getAccessRequests(){
+		return accessRequests;
+	}
+
+	@Override
+	/**
+	 * @param accessRequests
+	 *            the accessRequests to set
+	 */
+	public void setAccessRequests(List<AccessRequest> accessRequests){
+		this.accessRequests = accessRequests;
 	}
 
 }

@@ -23,6 +23,9 @@ import eu.muses.sim.riskman.opportunity.Opportunity;
 import eu.muses.sim.trustman.TrustValue;
 import eu.muses.sim.userman.Credential;
 import eu.muses.sim.userman.User;
+import eu.muses.sim.userman.action.AccessAction;
+import eu.muses.sim.userman.action.ApplyRiskTreatmentAction;
+import eu.muses.sim.userman.action.GiveUpAction;
 import eu.muses.wp5.EventProcessor;
 
 /**
@@ -230,9 +233,9 @@ public class SimUser extends User {
 	 */
 	public boolean decidesAccessingAssetInSpiteOfRisk(
 			AccessRequest accessRequest) {
-		// TODO implement how the user can decide to access the asset in spite
-		// of risk
-		return true;
+		if(accessRequest.getUserAction().getClass().equals(AccessAction.class))
+			return true;
+		return false;
 	}
 
 	/**
@@ -240,8 +243,22 @@ public class SimUser extends User {
 	 *
 	 * @return true, if successful
 	 */
-	public boolean decidesNotAccessingAssetDueToRisk() {
-		// TODO Auto-generated method stub
+	public boolean decidesNotAccessingAssetDueToRisk(AccessRequest accessRequest) {
+		if(accessRequest.getUserAction().getClass().equals(GiveUpAction.class))
+			return true;
+		return false;
+	}
+	
+	/**
+	 * Gives up request due to risk.
+	 *
+	 * @param accessRequest
+	 *            the access request
+	 * @return true, if successful
+	 */
+	public boolean givesUpRequestDueToRisk(AccessRequest accessRequest) {
+		if(accessRequest.getUserAction().getClass().equals(GiveUpAction.class))
+			return true;
 		return false;
 	}
 
@@ -254,7 +271,8 @@ public class SimUser extends User {
 	 */
 	public boolean decidesToApplyAProposedRiskTreatment(
 			AccessRequest accessRequest) {
-		// TODO Auto-generated method stub
+		if(accessRequest.getUserAction().getClass().equals(ApplyRiskTreatmentAction.class))
+			return true;
 		return false;
 	}
 
@@ -288,18 +306,6 @@ public class SimUser extends User {
 	 */
 	public double getHourlyCost() {
 		return this.hourlyCost;
-	}
-
-	/**
-	 * Gives up request due to risk.
-	 *
-	 * @param accessRequest
-	 *            the access request
-	 * @return true, if successful
-	 */
-	public boolean givesUpRequestDueToRisk(AccessRequest accessRequest) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	/**
