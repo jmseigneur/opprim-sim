@@ -89,28 +89,28 @@ public class ViewAssetsPanel extends JPanel {
 
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
-		
-				JButton btnSaveAsset = new JButton("Go Back");
-				btnSaveAsset.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						try {
-							GuiMain.initializeHomePanel();
-							JPanel mainPanel = GuiMain.getMainPanel();
-							GuiMain.switchPanel(mainPanel);
-						} catch (Exception ex) {
-							ex.printStackTrace();
-							JOptionPane.showConfirmDialog(null,
-									"Assets couldn't be retrieved, try later", "Error",
-									JOptionPane.OK_CANCEL_OPTION,
-									JOptionPane.ERROR_MESSAGE);
-						}
-					}
-				});
-				GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();
-				gbc_btnSaveAsset.insets = new Insets(0, 0, 5, 5);
-				gbc_btnSaveAsset.gridx = 15;
-				gbc_btnSaveAsset.gridy = 3;
-				add(btnSaveAsset, gbc_btnSaveAsset);
+
+		JButton btnSaveAsset = new JButton("Go Back");
+		btnSaveAsset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					GuiMain.initializeHomePanel();
+					JPanel mainPanel = GuiMain.getMainPanel();
+					GuiMain.switchPanel(mainPanel);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane.showConfirmDialog(null,
+							"Assets couldn't be retrieved, try later", "Error",
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();
+		gbc_btnSaveAsset.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSaveAsset.gridx = 15;
+		gbc_btnSaveAsset.gridy = 3;
+		add(btnSaveAsset, gbc_btnSaveAsset);
 
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();

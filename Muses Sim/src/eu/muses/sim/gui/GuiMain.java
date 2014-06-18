@@ -120,16 +120,11 @@ public class GuiMain {
 		persistenceManager.getClues().add(Clue.antivirusClue);
 		persistenceManager.getClues().add(Clue.firewallClue);
 		persistenceManager.getClues().add(Clue.vpnClue);
-		persistenceManager.getAssets().add(
-				new Asset("Important File", 1000));
-		persistenceManager.getAssets().add(
-				new Asset("Irrelevant File", 0));
-		persistenceManager.getRiskPolicies().add(
-				RiskPolicy.TAKE_FULL_RISK);
-		persistenceManager.getRiskPolicies().add(
-				RiskPolicy.TAKE_MEDIUM_RISK);
-		persistenceManager.getRiskPolicies().add(
-				RiskPolicy.TAKE_NO_RISK);
+		persistenceManager.getAssets().add(new Asset("Important File", 1000));
+		persistenceManager.getAssets().add(new Asset("Irrelevant File", 0));
+		persistenceManager.getRiskPolicies().add(RiskPolicy.TAKE_FULL_RISK);
+		persistenceManager.getRiskPolicies().add(RiskPolicy.TAKE_MEDIUM_RISK);
+		persistenceManager.getRiskPolicies().add(RiskPolicy.TAKE_NO_RISK);
 		persistenceManager.getSimUsers().add(
 				new SimUser("TestUser", 120, new TrustValue(0.5)));
 
@@ -705,8 +700,7 @@ public class GuiMain {
 	 * @param inMemoryPersistenceManager
 	 *            the inMemoryPersistenceManager to set
 	 */
-	public static void setPersistenceManager(
-			PersistenceManager pManager) {
+	public static void setPersistenceManager(PersistenceManager pManager) {
 		persistenceManager = pManager;
 	}
 

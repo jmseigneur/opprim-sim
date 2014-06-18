@@ -82,34 +82,34 @@ public class CluePanel extends JPanel {
 		gbc_textField.gridy = 2;
 		add(textField, gbc_textField);
 		textField.setColumns(10);
-		
-				JButton btnSaveClue = new JButton("Save Clue");
-				btnSaveClue.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						try {
-							if(textField.getText().isEmpty())
-								throw new Exception();
-							Clue c = new Clue(textField.getText());
-							GuiMain.getPersistenceManager().getClues().add(c);
-							GuiMain.initializeHomePanel();
-							JPanel mainPanel = GuiMain.getMainPanel();
-							GuiMain.switchPanel(mainPanel);
-						} catch (Exception ex) {
-							ex.printStackTrace();
-							JOptionPane.showConfirmDialog(null,
-									"Input should be correctly filled", "Wrong Input",
-									JOptionPane.OK_CANCEL_OPTION,
-									JOptionPane.ERROR_MESSAGE);
-						}
 
-					}
-				});
-				GridBagConstraints gbc_btnSaveClue = new GridBagConstraints();
-				gbc_btnSaveClue.anchor = GridBagConstraints.EAST;
-				gbc_btnSaveClue.insets = new Insets(0, 0, 5, 5);
-				gbc_btnSaveClue.gridx = 1;
-				gbc_btnSaveClue.gridy = 3;
-				add(btnSaveClue, gbc_btnSaveClue);
+		JButton btnSaveClue = new JButton("Save Clue");
+		btnSaveClue.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (textField.getText().isEmpty())
+						throw new Exception();
+					Clue c = new Clue(textField.getText());
+					GuiMain.getPersistenceManager().getClues().add(c);
+					GuiMain.initializeHomePanel();
+					JPanel mainPanel = GuiMain.getMainPanel();
+					GuiMain.switchPanel(mainPanel);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane.showConfirmDialog(null,
+							"Input should be correctly filled", "Wrong Input",
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		});
+		GridBagConstraints gbc_btnSaveClue = new GridBagConstraints();
+		gbc_btnSaveClue.anchor = GridBagConstraints.EAST;
+		gbc_btnSaveClue.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSaveClue.gridx = 1;
+		gbc_btnSaveClue.gridy = 3;
+		add(btnSaveClue, gbc_btnSaveClue);
 
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();

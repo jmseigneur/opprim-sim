@@ -101,39 +101,39 @@ public class OpportunityPanel extends JPanel {
 			comboBox.setModel(new DefaultComboBoxModel(
 					new String[] { "ADD OUTCOMES FIRST" }));
 		}
-		
-				JButton btnSaveThreat = new JButton("Save Opportunity");
-				btnSaveThreat.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
 
-						try {
-							if(textField.getText().isEmpty())
-								throw new Exception();
-							Opportunity op = new Opportunity(textField.getText(),
-									new Probability(0.5), (Outcome) comboBox
-											.getSelectedItem());
-							List<Opportunity> opList = GuiMain.getPersistenceManager()
-									.getOpportunities();
-							opList.add(op);
-							GuiMain.getPersistenceManager().setOpportunities(opList);
-							GuiMain.initializeHomePanel();
-							JPanel mainPanel = GuiMain.getMainPanel();
-							GuiMain.switchPanel(mainPanel);
-						} catch (Exception ex) {
-							ex.printStackTrace();
-							JOptionPane.showConfirmDialog(null,
-									"Input should be correctly filled", "Wrong Input",
-									JOptionPane.OK_CANCEL_OPTION,
-									JOptionPane.ERROR_MESSAGE);
-						}
+		JButton btnSaveThreat = new JButton("Save Opportunity");
+		btnSaveThreat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-					}
-				});
-				GridBagConstraints gbc_btnSaveThreat = new GridBagConstraints();
-				gbc_btnSaveThreat.insets = new Insets(0, 0, 5, 5);
-				gbc_btnSaveThreat.gridx = 12;
-				gbc_btnSaveThreat.gridy = 3;
-				add(btnSaveThreat, gbc_btnSaveThreat);
+				try {
+					if (textField.getText().isEmpty())
+						throw new Exception();
+					Opportunity op = new Opportunity(textField.getText(),
+							new Probability(0.5), (Outcome) comboBox
+									.getSelectedItem());
+					List<Opportunity> opList = GuiMain.getPersistenceManager()
+							.getOpportunities();
+					opList.add(op);
+					GuiMain.getPersistenceManager().setOpportunities(opList);
+					GuiMain.initializeHomePanel();
+					JPanel mainPanel = GuiMain.getMainPanel();
+					GuiMain.switchPanel(mainPanel);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane.showConfirmDialog(null,
+							"Input should be correctly filled", "Wrong Input",
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		});
+		GridBagConstraints gbc_btnSaveThreat = new GridBagConstraints();
+		gbc_btnSaveThreat.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSaveThreat.gridx = 12;
+		gbc_btnSaveThreat.gridy = 3;
+		add(btnSaveThreat, gbc_btnSaveThreat);
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.anchor = GridBagConstraints.WEST;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);

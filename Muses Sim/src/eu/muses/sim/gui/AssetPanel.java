@@ -50,12 +50,12 @@ public class AssetPanel extends JPanel {
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 0.0, 0.0, 0.0, 0.0,
+		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
+				0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
@@ -118,15 +118,15 @@ public class AssetPanel extends JPanel {
 		gbc_lblAssetType.gridx = 0;
 		gbc_lblAssetType.gridy = 5;
 		add(lblAssetType, gbc_lblAssetType);
-		
-				JLabel lblInferredOutcomes = new JLabel("Inferred Outcomes:");
-				lblInferredOutcomes.setFont(new Font("Arial", Font.BOLD, 12));
-				GridBagConstraints gbc_lblInferredOutcomes = new GridBagConstraints();
-				gbc_lblInferredOutcomes.anchor = GridBagConstraints.WEST;
-				gbc_lblInferredOutcomes.insets = new Insets(0, 20, 5, 5);
-				gbc_lblInferredOutcomes.gridx = 1;
-				gbc_lblInferredOutcomes.gridy = 5;
-				add(lblInferredOutcomes, gbc_lblInferredOutcomes);
+
+		JLabel lblInferredOutcomes = new JLabel("Inferred Outcomes:");
+		lblInferredOutcomes.setFont(new Font("Arial", Font.BOLD, 12));
+		GridBagConstraints gbc_lblInferredOutcomes = new GridBagConstraints();
+		gbc_lblInferredOutcomes.anchor = GridBagConstraints.WEST;
+		gbc_lblInferredOutcomes.insets = new Insets(0, 20, 5, 5);
+		gbc_lblInferredOutcomes.gridx = 1;
+		gbc_lblInferredOutcomes.gridy = 5;
+		add(lblInferredOutcomes, gbc_lblInferredOutcomes);
 
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
@@ -195,43 +195,46 @@ public class AssetPanel extends JPanel {
 				}
 			}
 		});
-		
-				JButton btnSaveAsset = new JButton("Save Asset");
-				btnSaveAsset.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						try {
 
-							if(txtAddAsset.getText().isEmpty() || textField.getText().isEmpty() || comboBox_1.getSelectedIndex() == 0)
-								throw new Exception();
-							Asset a = new Asset(txtAddAsset.getText(), Double
-									.parseDouble(textField.getText()));
-							GuiMain.getS2Rt2ae().addAsset(a);
-							GuiMain.getPersistenceManager().getAssets().add(a);
-							System.out.println("Asset "
-									+ GuiMain.getS2Rt2ae()
-											.getAsset(txtAddAsset.getText())
-											.getAssetName()
-									+ " was added with cost "
-									+ GuiMain.getS2Rt2ae()
-											.getAsset(txtAddAsset.getText()).getValue());
-							GuiMain.getPersistenceManager().getOutcomes().add(badOutcome);
-							GuiMain.initializeHomePanel();
-							JPanel mainPanel = GuiMain.getMainPanel();
-							GuiMain.switchPanel(mainPanel);
-						} catch (Exception ex) {
-							JOptionPane.showConfirmDialog(null,
-									"Input should be correctly filled", "Wrong Input",
-									JOptionPane.OK_CANCEL_OPTION,
-									JOptionPane.ERROR_MESSAGE);
-						}
-					}
-				});
-				
-						GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();
-						gbc_btnSaveAsset.insets = new Insets(0, 40, 5, 5);
-						gbc_btnSaveAsset.gridx = 2;
-						gbc_btnSaveAsset.gridy = 6;
-						add(btnSaveAsset, gbc_btnSaveAsset);
+		JButton btnSaveAsset = new JButton("Save Asset");
+		btnSaveAsset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+
+					if (txtAddAsset.getText().isEmpty()
+							|| textField.getText().isEmpty()
+							|| comboBox_1.getSelectedIndex() == 0)
+						throw new Exception();
+					Asset a = new Asset(txtAddAsset.getText(), Double
+							.parseDouble(textField.getText()));
+					GuiMain.getS2Rt2ae().addAsset(a);
+					GuiMain.getPersistenceManager().getAssets().add(a);
+					System.out.println("Asset "
+							+ GuiMain.getS2Rt2ae()
+									.getAsset(txtAddAsset.getText())
+									.getAssetName()
+							+ " was added with cost "
+							+ GuiMain.getS2Rt2ae()
+									.getAsset(txtAddAsset.getText()).getValue());
+					GuiMain.getPersistenceManager().getOutcomes()
+							.add(badOutcome);
+					GuiMain.initializeHomePanel();
+					JPanel mainPanel = GuiMain.getMainPanel();
+					GuiMain.switchPanel(mainPanel);
+				} catch (Exception ex) {
+					JOptionPane.showConfirmDialog(null,
+							"Input should be correctly filled", "Wrong Input",
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
+		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();
+		gbc_btnSaveAsset.insets = new Insets(0, 40, 5, 5);
+		gbc_btnSaveAsset.gridx = 2;
+		gbc_btnSaveAsset.gridy = 6;
+		add(btnSaveAsset, gbc_btnSaveAsset);
 
 		Component verticalStrut = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();

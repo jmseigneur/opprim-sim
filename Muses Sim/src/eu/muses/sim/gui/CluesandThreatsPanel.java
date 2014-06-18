@@ -63,7 +63,7 @@ public class CluesandThreatsPanel extends JPanel {
 		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0,
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
@@ -99,6 +99,7 @@ public class CluesandThreatsPanel extends JPanel {
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridwidth = 15;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
@@ -111,20 +112,6 @@ public class CluesandThreatsPanel extends JPanel {
 		table.setRowSelectionAllowed(false);
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setBackground(Color.WHITE);
-
-		Component verticalStrut_1 = Box.createVerticalStrut(20);
-		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
-		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
-		gbc_verticalStrut_1.gridx = 12;
-		gbc_verticalStrut_1.gridy = 5;
-		add(verticalStrut_1, gbc_verticalStrut_1);
-
-		Component verticalStrut = Box.createVerticalStrut(20);
-		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
-		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
-		gbc_verticalStrut.gridx = 12;
-		gbc_verticalStrut.gridy = 6;
-		add(verticalStrut, gbc_verticalStrut);
 
 		JButton btnSaveAsset = new JButton("Go Back");
 		btnSaveAsset.addActionListener(new ActionListener() {
@@ -145,10 +132,24 @@ public class CluesandThreatsPanel extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();
-		gbc_btnSaveAsset.insets = new Insets(0, 0, 0, 5);
-		gbc_btnSaveAsset.gridx = 12;
-		gbc_btnSaveAsset.gridy = 7;
+		gbc_btnSaveAsset.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSaveAsset.gridx = 15;
+		gbc_btnSaveAsset.gridy = 3;
 		add(btnSaveAsset, gbc_btnSaveAsset);
+
+		Component verticalStrut_1 = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
+		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut_1.gridx = 12;
+		gbc_verticalStrut_1.gridy = 5;
+		add(verticalStrut_1, gbc_verticalStrut_1);
+
+		Component verticalStrut = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut.gridx = 12;
+		gbc_verticalStrut.gridy = 6;
+		add(verticalStrut, gbc_verticalStrut);
 
 	}
 

@@ -179,7 +179,8 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 			}
 		});
 
-		for (Opportunity op : GuiMain.getPersistenceManager().getOpportunities()) {
+		for (Opportunity op : GuiMain.getPersistenceManager()
+				.getOpportunities()) {
 			model.addRow(new String[] { op.getDescription(),
 					String.valueOf(op.getProbability().getProb()) });
 		}
@@ -225,7 +226,8 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 
 		final JComboBox<RiskPolicy> comboBox_2 = new JComboBox<RiskPolicy>();
 		if (!GuiMain.getPersistenceManager().getRiskPolicies().isEmpty()) {
-			for (RiskPolicy rp : GuiMain.getPersistenceManager().getRiskPolicies()) {
+			for (RiskPolicy rp : GuiMain.getPersistenceManager()
+					.getRiskPolicies()) {
 				comboBox_2.addItem(rp);
 			}
 		} else {
@@ -239,55 +241,55 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		gbc_comboBox_2.gridx = 1;
 		gbc_comboBox_2.gridy = 6;
 		add(comboBox_2, gbc_comboBox_2);
-		
-				JButton btnNext = new JButton("Next");
-				btnNext.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						try {
-							int opRow = table.getSelectedRow();
-							int[] clueRows = table_1.getSelectedRows();
-							AccessRequest accessRequest = SimUser
-									.requestsAccessToAsset(GuiMain
-											.getMaterialForPatentProposal());
-							OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor();
-							opportunityDescriptor.setDescription((String) table
-									.getValueAt(opRow, 0));
-							opportunityDescriptor.addOutcome(new Outcome((String) table
-									.getValueAt(opRow, 0), u.getHourlyCost()));
-							opportunityDescriptor.addRequestedAsset((Asset) comboBox
-									.getSelectedItem());
-							accessRequest
-									.setOpportunityDescriptor(opportunityDescriptor);
-							accessRequest.setUser((SimUser) comboBox_1
-									.getSelectedItem());
-							List<Clue> clues = new ArrayList<Clue>();
-							for (int i : clueRows) {
-								clues.add(new Clue((String) table_1.getValueAt(i, 0)));
-							}
-							GuiMain.getS2EventCorrelator().setClues(clues);
-							GuiMain.setAccessRequest(accessRequest);
-							GuiMain.getS2Rt2ae().setRiskPolicy(
-									(RiskPolicy) comboBox_2.getSelectedItem());
-							JPanel simPanel = new UserRequestsAssetPanel();
-							GuiMain.switchPanel(simPanel);
-						} catch (Exception ex) {
-							ex.printStackTrace();
-							JOptionPane
-									.showConfirmDialog(
-											null,
-											"At least one element of each type should be selected",
-											"Simulation Error",
-											JOptionPane.OK_CANCEL_OPTION,
-											JOptionPane.ERROR_MESSAGE);
-						}
+
+		JButton btnNext = new JButton("Next");
+		btnNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int opRow = table.getSelectedRow();
+					int[] clueRows = table_1.getSelectedRows();
+					AccessRequest accessRequest = SimUser
+							.requestsAccessToAsset(GuiMain
+									.getMaterialForPatentProposal());
+					OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor();
+					opportunityDescriptor.setDescription((String) table
+							.getValueAt(opRow, 0));
+					opportunityDescriptor.addOutcome(new Outcome((String) table
+							.getValueAt(opRow, 0), u.getHourlyCost()));
+					opportunityDescriptor.addRequestedAsset((Asset) comboBox
+							.getSelectedItem());
+					accessRequest
+							.setOpportunityDescriptor(opportunityDescriptor);
+					accessRequest.setUser((SimUser) comboBox_1
+							.getSelectedItem());
+					List<Clue> clues = new ArrayList<Clue>();
+					for (int i : clueRows) {
+						clues.add(new Clue((String) table_1.getValueAt(i, 0)));
 					}
-				});
-				GridBagConstraints gbc_btnNext = new GridBagConstraints();
-				gbc_btnNext.anchor = GridBagConstraints.EAST;
-				gbc_btnNext.insets = new Insets(0, 0, 0, 5);
-				gbc_btnNext.gridx = 4;
-				gbc_btnNext.gridy = 6;
-				add(btnNext, gbc_btnNext);
+					GuiMain.getS2EventCorrelator().setClues(clues);
+					GuiMain.setAccessRequest(accessRequest);
+					GuiMain.getS2Rt2ae().setRiskPolicy(
+							(RiskPolicy) comboBox_2.getSelectedItem());
+					JPanel simPanel = new UserRequestsAssetPanel();
+					GuiMain.switchPanel(simPanel);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane
+							.showConfirmDialog(
+									null,
+									"At least one element of each type should be selected",
+									"Simulation Error",
+									JOptionPane.OK_CANCEL_OPTION,
+									JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		GridBagConstraints gbc_btnNext = new GridBagConstraints();
+		gbc_btnNext.anchor = GridBagConstraints.EAST;
+		gbc_btnNext.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNext.gridx = 4;
+		gbc_btnNext.gridy = 6;
+		add(btnNext, gbc_btnNext);
 
 	}
 
