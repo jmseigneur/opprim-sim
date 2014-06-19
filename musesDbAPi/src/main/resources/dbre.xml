@@ -181,6 +181,14 @@
             <index-column name="threat_id"/>
         </index>
     </table>
+    <table name="risk_policy">
+        <column name="riskpolicy_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
+        <column name="riskvalue" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
+        <column name="description" primaryKey="false" required="true" scale="0" size="45" type="12,VARCHAR"/>
+        <unique name="PRIMARY">
+            <unique-column name="riskpolicy_id"/>
+        </unique>
+    </table>
     <table name="riskcommunication">
         <column name="riskcommunication_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
         <column name="communication_sequence" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>

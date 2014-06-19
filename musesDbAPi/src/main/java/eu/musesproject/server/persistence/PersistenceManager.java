@@ -217,9 +217,26 @@ public class PersistenceManager {
 	
 	@SuppressWarnings({"resource" })
 	public static void main(String[] args) {
-		
+		Threat t = new Threat ();
 		PersistenceManager p = new PersistenceManager();
 		
+		t.setProbability(0.5);
+		t.setDescription("test");
+		t.setClues(null);
+		t.persist();
+		Outcome o = new Outcome();
+		o.setCostbenefit(200.0);
+		o.setDescription("test");
+		o.setOutcomeId(1);
+		o.setThreatId(t);
+		Clue c = new Clue ();
+		//c.setClueId(null);
+		c.setValue(200);
+		c.setThreatId(t);
+		c.persist();
+		Asset a = new Asset ();
+	
+		//o.persist();
 		User u = new User();		
 		System.out.println("List of all users: "+u.findAllUsers());
 	}	
