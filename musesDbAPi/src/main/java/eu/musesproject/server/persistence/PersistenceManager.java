@@ -6,8 +6,7 @@ package eu.musesproject.server.persistence;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -15,7 +14,7 @@ import eu.musesproject.server.rt2ae.Asset;
 import eu.musesproject.server.rt2ae.Clue;
 import eu.musesproject.server.rt2ae.Opportunity;
 import eu.musesproject.server.rt2ae.Outcome;
-import eu.musesproject.server.rt2ae.SecurityIncident;
+import eu.musesproject.server.rt2ae.RiskPolicy;
 import eu.musesproject.server.rt2ae.Threat;
 import eu.musesproject.server.rt2ae.User;
 
@@ -32,6 +31,7 @@ public class PersistenceManager {
 	 * 
 	 */
 	
+	@SuppressWarnings("resource")
 	public PersistenceManager() {
 		new ClassPathXmlApplicationContext("classpath*:META-INF/spring/applicationContext*.xml");
 
@@ -40,7 +40,8 @@ public class PersistenceManager {
 	/**
 	 * @return the outcomes
 	 */
-	public static List<Outcome> getOutcomes() {
+	@SuppressWarnings("static-access")
+	public  List<Outcome> getOutcomes() {
 		
 		new PersistenceManager();
 		Outcome o = new Outcome();
@@ -50,7 +51,7 @@ public class PersistenceManager {
 	/**
 	 * @param outcomes the outcomes to set
 	 */
-	public static void setOutcomes(List<Outcome> outcomes) {
+	public  void setOutcomes(List<Outcome> outcomes) {
 		
 		new PersistenceManager();
 		
@@ -66,7 +67,8 @@ public class PersistenceManager {
 	/**
 	 * @return the opportunities
 	 */
-	public static List<Opportunity> getOpportunities() {
+	@SuppressWarnings("static-access")
+	public  List<Opportunity> getOpportunities() {
 		
 		new PersistenceManager();
 		Opportunity o = new Opportunity();
@@ -76,7 +78,7 @@ public class PersistenceManager {
 	/**
 	 * @param opportunities the opportunities to set
 	 */
-	public static void setOpportunities(List<Opportunity> opportunities) {
+	public  void setOpportunities(List<Opportunity> opportunities) {
 		
 		new PersistenceManager();
 		
@@ -91,7 +93,8 @@ public class PersistenceManager {
 	/**
 	 * @return the assets
 	 */
-	public static List<Asset> getAssets() {
+	@SuppressWarnings("static-access")
+	public  List<Asset> getAssets() {
 		
 		new PersistenceManager();
 		Asset a = new Asset();
@@ -101,7 +104,7 @@ public class PersistenceManager {
 	/**
 	 * @param assets the assets to set
 	 */
-	public static void setAssets(List<Asset> assets) {
+	public  void setAssets(List<Asset> assets) {
 		
 		new PersistenceManager();
 		
@@ -116,7 +119,8 @@ public class PersistenceManager {
 	/**
 	 * @return the threats
 	 */
-	public static List<Threat> getThreats() {
+	@SuppressWarnings("static-access")
+	public  List<Threat> getThreats() {
 		
 		new PersistenceManager();
 		Threat t = new Threat();
@@ -126,7 +130,7 @@ public class PersistenceManager {
 	/**
 	 * @param threats the threats to set
 	 */
-	public static void setThreats(List<Threat> threats) {
+	public  void setThreats(List<Threat> threats) {
 		
 		new PersistenceManager();
 		
@@ -142,7 +146,8 @@ public class PersistenceManager {
 	/**
 	 * @return the clues
 	 */
-	public static List<Clue> getClues() { 
+	@SuppressWarnings("static-access")
+	public  List<Clue> getClues() { 
 		
 		new PersistenceManager();
 		Clue c = new Clue();
@@ -152,7 +157,7 @@ public class PersistenceManager {
 	/**
 	 * @param clues the clues to set
 	 */
-	public static void setClues(List<Clue> clues) {
+	public  void setClues(List<Clue> clues) {
 		
 		new PersistenceManager();
 		
@@ -168,14 +173,14 @@ public class PersistenceManager {
 	/**
 	 * @return the riskPolicies
 	 */
-	/*public static List<RiskPolicy> getRiskPolicies() {
+	public  List<RiskPolicy> getRiskPolicies() {
 		return null;
 	}
 
 	/**
 	 * @param riskPolicies the riskPolicies to set
 	 */
-	/*public static void setRiskPolicies(List<RiskPolicy> riskPolicies) {
+	public static void setRiskPolicies(List<RiskPolicy> riskPolicies) {
 		
 	}
 
@@ -215,30 +220,48 @@ public class PersistenceManager {
 		return u.findAllUsers();
 	}
 	
-	@SuppressWarnings({"resource" })
 	public static void main(String[] args) {
 		Threat t = new Threat ();
 		PersistenceManager p = new PersistenceManager();
+
+		
+		RiskPolicy r = new RiskPolicy();
+		r.setDescription("tessddsftsts");
+		r.setRiskvalue(2343400.0);
+		
+		
+		//r.persist();
 		
 		t.setProbability(0.5);
 		t.setDescription("test");
-		t.setClues(null);
-		t.persist();
+	//	t.persist();
 		Outcome o = new Outcome();
 		o.setCostbenefit(200.0);
 		o.setDescription("test");
-		o.setOutcomeId(1);
+		
+		//o.setOutcomeId(1);
 		o.setThreatId(t);
+		//o.persist();
 		Clue c = new Clue ();
 		//c.setClueId(null);
 		c.setValue(200);
 		c.setThreatId(t);
-		c.persist();
-		Asset a = new Asset ();
+		//c.persist();
+	//	Asset a = new Asset ();
 	
-		//o.persist();
-		User u = new User();		
-		System.out.println("List of all users: "+u.findAllUsers());
+		//o.persist();*/
+
+		User u = new User();
+		//u.setAccessrequests(null);
+		//u.setDevices(null);
+		u.setName("nerea");
+		u.setSurname("moreno");
+		u.setEmail("nerena.moreno@unige.ch");
+		u.setSecurityIncidents(null);
+		u.setTrustvalue(0.8);
+		//u.persist();
+		System.out.println("List of all users: "+p.getAllUser());
+
 	}	
 	    
 	
