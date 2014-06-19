@@ -48,6 +48,9 @@ public class AccessRequest extends Request {
 	
 	/** The clues threat entry */
 	private CluesThreatEntry cluesThreatEntry;
+	
+	/** The solved status */
+	private boolean solved = false;
 
 	/**
 	 * The risk events.
@@ -237,6 +240,20 @@ public class AccessRequest extends Request {
 	 */
 	public void setCluesThreatEntry(CluesThreatEntry cluesThreatEntry) {
 		this.cluesThreatEntry = cluesThreatEntry;
+	}
+
+	/**
+	 * @return the solved
+	 */
+	public boolean isSolved() {
+		return solved;
+	}
+
+	/**
+	 * @param solved the solved to set
+	 */
+	public void setSolved(boolean solved) {
+		this.solved = solved;
 	}
 
 }

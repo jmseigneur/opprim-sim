@@ -254,6 +254,8 @@ public class RealTimeRiskTrustAnalysisEngine {
 					+ threat.getOutcomes().iterator().next().getCostBenefit()
 					+ "\n");
 			currentThreats.add(threat);
+			accessRequest.setCluesThreatEntry(new CluesThreatEntry(clues, threat));
+			GuiMain.getPersistenceManager().getAccessRequests().add(accessRequest);
 		} else {
 			for (Threat threat : currentThreats) {
 				GuiMain.getPersistenceManager().getCluesThreatTable()
@@ -269,6 +271,8 @@ public class RealTimeRiskTrustAnalysisEngine {
 						+ threat.getOutcomes().iterator().next()
 								.getCostBenefit() + "\n");
 			}
+			accessRequest.setCluesThreatEntry(new CluesThreatEntry(clues, currentThreats.get(0)));
+			GuiMain.getPersistenceManager().getAccessRequests().add(accessRequest);
 		}
 		Vector<RiskEvent> riskEvents = new Vector<RiskEvent>();
 
@@ -471,34 +475,10 @@ public class RealTimeRiskTrustAnalysisEngine {
 	public void recalculateThreatProbabilitiesWhenIncident(
 			AccessRequest accessRequest) {
 
-		Collection<Asset> requestedAssests = accessRequest
-				.getRequestedCorporateAsset();
-
-		OpportunityDescriptor opportunityDescriptor = accessRequest
-				.getOpportunityDescriptor();
-		if (opportunityDescriptor != null) {
-			requestedAssests = opportunityDescriptor.getRequestedAssets();
-		}
-
-		List<Clue> clues = new ArrayList<Clue>();
-
-		for (Asset asset : requestedAssests) {
-			clues = this.eventProcessor.getClues(asset);
-		}
-
-		List<Threat> currentThreats = new ArrayList<Threat>();
-		currentThreats = GuiMain.getPersistenceManager().getCluesThreatTable()
-				.getThreatsFromClues(clues);
-		for (Threat threat : currentThreats) {
 			GuiMain.getPersistenceManager().getCluesThreatTable()
-					.updateThreatBadOutcomeCount(threat);
-			GuiMain.getPersistenceManager().getCluesThreatTable()
-					.updateThreatProbability(threat);
-		}
-
-		currentThreats = GuiMain.getPersistenceManager().getCluesThreatTable()
-				.getThreatsFromClues(clues);
-		for (Threat threat : currentThreats) {
+					.updateThreatBadOutcomeCount(accessRequest.getCluesThreatEntry().getThreat());
+			Threat threat = GuiMain.getPersistenceManager().getCluesThreatTable()
+					.updateThreatProbability(accessRequest.getCluesThreatEntry().getThreat());
 
 			System.out
 					.println("The new probability associated with the threat \""
@@ -506,47 +486,19 @@ public class RealTimeRiskTrustAnalysisEngine {
 							+ "\" is: "
 							+ threat.getProbability().getProb());
 
-		}
 
 	}
 
 	public void recalculateThreatProbabilitiesWhenNoIncident(
 			AccessRequest accessRequest) {
 
-		Collection<Asset> requestedAssests = accessRequest
-				.getRequestedCorporateAsset();
-
-		OpportunityDescriptor opportunityDescriptor = accessRequest
-				.getOpportunityDescriptor();
-		if (opportunityDescriptor != null) {
-			requestedAssests = opportunityDescriptor.getRequestedAssets();
-		}
-
-		List<Clue> clues = new ArrayList<Clue>();
-
-		for (Asset asset : requestedAssests) {
-			clues = this.eventProcessor.getClues(asset);
-		}
-
-		List<Threat> currentThreats = new ArrayList<Threat>();
-		currentThreats = GuiMain.getPersistenceManager().getCluesThreatTable()
-				.getThreatsFromClues(clues);
-		for (Threat threat : currentThreats) {
-			GuiMain.getPersistenceManager().getCluesThreatTable()
-					.updateThreatProbability(threat);
-		}
-
-		currentThreats = GuiMain.getPersistenceManager().getCluesThreatTable()
-				.getThreatsFromClues(clues);
-		for (Threat threat : currentThreats) {
-
+			Threat threat = GuiMain.getPersistenceManager().getCluesThreatTable()
+					.updateThreatProbability(accessRequest.getCluesThreatEntry().getThreat());
 			System.out
 					.println("The new probability associated with the threat \""
 							+ threat.getDescription()
 							+ "\" is: "
 							+ threat.getProbability().getProb());
-
-		}
 
 	}
 

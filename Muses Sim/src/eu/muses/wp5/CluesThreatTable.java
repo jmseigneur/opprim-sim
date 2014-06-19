@@ -94,7 +94,7 @@ public class CluesThreatTable {
 		this.cluesThreatTable = cluesThreatTable;
 	}
 
-	public void updateThreatProbability(Threat threat) {
+	public Threat updateThreatProbability(Threat threat) {
 
 		for (CluesThreatEntry entry : cluesThreatTable) {
 			if (entry.getThreat() == threat) {
@@ -103,8 +103,10 @@ public class CluesThreatTable {
 						/ temp.getOccurences();
 				temp.setProbability(new Probability(newProbability));
 				entry.setThreat(temp);
+				return threat;
 			}
 		}
+		return null;
 
 	}
 
@@ -133,6 +135,18 @@ public class CluesThreatTable {
 		}
 
 	}
+	
+	public CluesThreatEntry getEntry(CluesThreatEntry entry){
+		for (CluesThreatEntry e : this.cluesThreatTable) {
+			if(e.getClues() == entry.getClues() && e.getThreat() == entry.getThreat())
+				return e;
+		}
+		return null;
+	}
+	
+	public void removeEntry(CluesThreatEntry entry){
+				this.cluesThreatTable.remove(entry);
+			}
 
 	/*
 	 * (non-Javadoc)

@@ -39,15 +39,14 @@ import javax.swing.JScrollPane;
 
 public class SecurityIncidentOnAssetPanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private static int accessRequest;
 
 	/**
 	 * Create the panel.
 	 */
-	public SecurityIncidentOnAssetPanel() {
+	public SecurityIncidentOnAssetPanel(int accessRequest) {
+		this.accessRequest = accessRequest;
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -61,7 +60,7 @@ public class SecurityIncidentOnAssetPanel extends JPanel {
 				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JLabel lblNewAsset = new JLabel("Security Incident Simulation");
+		JLabel lblNewAsset = new JLabel("Report Security Incident");
 		GridBagConstraints gbc_lblNewAsset = new GridBagConstraints();
 		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewAsset.gridwidth = 17;
@@ -104,7 +103,7 @@ public class SecurityIncidentOnAssetPanel extends JPanel {
 			}
 		});
 
-		JButton btnRunSimulation = new JButton("Run Simulation");
+		JButton btnRunSimulation = new JButton("Report");
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -114,7 +113,9 @@ public class SecurityIncidentOnAssetPanel extends JPanel {
 
 						GuiMain.setIncidentAmount(GuiMain.getIncidentAmount() + 1);
 						AccessRequest accessRequest = GuiMain
-								.getAccessRequest();
+								.getPersistenceManager()
+								.getAccessRequests()
+								.get(SecurityIncidentOnAssetPanel.accessRequest);
 
 						// Much later assuming there is a security incident on
 						// the
@@ -147,6 +148,10 @@ public class SecurityIncidentOnAssetPanel extends JPanel {
 							GuiMain.getS2Rt2ae()
 									.recalculateThreatProbabilitiesWhenIncident(
 											accessRequest);
+							GuiMain.getPersistenceManager()
+									.getAccessRequests()
+									.get(SecurityIncidentOnAssetPanel.accessRequest)
+									.setSolved(true);
 						}
 					} catch (Exception ex) {
 						ex.printStackTrace();
@@ -160,7 +165,7 @@ public class SecurityIncidentOnAssetPanel extends JPanel {
 					JOptionPane
 							.showConfirmDialog(
 									null,
-									"There was already a security incident reported for the last asset access request",
+									"There was already a security incident reported for this asset access request",
 									"Notice", JOptionPane.OK_CANCEL_OPTION,
 									JOptionPane.INFORMATION_MESSAGE);
 

@@ -299,7 +299,6 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 					JPanel simPanel = new UserRequestsAssetPanel();
 					GuiMain.switchPanel(simPanel);
 				} catch (Exception ex) {
-					ex.printStackTrace();
 					JOptionPane
 							.showConfirmDialog(
 									null,

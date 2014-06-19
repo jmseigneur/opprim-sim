@@ -329,7 +329,7 @@ public class GuiMain {
 		mntmSecurityIncidentOn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				JPanel securityIncidentOnAssetPanel = new SecurityIncidentOnAssetPanel();
+				JPanel securityIncidentOnAssetPanel = new SecurityIncidentSimulationSettingsPanel();
 				switchPanel(securityIncidentOnAssetPanel);
 
 			}

@@ -140,9 +140,10 @@ public class UserRequestsAssetPanel extends JPanel {
 							+ " was: "
 							+ ((CorporateUserAccessRequestDecision) decision)
 									.getTextualDecisionDescription() + "\n");
-					GuiMain.getS2Rt2ae()
+					//TODO update probability after 6 months if no bad outcome was detected
+					/*GuiMain.getS2Rt2ae()
 							.recalculateThreatProbabilitiesWhenNoIncident(
-									accessRequest);
+									accessRequest);*/
 					if (!decision.equals(Decision.STRONG_DENY_ACCESS)) {
 						if (!decision.equals(Decision.ALLOW_ACCESS)) {
 							GuiMain.getUser1()
