@@ -3,15 +3,21 @@
  */
 package eu.musesproject.server.persistence;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 
 
+
+
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import eu.musesproject.server.rt2ae.Accessrequest;
 import eu.musesproject.server.rt2ae.Asset;
 import eu.musesproject.server.rt2ae.Clue;
+import eu.musesproject.server.rt2ae.Decision;
 import eu.musesproject.server.rt2ae.Opportunity;
 import eu.musesproject.server.rt2ae.Outcome;
 import eu.musesproject.server.rt2ae.RiskPolicy;
@@ -52,12 +58,10 @@ public class PersistenceManager {
 	 * @param outcomes the outcomes to set
 	 */
 	public  void setOutcomes(List<Outcome> outcomes) {
-		
-		new PersistenceManager();
-		
+				
 		Iterator<Outcome> i = outcomes.iterator();
 		while(i.hasNext()){
-			Outcome o = (Outcome)i.next();
+			Outcome o = i.next();
 			o.persist();
 		
 		}
@@ -80,11 +84,10 @@ public class PersistenceManager {
 	 */
 	public  void setOpportunities(List<Opportunity> opportunities) {
 		
-		new PersistenceManager();
 		
 		Iterator<Opportunity> i = opportunities.iterator();
 		while(i.hasNext()){
-			Opportunity o = (Opportunity)i.next();
+			Opportunity o = i.next();
 			o.persist();
 		
 		}
@@ -105,12 +108,10 @@ public class PersistenceManager {
 	 * @param assets the assets to set
 	 */
 	public  void setAssets(List<Asset> assets) {
-		
-		new PersistenceManager();
-		
+				
 		Iterator<Asset> i = assets.iterator();
 		while(i.hasNext()){
-			Asset a = (Asset)i.next();
+			Asset a = i.next();
 			a.persist();
 		
 		}
@@ -132,11 +133,11 @@ public class PersistenceManager {
 	 */
 	public  void setThreats(List<Threat> threats) {
 		
-		new PersistenceManager();
+		
 		
 		Iterator<Threat> i = threats.iterator();
 		while(i.hasNext()){
-			Threat t = (Threat)i.next();
+			Threat t = i.next();
 			t.persist();
 		
 		}
@@ -149,7 +150,7 @@ public class PersistenceManager {
 	@SuppressWarnings("static-access")
 	public  List<Clue> getClues() { 
 		
-		new PersistenceManager();
+		//new PersistenceManager();
 		Clue c = new Clue();
 		return c.findAllClues();
 	}
@@ -159,11 +160,11 @@ public class PersistenceManager {
 	 */
 	public  void setClues(List<Clue> clues) {
 		
-		new PersistenceManager();
+		//new PersistenceManager();
 		
 		Iterator<Clue> i = clues.iterator();
 		while(i.hasNext()){
-			Clue c = (Clue)i.next();
+			Clue c = i.next();
 			c.persist();
 		
 		}
@@ -221,7 +222,6 @@ public class PersistenceManager {
 	}
 	
 	public static void main(String[] args) {
-		Threat t = new Threat ();
 		PersistenceManager p = new PersistenceManager();
 
 		
@@ -231,10 +231,21 @@ public class PersistenceManager {
 		
 		
 		//r.persist();
+		Threat t = new Threat ();
+		t.setProbability(0.888);
+		t.setDescription("dsfdsfdaftesddsdsst");
+		//t.persist();
 		
-		t.setProbability(0.5);
-		t.setDescription("test");
-	//	t.persist();
+		Threat t1 = new Threat ();
+		t1.setProbability(0.99);
+		t1.setDescription("tasdasdasesddsdsst");
+		//t1.persist();
+		
+		List<Threat> l1 = new ArrayList<Threat>();
+		l1.add(t);
+		l1.add(t1);
+		p.setThreats(l1);
+		
 		Outcome o = new Outcome();
 		o.setCostbenefit(200.0);
 		o.setDescription("test");
@@ -244,13 +255,26 @@ public class PersistenceManager {
 		//o.persist();
 		Clue c = new Clue ();
 		//c.setClueId(null);
-		c.setValue(200);
+		c.setValue(20023);
+		Clue c1 = new Clue ();
+		//c.setClueId(null);
+		c1.setValue(30043);
+		
 		c.setThreatId(t);
-		//c.persist();
-	//	Asset a = new Asset ();
-	
-		//o.persist();*/
+		c1.setThreatId(t);
 
+		
+		List<Clue> l = new ArrayList<Clue>();
+		l.add(c);
+		l.add(c1);
+		//p.setClues(l);
+		//c.persist();
+		Asset as = new Asset ();
+		
+		
+		
+		//o.persist();*/
+		
 		User u = new User();
 		//u.setAccessrequests(null);
 		//u.setDevices(null);
@@ -259,7 +283,12 @@ public class PersistenceManager {
 		u.setEmail("nerena.moreno@unige.ch");
 		u.setSecurityIncidents(null);
 		u.setTrustvalue(0.8);
+		
 		//u.persist();
+		
+		
+		
+		
 		System.out.println("List of all users: "+p.getAllUser());
 
 	}	
