@@ -54,7 +54,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JCheckBox;
 
-public class RequestAssetSimulationSettingsPanel extends JPanel {
+public class MultiAgentSimulationSettingsPanel extends JPanel {
 
 	/**
 	 * 
@@ -67,7 +67,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public RequestAssetSimulationSettingsPanel() {
+	public MultiAgentSimulationSettingsPanel() {
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -81,7 +81,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 				0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JLabel lblNewAsset = new JLabel("Asset Request Simulation Settings");
+		JLabel lblNewAsset = new JLabel("Multi-Agent Simulation Settings");
 		GridBagConstraints gbc_lblNewAsset = new GridBagConstraints();
 		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewAsset.gridwidth = 17;
@@ -296,7 +296,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 					GuiMain.setAccessRequest(accessRequest);
 					GuiMain.getS2Rt2ae().setRiskPolicy(
 							(RiskPolicy) comboBox_2.getSelectedItem());
-					JPanel simPanel = new UserRequestsAssetSimulationPanel();
+					JPanel simPanel = new MultiAgentSimulationPanel();
 					GuiMain.switchPanel(simPanel);
 				} catch (Exception ex) {
 					JOptionPane

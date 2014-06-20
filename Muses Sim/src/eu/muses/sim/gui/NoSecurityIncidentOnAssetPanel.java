@@ -33,8 +33,10 @@ import eu.muses.sim.Outcome;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.SecurityIncident;
 import eu.muses.sim.test.SimUser;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JScrollPane;
 
 public class NoSecurityIncidentOnAssetPanel extends JPanel {
@@ -117,6 +119,7 @@ public class NoSecurityIncidentOnAssetPanel extends JPanel {
 								.getPersistenceManager()
 								.getAccessRequests()
 								.get(NoSecurityIncidentOnAssetPanel.accessRequest);
+						GuiMain.setUser1(accessRequest.getUser());
 
 						System.out
 								.println("Event Correlator confirmed that there was no security incident for this access request");

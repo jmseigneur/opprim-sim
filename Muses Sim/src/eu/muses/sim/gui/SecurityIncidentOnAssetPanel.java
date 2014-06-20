@@ -33,8 +33,10 @@ import eu.muses.sim.Outcome;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.SecurityIncident;
 import eu.muses.sim.test.SimUser;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JScrollPane;
 
 public class SecurityIncidentOnAssetPanel extends JPanel {
@@ -116,6 +118,7 @@ public class SecurityIncidentOnAssetPanel extends JPanel {
 								.getPersistenceManager()
 								.getAccessRequests()
 								.get(SecurityIncidentOnAssetPanel.accessRequest);
+						GuiMain.setUser1(accessRequest.getUser());
 
 						// Much later assuming there is a security incident on
 						// the

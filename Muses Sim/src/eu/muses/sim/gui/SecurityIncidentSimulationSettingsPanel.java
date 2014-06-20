@@ -72,6 +72,7 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 	private JTextField textField_1;
 	private TableRowSorter<DefaultTableModel> sorter;
 	private int modelRow;
+	private int viewRow;
 
 	/**
 	 * Create the panel.
@@ -192,7 +193,7 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 		table.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent event) {
-						int viewRow = table.getSelectedRow();
+						viewRow = table.getSelectedRow();
 						if (viewRow < 0) {
 							// Selection got filtered away.
 						} else {
@@ -279,7 +280,7 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 											.getCluesThreatEntry());
 					GuiMain.getPersistenceManager().getCluesThreatTable()
 							.removeEntry(entry);
-					table.setValueAt("Solved", modelRow, 5);
+					table.setValueAt("Solved", viewRow, 5);
 					model.fireTableDataChanged();
 				} catch (Exception ex) {
 					JOptionPane.showConfirmDialog(null,
@@ -329,7 +330,7 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 											.getCluesThreatEntry());
 					GuiMain.getPersistenceManager().getCluesThreatTable()
 							.removeEntry(entry);
-					table.setValueAt("Solved", modelRow, 5);
+					table.setValueAt("Solved", viewRow, 5);
 					model.fireTableDataChanged();
 				} catch (Exception ex) {
 					JOptionPane.showConfirmDialog(null,

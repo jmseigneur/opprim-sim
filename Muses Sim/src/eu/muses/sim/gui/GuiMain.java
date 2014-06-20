@@ -312,8 +312,7 @@ public class GuiMain {
 		JMenu mnScenarios = new JMenu("Scenarios");
 		menuBar.add(mnScenarios);
 
-		JMenuItem mntmAliceRequestsPatent = new JMenuItem(
-				"User Requests Asset");
+		JMenuItem mntmAliceRequestsPatent = new JMenuItem("User Requests Asset");
 		mntmAliceRequestsPatent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -334,6 +333,15 @@ public class GuiMain {
 
 			}
 		});
+
+		JMenuItem mntmNewMenuItem = new JMenuItem("Multi-Agent Simulation");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanel multiAgentSimulationSettingsPanel = new MultiAgentSimulationSettingsPanel();
+				switchPanel(multiAgentSimulationSettingsPanel);
+			}
+		});
+		mnScenarios.add(mntmNewMenuItem);
 		mnScenarios.add(mntmSecurityIncidentOn);
 
 		JMenu mnHelp = new JMenu("Help");

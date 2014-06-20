@@ -45,7 +45,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 
-public class UserRequestsAssetPanel extends JPanel {
+public class MultiAgentSimulationPanel extends JPanel {
 
 	/**
 	 * 
@@ -55,7 +55,7 @@ public class UserRequestsAssetPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public UserRequestsAssetPanel() {
+	public MultiAgentSimulationPanel() {
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -69,7 +69,7 @@ public class UserRequestsAssetPanel extends JPanel {
 				0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JLabel lblNewAsset = new JLabel("User Requests Asset Simulation");
+		JLabel lblNewAsset = new JLabel("Multi-Agent Simulation");
 		GridBagConstraints gbc_lblNewAsset = new GridBagConstraints();
 		gbc_lblNewAsset.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewAsset.gridwidth = 17;
@@ -140,10 +140,13 @@ public class UserRequestsAssetPanel extends JPanel {
 							+ " was: "
 							+ ((CorporateUserAccessRequestDecision) decision)
 									.getTextualDecisionDescription() + "\n");
-					//TODO update probability after 6 months if no bad outcome was detected
-					/*GuiMain.getS2Rt2ae()
-							.recalculateThreatProbabilitiesWhenNoIncident(
-									accessRequest);*/
+					// TODO update probability after 6 months if no bad outcome
+					// was detected
+					/*
+					 * GuiMain.getS2Rt2ae()
+					 * .recalculateThreatProbabilitiesWhenNoIncident(
+					 * accessRequest);
+					 */
 					if (!decision.equals(Decision.STRONG_DENY_ACCESS)) {
 						if (!decision.equals(Decision.ALLOW_ACCESS)) {
 							GuiMain.getUser1()
@@ -238,15 +241,21 @@ public class UserRequestsAssetPanel extends JPanel {
 						while (decision.equals(Decision.ON_YOUR_RISK_ACCESS)
 								&& GuiMain.getUser1().isStillMakingRequest(
 										accessRequest)) {
-							if (GuiMain.getUser1().givesUpRequestDueToRisk( //supposed to be given by the EventProcessor
+							if (GuiMain.getUser1().givesUpRequestDueToRisk( // supposed
+																			// to
+																			// be
+																			// given
+																			// by
+																			// the
+																			// EventProcessor
 									accessRequest)) {
 								GuiMain.getUser1().setStillMakingRequest(
 										accessRequest, false);
-								//TODO Update threat to null
-								//TODO log this into the persitent storage
-								
-								//GuiMain.getS2EventCorrelator()
-									//	.logsAccessRequestUserDecisionInMusesCompanyInstance();
+								// TODO Update threat to null
+								// TODO log this into the persitent storage
+
+								// GuiMain.getS2EventCorrelator()
+								// .logsAccessRequestUserDecisionInMusesCompanyInstance();
 								// It may be important to also log when a user
 								// decides not taking the opportunity due to
 								// risk,
@@ -255,7 +264,7 @@ public class UserRequestsAssetPanel extends JPanel {
 								// there is no risk due to laziness or risk
 								// aversion...
 							} else {
-								
+
 								if (GuiMain.getUser1()
 										.decidesAccessingAssetInSpiteOfRisk(
 												accessRequest)) {
