@@ -5,6 +5,7 @@ package eu.musesproject.server.rt2ae;
 
 import eu.musesproject.server.rt2ae.Accessrequest;
 import eu.musesproject.server.rt2ae.Device;
+import eu.musesproject.server.rt2ae.Opportunity;
 import eu.musesproject.server.rt2ae.SecurityIncident;
 import eu.musesproject.server.rt2ae.User;
 import java.util.Set;
@@ -19,6 +20,9 @@ privileged aspect User_Roo_DbManaged {
     
     @OneToMany(mappedBy = "ownerId")
     private Set<Device> User.devices;
+    
+    @OneToMany(mappedBy = "userId")
+    private Set<Opportunity> User.opportunities;
     
     @OneToMany(mappedBy = "usersId")
     private Set<SecurityIncident> User.securityIncidents;
@@ -53,6 +57,14 @@ privileged aspect User_Roo_DbManaged {
     
     public void User.setDevices(Set<Device> devices) {
         this.devices = devices;
+    }
+    
+    public Set<Opportunity> User.getOpportunities() {
+        return opportunities;
+    }
+    
+    public void User.setOpportunities(Set<Opportunity> opportunities) {
+        this.opportunities = opportunities;
     }
     
     public Set<SecurityIncident> User.getSecurityIncidents() {

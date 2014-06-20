@@ -5,6 +5,7 @@ package eu.musesproject.server.rt2ae;
 
 import eu.musesproject.server.rt2ae.Accessrequest;
 import eu.musesproject.server.rt2ae.Asset;
+import eu.musesproject.server.rt2ae.Opportunity;
 import eu.musesproject.server.rt2ae.Riskinformation;
 import eu.musesproject.server.rt2ae.SecurityIncident;
 import java.util.Set;
@@ -16,6 +17,9 @@ privileged aspect Asset_Roo_DbManaged {
     
     @OneToMany(mappedBy = "assetId")
     private Set<Accessrequest> Asset.accessrequests;
+    
+    @OneToMany(mappedBy = "assetId")
+    private Set<Opportunity> Asset.opportunities;
     
     @OneToMany(mappedBy = "assetId")
     private Set<Riskinformation> Asset.riskinformations;
@@ -49,6 +53,14 @@ privileged aspect Asset_Roo_DbManaged {
     
     public void Asset.setAccessrequests(Set<Accessrequest> accessrequests) {
         this.accessrequests = accessrequests;
+    }
+    
+    public Set<Opportunity> Asset.getOpportunities() {
+        return opportunities;
+    }
+    
+    public void Asset.setOpportunities(Set<Opportunity> opportunities) {
+        this.opportunities = opportunities;
     }
     
     public Set<Riskinformation> Asset.getRiskinformations() {

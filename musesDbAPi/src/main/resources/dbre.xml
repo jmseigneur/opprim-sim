@@ -54,6 +54,10 @@
             <option key="exported" value="true"/>
             <reference foreign="asset_id" local="asset_id"/>
         </foreign-key>
+        <foreign-key foreignTable="opportunity" name="asset_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="true"/>
+            <reference foreign="asset_id" local="asset_id"/>
+        </foreign-key>
         <foreign-key foreignTable="riskinformation" name="riskassetid" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>
             <reference foreign="asset_id" local="asset_id"/>
@@ -161,9 +165,23 @@
         <column name="costbenefit" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
         <column name="asset_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
         <column name="user_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
+        <foreign-key foreignTable="asset" name="asset_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="asset_id" local="asset_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="user" name="user_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="user_id" local="user_id"/>
+        </foreign-key>
         <unique name="PRIMARY">
             <unique-column name="opportunity_id"/>
         </unique>
+        <index name="asset_id_idx">
+            <index-column name="asset_id"/>
+        </index>
+        <index name="user_id_idx">
+            <index-column name="user_id"/>
+        </index>
     </table>
     <table name="outcome">
         <column name="outcome_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
@@ -309,6 +327,10 @@
         <foreign-key foreignTable="device" name="owner_id" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>
             <reference foreign="owner_id" local="user_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="opportunity" name="user_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="true"/>
+            <reference foreign="user_id" local="user_id"/>
         </foreign-key>
         <foreign-key foreignTable="security_incident" name="users_id" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>

@@ -3,11 +3,23 @@
 
 package eu.musesproject.server.rt2ae;
 
+import eu.musesproject.server.rt2ae.Asset;
 import eu.musesproject.server.rt2ae.Opportunity;
+import eu.musesproject.server.rt2ae.User;
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 privileged aspect Opportunity_Roo_DbManaged {
+    
+    @ManyToOne
+    @JoinColumn(name = "asset_id", referencedColumnName = "asset_id", nullable = false)
+    private Asset Opportunity.assetId;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    private User Opportunity.userId;
     
     @Column(name = "description", length = 45)
     @NotNull
@@ -17,13 +29,21 @@ privileged aspect Opportunity_Roo_DbManaged {
     @NotNull
     private Double Opportunity.costbenefit;
     
-    @Column(name = "asset_id")
-    @NotNull
-    private Integer Opportunity.assetId;
+    public Asset Opportunity.getAssetId() {
+        return assetId;
+    }
     
-    @Column(name = "user_id")
-    @NotNull
-    private Integer Opportunity.userId;
+    public void Opportunity.setAssetId(Asset assetId) {
+        this.assetId = assetId;
+    }
+    
+    public User Opportunity.getUserId() {
+        return userId;
+    }
+    
+    public void Opportunity.setUserId(User userId) {
+        this.userId = userId;
+    }
     
     public String Opportunity.getDescription() {
         return description;
@@ -39,22 +59,6 @@ privileged aspect Opportunity_Roo_DbManaged {
     
     public void Opportunity.setCostbenefit(Double costbenefit) {
         this.costbenefit = costbenefit;
-    }
-    
-    public Integer Opportunity.getAssetId() {
-        return assetId;
-    }
-    
-    public void Opportunity.setAssetId(Integer assetId) {
-        this.assetId = assetId;
-    }
-    
-    public Integer Opportunity.getUserId() {
-        return userId;
-    }
-    
-    public void Opportunity.setUserId(Integer userId) {
-        this.userId = userId;
     }
     
 }
