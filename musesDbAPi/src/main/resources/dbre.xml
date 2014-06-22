@@ -45,7 +45,7 @@
     </table>
     <table name="asset">
         <column name="asset_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
-        <column name="title" primaryKey="false" required="true" scale="0" size="45" type="12,VARCHAR"/>
+        <column name="assetName" primaryKey="false" required="true" scale="0" size="45" type="12,VARCHAR"/>
         <column name="description" primaryKey="false" required="true" scale="0" size="255" type="12,VARCHAR"/>
         <column name="value" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
         <column name="confidential_level" primaryKey="false" required="true" scale="0" size="20" type="1,ENUM"/>
@@ -72,7 +72,7 @@
     </table>
     <table name="clue">
         <column name="clue_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
-        <column name="value" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
+        <column name="value" primaryKey="false" required="true" scale="0" size="50" type="12,VARCHAR"/>
         <column name="threat_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
         <foreign-key foreignTable="threat" name="threat_id" onDelete="none" onUpdate="none">
             <option key="exported" value="false"/>

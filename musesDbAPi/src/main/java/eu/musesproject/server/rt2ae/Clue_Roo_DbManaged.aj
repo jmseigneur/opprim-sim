@@ -16,9 +16,9 @@ privileged aspect Clue_Roo_DbManaged {
     @JoinColumn(name = "threat_id", referencedColumnName = "threat_id", nullable = false)
     private Threat Clue.threatId;
     
-    @Column(name = "value")
+    @Column(name = "value", length = 50)
     @NotNull
-    private Integer Clue.value;
+    private String Clue.value;
     
     public Threat Clue.getThreatId() {
         return threatId;
@@ -28,11 +28,11 @@ privileged aspect Clue_Roo_DbManaged {
         this.threatId = threatId;
     }
     
-    public Integer Clue.getValue() {
+    public String Clue.getValue() {
         return value;
     }
     
-    public void Clue.setValue(Integer value) {
+    public void Clue.setValue(String value) {
         this.value = value;
     }
     

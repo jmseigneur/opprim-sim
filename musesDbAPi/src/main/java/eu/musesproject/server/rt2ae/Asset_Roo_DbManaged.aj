@@ -27,9 +27,9 @@ privileged aspect Asset_Roo_DbManaged {
     @OneToMany(mappedBy = "assetsId")
     private Set<SecurityIncident> Asset.securityIncidents;
     
-    @Column(name = "title", length = 45)
+    @Column(name = "assetName", length = 45)
     @NotNull
-    private String Asset.title;
+    private String Asset.assetName;
     
     @Column(name = "description", length = 255)
     @NotNull
@@ -79,12 +79,12 @@ privileged aspect Asset_Roo_DbManaged {
         this.securityIncidents = securityIncidents;
     }
     
-    public String Asset.getTitle() {
-        return title;
+    public String Asset.getAssetName() {
+        return assetName;
     }
     
-    public void Asset.setTitle(String title) {
-        this.title = title;
+    public void Asset.setAssetName(String assetName) {
+        this.assetName = assetName;
     }
     
     public String Asset.getDescription() {
