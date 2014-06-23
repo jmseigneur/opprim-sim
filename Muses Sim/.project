@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Muses Sim</name>
-	<comment>@key 32303037303533312D31303020436F776F726B696E672052657075746174696F6E </comment>
+	<name>musesDbAPi</name>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.eclipse.wst.common.project.facet.core.builder</name>
+			<name>org.eclipse.ajdt.core.ajbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
+			<name>org.eclipse.ajdt.core.ajbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.soyatec.additional.Builder</name>
+			<name>org.springframework.ide.eclipse.core.springbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.m2e.core.maven2Builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>org.eclipse.m2e.core.maven2Nature</nature>
+		<nature>com.springsource.sts.roo.core.nature</nature>
+		<nature>org.springframework.ide.eclipse.core.springnature</nature>
+		<nature>org.eclipse.ajdt.ui.ajnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>com.soyatec.additional.Nature</nature>
-		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
 </projectDescription>
