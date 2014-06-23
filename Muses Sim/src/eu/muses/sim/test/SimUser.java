@@ -51,18 +51,12 @@ public class SimUser extends User {
 
 	/** The TrustValue */
 	private TrustValue trustValue;
-
-	public TrustValue getTrustValue() {
-		return trustValue;
-	}
-
-	public void setTrustValue(TrustValue trustValue) {
-		this.trustValue = trustValue;
-	}
-
-	public void setHourlyCost(double hourlyCost) {
-		this.hourlyCost = hourlyCost;
-	}
+	
+	/** The user behaviour (how often the user will access an asset when intended to access 0%-100%) */
+	private int behaviour;
+	
+	/** The request status */
+	private boolean requestStatus;
 
 	/**
 	 * Instantiates a new sim user.
@@ -382,8 +376,11 @@ public class SimUser extends User {
 	 * @return true, if is still making request
 	 */
 	public boolean isStillMakingRequest(AccessRequest accessRequest) {
-		// TODO Auto-generated method stub
-		return false;
+			return this.requestStatus;
+	}
+	
+	public void setStillMakingRequest(boolean b){
+		this.requestStatus = b;
 	}
 
 	/**
@@ -480,7 +477,7 @@ public class SimUser extends User {
 	 *            the b
 	 */
 	public void setStillMakingRequest(AccessRequest accessRequest, boolean b) {
-		// TODO Auto-generated method stub
+		this.requestStatus = b;
 
 	}
 
@@ -523,6 +520,36 @@ public class SimUser extends User {
 	public void usesCorporateAssets(Asset[] corporateAssets) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public TrustValue getTrustValue() {
+		return trustValue;
+	}
+
+	public void setTrustValue(TrustValue trustValue) {
+		this.trustValue = trustValue;
+	}
+
+	public void setHourlyCost(double hourlyCost) {
+		this.hourlyCost = hourlyCost;
+	}
+
+	/**
+	 * @return the behaviour
+	 */
+	public int getBehaviour() {
+		return behaviour;
+	}
+
+	/**
+	 * @param behaviour the behaviour to set
+	 */
+	public void setBehaviour(int behaviour) {
+		this.behaviour = behaviour;
+		if(this.behaviour >= 100)
+			this.requestStatus = true;
+		else
+			this.requestStatus = false;
 	}
 
 }

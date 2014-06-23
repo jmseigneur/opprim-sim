@@ -15,6 +15,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.SliderUI;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.GridBagConstraints;
@@ -53,6 +54,9 @@ import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JCheckBox;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class RequestAssetSimulationSettingsPanel extends JPanel {
 
@@ -245,23 +249,55 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 			comboBox_1.setModel(new DefaultComboBoxModel(
 					new String[] { "ADD RISK POLICIES FIRST" }));
 		}
+				
+				final JLabel label = new JLabel("");
+				GridBagConstraints gbc_label = new GridBagConstraints();
+				gbc_label.gridwidth = 3;
+				gbc_label.insets = new Insets(0, 0, 5, 5);
+				gbc_label.gridx = 2;
+				gbc_label.gridy = 5;
+				add(label, gbc_label);
+		
+				final JCheckBox chckbxUserWillNot = new JCheckBox(
+						"User will not acces the asset");
+				chckbxUserWillNot
+						.setToolTipText("Decides whether the user will finally give up accessing the asset or not in case of an ambiguous or risky access recommendation");
+				GridBagConstraints gbc_chckbxUserWillNot = new GridBagConstraints();
+				gbc_chckbxUserWillNot.fill = GridBagConstraints.HORIZONTAL;
+				gbc_chckbxUserWillNot.insets = new Insets(0, 0, 5, 5);
+				gbc_chckbxUserWillNot.gridx = 5;
+				gbc_chckbxUserWillNot.gridy = 5;
+				add(chckbxUserWillNot, gbc_chckbxUserWillNot);
 		GridBagConstraints gbc_comboBox_2 = new GridBagConstraints();
-		gbc_comboBox_2.gridwidth = 3;
 		gbc_comboBox_2.insets = new Insets(0, 0, 0, 5);
 		gbc_comboBox_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_2.gridx = 1;
 		gbc_comboBox_2.gridy = 6;
 		add(comboBox_2, gbc_comboBox_2);
+		
+		final JSlider slider = new JSlider();
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				JSlider slider = (JSlider)e.getSource();
+	            if (!slider.getValueIsAdjusting()) {
+	                label.setText(String.valueOf(slider.getValue()));
+	            }
+			}
+		});
+		slider.setPaintLabels(true);
+		slider.setToolTipText("set how likely is in the user's behaviour to continue an access request in spite of anything");
+		slider.setValue(100);
+		slider.setPaintTicks(true);
+		slider.setMinorTickSpacing(10);
+		slider.setLabelTable(slider.createStandardLabels(10));
+		GridBagConstraints gbc_slider = new GridBagConstraints();
+		gbc_slider.gridwidth = 3;
+		gbc_slider.fill = GridBagConstraints.HORIZONTAL;
+		gbc_slider.insets = new Insets(0, 0, 0, 5);
+		gbc_slider.gridx = 2;
+		gbc_slider.gridy = 6;
+		add(slider, gbc_slider);
 
-		final JCheckBox chckbxUserWillNot = new JCheckBox(
-				"User will not acces the asset");
-		chckbxUserWillNot
-				.setToolTipText("Decides whether the user will finally give up accessing the asset or not in case of an ambiguous or risky access recommendation");
-		GridBagConstraints gbc_chckbxUserWillNot = new GridBagConstraints();
-		gbc_chckbxUserWillNot.insets = new Insets(0, 0, 0, 5);
-		gbc_chckbxUserWillNot.gridx = 4;
-		gbc_chckbxUserWillNot.gridy = 6;
-		add(chckbxUserWillNot, gbc_chckbxUserWillNot);
 
 		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
@@ -281,8 +317,10 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 							.getSelectedItem());
 					accessRequest
 							.setOpportunityDescriptor(opportunityDescriptor);
-					accessRequest.setUser((SimUser) comboBox_1
-							.getSelectedItem());
+					GuiMain.getPersistenceManager().getSimUsers().get(comboBox_1
+							.getSelectedIndex()).setBehaviour(slider.getValue());
+					accessRequest.setUser(GuiMain.getPersistenceManager().getSimUsers().get(comboBox_1
+							.getSelectedIndex()));
 					if (chckbxUserWillNot.isSelected()) {
 						accessRequest.setUserAction(new GiveUpAction());
 					} else {
@@ -309,7 +347,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 				}
 			}
 		});
-
+		
 		GridBagConstraints gbc_btnNext = new GridBagConstraints();
 		gbc_btnNext.anchor = GridBagConstraints.EAST;
 		gbc_btnNext.insets = new Insets(0, 0, 0, 5);
