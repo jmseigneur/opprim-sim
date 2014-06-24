@@ -27,6 +27,12 @@ privileged aspect Threat_Roo_DbManaged {
     @NotNull
     private Double Threat.probability;
     
+    @Column(name = "occurences")
+    private Double Threat.occurences;
+    
+    @Column(name = "badOutcomeCount")
+    private Double Threat.badOutcomeCount;
+    
     public Set<Clue> Threat.getClues() {
         return clues;
     }
@@ -57,6 +63,22 @@ privileged aspect Threat_Roo_DbManaged {
     
     public void Threat.setProbability(Double probability) {
         this.probability = probability;
+    }
+    
+    public Double Threat.getOccurences() {
+        return occurences;
+    }
+    
+    public void Threat.setOccurences(Double occurences) {
+        this.occurences = occurences;
+    }
+    
+    public Double Threat.getBadOutcomeCount() {
+        return badOutcomeCount;
+    }
+    
+    public void Threat.setBadOutcomeCount(Double badOutcomeCount) {
+        this.badOutcomeCount = badOutcomeCount;
     }
     
 }

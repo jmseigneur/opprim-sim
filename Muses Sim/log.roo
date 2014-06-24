@@ -33,3 +33,11 @@ database reverse engineer --schema musesdatabase
 database reverse engineer --schema musesdatabase
 database reverse engineer --schema musesdatabase
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-06-23 15:32:50
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-06-24 12:13:20
+// [failed] database reverse engineer --schema musesdatabase
+addon search mysql
+osgi obr url add --url http://spring-roo-repository.springsource.org/repository.xml
+osgi obr start --bundleSymbolicName org.springframework.roo.wrapping.mysql-connector-java
+osgi obr url remove --url http://spring-roo-repository.springsource.org/repository.xml
+addon install id 01
+database reverse engineer --schema musesdatabase

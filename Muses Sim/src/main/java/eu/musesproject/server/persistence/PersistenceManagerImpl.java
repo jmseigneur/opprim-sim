@@ -235,6 +235,9 @@ public  List<SimUser> getSimUsers() {
 	public static void main(String[] args) {
 		PersistenceManagerImpl p = new PersistenceManagerImpl();
 		
+		Threat t = new Threat ();
+	
+		
 		System.out.println("List of all users: "+p.getSimUsers().get(0).toString());
 
 	}	
