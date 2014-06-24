@@ -41,3 +41,5 @@ osgi obr start --bundleSymbolicName org.springframework.roo.wrapping.mysql-conne
 osgi obr url remove --url http://spring-roo-repository.springsource.org/repository.xml
 addon install id 01
 database reverse engineer --schema musesdatabase
+database reverse engineer --schema musesdatabase
+database reverse engineer --schema musesdatabase

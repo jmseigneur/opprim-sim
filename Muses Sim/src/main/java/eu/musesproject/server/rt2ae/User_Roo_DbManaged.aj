@@ -43,6 +43,10 @@ privileged aspect User_Roo_DbManaged {
     @NotNull
     private Double User.trustvalue;
     
+    @Column(name = "hourlyCost")
+    @NotNull
+    private Double User.hourlyCost;
+    
     public Set<Accessrequest> User.getAccessrequests() {
         return accessrequests;
     }
@@ -105,6 +109,14 @@ privileged aspect User_Roo_DbManaged {
     
     public void User.setTrustvalue(Double trustvalue) {
         this.trustvalue = trustvalue;
+    }
+    
+    public Double User.getHourlyCost() {
+        return hourlyCost;
+    }
+    
+    public void User.setHourlyCost(Double hourlyCost) {
+        this.hourlyCost = hourlyCost;
     }
     
 }
