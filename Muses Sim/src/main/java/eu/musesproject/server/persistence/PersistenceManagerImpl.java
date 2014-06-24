@@ -6,6 +6,7 @@ package eu.musesproject.server.persistence;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -233,10 +234,24 @@ public  List<SimUser> getSimUsers() {
 		
 	}
 	public static void main(String[] args) {
-		PersistenceManagerImpl p = new PersistenceManagerImpl();
 		
+		long startTime = System.nanoTime();
+		PersistenceManagerImpl p = new PersistenceManagerImpl();
 		System.out.println("List of all users: "+p.getSimUsers().get(0).toString());
-
-	}	
-
+		long endTime = System.nanoTime();
+		double duration = (double) (endTime - startTime) / (Math.pow(10, 9));
+		System.out.println("First execution time: " + duration);
+		for(int i = 0; i < 10; i++){
+		startTime = System.nanoTime();
+		System.out.println("List of all users: "+p.getSimUsers().get(0).toString());
+		endTime = System.nanoTime();
+		duration = (double) (endTime - startTime) / (Math.pow(10, 9));
+		System.out.println("Time: " + duration);
+		}
+		
+		Threat t = new Threat ();
+	
+		
+	}
+	
 }
