@@ -6,7 +6,6 @@ package eu.musesproject.server.persistence;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -44,13 +43,13 @@ public class PersistenceManagerImpl extends PersistenceManager {
 	/* (non-Javadoc)
 	 * @see eu.musesproject.server.persistence.PersistenceManager#setOutcomes(java.util.List)
 	 */
-	
+
 	public void setOutcomes(List<Outcome> outcomes) {
 		Iterator<Outcome> i = outcomes.iterator();
 		while(i.hasNext()){
 			Outcome o = i.next();
 			o.persist();
-		
+
 		}
 
 	}
@@ -58,7 +57,7 @@ public class PersistenceManagerImpl extends PersistenceManager {
 	/* (non-Javadoc)
 	 * @see eu.musesproject.server.persistence.PersistenceManager#getOpportunities()
 	 */
-	
+
 	@SuppressWarnings("static-access")
 	public List<Opportunity> getOpportunities() {
 		Opportunity o = new Opportunity();
@@ -68,20 +67,20 @@ public class PersistenceManagerImpl extends PersistenceManager {
 	/* (non-Javadoc)
 	 * @see eu.musesproject.server.persistence.PersistenceManager#setOpportunities(java.util.List)
 	 */
-	
+
 	public void setOpportunities(List<Opportunity> opportunities) {
 		Iterator<Opportunity> i = opportunities.iterator();
 		while(i.hasNext()){
 			Opportunity o = i.next();
 			o.persist();
-		
+
 		}
 	}
 
 	/* (non-Javadoc)
 	 * @see eu.musesproject.server.persistence.PersistenceManager#getAssets()
 	 */
-	
+
 	@SuppressWarnings("static-access")
 	public List<Asset> getAssets() {
 		Asset a = new Asset();
@@ -91,7 +90,7 @@ public class PersistenceManagerImpl extends PersistenceManager {
 	/* (non-Javadoc)
 	 * @see eu.musesproject.server.persistence.PersistenceManager#setAssets(java.util.List)
 	 */
-	
+
 	public void setAssets(List<Asset> assets) {
 		Iterator<Asset> i = assets.iterator();
 		while(i.hasNext()){
@@ -100,7 +99,7 @@ public class PersistenceManagerImpl extends PersistenceManager {
 			a.setDescription("");
 			a.setLocation("");
 			a.persist();
-		
+
 		}
 	}
 
@@ -123,7 +122,7 @@ public class PersistenceManagerImpl extends PersistenceManager {
 		while(i.hasNext()){
 			Threat t = i.next();
 			t.persist();
-		
+
 		}
 	}
 
@@ -144,7 +143,7 @@ public class PersistenceManagerImpl extends PersistenceManager {
 		while(i.hasNext()){
 			Clue c = i.next();
 			c.persist();
-		
+
 		}
 	}
 
@@ -160,20 +159,20 @@ public class PersistenceManagerImpl extends PersistenceManager {
 	/* (non-Javadoc)
 	 * @see eu.musesproject.server.persistence.PersistenceManager#setRiskPolicies(java.util.List)
 	 */
-	
+
 	public void setRiskPolicies(List<RiskPolicy> riskPolicies) {
 		Iterator<RiskPolicy> i = riskPolicies.iterator();
 		while(i.hasNext()){
 			RiskPolicy r = i.next();
 			r.persist();
-		
+
 		}// TODO Auto-generated method stub
 
 	}
-	
+
 @SuppressWarnings("static-access")
 public  List<SimUser> getSimUsers() {
-		
+
 		User u = new User();
 		List<User> l = u.findAllUsers();
 		List<SimUser> simusers = new ArrayList<SimUser>();
@@ -185,7 +184,7 @@ public  List<SimUser> getSimUsers() {
 			s.setTrustValue(temp.getTrustvalue());
 			simusers.add(s);
 		}// TODO Auto
-		
+
 		return simusers;
 	}
 
@@ -193,8 +192,8 @@ public  List<SimUser> getSimUsers() {
 	 * @param assets the assets to set
 	 */
 	public  void setSimUsers(List<SimUser> simusers) {
-				
-		
+
+
 		List<User> l = new ArrayList<User>();
 		//List<SimUser> simusers = new ArrayList<SimUser>();
 		Iterator<SimUser> i = simusers.iterator();
@@ -206,52 +205,40 @@ public  List<SimUser> getSimUsers() {
 			temp.setEmail("");
 			temp.setSurname("");
 			l.add(temp);
-		
+
 		}// TODO Auto
 		PersistenceManagerImpl p = new PersistenceManagerImpl();
 		p.setUser(l);
-				
-		
+
+
 	}
 	@SuppressWarnings("static-access")
 	public List<User> getAllUser(){
-		
+
 		User u = new User();
-		
+
 		return u.findAllUsers();
 	}
-	
+
 	public  void setUser(List<User> users) {
-		
+
 		//new PersistenceManager();
-		
+
 		Iterator<User> i = users.iterator();
 		while(i.hasNext()){
 			User u = i.next();
 			u.persist();
-		
+
 		}
-		
+
 	}
 	public static void main(String[] args) {
-		
-		long startTime = System.nanoTime();
 		PersistenceManagerImpl p = new PersistenceManagerImpl();
-		System.out.println("List of all users: "+p.getSimUsers().get(0).toString());
-		long endTime = System.nanoTime();
-		double duration = (double) (endTime - startTime) / (Math.pow(10, 9));
-		System.out.println("First execution time: " + duration);
-		for(int i = 0; i < 10; i++){
-		startTime = System.nanoTime();
-		System.out.println("List of all users: "+p.getSimUsers().get(0).toString());
-		endTime = System.nanoTime();
-		duration = (double) (endTime - startTime) / (Math.pow(10, 9));
-		System.out.println("Time: " + duration);
-		}
-		
+
 		Threat t = new Threat ();
-	
-		
-	}
-	
+
+
+		System.out.println("List of all users: "+p.getSimUsers().get(0).toString());
+
+	}	
 }
