@@ -43,3 +43,4 @@ addon install id 01
 database reverse engineer --schema musesdatabase
 database reverse engineer --schema musesdatabase
 database reverse engineer --schema musesdatabase
+database reverse engineer --schema musesdatabase

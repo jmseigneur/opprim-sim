@@ -6,21 +6,18 @@ package eu.musesproject.server.rt2ae;
 import eu.musesproject.server.rt2ae.Clue;
 import eu.musesproject.server.rt2ae.Outcome;
 import eu.musesproject.server.rt2ae.Threat;
-
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 privileged aspect Threat_Roo_DbManaged {
     
-    @OneToMany(mappedBy = "threatId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "threatId")
     private Set<Clue> Threat.clues;
     
-    @OneToMany(mappedBy = "threatId", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "threatId", cascade = CascadeType.ALL)
     private Set<Outcome> Threat.outcomes;
     
     @Column(name = "description", length = 45)

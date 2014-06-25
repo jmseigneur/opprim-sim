@@ -26,7 +26,6 @@ import eu.muses.sim.trustman.UserTrustValue;
 import eu.muses.wp5.Clue;
 import eu.muses.wp5.CluesThreatEntry;
 import eu.muses.wp5.CluesThreatTable;
-import eu.musesproject.server.rt2ae.Accessrequest;
 
 /**
  * @author xavier
@@ -146,21 +145,6 @@ public class DbPersistenceManager extends PersistenceManager {
 		while(i.hasNext()){
 			eu.musesproject.server.rt2ae.Threat threat_temp = i.next();
 			Collection<Outcome> c = new ArrayList(threat_temp.getOutcomes());
-			
-		//	List list = new ArrayList(set);
-			//System.out.println("okkk  "+ threat_temp.getOutcomes().size());
-			//temp.getOutcomes().
-			//Collection list = new ArrayList(set);
-
-			/*Iterator<eu.musesproject.server.rt2ae.Outcome> it = threat_temp.getOutcomes().iterator();
-			
-			while(it.hasNext()){
-				//eu.musesproject.server.rt2ae.Outcome temp = new eu.musesproject.server.rt2ae.Outcome();
-				eu.musesproject.server.rt2ae.Outcome temp1 = it.next();
-				Outcome o = new Outcome(temp1.getDescription(), temp1.getCostbenefit());
-				c.add(o);				
-				
-			}*/
 			
 			Probability p = new Probability();
 			p.setProb(threat_temp.getProbability());
@@ -315,12 +299,12 @@ public class DbPersistenceManager extends PersistenceManager {
 	/* (non-Javadoc)
 	 * @see eu.muses.sim.persistence.PersistenceManager#getCluesThreatTable()
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
 	@Override
 	public CluesThreatTable getCluesThreatTable() {
 		CluesThreatTable cluethreattable = new CluesThreatTable();
 		eu.musesproject.server.rt2ae.Threat threat = new eu.musesproject.server.rt2ae.Threat();
 		List<eu.musesproject.server.rt2ae.Threat> l = threat.findAllThreats();
-		List<Threat> lsim = new ArrayList<Threat>();
 		Iterator<eu.musesproject.server.rt2ae.Threat> i = l.iterator();
 		while(i.hasNext()){
 			eu.musesproject.server.rt2ae.Threat threat_temp = i.next();
@@ -337,14 +321,13 @@ public class DbPersistenceManager extends PersistenceManager {
 			Threat t = new Threat(threat_temp.getDescription(), p, c1);
 			e.setThreat(t);
 			
-			//t.setBadOutcomeCount(threat_temp.getBadOutcomeCount());
-			//t.setOccurences(threat_temp.getOccurences());
+			
 			
 			cluethreattable.addMapping(c, t);
 		}
 		
 		
-		return cluethreattable;//lsim;
+		return cluethreattable;
 	}
 
 	/* (non-Javadoc)
@@ -352,6 +335,9 @@ public class DbPersistenceManager extends PersistenceManager {
 	 */
 	@Override
 	public void setCluesThreatTable(CluesThreatTable cluesThreatTable) {
+		
+		
+		
 	}
 
 	/* (non-Javadoc)
@@ -371,7 +357,6 @@ public class DbPersistenceManager extends PersistenceManager {
 			eu.musesproject.server.rt2ae.Asset as = accessrequests.getAssetId();
 			Asset a1 = new Asset(as.getAssetName(), as.getValue());
 			
-			AccessRequest a = new AccessRequest(a1);
 		
 			
 			
@@ -423,12 +408,12 @@ public class DbPersistenceManager extends PersistenceManager {
 		l1.add(a);
 		l1.add(a1);
 		
-		Clue c = new Clue("malware");
-		Clue c1 = new Clue("spyware1");
+		Clue c = new Clue("virus");
+		Clue c1 = new Clue("jailbroken");
 		List<Clue> l2 = new ArrayList<Clue>();
 		l2.add(c);
 		l2.add(c1);
-		//p.setClues(l2);
+		p.setClues(l2);
 		
 		UserTrustValue u = new UserTrustValue();
 		u.setValue(0.999);
@@ -445,7 +430,10 @@ public class DbPersistenceManager extends PersistenceManager {
 		p1.setProb(0.7777);
 		Probability p2 = new Probability();
 		p2.setProb(0.66);
+		
+	
 		Threat t3 = new Threat("oieuioeuwroe", p1, l);
+		
 		Threat t4 = new Threat("ewrewrew", p2, l);
 		List<Threat> l4 = new ArrayList<Threat>();
 		l4.add(t3);
@@ -461,10 +449,15 @@ public class DbPersistenceManager extends PersistenceManager {
 		List<RiskPolicy> l5 = new ArrayList<RiskPolicy>();
 		l5.add(r3);
 		l5.add(r4);
-		p.setRiskPolicies(l5);
+		//p.setRiskPolicies(l5);
+		/*Iterator<CluesThreatEntry> i = p.getCluesThreatTable().getCluesThreatTable().iterator();
+		while(i.hasNext()){
+			CluesThreatEntry accessrequests = i.next();
+			System.out.println("List of clues: "+accessrequests.getClues().toString() +"  threat    " + accessrequests.getThreat().getDescription());
+	
+		}*/
 		
-		
-		System.out.println("List of all users: "+p.getCluesThreatTable().getCluesThreatTable().toString());
+		System.out.println("List of all users: "+p.getClues().toString());
 	}
 
 }
