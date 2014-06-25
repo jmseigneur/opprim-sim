@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.table.DefaultTableModel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -25,37 +24,24 @@ import java.awt.Insets;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import javax.swing.JSlider;
 import javax.swing.JButton;
-
-import java.awt.Component;
-
-import javax.swing.Box;
 
 import eu.muses.sim.OpportunityDescriptor;
 import eu.muses.sim.Outcome;
-import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.request.AccessRequest;
-import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.asset.Asset;
-import eu.muses.sim.riskman.opportunity.Opportunity;
 import eu.muses.sim.test.SimUser;
+import eu.muses.sim.trustman.TrustValue;
 import eu.muses.sim.userman.action.AccessAction;
-import eu.muses.sim.userman.action.GiveUpAction;
-import eu.muses.wp5.Clue;
-import eu.muses.wp5.CluesThreatTable;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Random;
 
 import javax.swing.JComboBox;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JCheckBox;
-import javax.swing.JSlider;
 
 public class MultiAgentSimulationSettingsPanel extends JPanel {
 
@@ -63,7 +49,8 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Create the panel.
@@ -72,21 +59,30 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+				Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
-		JLabel lblMultiagentSimulationSettings = new JLabel("Multi-Agent Simulation Settings");
-		lblMultiagentSimulationSettings.setFont(new Font("Arial", Font.PLAIN, 20));
+
+		JLabel lblMultiagentSimulationSettings = new JLabel(
+				"Multi-Agent Simulation Settings");
+		lblMultiagentSimulationSettings.setFont(new Font("Arial", Font.PLAIN,
+				20));
 		GridBagConstraints gbc_lblMultiagentSimulationSettings = new GridBagConstraints();
-		gbc_lblMultiagentSimulationSettings.insets = new Insets(0, 0, 5, 5);
-		gbc_lblMultiagentSimulationSettings.gridwidth = 27;
+		gbc_lblMultiagentSimulationSettings.insets = new Insets(0, 0, 5, 0);
+		gbc_lblMultiagentSimulationSettings.gridwidth = 29;
 		gbc_lblMultiagentSimulationSettings.gridx = 0;
 		gbc_lblMultiagentSimulationSettings.gridy = 0;
-		add(lblMultiagentSimulationSettings, gbc_lblMultiagentSimulationSettings);
-		
+		add(lblMultiagentSimulationSettings,
+				gbc_lblMultiagentSimulationSettings);
+
 		JLabel lblSimulationUsers = new JLabel("Simulation Users:");
 		lblSimulationUsers.setFont(new Font("Arial", Font.BOLD, 12));
 		GridBagConstraints gbc_lblSimulationUsers = new GridBagConstraints();
@@ -95,7 +91,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		gbc_lblSimulationUsers.gridx = 0;
 		gbc_lblSimulationUsers.gridy = 1;
 		add(lblSimulationUsers, gbc_lblSimulationUsers);
-		
+
 		final JLabel label = new JLabel("100");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_label = new GridBagConstraints();
@@ -104,8 +100,8 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		gbc_label.gridx = 1;
 		gbc_label.gridy = 1;
 		add(label, gbc_label);
-		
-		JSlider slider_1 = new JSlider();
+
+		final JSlider slider_1 = new JSlider();
 		slider_1.setBackground(Color.WHITE);
 		slider_1.setMajorTickSpacing(1000);
 		slider_1.setValue(100);
@@ -116,12 +112,12 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		slider_1.setLabelTable(slider_1.createStandardLabels(1000));
 		GridBagConstraints gbc_slider_1 = new GridBagConstraints();
 		gbc_slider_1.insets = new Insets(0, 0, 5, 0);
-		gbc_slider_1.gridwidth = 27;
+		gbc_slider_1.gridwidth = 16;
 		gbc_slider_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_slider_1.gridx = 0;
 		gbc_slider_1.gridy = 2;
 		add(slider_1, gbc_slider_1);
-		
+
 		JLabel lblSimulationAssets = new JLabel("Simulation Assets:");
 		lblSimulationAssets.setFont(new Font("Arial", Font.BOLD, 12));
 		GridBagConstraints gbc_lblSimulationAssets = new GridBagConstraints();
@@ -130,17 +126,17 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		gbc_lblSimulationAssets.gridx = 0;
 		gbc_lblSimulationAssets.gridy = 3;
 		add(lblSimulationAssets, gbc_lblSimulationAssets);
-		
+
 		slider_1.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				JSlider slider = (JSlider)e.getSource();
-	            if (!slider.getValueIsAdjusting()) {
-	                label.setText(String.valueOf(slider.getValue()));
-	            }
+				JSlider slider = (JSlider) e.getSource();
+				if (!slider.getValueIsAdjusting()) {
+					label.setText(String.valueOf(slider.getValue()));
+				}
 			}
 		});
-		
-		JSlider slider_2 = new JSlider();
+
+		final JSlider slider_2 = new JSlider();
 		slider_2.setBackground(Color.WHITE);
 		slider_2.setMajorTickSpacing(1000);
 		slider_2.setValue(100);
@@ -149,7 +145,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		slider_2.setPaintTicks(true);
 		slider_2.setPaintLabels(true);
 		slider_2.setLabelTable(slider_1.createStandardLabels(1000));
-		
+
 		final JLabel label_1 = new JLabel("50");
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
@@ -159,21 +155,287 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		gbc_label_1.gridy = 3;
 		add(label_1, gbc_label_1);
 		GridBagConstraints gbc_slider_2 = new GridBagConstraints();
+		gbc_slider_2.insets = new Insets(0, 0, 5, 0);
 		gbc_slider_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_slider_2.gridwidth = 27;
+		gbc_slider_2.gridwidth = 16;
 		gbc_slider_2.gridx = 0;
 		gbc_slider_2.gridy = 4;
 		add(slider_2, gbc_slider_2);
-		
+
+		JLabel lblAccessRequestsPer = new JLabel("Access Requests per user:");
+		lblAccessRequestsPer.setFont(new Font("Arial", Font.BOLD, 12));
+		GridBagConstraints gbc_lblAccessRequestsPer = new GridBagConstraints();
+		gbc_lblAccessRequestsPer.anchor = GridBagConstraints.WEST;
+		gbc_lblAccessRequestsPer.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAccessRequestsPer.gridx = 0;
+		gbc_lblAccessRequestsPer.gridy = 5;
+		add(lblAccessRequestsPer, gbc_lblAccessRequestsPer);
+
+		textField = new JTextField();
+		textField.setText("1");
+		textField.setToolTipText("only positive numbers");
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.gridx = 1;
+		gbc_textField.gridy = 5;
+		add(textField, gbc_textField);
+		textField.setColumns(10);
+
+		JCheckBox chckbxUserCanAccess = new JCheckBox(
+				"User CANNOT access an asset more than once");
+		GridBagConstraints gbc_chckbxUserCanAccess = new GridBagConstraints();
+		gbc_chckbxUserCanAccess.anchor = GridBagConstraints.WEST;
+		gbc_chckbxUserCanAccess.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxUserCanAccess.gridx = 2;
+		gbc_chckbxUserCanAccess.gridy = 5;
+		add(chckbxUserCanAccess, gbc_chckbxUserCanAccess);
+
 		slider_2.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				JSlider slider = (JSlider)e.getSource();
-	            if (!slider.getValueIsAdjusting()) {
-	                label_1.setText(String.valueOf(slider.getValue()));
-	            }
+				JSlider slider = (JSlider) e.getSource();
+				if (!slider.getValueIsAdjusting()) {
+					label_1.setText(String.valueOf(slider.getValue()));
+				}
 			}
 		});
 		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("User should always access the same asset");
+		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
+		gbc_chckbxNewCheckBox.anchor = GridBagConstraints.WEST;
+		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxNewCheckBox.gridx = 3;
+		gbc_chckbxNewCheckBox.gridy = 5;
+		add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
+		
+		JLabel lblFixedValue = new JLabel("Fixed value [0...1]");
+		lblFixedValue.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_lblFixedValue = new GridBagConstraints();
+		gbc_lblFixedValue.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFixedValue.gridx = 2;
+		gbc_lblFixedValue.gridy = 6;
+		add(lblFixedValue, gbc_lblFixedValue);
+		
+		JCheckBox chckbxRandomTrustValues = new JCheckBox("Random trust values");
+		GridBagConstraints gbc_chckbxRandomTrustValues = new GridBagConstraints();
+		gbc_chckbxRandomTrustValues.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chckbxRandomTrustValues.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxRandomTrustValues.gridx = 0;
+		gbc_chckbxRandomTrustValues.gridy = 7;
+		add(chckbxRandomTrustValues, gbc_chckbxRandomTrustValues);
+		
+		JLabel lblOr = new JLabel("- OR -");
+		lblOr.setFont(new Font("Arial", Font.BOLD, 12));
+		GridBagConstraints gbc_lblOr = new GridBagConstraints();
+		gbc_lblOr.insets = new Insets(0, 0, 5, 5);
+		gbc_lblOr.gridx = 1;
+		gbc_lblOr.gridy = 7;
+		add(lblOr, gbc_lblOr);
+		
+		textField_1 = new JTextField();
+		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 2;
+		gbc_textField_1.gridy = 7;
+		add(textField_1, gbc_textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblOfUsers = new JLabel("% of users who will give up due to distraction: ");
+		lblOfUsers.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_lblOfUsers = new GridBagConstraints();
+		gbc_lblOfUsers.insets = new Insets(0, 0, 5, 5);
+		gbc_lblOfUsers.gridx = 0;
+		gbc_lblOfUsers.gridy = 8;
+		add(lblOfUsers, gbc_lblOfUsers);
+		
+		final JLabel label_2 = new JLabel("0");
+		label_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		GridBagConstraints gbc_label_2 = new GridBagConstraints();
+		gbc_label_2.anchor = GridBagConstraints.WEST;
+		gbc_label_2.insets = new Insets(0, 0, 5, 5);
+		gbc_label_2.gridx = 1;
+		gbc_label_2.gridy = 8;
+		add(label_2, gbc_label_2);
+		
+		JLabel lblOfUsers_1 = new JLabel("% of users who will give up due to risk: ");
+		lblOfUsers_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_lblOfUsers_1 = new GridBagConstraints();
+		gbc_lblOfUsers_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblOfUsers_1.gridx = 2;
+		gbc_lblOfUsers_1.gridy = 8;
+		add(lblOfUsers_1, gbc_lblOfUsers_1);
+		
+		final JLabel label_3 = new JLabel("0");
+		label_3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		GridBagConstraints gbc_label_3 = new GridBagConstraints();
+		gbc_label_3.anchor = GridBagConstraints.WEST;
+		gbc_label_3.insets = new Insets(0, 0, 5, 5);
+		gbc_label_3.gridx = 3;
+		gbc_label_3.gridy = 8;
+		add(label_3, gbc_label_3);
+		
+		JSlider slider = new JSlider();
+		slider.setValue(0);
+		slider.setMajorTickSpacing(10);
+		slider.setMinorTickSpacing(5);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		GridBagConstraints gbc_slider = new GridBagConstraints();
+		gbc_slider.fill = GridBagConstraints.HORIZONTAL;
+		gbc_slider.insets = new Insets(0, 0, 5, 5);
+		gbc_slider.gridx = 0;
+		gbc_slider.gridy = 9;
+		add(slider, gbc_slider);
+		
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				JSlider slider = (JSlider) e.getSource();
+				if (!slider.getValueIsAdjusting()) {
+					label_2.setText(String.valueOf(slider.getValue()) + "%");
+				}
+			}
+		});
+		
+		JSlider slider_3 = new JSlider();
+		slider_3.setValue(0);
+		slider_3.setMajorTickSpacing(10);
+		slider_3.setMinorTickSpacing(5);
+		slider_3.setPaintTicks(true);
+		slider_3.setPaintLabels(true);
+		GridBagConstraints gbc_slider_3 = new GridBagConstraints();
+		gbc_slider_3.fill = GridBagConstraints.HORIZONTAL;
+		gbc_slider_3.insets = new Insets(0, 0, 5, 5);
+		gbc_slider_3.gridx = 2;
+		gbc_slider_3.gridy = 9;
+		add(slider_3, gbc_slider_3);
+		
+		slider_3.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				JSlider slider = (JSlider) e.getSource();
+				if (!slider.getValueIsAdjusting()) {
+					label_3.setText(String.valueOf(slider.getValue()) + "%");
+				}
+			}
+		});
+		
+		JCheckBox chckbxRandomRiskPolicy = new JCheckBox("Random risk policy for each user");
+		GridBagConstraints gbc_chckbxRandomRiskPolicy = new GridBagConstraints();
+		gbc_chckbxRandomRiskPolicy.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chckbxRandomRiskPolicy.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxRandomRiskPolicy.gridx = 0;
+		gbc_chckbxRandomRiskPolicy.gridy = 10;
+		add(chckbxRandomRiskPolicy, gbc_chckbxRandomRiskPolicy);
+		
+		JLabel lblOr_1 = new JLabel("- OR -");
+		lblOr_1.setFont(new Font("Arial", Font.BOLD, 12));
+		GridBagConstraints gbc_lblOr_1 = new GridBagConstraints();
+		gbc_lblOr_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblOr_1.gridx = 1;
+		gbc_lblOr_1.gridy = 10;
+		add(lblOr_1, gbc_lblOr_1);
+		
+		JComboBox<RiskPolicy> comboBox = new JComboBox<RiskPolicy>();
+		if (!GuiMain.getPersistenceManager().getRiskPolicies().isEmpty()) {
+			for (RiskPolicy rp : GuiMain.getPersistenceManager()
+					.getRiskPolicies()) {
+				comboBox.addItem(rp);
+			}
+		} else {
+			comboBox.setModel(new DefaultComboBoxModel(
+					new String[] { "ADD RISK POLICIES FIRST" }));
+		}
+		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox.gridx = 2;
+		gbc_comboBox.gridy = 10;
+		add(comboBox, gbc_comboBox);
+		
+		JButton btnStartSimulation = new JButton("Start Simulation");
+		btnStartSimulation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+
+					Random r = new Random(1983);
+					for (int i = 0; i < slider_1.getValue(); i++) {
+						SimUser u = new SimUser("User" + i,
+								r.nextDouble() * 1000, new TrustValue(0.5));
+						GuiMain.getPersistenceManager().getSimUsers().add(u);
+					}
+					for (int j = 0; j < slider_2.getValue(); j++) {
+						Asset a = new Asset("Asset" + j,
+								r.nextDouble() * 100000);
+						GuiMain.getPersistenceManager().getAssets().add(a);
+					}
+					for (int k = 0; k < Integer.parseInt(textField.getText()); k++) {
+						for (int l = 0; l < GuiMain.getPersistenceManager()
+								.getSimUsers().size(); l++) {
+							AccessRequest ar = new AccessRequest(GuiMain
+									.getMaterialForPatentProposal());
+							OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor();
+							opportunityDescriptor
+									.setDescription("If user works the company will not lose "
+											+ GuiMain.getPersistenceManager()
+													.getSimUsers().get(l)
+													.getHourlyCost());
+							opportunityDescriptor.addOutcome(new Outcome(
+									"If user works the company will not lose "
+											+ GuiMain.getPersistenceManager()
+													.getSimUsers().get(l)
+													.getHourlyCost(), GuiMain
+											.getPersistenceManager()
+											.getSimUsers().get(l)
+											.getHourlyCost()));
+							opportunityDescriptor.addRequestedAsset(GuiMain
+									.getPersistenceManager()
+									.getAssets()
+									.get(r.nextInt(GuiMain
+											.getPersistenceManager()
+											.getAssets().size())));
+							ar.setOpportunityDescriptor(opportunityDescriptor);
+							GuiMain.getPersistenceManager().getSimUsers().get(l).setBehaviour(100);
+							//TODO set behaviour options
+							/*GuiMain.getPersistenceManager().getSimUsers()
+									.get(comboBox_1.getSelectedIndex())
+									.setBehaviour(slider.getValue());*/
+							ar.setUser(GuiMain
+									.getPersistenceManager().getSimUsers()
+									.get(l));
+							ar.setUserAction(new AccessAction());
+							GuiMain.getArList().add(ar);
+						}
+
+					}
+					System.out.println("The number of total access requests  is: " + GuiMain.getPersistenceManager().getAccessRequests().size());
+					MultiAgentSimulationPanel simPanel = new MultiAgentSimulationPanel();
+					GuiMain.switchPanel(simPanel);
+				} catch (Exception ex) {
+					JOptionPane
+					.showConfirmDialog(
+							null,
+							"Check that all the parameters are correct.",
+							"Input error.",
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		JLabel lblSelectOne = new JLabel("Select one");
+		GridBagConstraints gbc_lblSelectOne = new GridBagConstraints();
+		gbc_lblSelectOne.anchor = GridBagConstraints.WEST;
+		gbc_lblSelectOne.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSelectOne.gridx = 3;
+		gbc_lblSelectOne.gridy = 10;
+		add(lblSelectOne, gbc_lblSelectOne);
+		GridBagConstraints gbc_btnStartSimulation = new GridBagConstraints();
+		gbc_btnStartSimulation.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_btnStartSimulation.insets = new Insets(0, 0, 0, 5);
+		gbc_btnStartSimulation.gridx = 16;
+		gbc_btnStartSimulation.gridy = 17;
+		add(btnStartSimulation, gbc_btnStartSimulation);
+
 	}
 
 }

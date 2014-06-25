@@ -73,7 +73,7 @@
     <table name="clue">
         <column name="clue_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
         <column name="value" primaryKey="false" required="true" scale="0" size="50" type="12,VARCHAR"/>
-        <column name="threat_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
+        <column name="threat_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
         <foreign-key foreignTable="threat" name="threat_id" onDelete="none" onUpdate="none">
             <option key="exported" value="false"/>
             <reference foreign="threat_id" local="threat_id"/>
@@ -188,7 +188,7 @@
         <column name="description" primaryKey="false" required="true" scale="0" size="45" type="12,VARCHAR"/>
         <column name="costbenefit" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
         <column name="threat_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
-        <foreign-key foreignTable="threat" name="threats_id" onDelete="none" onUpdate="none">
+        <foreign-key foreignTable="threat" name="threats_id" onDelete="cascade" onUpdate="cascade">
             <option key="exported" value="false"/>
             <reference foreign="threat_id" local="threat_id"/>
         </foreign-key>
@@ -308,7 +308,7 @@
             <option key="exported" value="true"/>
             <reference foreign="threat_id" local="threat_id"/>
         </foreign-key>
-        <foreign-key foreignTable="outcome" name="threats_id" onDelete="none" onUpdate="none">
+        <foreign-key foreignTable="outcome" name="threats_id" onDelete="cascade" onUpdate="cascade">
             <option key="exported" value="true"/>
             <reference foreign="threat_id" local="threat_id"/>
         </foreign-key>
@@ -322,6 +322,7 @@
         <column name="surname" primaryKey="false" required="true" scale="0" size="45" type="12,VARCHAR"/>
         <column name="email" primaryKey="false" required="true" scale="0" size="45" type="12,VARCHAR"/>
         <column name="trustvalue" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
+        <column name="hourlyCost" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
         <foreign-key foreignTable="accessrequest" name="requestuserid" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>
             <reference foreign="user_id" local="user_id"/>

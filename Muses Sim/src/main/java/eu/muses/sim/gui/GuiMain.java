@@ -26,7 +26,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import eu.muses.sim.Outcome;
 import eu.muses.sim.RealTimeRiskTrustAnalysisEngine;
 import eu.muses.sim.corporate.Corporation;
 import eu.muses.sim.persistence.InMemoryPersistenceManager;
@@ -37,8 +36,6 @@ import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.RiskValue;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.asset.UserDevice;
-import eu.muses.sim.riskman.opportunity.Opportunity;
-import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.sim.test.MusesClientApp;
 import eu.muses.sim.test.MusesServerApp;
 import eu.muses.sim.test.SimUser;
@@ -99,6 +96,9 @@ public class GuiMain {
 
 	/** The persistence manager */
 	static PersistenceManager persistenceManager;
+	
+	/** The temporary access request list */
+	static List<AccessRequest> arList = new ArrayList<AccessRequest>();
 
 	/**
 	 * Launch the application.
@@ -373,7 +373,7 @@ public class GuiMain {
 		// benefits
 		GuiMain.s2EventCorrelator = GuiMain.userCso.configureEventCorrelator();
 		GuiMain.s2Rt2ae = GuiMain.userCso.configureRt2ae(
-				GuiMain.s2EventCorrelator, RiskPolicy.TAKE_MEDIUM_RISK);
+				GuiMain.s2EventCorrelator, RiskPolicy.TAKE_FULL_RISK);
 		GuiMain.s2MusesServerApp = GuiMain.userCso
 				.configureMusesServerApp(GuiMain.s2Rt2ae);
 
@@ -717,6 +717,20 @@ public class GuiMain {
 	 */
 	public static void setPersistenceManager(PersistenceManager pManager) {
 		persistenceManager = pManager;
+	}
+
+	/**
+	 * @return the arList
+	 */
+	public static List<AccessRequest> getArList() {
+		return arList;
+	}
+
+	/**
+	 * @param arList the arList to set
+	 */
+	public void setArList(List<AccessRequest> arList) {
+		this.arList = arList;
 	}
 
 }

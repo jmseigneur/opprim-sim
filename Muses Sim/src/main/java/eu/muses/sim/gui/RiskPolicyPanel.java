@@ -42,8 +42,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
-import com.sun.org.apache.xml.internal.utils.WrongParserException;
-
 public class RiskPolicyPanel extends JPanel {
 
 	/**

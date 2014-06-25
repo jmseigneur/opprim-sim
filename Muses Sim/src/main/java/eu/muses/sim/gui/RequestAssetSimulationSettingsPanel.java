@@ -246,7 +246,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 				comboBox_2.addItem(rp);
 			}
 		} else {
-			comboBox_1.setModel(new DefaultComboBoxModel(
+			comboBox_2.setModel(new DefaultComboBoxModel(
 					new String[] { "ADD RISK POLICIES FIRST" }));
 		}
 				

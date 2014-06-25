@@ -27,7 +27,7 @@ import eu.muses.sim.trustman.TrustValue;
  */
 public class EventProcessor {
 
-	private List<Clue> clues = new ArrayList<Clue>();
+	private static List<Clue> clueList = new ArrayList<Clue>();
 
 	/**
 	 * Instantiates a new event processor.
@@ -41,8 +41,8 @@ public class EventProcessor {
 	 * @param clues
 	 *            the clues to set
 	 */
-	public void setClues(List<Clue> clues) {
-		this.clues = clues;
+	public static void setClues(List<Clue> cluelist) {
+		clueList = cluelist;
 	}
 
 	/**
@@ -54,7 +54,11 @@ public class EventProcessor {
 	 */
 	public List<Clue> getClues(Asset asset) {
 
-		return this.clues;
+		List<Clue> cList = new ArrayList<Clue>();
+		for (Clue c : clueList) {
+			cList.add(c);
+		}
+		return cList;
 	}
 
 	/**

@@ -37,7 +37,7 @@ import eu.muses.wp5.EventProcessor;
 public class RealTimeRiskTrustAnalysisEngine {
 
 	/** The event processor */
-	EventProcessor eventProcessor;
+	private static EventProcessor eventProcessor;
 
 	/** The risk policy. */
 	private RiskPolicy riskPolicy;
@@ -53,11 +53,11 @@ public class RealTimeRiskTrustAnalysisEngine {
 	 * @param riskPolicy
 	 *            the risk policy
 	 */
-	public RealTimeRiskTrustAnalysisEngine(EventProcessor eventProcessor,
+	public RealTimeRiskTrustAnalysisEngine(EventProcessor eventPr,
 			RiskPolicy riskPolicy) {
 		super();
 		this.riskPolicy = riskPolicy;
-		this.eventProcessor = eventProcessor;
+		eventProcessor = eventPr;
 	}
 
 	/**
@@ -215,16 +215,22 @@ public class RealTimeRiskTrustAnalysisEngine {
 
 		List<Clue> clues = new ArrayList<Clue>();
 
+		System.out.println("The amount of assets is: " + requestedAssests.size() + " and the amount of clues is: " + clues.size());
+		
 		for (Asset asset : requestedAssests) {
 			// currentThreats = eventProcessor.getThreats(asset,
 			// this.getTrustValue(accessRequest.getUser()));
-			clues = this.eventProcessor.getClues(asset);
+			clues = eventProcessor.getClues(asset);
+			System.out.println("The amount of assets is: " + requestedAssests.size() + " and the amount of clues is: " + clues.size());
 			clues.add(new Clue(accessRequest.getUser().getNickname()));
+			System.out.println("The amount of assets is: " + requestedAssests.size() + " and the amount of clues is: " + clues.size());
 			clues.add(new Clue(asset.getAssetName()));
+			System.out.println("The amount of assets is: " + requestedAssests.size() + " and the amount of clues is: " + clues.size());
 			for (Clue clue : clues) {
 				System.out.println("The clue associated with Asset "
 						+ asset.getAssetName() + " is " + clue.getId() + "\n");
 			}
+			System.out.println("The amount of assets is: " + requestedAssests.size() + " and the amount of clues is: " + clues.size());
 		}
 
 		List<Threat> currentThreats = new ArrayList<Threat>();

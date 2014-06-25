@@ -59,8 +59,6 @@ import javax.swing.JTable;
 
 import org.omg.CORBA.portable.UnknownException;
 
-import com.sun.corba.se.impl.io.TypeMismatchException;
-
 public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 
 	/**
@@ -248,7 +246,7 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 				try {
 					if (GuiMain.getPersistenceManager().getAccessRequests()
 							.get(modelRow).isSolved())
-						throw new TypeMismatchException();
+						throw new NumberFormatException();
 					if (GuiMain.getPersistenceManager().getAccessRequests()
 							.get(modelRow).getUserAction().getClass()
 							.equals(GiveUpAction.class))
@@ -257,7 +255,7 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 							.getAccessRequests().get(modelRow));
 					JPanel simPanel = new SecurityIncidentOnAssetPanel(modelRow);
 					GuiMain.switchPanel(simPanel);
-				} catch (TypeMismatchException tEx) {
+				} catch (NumberFormatException tEx) {
 					JOptionPane.showConfirmDialog(null,
 							"The access request was already solved", "Notice",
 							JOptionPane.OK_CANCEL_OPTION,
@@ -297,7 +295,7 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 				try {
 					if (GuiMain.getPersistenceManager().getAccessRequests()
 							.get(modelRow).isSolved())
-						throw new TypeMismatchException();
+						throw new NumberFormatException();
 					if (GuiMain.getPersistenceManager().getAccessRequests()
 							.get(modelRow).getUserAction().getClass()
 							.equals(GiveUpAction.class))
@@ -307,7 +305,7 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 					JPanel simPanel = new NoSecurityIncidentOnAssetPanel(
 							modelRow);
 					GuiMain.switchPanel(simPanel);
-				} catch (TypeMismatchException tEx) {
+				} catch (NumberFormatException tEx) {
 					JOptionPane.showConfirmDialog(null,
 							"The access request was already solved", "Notice",
 							JOptionPane.OK_CANCEL_OPTION,
