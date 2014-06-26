@@ -74,6 +74,10 @@ public class AccessRequest extends Request {
 
 	}
 
+	public AccessRequest() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Gets the access risk communication.
 	 *
@@ -254,6 +258,14 @@ public class AccessRequest extends Request {
 	 */
 	public void setSolved(boolean solved) {
 		this.solved = solved;
+	}
+
+	/**
+	 * @param requestedCorporateAssets the requestedCorporateAssets to set
+	 */
+	public void setRequestedCorporateAssets(
+			Collection<Asset> requestedCorporateAssets) {
+		this.requestedCorporateAssets = requestedCorporateAssets;
 	}
 
 }

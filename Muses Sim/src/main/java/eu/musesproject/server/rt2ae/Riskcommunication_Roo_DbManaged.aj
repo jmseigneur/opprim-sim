@@ -3,6 +3,7 @@
 
 package eu.musesproject.server.rt2ae;
 
+import eu.musesproject.server.rt2ae.Accessrequest;
 import eu.musesproject.server.rt2ae.Decision;
 import eu.musesproject.server.rt2ae.Riskcommunication;
 import eu.musesproject.server.rt2ae.Risktreatment;
@@ -13,6 +14,9 @@ import javax.validation.constraints.NotNull;
 
 privileged aspect Riskcommunication_Roo_DbManaged {
     
+    @OneToMany(mappedBy = "riskcommunicationid")
+    private Set<Accessrequest> Riskcommunication.accessrequests;
+    
     @OneToMany(mappedBy = "riskcommunicationId")
     private Set<Decision> Riskcommunication.decisions;
     
@@ -22,6 +26,14 @@ privileged aspect Riskcommunication_Roo_DbManaged {
     @Column(name = "textualDescription", length = 255)
     @NotNull
     private String Riskcommunication.textualDescription;
+    
+    public Set<Accessrequest> Riskcommunication.getAccessrequests() {
+        return accessrequests;
+    }
+    
+    public void Riskcommunication.setAccessrequests(Set<Accessrequest> accessrequests) {
+        this.accessrequests = accessrequests;
+    }
     
     public Set<Decision> Riskcommunication.getDecisions() {
         return decisions;

@@ -4,11 +4,13 @@
 package eu.musesproject.server.persistence;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.Calendar;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -30,6 +32,7 @@ import eu.muses.sim.userman.action.UserAction;
 import eu.muses.wp5.Clue;
 import eu.muses.wp5.CluesThreatEntry;
 import eu.muses.wp5.CluesThreatTable;
+import eu.musesproject.server.rt2ae.User;
 
 /**
  * @author xavier
@@ -389,38 +392,57 @@ public class DbPersistenceManager extends PersistenceManager {
 	/* (non-Javadoc)
 	 * @see eu.muses.sim.persistence.PersistenceManager#getAccessRequests()
 	 */
+	@SuppressWarnings("static-access")
 	@Override
 	public List<AccessRequest> getAccessRequests() {
 		eu.musesproject.server.rt2ae.Accessrequest accessrequest = new eu.musesproject.server.rt2ae.Accessrequest();
 		List<eu.musesproject.server.rt2ae.Accessrequest> l = accessrequest.findAllAccessrequests();
-		eu.musesproject.server.rt2ae.Asset asset= new eu.musesproject.server.rt2ae.Asset();
 		
 		List<AccessRequest> listaccessrequestsim = new ArrayList<AccessRequest>();
 		Iterator<eu.musesproject.server.rt2ae.Accessrequest> i = l.iterator();
 		while(i.hasNext()){
 			eu.musesproject.server.rt2ae.Accessrequest accessrequests = i.next();
-			Asset as = new Asset(accessrequests.getAssetId().getAssetName(), accessrequests.getAssetId().getValue());
-			AccessRequest access = new AccessRequest(as);
+			Iterator<eu.musesproject.server.rt2ae.Asset> ite = accessrequests.getAssets().iterator();
+			List<Asset> listasset = new ArrayList<Asset>();
+			while(ite.hasNext()){
+			
+				eu.musesproject.server.rt2ae.Asset asset_temp = ite.next();
+				Asset a = new Asset(asset_temp.getAssetName(), asset_temp.getValue());
+				listasset.add(a);
+			}
+			
+
+			//Asset as = new Asset(accessrequests.getAssetId().getAssetName(), accessrequests.getAssetId().getValue());
+			AccessRequest access = new AccessRequest();
+			access.setRequestedCorporateAssets(listasset);
 			access.setUserAccessDecision(null);
 			access.setCorporateAccessRequestDecision(null);
 			access.setRiskEvent(null);
 			UserAction u = new UserAction() {
 			};
-			u.setId(accessrequests.getUseractionId().getId());
+			//u.setId(accessrequests.getUseractionId().getId());
 			
-			access.setUserAction(u);
-			Outcome out = new Outcome();
-			out.setDescription("opportunity_descritpion");
-			out.setCostBenefit(0.555);
-			Collection<Asset> collection = new ArrayList<Asset>();
-			collection.add(as);
-			eu.musesproject.server.rt2ae.Opportunity opp = accessrequests.getOpportunityId();
+			//access.setUserAction(u);
+			List<Outcome> listoutcome1 = new ArrayList<Outcome>();
+			Iterator<eu.musesproject.server.rt2ae.Outcome> its = accessrequests.getOpportunityId().getOutcomes().iterator();
+			while(its.hasNext()){
+				Outcome outcome = new Outcome();
+				eu.musesproject.server.rt2ae.Outcome o = its.next();
+				outcome.setCostBenefit(o.getCostbenefit());
+				outcome.setDescription(o.getDescription());
+				listoutcome1.add(outcome);
+			}
+			Collection<Asset> collection = new ArrayList<Asset>(listasset);
+			//collection.add(listasset.get(0));
 			
-		//	Double  st = accessrequests.getOpportunityId().getCostbenefit();
-			int re = accessrequests.getRiskinformations().size();
-			//opp.setDescription("");
-			//System.out.println("opp "+accessrequests.getOpportunityId().getOutcomes().size());
-			OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor("test_opportunity",collection,out);
+			OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor();
+			if(listoutcome1.size() !=0){
+			 opportunityDescriptor = new OpportunityDescriptor(accessrequests.getOpportunityId().getDescription(),collection,listoutcome1.get(0));
+			}else{
+			opportunityDescriptor = new OpportunityDescriptor(accessrequests.getOpportunityId().getDescription(),collection,null);
+	
+			}
+			//opportunityDescriptor.addOutcome(listoutcome1.get(1));
 			access.setOpportunityDescriptor(opportunityDescriptor);
 			access.setSolved(false);
 			TrustValue trustvalue = new TrustValue();
@@ -434,10 +456,10 @@ public class DbPersistenceManager extends PersistenceManager {
 			p.setProb(accessrequests.getThreatid().getProbability());
 			Set<Outcome> listoutcome = new HashSet<Outcome>();
 
-			Iterator<eu.musesproject.server.rt2ae.Outcome> its = accessrequests.getThreatid().getOutcomes().iterator();
-			while(its.hasNext()){
+			Iterator<eu.musesproject.server.rt2ae.Outcome> ist = accessrequests.getThreatid().getOutcomes().iterator();
+			while(ist.hasNext()){
 				Outcome outcome = new Outcome();
-				eu.musesproject.server.rt2ae.Outcome o = its.next();
+				eu.musesproject.server.rt2ae.Outcome o = ist.next();
 				
 				outcome.setCostBenefit(o.getCostbenefit());
 				outcome.setDescription(o.getDescription());
@@ -469,8 +491,134 @@ public class DbPersistenceManager extends PersistenceManager {
 	 */
 	@Override
 	public void setAccessRequests(List<AccessRequest> accessRequests) {
-		// TODO Auto-generated method stub
+		eu.musesproject.server.rt2ae.Asset asset= new eu.musesproject.server.rt2ae.Asset();
+		
+		List<AccessRequest> listaccessrequestsim = new ArrayList<AccessRequest>();
+		Set<eu.musesproject.server.rt2ae.Asset> listasset = new HashSet<eu.musesproject.server.rt2ae.Asset>();
 
+		Iterator<AccessRequest> i = accessRequests.iterator();
+		while(i.hasNext()){
+			AccessRequest accessrequest = i.next();
+			eu.musesproject.server.rt2ae.Accessrequest access = new eu.musesproject.server.rt2ae.Accessrequest();
+
+			Iterator<Asset> it = accessrequest.getRequestedCorporateAsset().iterator();
+			while(it.hasNext()){
+				Asset asset1 = it.next();
+				eu.musesproject.server.rt2ae.Asset as = new eu.musesproject.server.rt2ae.Asset();
+				as.setAssetName(asset1.getAssetName());
+				as.setValue(asset1.getValue());
+				as.setConfidentialLevel("PUBLIC");
+				as.setDescription("");
+				as.setLocation("");
+				as.setAccessrequestId(access);
+				//as.persist();
+				listasset.add(as);
+			}
+			access.setAssets(listasset);
+			Probability p = new Probability();
+		
+			p.setProb(accessrequest.getCluesThreatEntry().getThreat().getProbability().getProb());
+			
+			Set<eu.musesproject.server.rt2ae.Outcome> listoutcome = new HashSet<eu.musesproject.server.rt2ae.Outcome>();
+			Iterator<Outcome> its = accessrequest.getCluesThreatEntry().getThreat().getOutcomes().iterator();
+			eu.musesproject.server.rt2ae.Threat threat = new eu.musesproject.server.rt2ae.Threat();
+			threat.setProbability(0.3);
+			threat.setDescription(accessrequest.getCluesThreatEntry().getThreat().getDescription());
+			while(its.hasNext()){
+				eu.musesproject.server.rt2ae.Outcome outcome = new eu.musesproject.server.rt2ae.Outcome();
+				Outcome o = its.next();
+				outcome.setCostbenefit(o.getCostBenefit());
+				outcome.setDescription(o.getDescription());
+				outcome.setThreatId(threat);
+				listoutcome.add(outcome);
+			}
+			
+			
+			
+			threat.setOutcomes(listoutcome);
+			threat.setOccurences(accessrequest.getCluesThreatEntry().getThreat().getOccurences());
+			threat.setBadOutcomeCount(accessrequest.getCluesThreatEntry().getThreat().getBadOutcomeCount());
+			Set<eu.musesproject.server.rt2ae.Clue> listclues = new HashSet<eu.musesproject.server.rt2ae.Clue>();
+			Iterator<Clue> ist = accessrequest.getCluesThreatEntry().getClues().iterator();
+			while(ist.hasNext()){
+				eu.musesproject.server.rt2ae.Clue clue = new eu.musesproject.server.rt2ae.Clue();
+				Clue c = ist.next();
+				clue.setValue(c.getId());
+				clue.setThreatId(threat);
+				//clue.persist();
+				listclues.add(clue);
+			}
+			threat.setClues(listclues);
+			threat.persist();
+			access.setThreatid(threat);
+			access.setSolved((short) 0);
+			User user = new User();
+			user.setName(accessrequest.getUser().getNickname());
+			user.setHourlyCost(accessrequest.getUser().getHourlyCost());
+			user.setSurname("");
+			user.setEmail("");
+			user.setTrustvalue(accessrequest.getUser().getTrustValue().getValue());
+			user.persist();
+			access.setUserId(user);
+			eu.musesproject.server.rt2ae.UserAction useraction = new eu.musesproject.server.rt2ae.UserAction() {
+			};
+			
+			access.setUseractionId(null);
+			eu.musesproject.server.rt2ae.Opportunity opportunity = new eu.musesproject.server.rt2ae.Opportunity();
+			opportunity.setDescription(accessrequest.getOpportunityDescriptor().getDescription());
+			opportunity.setCostbenefit(1000.0);
+
+			Set<eu.musesproject.server.rt2ae.Outcome> listoutcome1 = new HashSet<eu.musesproject.server.rt2ae.Outcome>();
+
+			Iterator<Outcome> is = accessrequest.getOpportunityDescriptor().getOutcomes().iterator();
+			while(is.hasNext()){
+				eu.musesproject.server.rt2ae.Outcome outcome = new eu.musesproject.server.rt2ae.Outcome();
+				Outcome o = is.next();
+				outcome.setCostbenefit(o.getCostBenefit());
+				outcome.setDescription(o.getDescription());
+				outcome.setOpportunityId(opportunity);
+				listoutcome1.add(outcome);
+			}
+			opportunity.setOutcomes(listoutcome1);
+			opportunity.persist();
+			
+			
+			access.setOpportunityId(opportunity);
+		    Calendar now = Calendar.getInstance();
+			access.setTime(now);
+			access.persist();
+			
+			
+			
+			Iterator<eu.musesproject.server.rt2ae.Asset> ist4 = listasset.iterator();
+			while(ist4.hasNext()){
+				eu.musesproject.server.rt2ae.Asset asset1 = new eu.musesproject.server.rt2ae.Asset();
+				asset1 = ist4.next();
+				asset1.persist();
+			}
+			/*  Iterator<eu.musesproject.server.rt2ae.Outcome> ist3 = listoutcome.iterator();
+				while(ist3.hasNext()){
+					eu.musesproject.server.rt2ae.Outcome outcome1 = new eu.musesproject.server.rt2ae.Outcome();
+					outcome1 = ist3.next();
+					outcome1.persist();
+				}*/
+			
+			  Iterator<eu.musesproject.server.rt2ae.Outcome> ist2 = listoutcome1.iterator();
+				while(ist2.hasNext()){
+					eu.musesproject.server.rt2ae.Outcome outcome = new eu.musesproject.server.rt2ae.Outcome();
+					outcome = ist2.next();
+					outcome.persist();
+				}
+			
+			  Iterator<eu.musesproject.server.rt2ae.Clue> ist1 = listclues.iterator();
+				while(ist1.hasNext()){
+					eu.musesproject.server.rt2ae.Clue clue1 = new eu.musesproject.server.rt2ae.Clue();
+					clue1 = ist1.next();
+					clue1.persist();
+				}
+			
+		}
+		
 	}
 
 	/**
@@ -585,10 +733,29 @@ public class DbPersistenceManager extends PersistenceManager {
 	
 		}*/
 		
+		AccessRequest accessrequest1 = new AccessRequest(a);
+		accessrequest1.setUser(s);
+		accessrequest1.setCluesThreatEntry(clueentrytable);
+		OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor();
+		opportunityDescriptor.setDescription("opportunity_accessrequest");
+		opportunityDescriptor.addOutcome(o);
+		opportunityDescriptor.addOutcome(o1);
+		opportunityDescriptor.addOutcome(o2);
+		UserAction useraction = new UserAction() {
+		};
+		useraction.setId(0);
+		accessrequest1.setOpportunityDescriptor(opportunityDescriptor);
+		accessrequest1.setUserAction(useraction);
+		List<AccessRequest> accessRequests = new ArrayList<AccessRequest>();
+
+		accessrequest1.setRequestedCorporateAssets(l1);
+		accessRequests.add(accessrequest1);
+		
+		p.setAccessRequests(accessRequests);
 		Iterator<AccessRequest> i = p.getAccessRequests().iterator();
 		while(i.hasNext()){
 			AccessRequest accessrequest = i.next();
-			System.out.println("List of clues: "+accessrequest.getCluesThreatEntry().getClues().toString() +"  threat    " + accessrequest.getCluesThreatEntry().getThreat().getDescription()+"  Outomce_threat "+accessrequest.getCluesThreatEntry().getThreat().getOutcomes().toString()+" Outcome_opportunity "+accessrequest.getOpportunityDescriptor().getOutcomes().toString() );
+			System.out.println("List of clues: "+accessrequest.getCluesThreatEntry().getClues().toString() +"  threat    " + accessrequest.getCluesThreatEntry().getThreat().getDescription()+"  Outomce_threat "+accessrequest.getCluesThreatEntry().getThreat().getOutcomes().toString()+" Outcome_opportunity "+accessrequest.getOpportunityDescriptor().getOutcomes().toString()+ " Opportunity_text "+ accessrequest.getOpportunityDescriptor().getDescription()+ " User: "+accessrequest.getUser().getNickname()+ " Assets: "+accessrequest.getRequestedCorporateAsset().toString() );
 	
 		}
 		

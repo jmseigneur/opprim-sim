@@ -17,13 +17,13 @@ import javax.validation.constraints.NotNull;
 
 privileged aspect Opportunity_Roo_DbManaged {
     
-    @OneToMany(mappedBy = "opportunityId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "opportunityId")
     private Set<Accessrequest> Opportunity.accessrequests;
     
-    @OneToMany(mappedBy = "opportunityid",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "opportunityid", fetch = FetchType.EAGER)
     private Set<Asset> Opportunity.assets;
     
-    @OneToMany(mappedBy = "opportunityId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "opportunityId", fetch = FetchType.EAGER)
     private Set<Outcome> Opportunity.outcomes;
     
     @Column(name = "description", length = 45)

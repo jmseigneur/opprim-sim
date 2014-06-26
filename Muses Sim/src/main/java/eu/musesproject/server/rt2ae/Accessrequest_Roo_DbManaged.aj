@@ -7,6 +7,7 @@ import eu.musesproject.server.rt2ae.Accessrequest;
 import eu.musesproject.server.rt2ae.Asset;
 import eu.musesproject.server.rt2ae.Device;
 import eu.musesproject.server.rt2ae.Opportunity;
+import eu.musesproject.server.rt2ae.Riskcommunication;
 import eu.musesproject.server.rt2ae.Riskinformation;
 import eu.musesproject.server.rt2ae.Threat;
 import eu.musesproject.server.rt2ae.User;
@@ -28,27 +29,27 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 privileged aspect Accessrequest_Roo_DbManaged {
     
-    @OneToMany(mappedBy = "accessrequestId")
+    @OneToMany(mappedBy = "accessrequestId", fetch = FetchType.EAGER)
     private Set<Asset> Accessrequest.assets;
     
-    @OneToMany(mappedBy = "accessrequestId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "accessrequestId")
     private Set<Riskinformation> Accessrequest.riskinformations;
-    
-    @ManyToOne
-    @JoinColumn(name = "device_id", referencedColumnName = "device_id")
-    private Device Accessrequest.deviceId;
     
     @ManyToOne
     @JoinColumn(name = "opportunity_id", referencedColumnName = "opportunity_id")
     private Opportunity Accessrequest.opportunityId;
     
     @ManyToOne
-    @JoinColumn(name = "asset_id", referencedColumnName = "asset_id", nullable = false)
-    private Asset Accessrequest.assetId;
+    @JoinColumn(name = "device_id", referencedColumnName = "device_id")
+    private Device Accessrequest.deviceId;
     
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User Accessrequest.userId;
+    
+    @ManyToOne
+    @JoinColumn(name = "riskcommunicationid", referencedColumnName = "riskcommunication_id")
+    private Riskcommunication Accessrequest.riskcommunicationid;
     
     @ManyToOne
     @JoinColumn(name = "threatid", referencedColumnName = "threat_id")
@@ -67,6 +68,9 @@ privileged aspect Accessrequest_Roo_DbManaged {
     @Column(name = "solved")
     private Short Accessrequest.solved;
     
+    @Column(name = "riskcommunication_id")
+    private Integer Accessrequest.riskcommunicationId;
+    
     public Set<Asset> Accessrequest.getAssets() {
         return assets;
     }
@@ -83,14 +87,6 @@ privileged aspect Accessrequest_Roo_DbManaged {
         this.riskinformations = riskinformations;
     }
     
-    public Device Accessrequest.getDeviceId() {
-        return deviceId;
-    }
-    
-    public void Accessrequest.setDeviceId(Device deviceId) {
-        this.deviceId = deviceId;
-    }
-    
     public Opportunity Accessrequest.getOpportunityId() {
         return opportunityId;
     }
@@ -99,12 +95,12 @@ privileged aspect Accessrequest_Roo_DbManaged {
         this.opportunityId = opportunityId;
     }
     
-    public Asset Accessrequest.getAssetId() {
-        return assetId;
+    public Device Accessrequest.getDeviceId() {
+        return deviceId;
     }
     
-    public void Accessrequest.setAssetId(Asset assetId) {
-        this.assetId = assetId;
+    public void Accessrequest.setDeviceId(Device deviceId) {
+        this.deviceId = deviceId;
     }
     
     public User Accessrequest.getUserId() {
@@ -113,6 +109,14 @@ privileged aspect Accessrequest_Roo_DbManaged {
     
     public void Accessrequest.setUserId(User userId) {
         this.userId = userId;
+    }
+    
+    public Riskcommunication Accessrequest.getRiskcommunicationid() {
+        return riskcommunicationid;
+    }
+    
+    public void Accessrequest.setRiskcommunicationid(Riskcommunication riskcommunicationid) {
+        this.riskcommunicationid = riskcommunicationid;
     }
     
     public Threat Accessrequest.getThreatid() {
@@ -145,6 +149,14 @@ privileged aspect Accessrequest_Roo_DbManaged {
     
     public void Accessrequest.setSolved(Short solved) {
         this.solved = solved;
+    }
+    
+    public Integer Accessrequest.getRiskcommunicationId() {
+        return riskcommunicationId;
+    }
+    
+    public void Accessrequest.setRiskcommunicationId(Integer riskcommunicationId) {
+        this.riskcommunicationId = riskcommunicationId;
     }
     
 }

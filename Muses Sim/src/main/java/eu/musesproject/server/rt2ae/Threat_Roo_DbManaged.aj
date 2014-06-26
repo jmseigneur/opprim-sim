@@ -21,10 +21,10 @@ privileged aspect Threat_Roo_DbManaged {
     @OneToMany(mappedBy = "threatid")
     private Set<Accessrequest> Threat.accessrequests;
     
-    @OneToMany(mappedBy = "threatId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "threatId" ,fetch = FetchType.EAGER)
     private Set<Clue> Threat.clues;
     
-    @OneToMany(mappedBy = "threatId", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "threatId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Outcome> Threat.outcomes;
     
     @Column(name = "description", length = 45)
