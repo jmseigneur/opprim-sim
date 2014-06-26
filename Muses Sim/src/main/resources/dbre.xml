@@ -10,21 +10,41 @@
     <option key="testAutomatically" value="false"/>
     <table name="accessrequest">
         <column name="accessrequest_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
-        <column name="device_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
+        <column name="device_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
         <column name="user_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
         <column name="asset_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
         <column name="time" primaryKey="false" required="true" scale="0" size="19" type="93,TIMESTAMP"/>
-        <foreign-key foreignTable="asset" name="requestassetid" onDelete="none" onUpdate="none">
-            <option key="exported" value="false"/>
-            <reference foreign="asset_id" local="asset_id"/>
-        </foreign-key>
+        <column name="opportunity_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <column name="useraction_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <column name="threatid" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <column name="solved" primaryKey="false" required="false" scale="0" size="3" type="-6,TINYINT"/>
         <foreign-key foreignTable="device" name="requestdeviceid" onDelete="none" onUpdate="none">
             <option key="exported" value="false"/>
             <reference foreign="device_id" local="device_id"/>
         </foreign-key>
+        <foreign-key foreignTable="opportunity" name="opportunity_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="opportunity_id" local="opportunity_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="asset" name="requestassetid" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="asset_id" local="asset_id"/>
+        </foreign-key>
         <foreign-key foreignTable="user" name="requestuserid" onDelete="none" onUpdate="none">
             <option key="exported" value="false"/>
             <reference foreign="user_id" local="user_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="threat" name="threatid" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="threat_id" local="threatid"/>
+        </foreign-key>
+        <foreign-key foreignTable="user_action" name="useraction_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="useraction_id" local="useraction_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="asset" name="accessrequest_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="true"/>
+            <reference foreign="accessrequest_id" local="accessrequest_id"/>
         </foreign-key>
         <foreign-key foreignTable="riskinformation" name="riskaccessrequestid" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>
@@ -42,6 +62,15 @@
         <index name="requestassetid_idx">
             <index-column name="asset_id"/>
         </index>
+        <index name="opportunity_id_idx">
+            <index-column name="opportunity_id"/>
+        </index>
+        <index name="useraction_id_idx">
+            <index-column name="useraction_id"/>
+        </index>
+        <index name="threatid_idx">
+            <index-column name="threatid"/>
+        </index>
     </table>
     <table name="asset">
         <column name="asset_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
@@ -50,11 +79,17 @@
         <column name="value" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
         <column name="confidential_level" primaryKey="false" required="true" scale="0" size="20" type="1,ENUM"/>
         <column name="location" primaryKey="false" required="true" scale="0" size="255" type="12,VARCHAR"/>
-        <foreign-key foreignTable="accessrequest" name="requestassetid" onDelete="none" onUpdate="none">
-            <option key="exported" value="true"/>
-            <reference foreign="asset_id" local="asset_id"/>
+        <column name="accessrequest_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <column name="opportunityid" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <foreign-key foreignTable="opportunity" name="opportunityid" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="opportunity_id" local="opportunityid"/>
         </foreign-key>
-        <foreign-key foreignTable="opportunity" name="asset_id" onDelete="none" onUpdate="none">
+        <foreign-key foreignTable="accessrequest" name="accessrequest_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="accessrequest_id" local="accessrequest_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="accessrequest" name="requestassetid" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>
             <reference foreign="asset_id" local="asset_id"/>
         </foreign-key>
@@ -69,6 +104,12 @@
         <unique name="PRIMARY">
             <unique-column name="asset_id"/>
         </unique>
+        <index name="accessrequest_id_idx">
+            <index-column name="accessrequest_id"/>
+        </index>
+        <index name="opportunityid_idx">
+            <index-column name="opportunityid"/>
+        </index>
     </table>
     <table name="clue">
         <column name="clue_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
@@ -89,6 +130,7 @@
         <column name="decision_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
         <column name="riskcommunication_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
         <column name="time" primaryKey="false" required="true" scale="0" size="19" type="93,TIMESTAMP"/>
+        <column name="value" primaryKey="false" required="true" scale="0" size="19" type="1,ENUM"/>
         <foreign-key foreignTable="riskcommunication" name="riskcommunications_id" onDelete="none" onUpdate="none">
             <option key="exported" value="false"/>
             <reference foreign="riskcommunication_id" local="riskcommunication_id"/>
@@ -162,32 +204,33 @@
     <table name="opportunity">
         <column name="opportunity_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
         <column name="description" primaryKey="false" required="true" scale="0" size="45" type="12,VARCHAR"/>
-        <column name="costbenefit" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
-        <column name="asset_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
-        <column name="user_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
-        <foreign-key foreignTable="asset" name="asset_id" onDelete="none" onUpdate="none">
-            <option key="exported" value="false"/>
-            <reference foreign="asset_id" local="asset_id"/>
+        <column name="costbenefit" primaryKey="false" required="false" scale="0" size="22" type="8,DOUBLE"/>
+        <foreign-key foreignTable="accessrequest" name="opportunity_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="true"/>
+            <reference foreign="opportunity_id" local="opportunity_id"/>
         </foreign-key>
-        <foreign-key foreignTable="user" name="user_id" onDelete="none" onUpdate="none">
-            <option key="exported" value="false"/>
-            <reference foreign="user_id" local="user_id"/>
+        <foreign-key foreignTable="asset" name="opportunityid" onDelete="none" onUpdate="none">
+            <option key="exported" value="true"/>
+            <reference foreign="opportunityid" local="opportunity_id"/>
+        </foreign-key>
+        <foreign-key foreignTable="outcome" name="opportuniy_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="true"/>
+            <reference foreign="opportunity_id" local="opportunity_id"/>
         </foreign-key>
         <unique name="PRIMARY">
             <unique-column name="opportunity_id"/>
         </unique>
-        <index name="asset_id_idx">
-            <index-column name="asset_id"/>
-        </index>
-        <index name="user_id_idx">
-            <index-column name="user_id"/>
-        </index>
     </table>
     <table name="outcome">
         <column name="outcome_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
         <column name="description" primaryKey="false" required="true" scale="0" size="45" type="12,VARCHAR"/>
         <column name="costbenefit" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
         <column name="threat_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <column name="opportunity_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <foreign-key foreignTable="opportunity" name="opportuniy_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="opportunity_id" local="opportunity_id"/>
+        </foreign-key>
         <foreign-key foreignTable="threat" name="threats_id" onDelete="cascade" onUpdate="cascade">
             <option key="exported" value="false"/>
             <reference foreign="threat_id" local="threat_id"/>
@@ -197,6 +240,9 @@
         </unique>
         <index name="threat_id_idx">
             <index-column name="threat_id"/>
+        </index>
+        <index name="opportuniy_id_idx">
+            <index-column name="opportunity_id"/>
         </index>
     </table>
     <table name="risk_policy">
@@ -209,7 +255,7 @@
     </table>
     <table name="riskcommunication">
         <column name="riskcommunication_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
-        <column name="communication_sequence" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
+        <column name="textualDescription" primaryKey="false" required="true" scale="0" size="255" type="12,VARCHAR"/>
         <foreign-key foreignTable="decision" name="riskcommunications_id" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>
             <reference foreign="riskcommunication_id" local="riskcommunication_id"/>
@@ -251,7 +297,7 @@
     <table name="risktreatment">
         <column name="risktreatment_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
         <column name="textualdescription" primaryKey="false" required="true" scale="0" size="255" type="12,VARCHAR"/>
-        <column name="riskcommunication_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <column name="riskcommunication_id" primaryKey="false" required="true" scale="0" size="10" type="4,INT"/>
         <foreign-key foreignTable="riskcommunication" name="riskcommunication_id" onDelete="none" onUpdate="none">
             <option key="exported" value="false"/>
             <reference foreign="riskcommunication_id" local="riskcommunication_id"/>
@@ -304,6 +350,10 @@
         <column name="probability" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
         <column name="occurences" primaryKey="false" required="false" scale="0" size="22" type="8,DOUBLE"/>
         <column name="badOutcomeCount" primaryKey="false" required="false" scale="0" size="22" type="8,DOUBLE"/>
+        <foreign-key foreignTable="accessrequest" name="threatid" onDelete="none" onUpdate="none">
+            <option key="exported" value="true"/>
+            <reference foreign="threatid" local="threat_id"/>
+        </foreign-key>
         <foreign-key foreignTable="clue" name="threat_id" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>
             <reference foreign="threat_id" local="threat_id"/>
@@ -331,16 +381,23 @@
             <option key="exported" value="true"/>
             <reference foreign="owner_id" local="user_id"/>
         </foreign-key>
-        <foreign-key foreignTable="opportunity" name="user_id" onDelete="none" onUpdate="none">
-            <option key="exported" value="true"/>
-            <reference foreign="user_id" local="user_id"/>
-        </foreign-key>
         <foreign-key foreignTable="security_incident" name="users_id" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>
             <reference foreign="users_id" local="user_id"/>
         </foreign-key>
         <unique name="PRIMARY">
             <unique-column name="user_id"/>
+        </unique>
+    </table>
+    <table name="user_action">
+        <column name="useraction_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
+        <column name="id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <foreign-key foreignTable="accessrequest" name="useraction_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="true"/>
+            <reference foreign="useraction_id" local="useraction_id"/>
+        </foreign-key>
+        <unique name="PRIMARY">
+            <unique-column name="useraction_id"/>
         </unique>
     </table>
 </database>

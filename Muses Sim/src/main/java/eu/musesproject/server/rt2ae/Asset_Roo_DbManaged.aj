@@ -10,6 +10,8 @@ import eu.musesproject.server.rt2ae.Riskinformation;
 import eu.musesproject.server.rt2ae.SecurityIncident;
 import java.util.Set;
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -19,13 +21,18 @@ privileged aspect Asset_Roo_DbManaged {
     private Set<Accessrequest> Asset.accessrequests;
     
     @OneToMany(mappedBy = "assetId")
-    private Set<Opportunity> Asset.opportunities;
-    
-    @OneToMany(mappedBy = "assetId")
     private Set<Riskinformation> Asset.riskinformations;
     
     @OneToMany(mappedBy = "assetsId")
     private Set<SecurityIncident> Asset.securityIncidents;
+    
+    @ManyToOne
+    @JoinColumn(name = "opportunityid", referencedColumnName = "opportunity_id")
+    private Opportunity Asset.opportunityid;
+    
+    @ManyToOne
+    @JoinColumn(name = "accessrequest_id", referencedColumnName = "accessrequest_id")
+    private Accessrequest Asset.accessrequestId;
     
     @Column(name = "assetName", length = 45)
     @NotNull
@@ -55,14 +62,6 @@ privileged aspect Asset_Roo_DbManaged {
         this.accessrequests = accessrequests;
     }
     
-    public Set<Opportunity> Asset.getOpportunities() {
-        return opportunities;
-    }
-    
-    public void Asset.setOpportunities(Set<Opportunity> opportunities) {
-        this.opportunities = opportunities;
-    }
-    
     public Set<Riskinformation> Asset.getRiskinformations() {
         return riskinformations;
     }
@@ -77,6 +76,22 @@ privileged aspect Asset_Roo_DbManaged {
     
     public void Asset.setSecurityIncidents(Set<SecurityIncident> securityIncidents) {
         this.securityIncidents = securityIncidents;
+    }
+    
+    public Opportunity Asset.getOpportunityid() {
+        return opportunityid;
+    }
+    
+    public void Asset.setOpportunityid(Opportunity opportunityid) {
+        this.opportunityid = opportunityid;
+    }
+    
+    public Accessrequest Asset.getAccessrequestId() {
+        return accessrequestId;
+    }
+    
+    public void Asset.setAccessrequestId(Accessrequest accessrequestId) {
+        this.accessrequestId = accessrequestId;
     }
     
     public String Asset.getAssetName() {

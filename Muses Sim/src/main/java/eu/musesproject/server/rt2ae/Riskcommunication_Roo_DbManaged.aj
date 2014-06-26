@@ -19,9 +19,9 @@ privileged aspect Riskcommunication_Roo_DbManaged {
     @OneToMany(mappedBy = "riskcommunicationId")
     private Set<Risktreatment> Riskcommunication.risktreatments;
     
-    @Column(name = "communication_sequence")
+    @Column(name = "textualDescription", length = 255)
     @NotNull
-    private Integer Riskcommunication.communicationSequence;
+    private String Riskcommunication.textualDescription;
     
     public Set<Decision> Riskcommunication.getDecisions() {
         return decisions;
@@ -39,12 +39,12 @@ privileged aspect Riskcommunication_Roo_DbManaged {
         this.risktreatments = risktreatments;
     }
     
-    public Integer Riskcommunication.getCommunicationSequence() {
-        return communicationSequence;
+    public String Riskcommunication.getTextualDescription() {
+        return textualDescription;
     }
     
-    public void Riskcommunication.setCommunicationSequence(Integer communicationSequence) {
-        this.communicationSequence = communicationSequence;
+    public void Riskcommunication.setTextualDescription(String textualDescription) {
+        this.textualDescription = textualDescription;
     }
     
 }

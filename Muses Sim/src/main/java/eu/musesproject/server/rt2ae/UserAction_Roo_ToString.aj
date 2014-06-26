@@ -3,14 +3,14 @@
 
 package eu.musesproject.server.rt2ae;
 
-import eu.musesproject.server.rt2ae.Opportunity;
+import eu.musesproject.server.rt2ae.UserAction;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-privileged aspect Opportunity_Roo_ToString {
+privileged aspect UserAction_Roo_ToString {
     
-    public String Opportunity.toString() {
-        return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("assetId", "userId", "accessrequests", "assets", "outcomes").toString();
+    public String UserAction.toString() {
+        return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("accessrequests").toString();
     }
     
 }

@@ -3,6 +3,7 @@
 
 package eu.musesproject.server.rt2ae;
 
+import eu.musesproject.server.rt2ae.Opportunity;
 import eu.musesproject.server.rt2ae.Outcome;
 import eu.musesproject.server.rt2ae.Threat;
 import javax.persistence.Column;
@@ -11,6 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 privileged aspect Outcome_Roo_DbManaged {
+    
+    @ManyToOne
+    @JoinColumn(name = "opportunity_id", referencedColumnName = "opportunity_id")
+    private Opportunity Outcome.opportunityId;
     
     @ManyToOne
     @JoinColumn(name = "threat_id", referencedColumnName = "threat_id")
@@ -23,6 +28,14 @@ privileged aspect Outcome_Roo_DbManaged {
     @Column(name = "costbenefit")
     @NotNull
     private Double Outcome.costbenefit;
+    
+    public Opportunity Outcome.getOpportunityId() {
+        return opportunityId;
+    }
+    
+    public void Outcome.setOpportunityId(Opportunity opportunityId) {
+        this.opportunityId = opportunityId;
+    }
     
     public Threat Outcome.getThreatId() {
         return threatId;

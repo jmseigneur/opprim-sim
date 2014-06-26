@@ -3,46 +3,55 @@
 
 package eu.musesproject.server.rt2ae;
 
+import eu.musesproject.server.rt2ae.Accessrequest;
 import eu.musesproject.server.rt2ae.Asset;
 import eu.musesproject.server.rt2ae.Opportunity;
-import eu.musesproject.server.rt2ae.User;
+import eu.musesproject.server.rt2ae.Outcome;
+import java.util.Set;
 import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 privileged aspect Opportunity_Roo_DbManaged {
     
-    @ManyToOne
-    @JoinColumn(name = "asset_id", referencedColumnName = "asset_id", nullable = false)
-    private Asset Opportunity.assetId;
+    @OneToMany(mappedBy = "opportunityId")
+    private Set<Accessrequest> Opportunity.accessrequests;
     
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    private User Opportunity.userId;
+    @OneToMany(mappedBy = "opportunityid")
+    private Set<Asset> Opportunity.assets;
+    
+    @OneToMany(mappedBy = "opportunityId")
+    private Set<Outcome> Opportunity.outcomes;
     
     @Column(name = "description", length = 45)
     @NotNull
     private String Opportunity.description;
     
     @Column(name = "costbenefit")
-    @NotNull
     private Double Opportunity.costbenefit;
     
-    public Asset Opportunity.getAssetId() {
-        return assetId;
+    public Set<Accessrequest> Opportunity.getAccessrequests() {
+        return accessrequests;
     }
     
-    public void Opportunity.setAssetId(Asset assetId) {
-        this.assetId = assetId;
+    public void Opportunity.setAccessrequests(Set<Accessrequest> accessrequests) {
+        this.accessrequests = accessrequests;
     }
     
-    public User Opportunity.getUserId() {
-        return userId;
+    public Set<Asset> Opportunity.getAssets() {
+        return assets;
     }
     
-    public void Opportunity.setUserId(User userId) {
-        this.userId = userId;
+    public void Opportunity.setAssets(Set<Asset> assets) {
+        this.assets = assets;
+    }
+    
+    public Set<Outcome> Opportunity.getOutcomes() {
+        return outcomes;
+    }
+    
+    public void Opportunity.setOutcomes(Set<Outcome> outcomes) {
+        this.outcomes = outcomes;
     }
     
     public String Opportunity.getDescription() {

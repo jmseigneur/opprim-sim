@@ -10,7 +10,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 privileged aspect Accessrequest_Roo_ToString {
     
     public String Accessrequest.toString() {
-        return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("riskinformations", "assetId", "deviceId", "userId").toString();
+        return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).setExcludeFieldNames("riskinformations", "assetId", "deviceId", "userId", "assets", "opportunityId", "threatid", "useractionId").toString();
     }
     
 }

@@ -6,8 +6,11 @@ package eu.musesproject.server.rt2ae;
 import eu.musesproject.server.rt2ae.Accessrequest;
 import eu.musesproject.server.rt2ae.Asset;
 import eu.musesproject.server.rt2ae.Device;
+import eu.musesproject.server.rt2ae.Opportunity;
 import eu.musesproject.server.rt2ae.Riskinformation;
+import eu.musesproject.server.rt2ae.Threat;
 import eu.musesproject.server.rt2ae.User;
+import eu.musesproject.server.rt2ae.UserAction;
 import java.util.Calendar;
 import java.util.Set;
 import javax.persistence.Column;
@@ -22,19 +25,34 @@ import org.springframework.format.annotation.DateTimeFormat;
 privileged aspect Accessrequest_Roo_DbManaged {
     
     @OneToMany(mappedBy = "accessrequestId")
+    private Set<Asset> Accessrequest.assets;
+    
+    @OneToMany(mappedBy = "accessrequestId")
     private Set<Riskinformation> Accessrequest.riskinformations;
+    
+    @ManyToOne
+    @JoinColumn(name = "device_id", referencedColumnName = "device_id")
+    private Device Accessrequest.deviceId;
+    
+    @ManyToOne
+    @JoinColumn(name = "opportunity_id", referencedColumnName = "opportunity_id")
+    private Opportunity Accessrequest.opportunityId;
     
     @ManyToOne
     @JoinColumn(name = "asset_id", referencedColumnName = "asset_id", nullable = false)
     private Asset Accessrequest.assetId;
     
     @ManyToOne
-    @JoinColumn(name = "device_id", referencedColumnName = "device_id", nullable = false)
-    private Device Accessrequest.deviceId;
-    
-    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User Accessrequest.userId;
+    
+    @ManyToOne
+    @JoinColumn(name = "threatid", referencedColumnName = "threat_id")
+    private Threat Accessrequest.threatid;
+    
+    @ManyToOne
+    @JoinColumn(name = "useraction_id", referencedColumnName = "useraction_id")
+    private UserAction Accessrequest.useractionId;
     
     @Column(name = "time")
     @NotNull
@@ -42,20 +60,23 @@ privileged aspect Accessrequest_Roo_DbManaged {
     @DateTimeFormat(style = "MM")
     private Calendar Accessrequest.time;
     
+    @Column(name = "solved")
+    private Short Accessrequest.solved;
+    
+    public Set<Asset> Accessrequest.getAssets() {
+        return assets;
+    }
+    
+    public void Accessrequest.setAssets(Set<Asset> assets) {
+        this.assets = assets;
+    }
+    
     public Set<Riskinformation> Accessrequest.getRiskinformations() {
         return riskinformations;
     }
     
     public void Accessrequest.setRiskinformations(Set<Riskinformation> riskinformations) {
         this.riskinformations = riskinformations;
-    }
-    
-    public Asset Accessrequest.getAssetId() {
-        return assetId;
-    }
-    
-    public void Accessrequest.setAssetId(Asset assetId) {
-        this.assetId = assetId;
     }
     
     public Device Accessrequest.getDeviceId() {
@@ -66,6 +87,22 @@ privileged aspect Accessrequest_Roo_DbManaged {
         this.deviceId = deviceId;
     }
     
+    public Opportunity Accessrequest.getOpportunityId() {
+        return opportunityId;
+    }
+    
+    public void Accessrequest.setOpportunityId(Opportunity opportunityId) {
+        this.opportunityId = opportunityId;
+    }
+    
+    public Asset Accessrequest.getAssetId() {
+        return assetId;
+    }
+    
+    public void Accessrequest.setAssetId(Asset assetId) {
+        this.assetId = assetId;
+    }
+    
     public User Accessrequest.getUserId() {
         return userId;
     }
@@ -74,12 +111,36 @@ privileged aspect Accessrequest_Roo_DbManaged {
         this.userId = userId;
     }
     
+    public Threat Accessrequest.getThreatid() {
+        return threatid;
+    }
+    
+    public void Accessrequest.setThreatid(Threat threatid) {
+        this.threatid = threatid;
+    }
+    
+    public UserAction Accessrequest.getUseractionId() {
+        return useractionId;
+    }
+    
+    public void Accessrequest.setUseractionId(UserAction useractionId) {
+        this.useractionId = useractionId;
+    }
+    
     public Calendar Accessrequest.getTime() {
         return time;
     }
     
     public void Accessrequest.setTime(Calendar time) {
         this.time = time;
+    }
+    
+    public Short Accessrequest.getSolved() {
+        return solved;
+    }
+    
+    public void Accessrequest.setSolved(Short solved) {
+        this.solved = solved;
     }
     
 }
