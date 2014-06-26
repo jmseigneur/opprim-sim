@@ -414,7 +414,13 @@ public class DbPersistenceManager extends PersistenceManager {
 			out.setCostBenefit(0.555);
 			Collection<Asset> collection = new ArrayList<Asset>();
 			collection.add(as);
-			OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor(accessrequests.getOpportunityId().getDescription(),collection,out);
+			eu.musesproject.server.rt2ae.Opportunity opp = accessrequests.getOpportunityId();
+			
+		//	Double  st = accessrequests.getOpportunityId().getCostbenefit();
+			int re = accessrequests.getRiskinformations().size();
+			//opp.setDescription("");
+			//System.out.println("opp "+accessrequests.getOpportunityId().getOutcomes().size());
+			OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor("test_opportunity",collection,out);
 			access.setOpportunityDescriptor(opportunityDescriptor);
 			access.setSolved(false);
 			TrustValue trustvalue = new TrustValue();
@@ -452,10 +458,9 @@ public class DbPersistenceManager extends PersistenceManager {
 			cluesThreatEntry.setThreat(ts);
 			access.setCluesThreatEntry(cluesThreatEntry);
 			access.setAccessRisk(null);
-			
-		
-			
+			listaccessrequestsim.add(access);	
 		}
+		
 		return listaccessrequestsim;
 	}
 
@@ -580,9 +585,14 @@ public class DbPersistenceManager extends PersistenceManager {
 	
 		}*/
 		
+		Iterator<AccessRequest> i = p.getAccessRequests().iterator();
+		while(i.hasNext()){
+			AccessRequest accessrequest = i.next();
+			System.out.println("List of clues: "+accessrequest.getCluesThreatEntry().getClues().toString() +"  threat    " + accessrequest.getCluesThreatEntry().getThreat().getDescription()+"  Outomce_threat "+accessrequest.getCluesThreatEntry().getThreat().getOutcomes().toString()+" Outcome_opportunity "+accessrequest.getOpportunityDescriptor().getOutcomes().toString() );
+	
+		}
 		
-		
-		System.out.println("List of all users: "+ p.getAccessRequests().toString());
+		//System.out.println("List of all users: "+ p.getAccessRequests().get(0).toString());
 	}
 
 }

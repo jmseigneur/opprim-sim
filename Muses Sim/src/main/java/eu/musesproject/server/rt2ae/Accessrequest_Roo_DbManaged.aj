@@ -11,15 +11,19 @@ import eu.musesproject.server.rt2ae.Riskinformation;
 import eu.musesproject.server.rt2ae.Threat;
 import eu.musesproject.server.rt2ae.User;
 import eu.musesproject.server.rt2ae.UserAction;
+
 import java.util.Calendar;
 import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 privileged aspect Accessrequest_Roo_DbManaged {
@@ -27,7 +31,7 @@ privileged aspect Accessrequest_Roo_DbManaged {
     @OneToMany(mappedBy = "accessrequestId")
     private Set<Asset> Accessrequest.assets;
     
-    @OneToMany(mappedBy = "accessrequestId")
+    @OneToMany(mappedBy = "accessrequestId",fetch = FetchType.EAGER)
     private Set<Riskinformation> Accessrequest.riskinformations;
     
     @ManyToOne

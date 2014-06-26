@@ -7,20 +7,23 @@ import eu.musesproject.server.rt2ae.Accessrequest;
 import eu.musesproject.server.rt2ae.Asset;
 import eu.musesproject.server.rt2ae.Opportunity;
 import eu.musesproject.server.rt2ae.Outcome;
+
 import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 privileged aspect Opportunity_Roo_DbManaged {
     
-    @OneToMany(mappedBy = "opportunityId")
+    @OneToMany(mappedBy = "opportunityId",fetch = FetchType.EAGER)
     private Set<Accessrequest> Opportunity.accessrequests;
     
-    @OneToMany(mappedBy = "opportunityid")
+    @OneToMany(mappedBy = "opportunityid",fetch = FetchType.EAGER)
     private Set<Asset> Opportunity.assets;
     
-    @OneToMany(mappedBy = "opportunityId")
+    @OneToMany(mappedBy = "opportunityId",fetch = FetchType.EAGER)
     private Set<Outcome> Opportunity.outcomes;
     
     @Column(name = "description", length = 45)
