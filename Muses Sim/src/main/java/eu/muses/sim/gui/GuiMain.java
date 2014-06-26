@@ -334,15 +334,25 @@ public class GuiMain {
 			}
 		});
 
-		JMenuItem mntmNewMenuItem = new JMenuItem("Multi-Agent Simulation");
-		mntmNewMenuItem.addActionListener(new ActionListener() {
+		JMenuItem mntmMultiAgentSim = new JMenuItem("Multi-Agent Simulation");
+		mntmMultiAgentSim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JPanel multiAgentSimulationSettingsPanel = new MultiAgentSimulationSettingsPanel();
 				switchPanel(multiAgentSimulationSettingsPanel);
 			}
 		});
-		mnScenarios.add(mntmNewMenuItem);
+		
+		JMenuItem mntmDataBreach = new JMenuItem("Data Breach Calculator");
+		mntmDataBreach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanel dataBreachCalculatorPanel = new DatabreachCalculatorPanel();
+				switchPanel(dataBreachCalculatorPanel);
+			}
+		});
+		
+		mnScenarios.add(mntmMultiAgentSim);
 		mnScenarios.add(mntmSecurityIncidentOn);
+		mnScenarios.add(mntmDataBreach);
 
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
