@@ -315,22 +315,46 @@ public class DbPersistenceManager extends PersistenceManager {
 		Iterator<eu.musesproject.server.rt2ae.Threat> i = l.iterator();
 		while(i.hasNext()){
 			eu.musesproject.server.rt2ae.Threat threat_temp = i.next();
-			List<Clue> c = new ArrayList(threat_temp.getClues());
 			
+			List<Clue> list = new ArrayList<Clue>();
+			Iterator<eu.musesproject.server.rt2ae.Clue> it = threat_temp.getClues().iterator();
+			while(it.hasNext()){
+				eu.musesproject.server.rt2ae.Clue clue = new eu.musesproject.server.rt2ae.Clue();
+				clue = it.next();
+				Clue c = new Clue();
+				c.setId(clue.getValue());
+				
+				list.add(c);
+			}
+			//List<Clue> c = new ArrayList(threat_temp.getClues());
+		
 			
 			//Threat t = new Threat(threat_temp.getDescription(),p, c);
 			CluesThreatEntry e = new CluesThreatEntry();
-			e.setClues(c);
+			e.setClues(list);
 			Probability p = new Probability();
 			p.setProb(threat_temp.getProbability());
-			Collection<Outcome> c1 = new ArrayList(threat_temp.getOutcomes());
+			//Collection<Outcome> c1 = new ArrayList(threat_temp.getOutcomes());
+			
+			List<Outcome> listoutcome = new ArrayList<Outcome>();
+			Iterator<eu.musesproject.server.rt2ae.Outcome> its = threat_temp.getOutcomes().iterator();
+			while(its.hasNext()){
+				eu.musesproject.server.rt2ae.Outcome outcome = new eu.musesproject.server.rt2ae.Outcome();
+				outcome = its.next();
+				Outcome o = new Outcome();
+				o.setCostBenefit(outcome.getCostbenefit());
+				o.setDescription(outcome.getDescription());
+				//o.setThreatId(threat);
+				listoutcome.add(o);
+			}
+			
 
-			Threat t = new Threat(threat_temp.getDescription(), p, c1);
+			Threat t = new Threat(threat_temp.getDescription(), p, listoutcome);
 			e.setThreat(t);
 			
 			
 			
-			cluethreattable.addMapping(c, t);
+			cluethreattable.addMapping(list, t);
 		}
 		
 		
@@ -733,7 +757,7 @@ public class DbPersistenceManager extends PersistenceManager {
 	
 		}*/
 		
-		AccessRequest accessrequest1 = new AccessRequest(a);
+		/*AccessRequest accessrequest1 = new AccessRequest(a);
 		accessrequest1.setUser(s);
 		accessrequest1.setCluesThreatEntry(clueentrytable);
 		OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor();
@@ -757,7 +781,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			AccessRequest accessrequest = i.next();
 			System.out.println("List of clues: "+accessrequest.getCluesThreatEntry().getClues().toString() +"  threat    " + accessrequest.getCluesThreatEntry().getThreat().getDescription()+"  Outomce_threat "+accessrequest.getCluesThreatEntry().getThreat().getOutcomes().toString()+" Outcome_opportunity "+accessrequest.getOpportunityDescriptor().getOutcomes().toString()+ " Opportunity_text "+ accessrequest.getOpportunityDescriptor().getDescription()+ " User: "+accessrequest.getUser().getNickname()+ " Assets: "+accessrequest.getRequestedCorporateAsset().toString() );
 	
-		}
+		}*/
 		
 		//System.out.println("List of all users: "+ p.getAccessRequests().get(0).toString());
 	}
