@@ -468,7 +468,12 @@ public class DbPersistenceManager extends PersistenceManager {
 			}
 			//opportunityDescriptor.addOutcome(listoutcome1.get(1));
 			access.setOpportunityDescriptor(opportunityDescriptor);
-			access.setSolved(false);
+			if(accessrequests.getSolved()!=0){
+				access.setSolved(false);;
+			}else{
+				access.setSolved(true);;
+			}
+			//access.setSolved(false);
 			TrustValue trustvalue = new TrustValue();
 			trustvalue.setValue(0.5);
 			SimUser user = new SimUser(accessrequests.getUserId().getName(), 0, trustvalue);
@@ -575,6 +580,11 @@ public class DbPersistenceManager extends PersistenceManager {
 			threat.setClues(listclues);
 			threat.persist();
 			access.setThreatid(threat);
+			if(accessrequest.isSolved()){
+				access.setSolved((short) 1);
+			}else{
+				access.setSolved((short) 0);
+			}
 			access.setSolved((short) 0);
 			User user = new User();
 			user.setName(accessrequest.getUser().getNickname());
@@ -586,8 +596,9 @@ public class DbPersistenceManager extends PersistenceManager {
 			access.setUserId(user);
 			eu.musesproject.server.rt2ae.UserAction useraction = new eu.musesproject.server.rt2ae.UserAction() {
 			};
+			useraction.setId((int) accessrequest.getUserAction().getId());
 			
-			access.setUseractionId(null);
+			access.setUseractionId(useraction);
 			eu.musesproject.server.rt2ae.Opportunity opportunity = new eu.musesproject.server.rt2ae.Opportunity();
 			opportunity.setDescription(accessrequest.getOpportunityDescriptor().getDescription());
 			opportunity.setCostbenefit(1000.0);
