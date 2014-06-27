@@ -20,7 +20,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import java.awt.GridBagConstraints;
@@ -31,33 +30,23 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
 
 import java.awt.Component;
 
 import javax.swing.Box;
 
-import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.userman.action.AccessAction;
 import eu.muses.sim.userman.action.GiveUpAction;
-import eu.muses.wp5.Clue;
 import eu.muses.wp5.CluesThreatEntry;
 import eu.muses.wp5.CluesThreatTable;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.io.ObjectStreamException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
-import org.omg.CORBA.portable.UnknownException;
 
 public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 
@@ -267,8 +256,10 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 									"The asset on the access request was not finally used",
 									"Notice", JOptionPane.OK_CANCEL_OPTION,
 									JOptionPane.INFORMATION_MESSAGE);
-					GuiMain.getPersistenceManager().getAccessRequests()
-							.get(modelRow).setSolved(true);
+					List<AccessRequest> aList = GuiMain.getPersistenceManager()
+							.getAccessRequests();
+					aList.get(modelRow).setSolved(true);
+					GuiMain.getPersistenceManager().setAccessRequests(aList);
 					CluesThreatEntry entry = GuiMain
 							.getPersistenceManager()
 							.getCluesThreatTable()
@@ -276,8 +267,10 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 									GuiMain.getPersistenceManager()
 											.getAccessRequests().get(modelRow)
 											.getCluesThreatEntry());
-					GuiMain.getPersistenceManager().getCluesThreatTable()
-							.removeEntry(entry);
+					CluesThreatTable table1 = GuiMain.getPersistenceManager()
+							.getCluesThreatTable();
+					table1.removeEntry(entry);
+					GuiMain.getPersistenceManager().setCluesThreatTable(table1);
 					table.setValueAt("Solved", viewRow, 5);
 					model.fireTableDataChanged();
 				} catch (Exception ex) {
@@ -317,8 +310,10 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 									"The asset on the access request was not finally used",
 									"Notice", JOptionPane.OK_CANCEL_OPTION,
 									JOptionPane.INFORMATION_MESSAGE);
-					GuiMain.getPersistenceManager().getAccessRequests()
-							.get(modelRow).setSolved(true);
+					List<AccessRequest> aList = GuiMain.getPersistenceManager()
+							.getAccessRequests();
+					aList.get(modelRow).setSolved(true);
+					GuiMain.getPersistenceManager().setAccessRequests(aList);
 					CluesThreatEntry entry = GuiMain
 							.getPersistenceManager()
 							.getCluesThreatTable()
@@ -326,8 +321,10 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 									GuiMain.getPersistenceManager()
 											.getAccessRequests().get(modelRow)
 											.getCluesThreatEntry());
-					GuiMain.getPersistenceManager().getCluesThreatTable()
-							.removeEntry(entry);
+					CluesThreatTable table1 = GuiMain.getPersistenceManager()
+							.getCluesThreatTable();
+					table1.removeEntry(entry);
+					GuiMain.getPersistenceManager().setCluesThreatTable(table1);
 					table.setValueAt("Solved", viewRow, 5);
 					model.fireTableDataChanged();
 				} catch (Exception ex) {

@@ -15,7 +15,6 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.SliderUI;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.GridBagConstraints;
@@ -23,7 +22,6 @@ import java.awt.Insets;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import java.awt.Component;
@@ -32,22 +30,16 @@ import javax.swing.Box;
 
 import eu.muses.sim.OpportunityDescriptor;
 import eu.muses.sim.Outcome;
-import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.request.AccessRequest;
-import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.asset.Asset;
-import eu.muses.sim.riskman.opportunity.Opportunity;
 import eu.muses.sim.test.SimUser;
 import eu.muses.sim.userman.action.AccessAction;
 import eu.muses.sim.userman.action.GiveUpAction;
 import eu.muses.wp5.Clue;
-import eu.muses.wp5.CluesThreatTable;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -183,11 +175,12 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		model.addColumn("Opportunity Description");
 		model.addColumn("Probability");
 
-		for (Opportunity op : GuiMain.getPersistenceManager()
-				.getOpportunities()) {
-			model.addRow(new String[] { op.getDescription(),
-					String.valueOf(op.getProbability().getProb()) });
-		}
+		/*
+		 * for (Opportunity op : GuiMain.getPersistenceManager()
+		 * .getOpportunities()) { model.addRow(new String[] {
+		 * op.getDescription(), String.valueOf(op.getProbability().getProb())
+		 * }); }
+		 */
 
 		table = new JTable(model);
 		table.setToolTipText("Select an oportunity, you can select multiple items by holding Shift key");
@@ -249,39 +242,39 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 			comboBox_2.setModel(new DefaultComboBoxModel(
 					new String[] { "ADD RISK POLICIES FIRST" }));
 		}
-				
-				final JLabel label = new JLabel("");
-				GridBagConstraints gbc_label = new GridBagConstraints();
-				gbc_label.gridwidth = 3;
-				gbc_label.insets = new Insets(0, 0, 5, 5);
-				gbc_label.gridx = 2;
-				gbc_label.gridy = 5;
-				add(label, gbc_label);
-		
-				final JCheckBox chckbxUserWillNot = new JCheckBox(
-						"User will not acces the asset");
-				chckbxUserWillNot
-						.setToolTipText("Decides whether the user will finally give up accessing the asset or not in case of an ambiguous or risky access recommendation");
-				GridBagConstraints gbc_chckbxUserWillNot = new GridBagConstraints();
-				gbc_chckbxUserWillNot.fill = GridBagConstraints.HORIZONTAL;
-				gbc_chckbxUserWillNot.insets = new Insets(0, 0, 5, 5);
-				gbc_chckbxUserWillNot.gridx = 5;
-				gbc_chckbxUserWillNot.gridy = 5;
-				add(chckbxUserWillNot, gbc_chckbxUserWillNot);
+
+		final JLabel label = new JLabel("");
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.gridwidth = 3;
+		gbc_label.insets = new Insets(0, 0, 5, 5);
+		gbc_label.gridx = 2;
+		gbc_label.gridy = 5;
+		add(label, gbc_label);
+
+		final JCheckBox chckbxUserWillNot = new JCheckBox(
+				"User will not acces the asset");
+		chckbxUserWillNot
+				.setToolTipText("Decides whether the user will finally give up accessing the asset or not in case of an ambiguous or risky access recommendation");
+		GridBagConstraints gbc_chckbxUserWillNot = new GridBagConstraints();
+		gbc_chckbxUserWillNot.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chckbxUserWillNot.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxUserWillNot.gridx = 5;
+		gbc_chckbxUserWillNot.gridy = 5;
+		add(chckbxUserWillNot, gbc_chckbxUserWillNot);
 		GridBagConstraints gbc_comboBox_2 = new GridBagConstraints();
 		gbc_comboBox_2.insets = new Insets(0, 0, 0, 5);
 		gbc_comboBox_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox_2.gridx = 1;
 		gbc_comboBox_2.gridy = 6;
 		add(comboBox_2, gbc_comboBox_2);
-		
+
 		final JSlider slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				JSlider slider = (JSlider)e.getSource();
-	            if (!slider.getValueIsAdjusting()) {
-	                label.setText(String.valueOf(slider.getValue()));
-	            }
+				JSlider slider = (JSlider) e.getSource();
+				if (!slider.getValueIsAdjusting()) {
+					label.setText(String.valueOf(slider.getValue()));
+				}
 			}
 		});
 		slider.setPaintLabels(true);
@@ -297,7 +290,6 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 		gbc_slider.gridx = 2;
 		gbc_slider.gridy = 6;
 		add(slider, gbc_slider);
-
 
 		JButton btnNext = new JButton("Next");
 		btnNext.addActionListener(new ActionListener() {
@@ -317,10 +309,11 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 							.getSelectedItem());
 					accessRequest
 							.setOpportunityDescriptor(opportunityDescriptor);
-					GuiMain.getPersistenceManager().getSimUsers().get(comboBox_1
-							.getSelectedIndex()).setBehaviour(slider.getValue());
-					accessRequest.setUser(GuiMain.getPersistenceManager().getSimUsers().get(comboBox_1
-							.getSelectedIndex()));
+					GuiMain.getPersistenceManager().getSimUsers()
+							.get(comboBox_1.getSelectedIndex())
+							.setBehaviour(slider.getValue());
+					accessRequest.setUser(GuiMain.getPersistenceManager()
+							.getSimUsers().get(comboBox_1.getSelectedIndex()));
 					if (chckbxUserWillNot.isSelected()) {
 						accessRequest.setUserAction(new GiveUpAction());
 					} else {
@@ -347,7 +340,7 @@ public class RequestAssetSimulationSettingsPanel extends JPanel {
 				}
 			}
 		});
-		
+
 		GridBagConstraints gbc_btnNext = new GridBagConstraints();
 		gbc_btnNext.anchor = GridBagConstraints.EAST;
 		gbc_btnNext.insets = new Insets(0, 0, 0, 5);

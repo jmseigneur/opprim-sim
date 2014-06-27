@@ -30,7 +30,6 @@ import java.awt.Component;
 import javax.swing.Box;
 
 import eu.muses.sim.Outcome;
-import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.wp5.Clue;

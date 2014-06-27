@@ -20,17 +20,11 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 
 import java.awt.Component;
 
 import javax.swing.Box;
-
-import eu.muses.sim.riskman.asset.Asset;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -41,8 +35,6 @@ public class SecurityStatePanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField txtAddAsset;
-	private JTextField textField;
 
 	/**
 	 * Create the panel.

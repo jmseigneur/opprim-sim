@@ -722,14 +722,14 @@ public class DatabreachCalculatorPanel extends JPanel {
 							}
 						}
 					}
-					
-					DecimalFormat df = new DecimalFormat("#");
-			        df.setMaximumFractionDigits(3);
 
-					label.setText(df.format((Double.valueOf(textField
-							.getText())
+					DecimalFormat df = new DecimalFormat("#");
+					df.setMaximumFractionDigits(3);
+
+					label.setText(df.format((Double.valueOf(textField.getText())
 							* Double.valueOf(textField_1.getText())
-							* Double.valueOf(textField_2.getText()) * 12)) + "$");
+							* Double.valueOf(textField_2.getText()) * 12))
+							+ "$");
 
 				} catch (ClientProtocolException ex) {
 					// writing exception to log

@@ -28,12 +28,7 @@ import java.awt.Component;
 
 import javax.swing.Box;
 
-import eu.muses.sim.OpportunityDescriptor;
-import eu.muses.sim.Outcome;
 import eu.muses.sim.request.AccessRequest;
-import eu.muses.sim.riskman.SecurityIncident;
-import eu.muses.sim.test.SimUser;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 

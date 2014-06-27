@@ -21,17 +21,12 @@ import java.awt.Insets;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 
 import java.awt.Component;
 
 import javax.swing.Box;
 
-import eu.muses.sim.persistence.InMemoryPersistenceManager;
-import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.test.SimUser;
 import eu.muses.sim.trustman.TrustValue;
 
@@ -39,6 +34,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.util.InputMismatchException;
+import java.util.List;
 
 public class UserPanel extends JPanel {
 
@@ -141,7 +137,10 @@ public class UserPanel extends JPanel {
 							.parseDouble(textField_1.getText()),
 							new TrustValue(Double.parseDouble(textField
 									.getText())));
-					GuiMain.getPersistenceManager().getSimUsers().add(u);
+					List<SimUser> uList = GuiMain.getPersistenceManager()
+							.getSimUsers();
+					uList.add(u);
+					GuiMain.getPersistenceManager().setSimUsers(uList);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

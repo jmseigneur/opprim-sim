@@ -28,17 +28,11 @@ import java.awt.Component;
 import javax.swing.Box;
 
 import eu.muses.sim.OpportunityDescriptor;
-import eu.muses.sim.Outcome;
 import eu.muses.sim.decision.CorporateUserAccessRequestDecision;
 import eu.muses.sim.decision.Decision;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.RiskTreatment;
-import eu.muses.sim.riskman.SecurityIncident;
 import eu.muses.sim.riskman.asset.Asset;
-import eu.muses.sim.test.SimUser;
-import eu.muses.sim.userman.action.GiveUpAction;
-import eu.muses.sim.userman.action.UserAction;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -150,7 +144,8 @@ public class UserRequestsAssetSimulationPanel extends JPanel {
 					 */
 					if (!decision.equals(Decision.STRONG_DENY_ACCESS)) {
 						if (!decision.equals(Decision.ALLOW_ACCESS)) {
-							System.out.println("The access was not denied nor allowed, we are in read RiskComm");
+							System.out
+									.println("The access was not denied nor allowed, we are in read RiskComm");
 							GuiMain.getUser1()
 									.readsAccessRiskCommunicationIncludingPotentialRiskTreatments(
 											decision.getRiskCommunication()); // including
@@ -172,7 +167,8 @@ public class UserRequestsAssetSimulationPanel extends JPanel {
 							System.out.println("Decision was maybe access");
 							if (GuiMain.getUser1().givesUpRequestDueToRisk(
 									accessRequest)) {
-								System.out.println("User gave up due to risk - 1");
+								System.out
+										.println("User gave up due to risk - 1");
 								GuiMain.getUser1().setStillMakingRequest(
 										accessRequest, false);
 							} else {
@@ -245,7 +241,8 @@ public class UserRequestsAssetSimulationPanel extends JPanel {
 						while (decision.equals(Decision.ON_YOUR_RISK_ACCESS)
 								&& GuiMain.getUser1().isStillMakingRequest(
 										accessRequest)) {
-							System.out.println("Decision was on your risk access");
+							System.out
+									.println("Decision was on your risk access");
 							if (GuiMain.getUser1().givesUpRequestDueToRisk( // supposed
 																			// to
 																			// be
@@ -254,7 +251,8 @@ public class UserRequestsAssetSimulationPanel extends JPanel {
 																			// the
 																			// EventProcessor
 									accessRequest)) {
-								System.out.println("User gave up due to risk - 2");
+								System.out
+										.println("User gave up due to risk - 2");
 								GuiMain.getUser1().setStillMakingRequest(
 										accessRequest, false);
 								// TODO Update threat to null
@@ -274,7 +272,8 @@ public class UserRequestsAssetSimulationPanel extends JPanel {
 								if (GuiMain.getUser1()
 										.decidesAccessingAssetInSpiteOfRisk(
 												accessRequest)) {
-									System.out.println("User accessed in spite of risk - 1");
+									System.out
+											.println("User accessed in spite of risk - 1");
 									GuiMain.getUser1().setStillMakingRequest(
 											accessRequest, false);
 									Asset[] corporateAssets = GuiMain
@@ -377,7 +376,8 @@ public class UserRequestsAssetSimulationPanel extends JPanel {
 							}
 						}
 						if (decision.equals(Decision.ALLOW_ACCESS)) {
-							System.out.println("The access request was allowed");
+							System.out
+									.println("The access request was allowed");
 							GuiMain.getUser1().setStillMakingRequest(
 									accessRequest, false);
 							Asset[] corporateAssets = GuiMain.getUser1()
@@ -394,7 +394,10 @@ public class UserRequestsAssetSimulationPanel extends JPanel {
 								GuiMain.getS2EventCorrelator()
 										.logsPositiveOutcomeBasedOnTheAchievedOpportunity(
 												accessRequest);
-								//TODO we agreed that we only know if the outcome was positive after six months, so we shouldnt update trust in user right away, right?
+								// TODO we agreed that we only know if the
+								// outcome was positive after six months, so we
+								// shouldnt update trust in user right away,
+								// right?
 								GuiMain.getS2Rt2ae()
 										.updatesTrustInUserGivenPositiveOutcome(
 												GuiMain.getUser1(),
@@ -413,7 +416,8 @@ public class UserRequestsAssetSimulationPanel extends JPanel {
 						}
 
 					} else {
-						System.out.println("The denied access request was logged by the Event Correlator");
+						System.out
+								.println("The denied access request was logged by the Event Correlator");
 						GuiMain.getS2EventCorrelator().logDeniedRequest(
 								accessRequest);
 					}

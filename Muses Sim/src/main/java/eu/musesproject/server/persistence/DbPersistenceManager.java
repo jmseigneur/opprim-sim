@@ -659,7 +659,7 @@ public class DbPersistenceManager extends PersistenceManager {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		DbPersistenceManager p = new DbPersistenceManager();
 		Outcome o = new Outcome();
 		o.setCostBenefit(100.1);
@@ -792,9 +792,9 @@ public class DbPersistenceManager extends PersistenceManager {
 			AccessRequest accessrequest = i.next();
 			System.out.println("List of clues: "+accessrequest.getCluesThreatEntry().getClues().toString() +"  threat    " + accessrequest.getCluesThreatEntry().getThreat().getDescription()+"  Outomce_threat "+accessrequest.getCluesThreatEntry().getThreat().getOutcomes().toString()+" Outcome_opportunity "+accessrequest.getOpportunityDescriptor().getOutcomes().toString()+ " Opportunity_text "+ accessrequest.getOpportunityDescriptor().getDescription()+ " User: "+accessrequest.getUser().getNickname()+ " Assets: "+accessrequest.getRequestedCorporateAsset().toString() );
 	
-		}*/
+		}
 		
 		//System.out.println("List of all users: "+ p.getAccessRequests().get(0).toString());
-	}
+	}*/
 
 }

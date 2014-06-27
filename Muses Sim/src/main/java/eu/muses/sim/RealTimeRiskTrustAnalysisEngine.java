@@ -15,7 +15,6 @@ import java.util.Vector;
 
 import eu.muses.sim.decision.Decision;
 import eu.muses.sim.gui.GuiMain;
-import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.RiskEvent;
@@ -215,22 +214,16 @@ public class RealTimeRiskTrustAnalysisEngine {
 
 		List<Clue> clues = new ArrayList<Clue>();
 
-		System.out.println("The amount of assets is: " + requestedAssests.size() + " and the amount of clues is: " + clues.size());
-		
 		for (Asset asset : requestedAssests) {
 			// currentThreats = eventProcessor.getThreats(asset,
 			// this.getTrustValue(accessRequest.getUser()));
 			clues = eventProcessor.getClues(asset);
-			System.out.println("The amount of assets is: " + requestedAssests.size() + " and the amount of clues is: " + clues.size());
 			clues.add(new Clue(accessRequest.getUser().getNickname()));
-			System.out.println("The amount of assets is: " + requestedAssests.size() + " and the amount of clues is: " + clues.size());
 			clues.add(new Clue(asset.getAssetName()));
-			System.out.println("The amount of assets is: " + requestedAssests.size() + " and the amount of clues is: " + clues.size());
 			for (Clue clue : clues) {
 				System.out.println("The clue associated with Asset "
 						+ asset.getAssetName() + " is " + clue.getId() + "\n");
 			}
-			System.out.println("The amount of assets is: " + requestedAssests.size() + " and the amount of clues is: " + clues.size());
 		}
 
 		List<Threat> currentThreats = new ArrayList<Threat>();
@@ -247,10 +240,13 @@ public class RealTimeRiskTrustAnalysisEngine {
 			Threat threat = new Threat("Threat" + threatName, new Probability(
 					0.5), new Outcome("Compromised Asset", -requestedAssests
 					.iterator().next().getValue()));
-			GuiMain.getPersistenceManager().getCluesThreatTable().addMapping(clues,
-					threat);
-			GuiMain.getPersistenceManager().getCluesThreatTable()
-					.updateThreatOccurences(threat);
+			CluesThreatTable table = GuiMain.getPersistenceManager()
+					.getCluesThreatTable();
+			table.addMapping(clues, threat);
+			GuiMain.getPersistenceManager().setCluesThreatTable(table);
+			table = GuiMain.getPersistenceManager().getCluesThreatTable();
+			table.updateThreatOccurences(threat);
+			GuiMain.getPersistenceManager().setCluesThreatTable(table);
 			System.out.println("The newly created Threat from the Clues is: "
 					+ threat.getDescription() + " with probability "
 					+ threat.getProbabilityValue()
@@ -260,12 +256,16 @@ public class RealTimeRiskTrustAnalysisEngine {
 					+ threat.getOutcomes().iterator().next().getCostBenefit()
 					+ "\n");
 			currentThreats.add(threat);
-			accessRequest.setCluesThreatEntry(new CluesThreatEntry(clues, threat));
-			GuiMain.getPersistenceManager().getAccessRequests().add(accessRequest);
+			accessRequest.setCluesThreatEntry(new CluesThreatEntry(clues,
+					threat));
+			GuiMain.getPersistenceManager().setAccessRequests(
+					new ArrayList<AccessRequest>(Arrays.asList(accessRequest)));
 		} else {
 			for (Threat threat : currentThreats) {
-				GuiMain.getPersistenceManager().getCluesThreatTable()
-						.updateThreatOccurences(threat);
+				CluesThreatTable table = GuiMain.getPersistenceManager()
+						.getCluesThreatTable();
+				table.updateThreatOccurences(threat);
+				GuiMain.getPersistenceManager().setCluesThreatTable(table);
 				System.out.println("The inferred Threat from the Clues is: "
 						+ threat.getDescription()
 						+ " with probability "
@@ -277,8 +277,10 @@ public class RealTimeRiskTrustAnalysisEngine {
 						+ threat.getOutcomes().iterator().next()
 								.getCostBenefit() + "\n");
 			}
-			accessRequest.setCluesThreatEntry(new CluesThreatEntry(clues, currentThreats.get(0)));
-			GuiMain.getPersistenceManager().getAccessRequests().add(accessRequest);
+			accessRequest.setCluesThreatEntry(new CluesThreatEntry(clues,
+					currentThreats.get(0)));
+			GuiMain.getPersistenceManager().setAccessRequests(
+					new ArrayList<AccessRequest>(Arrays.asList(accessRequest)));
 		}
 		Vector<RiskEvent> riskEvents = new Vector<RiskEvent>();
 
@@ -481,30 +483,32 @@ public class RealTimeRiskTrustAnalysisEngine {
 	public void recalculateThreatProbabilitiesWhenIncident(
 			AccessRequest accessRequest) {
 
-			GuiMain.getPersistenceManager().getCluesThreatTable()
-					.updateThreatBadOutcomeCount(accessRequest.getCluesThreatEntry().getThreat());
-			Threat threat = GuiMain.getPersistenceManager().getCluesThreatTable()
-					.updateThreatProbability(accessRequest.getCluesThreatEntry().getThreat());
-
-			System.out
-					.println("The new probability associated with the threat \""
-							+ threat.getDescription()
-							+ "\" is: "
-							+ threat.getProbability().getProb());
-
+		CluesThreatTable table = GuiMain.getPersistenceManager()
+				.getCluesThreatTable();
+		table.updateThreatBadOutcomeCount(accessRequest.getCluesThreatEntry()
+				.getThreat());
+		GuiMain.getPersistenceManager().setCluesThreatTable(table);
+		table = GuiMain.getPersistenceManager().getCluesThreatTable();
+		Threat threat = table.updateThreatProbability(accessRequest
+				.getCluesThreatEntry().getThreat());
+		GuiMain.getPersistenceManager().setCluesThreatTable(table);
+		System.out.println("The new probability associated with the threat \""
+				+ threat.getDescription() + "\" is: "
+				+ threat.getProbability().getProb());
 
 	}
 
 	public void recalculateThreatProbabilitiesWhenNoIncident(
 			AccessRequest accessRequest) {
 
-			Threat threat = GuiMain.getPersistenceManager().getCluesThreatTable()
-					.updateThreatProbability(accessRequest.getCluesThreatEntry().getThreat());
-			System.out
-					.println("The new probability associated with the threat \""
-							+ threat.getDescription()
-							+ "\" is: "
-							+ threat.getProbability().getProb());
+		CluesThreatTable table = GuiMain.getPersistenceManager()
+				.getCluesThreatTable();
+		Threat threat = table.updateThreatProbability(accessRequest
+				.getCluesThreatEntry().getThreat());
+		GuiMain.getPersistenceManager().setCluesThreatTable(table);
+		System.out.println("The new probability associated with the threat \""
+				+ threat.getDescription() + "\" is: "
+				+ threat.getProbability().getProb());
 
 	}
 

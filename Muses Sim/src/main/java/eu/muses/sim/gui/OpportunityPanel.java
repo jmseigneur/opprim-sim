@@ -25,7 +25,6 @@ import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 
 import eu.muses.sim.Outcome;
-import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.opportunity.Opportunity;
 

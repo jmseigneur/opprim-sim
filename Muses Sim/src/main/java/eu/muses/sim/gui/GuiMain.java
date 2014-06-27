@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.security.cert.Certificate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.Box;
@@ -28,7 +29,6 @@ import javax.swing.UIManager;
 
 import eu.muses.sim.RealTimeRiskTrustAnalysisEngine;
 import eu.muses.sim.corporate.Corporation;
-import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.persistence.PersistenceManager;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.PersonalUserDevice;
@@ -42,6 +42,7 @@ import eu.muses.sim.test.SimUser;
 import eu.muses.sim.trustman.TrustValue;
 import eu.muses.wp5.Clue;
 import eu.muses.wp5.EventProcessor;
+import eu.musesproject.server.persistence.DbPersistenceManager;
 
 public class GuiMain {
 
@@ -96,7 +97,7 @@ public class GuiMain {
 
 	/** The persistence manager */
 	static PersistenceManager persistenceManager;
-	
+
 	/** The temporary access request list */
 	static List<AccessRequest> arList = new ArrayList<AccessRequest>();
 
@@ -107,7 +108,7 @@ public class GuiMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					persistenceManager = new InMemoryPersistenceManager();
+					persistenceManager = new DbPersistenceManager();
 					GuiMain window = new GuiMain();
 					window.frmMusesRtae.setVisible(true);
 				} catch (Exception e) {
@@ -124,16 +125,16 @@ public class GuiMain {
 
 		userCso.setTrustValue(new TrustValue(0.5));
 		GuiMain.s2.setCso(GuiMain.userCso);
-		persistenceManager.getClues().add(Clue.antivirusClue);
-		persistenceManager.getClues().add(Clue.firewallClue);
-		persistenceManager.getClues().add(Clue.vpnClue);
-		persistenceManager.getAssets().add(new Asset("Important File", 1000));
-		persistenceManager.getAssets().add(new Asset("Irrelevant File", 0));
-		persistenceManager.getRiskPolicies().add(RiskPolicy.TAKE_FULL_RISK);
-		persistenceManager.getRiskPolicies().add(RiskPolicy.TAKE_MEDIUM_RISK);
-		persistenceManager.getRiskPolicies().add(RiskPolicy.TAKE_NO_RISK);
-		persistenceManager.getSimUsers().add(
-				new SimUser("TestUser", 120, new TrustValue(0.5)));
+		persistenceManager.setClues(new ArrayList<Clue>(Arrays.asList(
+				Clue.antivirusClue, Clue.firewallClue, Clue.vpnClue)));
+		persistenceManager.setAssets(new ArrayList<Asset>(Arrays.asList(
+				new Asset("Important File", 1000), new Asset("Irrelevant File",
+						0))));
+		persistenceManager.setRiskPolicies(new ArrayList<RiskPolicy>(Arrays
+				.asList(RiskPolicy.TAKE_FULL_RISK, RiskPolicy.TAKE_MEDIUM_RISK,
+						RiskPolicy.TAKE_NO_RISK)));
+		persistenceManager.setSimUsers(new ArrayList<SimUser>(Arrays
+				.asList(new SimUser("TestUser", 120, new TrustValue(0.5)))));
 
 		GuiMain.musesUsersDevicesAndAssetsConfigurationsSteps();
 		/*
@@ -341,7 +342,7 @@ public class GuiMain {
 				switchPanel(multiAgentSimulationSettingsPanel);
 			}
 		});
-		
+
 		JMenuItem mntmDataBreach = new JMenuItem("Data Breach Calculator");
 		mntmDataBreach.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -349,7 +350,7 @@ public class GuiMain {
 				switchPanel(dataBreachCalculatorPanel);
 			}
 		});
-		
+
 		mnScenarios.add(mntmMultiAgentSim);
 		mnScenarios.add(mntmSecurityIncidentOn);
 		mnScenarios.add(mntmDataBreach);
@@ -737,7 +738,8 @@ public class GuiMain {
 	}
 
 	/**
-	 * @param arList the arList to set
+	 * @param arList
+	 *            the arList to set
 	 */
 	public void setArList(List<AccessRequest> arList) {
 		this.arList = arList;

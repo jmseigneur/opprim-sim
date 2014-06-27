@@ -20,27 +20,18 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 
 import java.awt.Component;
 
 import javax.swing.Box;
 
-import eu.muses.sim.persistence.InMemoryPersistenceManager;
-import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.wp5.CluesThreatEntry;
 import eu.muses.wp5.CluesThreatTable;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
@@ -52,8 +43,6 @@ public class CluesandThreatsPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField txtAddAsset;
-	private JTextField textField;
 	private JTable table;
 
 	/**

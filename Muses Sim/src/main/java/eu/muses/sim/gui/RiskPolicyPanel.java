@@ -20,25 +20,22 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
 import java.awt.Component;
 
 import javax.swing.Box;
 
-import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.RiskValue;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
-import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
@@ -143,7 +140,8 @@ public class RiskPolicyPanel extends JPanel {
 					RiskPolicy rp = new RiskPolicy(new RiskValue(Double
 							.parseDouble(textField.getText()), textField_1
 							.getText()), null);
-					GuiMain.getPersistenceManager().getRiskPolicies().add(rp);
+					GuiMain.getPersistenceManager().setRiskPolicies(
+							new ArrayList<RiskPolicy>(Arrays.asList(rp)));
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

@@ -22,8 +22,6 @@ import java.awt.Insets;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 
 import java.awt.Component;
@@ -31,11 +29,14 @@ import java.awt.Component;
 import javax.swing.Box;
 
 import eu.muses.sim.Outcome;
-import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.riskman.asset.Asset;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.swing.SwingConstants;
 
 public class AssetPanel extends JPanel {
@@ -215,7 +216,8 @@ public class AssetPanel extends JPanel {
 					Asset a = new Asset(txtAddAsset.getText(), Double
 							.parseDouble(textField.getText()));
 					GuiMain.getS2Rt2ae().addAsset(a);
-					GuiMain.getPersistenceManager().getAssets().add(a);
+					GuiMain.getPersistenceManager().setAssets(
+							new ArrayList<Asset>(Arrays.asList(a)));
 					System.out.println("Asset "
 							+ GuiMain.getS2Rt2ae()
 									.getAsset(txtAddAsset.getText())
@@ -223,8 +225,10 @@ public class AssetPanel extends JPanel {
 							+ " was added with cost "
 							+ GuiMain.getS2Rt2ae()
 									.getAsset(txtAddAsset.getText()).getValue());
-					GuiMain.getPersistenceManager().getOutcomes()
-							.add(badOutcome);
+					List<Outcome> oList = GuiMain.getPersistenceManager()
+							.getOutcomes();
+					oList.add(badOutcome);
+					GuiMain.getPersistenceManager().setOutcomes(oList);
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

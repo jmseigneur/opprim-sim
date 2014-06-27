@@ -23,7 +23,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 
 import java.awt.Component;
@@ -31,7 +30,6 @@ import java.awt.Component;
 import javax.swing.Box;
 
 import eu.muses.sim.Outcome;
-import eu.muses.sim.persistence.InMemoryPersistenceManager;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -114,8 +112,8 @@ public class OutcomePanel extends JPanel {
 		add(textField, gbc_textField);
 		textField.setColumns(10);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {
 				"euros (\u20AC)", "k\u20AC " }));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;

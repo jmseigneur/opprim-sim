@@ -28,17 +28,11 @@ import java.awt.Component;
 import javax.swing.Box;
 
 import eu.muses.sim.OpportunityDescriptor;
-import eu.muses.sim.Outcome;
 import eu.muses.sim.decision.CorporateUserAccessRequestDecision;
 import eu.muses.sim.decision.Decision;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.RiskTreatment;
-import eu.muses.sim.riskman.SecurityIncident;
 import eu.muses.sim.riskman.asset.Asset;
-import eu.muses.sim.test.SimUser;
-import eu.muses.sim.userman.action.GiveUpAction;
-import eu.muses.sim.userman.action.UserAction;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -124,110 +118,39 @@ public class MultiAgentSimulationPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 
-					for(int i = 0; i < GuiMain.getArList().size(); i++){
-					GuiMain.setSimAmount(GuiMain.getSimAmount() + 1);
-					AccessRequest accessRequest = GuiMain.getArList().get(i);
-					GuiMain.setUser1(accessRequest.getUser());
+					for (int i = 0; i < GuiMain.getArList().size(); i++) {
+						GuiMain.setSimAmount(GuiMain.getSimAmount() + 1);
+						AccessRequest accessRequest = GuiMain.getArList()
+								.get(i);
+						GuiMain.setUser1(accessRequest.getUser());
 
-					// XXX //user1Laptop is for example inferred by the sensed
-					// MUSES
-					// WP6 context observation and their events
-					// correlation with MUSES WP5
+						// XXX //user1Laptop is for example inferred by the
+						// sensed
+						// MUSES
+						// WP6 context observation and their events
+						// correlation with MUSES WP5
 
-					Decision decision = GuiMain.getS2Rt2ae()
-							.decidesBasedOnConfiguredRiskPolicy(accessRequest);
-					System.out.println("The computed decision for the asset "
-							+ accessRequest.getRequestedCorporateAsset()
-									.iterator().next().getAssetName()
-							+ " was: "
-							+ ((CorporateUserAccessRequestDecision) decision)
-									.getTextualDecisionDescription() + "\n");
-					// TODO update probability after 6 months if no bad outcome
-					// was detected
-					/*
-					 * GuiMain.getS2Rt2ae()
-					 * .recalculateThreatProbabilitiesWhenNoIncident(
-					 * accessRequest);
-					 */
-					if (!decision.equals(Decision.STRONG_DENY_ACCESS)) {
-						if (!decision.equals(Decision.ALLOW_ACCESS)) {
-							System.out.println("The access was not denied nor allowed, we are in read RiskComm");
-							GuiMain.getUser1()
-									.readsAccessRiskCommunicationIncludingPotentialRiskTreatments(
-											decision.getRiskCommunication()); // including
-																				// some
-																				// potential
-																				// other
-																				// behaviours,
-																				// risk
-																				// treatments
-																				// that
-							// would allow the user to access the asset with
-							// less
-							// risk, such as
-							// going to a company lounge with secure WiFi
-						}
-						while (decision.equals(Decision.MAYBE_ACCESS)
-								&& GuiMain.getUser1().isStillMakingRequest(
-										accessRequest)) {
-							System.out.println("Decision was maybe access");
-							if (GuiMain.getUser1().givesUpRequestDueToRisk(
-									accessRequest)) {
-								System.out.println("User gave up due to risk - 1");
-								GuiMain.getUser1().setStillMakingRequest(
-										accessRequest, false);
-							} else {
-								if (decision
-										.getRiskCommunication()
-										.hasRiskTreatment(
-												RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
-									if (GuiMain.getUser1()
-											.acceptsToRefineOpportunity()) {
-										System.out
-												.println("User accepted to refine the access oportunity");
-										OpportunityDescriptor opportunityDescriptor = GuiMain
-												.getUser1()
-												.refinesOpportunity(); // in our
-																		// example
-										// it corresponds
-										// to
-										// refinesOpportunity()
-										// below
-										accessRequest
-												.setOpportunityDescriptor(opportunityDescriptor);
-										GuiMain.getS2EventCorrelator()
-												.logsSuccessfullyAppliedRiskTreatment(
-														RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY);
-									}
-								}
-								for (RiskTreatment riskTreatment : decision
-										.getRiskCommunication()
-										.getRiskTreatments()) {
-									if (!riskTreatment
-											.equals(RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
-										if (GuiMain
-												.getUser1()
-												.appliesSuccessfullyRiskTreatment(
-														riskTreatment)) {
-											// e.g.
-											// user1.movesTo(genevaAirportSecuredCorporateLoungeWiFi);
-											// //this risk treatment
-											// allows her to access the asset
-											GuiMain.getUser1()
-													.isInformedOfSuccessfullyAppliedRiskTreatment(
-															riskTreatment);
-											GuiMain.getS2EventCorrelator()
-													.logsSuccessfullyAppliedRiskTreatment(
-															riskTreatment);
-										} else {
-											GuiMain.getUser1()
-													.isInformedOfUnsuccessfullRiskTreatmentApplication();
-										}
-									}
-								}
-								decision = GuiMain.getS2Rt2ae()
-										.decidesBasedOnConfiguredRiskPolicy(
-												accessRequest);
+						Decision decision = GuiMain.getS2Rt2ae()
+								.decidesBasedOnConfiguredRiskPolicy(
+										accessRequest);
+						System.out.println("The computed decision for the asset "
+								+ accessRequest.getRequestedCorporateAsset()
+										.iterator().next().getAssetName()
+								+ " was: "
+								+ ((CorporateUserAccessRequestDecision) decision)
+										.getTextualDecisionDescription() + "\n");
+						// TODO update probability after 6 months if no bad
+						// outcome
+						// was detected
+						/*
+						 * GuiMain.getS2Rt2ae()
+						 * .recalculateThreatProbabilitiesWhenNoIncident(
+						 * accessRequest);
+						 */
+						if (!decision.equals(Decision.STRONG_DENY_ACCESS)) {
+							if (!decision.equals(Decision.ALLOW_ACCESS)) {
+								System.out
+										.println("The access was not denied nor allowed, we are in read RiskComm");
 								GuiMain.getUser1()
 										.readsAccessRiskCommunicationIncludingPotentialRiskTreatments(
 												decision.getRiskCommunication()); // including
@@ -239,77 +162,20 @@ public class MultiAgentSimulationPanel extends JPanel {
 																					// treatments
 																					// that
 								// would allow the user to access the asset with
-								// less risk, such
-								// as going to a company lounge with secure WiFi
+								// less
+								// risk, such as
+								// going to a company lounge with secure WiFi
 							}
-						}
-						while (decision.equals(Decision.ON_YOUR_RISK_ACCESS)
-								&& GuiMain.getUser1().isStillMakingRequest(
+							while (decision.equals(Decision.MAYBE_ACCESS)
+									&& GuiMain.getUser1().isStillMakingRequest(
+											accessRequest)) {
+								System.out.println("Decision was maybe access");
+								if (GuiMain.getUser1().givesUpRequestDueToRisk(
 										accessRequest)) {
-							System.out.println("Decision was on your risk access");
-							if (GuiMain.getUser1().givesUpRequestDueToRisk( // supposed
-																			// to
-																			// be
-																			// given
-																			// by
-																			// the
-																			// EventProcessor
-									accessRequest)) {
-								System.out.println("User gave up due to risk - 2");
-								GuiMain.getUser1().setStillMakingRequest(
-										accessRequest, false);
-								// TODO Update threat to null
-								// TODO log this into the persitent storage
-
-								// GuiMain.getS2EventCorrelator()
-								// .logsAccessRequestUserDecisionInMusesCompanyInstance();
-								// It may be important to also log when a user
-								// decides not taking the opportunity due to
-								// risk,
-								// e.g.,
-								// to avoid never taking opportunities even when
-								// there is no risk due to laziness or risk
-								// aversion...
-							} else {
-
-								if (GuiMain.getUser1()
-										.decidesAccessingAssetInSpiteOfRisk(
-												accessRequest)) {
-									System.out.println("User accessed in spite of risk - 1");
+									System.out
+											.println("User gave up due to risk - 1");
 									GuiMain.getUser1().setStillMakingRequest(
 											accessRequest, false);
-									Asset[] corporateAssets = GuiMain
-											.getUser1().getCorporateAssets(
-													accessRequest);
-									GuiMain.getS2EventCorrelator()
-											.logsAccessRequestUserDecisionInMusesCompanyInstance();
-									GuiMain.getS2EventCorrelator()
-											.logsUserUsesAssetInMusesCompanyInstance();
-									GuiMain.getUser1().usesCorporateAssets(
-											corporateAssets);
-									if (GuiMain
-											.getUser1()
-											.successfullyUseCorporateAssetsGivenTheSpecifiedOpportunity(
-													accessRequest
-															.getOpportunityDescriptor())) {
-										GuiMain.getS2EventCorrelator()
-												.logsPositiveOutcomeBasedOnTheAchievedOpportunity(
-														accessRequest);
-										GuiMain.getS2Rt2ae()
-												.updatesTrustInUserGivenPositiveOutcome(
-														GuiMain.getUser1(),
-														accessRequest
-																.getOpportunityDescriptor());
-									} else {
-										GuiMain.getS2EventCorrelator()
-												.logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(
-														accessRequest);
-										GuiMain.getS2Rt2ae()
-												.updatesTrustInUserGivenNegativeOutcome(
-														GuiMain.getUser1(),
-														accessRequest
-																.getOpportunityDescriptor());
-									}
 								} else {
 									if (decision
 											.getRiskCommunication()
@@ -317,10 +183,15 @@ public class MultiAgentSimulationPanel extends JPanel {
 													RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
 										if (GuiMain.getUser1()
 												.acceptsToRefineOpportunity()) {
+											System.out
+													.println("User accepted to refine the access oportunity");
 											OpportunityDescriptor opportunityDescriptor = GuiMain
 													.getUser1()
-													.refinesOpportunity();
-											// in our example it corresponds to
+													.refinesOpportunity(); // in
+																			// our
+																			// example
+											// it corresponds
+											// to
 											// refinesOpportunity()
 											// below
 											accessRequest
@@ -341,20 +212,19 @@ public class MultiAgentSimulationPanel extends JPanel {
 															riskTreatment)) {
 												// e.g.
 												// user1.movesTo(genevaAirportSecuredCorporateLoungeWiFi);
-												// //this risk
-												// treatment allows her to
-												// access
-												// the asset
+												// //this risk treatment
+												// allows her to access the
+												// asset
 												GuiMain.getUser1()
 														.isInformedOfSuccessfullyAppliedRiskTreatment(
 																riskTreatment);
 												GuiMain.getS2EventCorrelator()
 														.logsSuccessfullyAppliedRiskTreatment(
 																riskTreatment);
+											} else {
+												GuiMain.getUser1()
+														.isInformedOfUnsuccessfullRiskTreatmentApplication();
 											}
-										} else {
-											GuiMain.getUser1()
-													.isInformedOfUnsuccessfullRiskTreatmentApplication();
 										}
 									}
 									decision = GuiMain
@@ -369,55 +239,207 @@ public class MultiAgentSimulationPanel extends JPanel {
 																						// other
 																						// behaviours,
 																						// risk
-									// treatments that would allow the user to
-									// access the
-									// asset with less risk, such as going to a
-									// company
-									// lounge with secure WiFi
+																						// treatments
+																						// that
+									// would allow the user to access the asset
+									// with
+									// less risk, such
+									// as going to a company lounge with secure
+									// WiFi
 								}
 							}
-						}
-						if (decision.equals(Decision.ALLOW_ACCESS)) {
-							System.out.println("The access request was allowed");
-							GuiMain.getUser1().setStillMakingRequest(
-									accessRequest, false);
-							Asset[] corporateAssets = GuiMain.getUser1()
-									.getCorporateAssets(accessRequest);
-							GuiMain.getS2EventCorrelator()
-									.logsUserUsesAssetInMusesCompanyInstance();
-							GuiMain.getUser1().usesCorporateAssets(
-									corporateAssets);
-							if (GuiMain
-									.getUser1()
-									.successfullyUseCorporateAssetsGivenTheSpecifiedOpportunity(
-											accessRequest
-													.getOpportunityDescriptor())) {
-								GuiMain.getS2EventCorrelator()
-										.logsPositiveOutcomeBasedOnTheAchievedOpportunity(
-												accessRequest);
-								//TODO we agreed that we only know if the outcome was positive after six months, so we shouldnt update trust in user right away, right?
-								GuiMain.getS2Rt2ae()
-										.updatesTrustInUserGivenPositiveOutcome(
-												GuiMain.getUser1(),
-												accessRequest
-														.getOpportunityDescriptor());
-							} else {
-								GuiMain.getS2EventCorrelator()
-										.logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(
-												accessRequest);
-								GuiMain.getS2Rt2ae()
-										.updatesTrustInUserGivenNegativeOutcome(
-												GuiMain.getUser1(),
-												accessRequest
-														.getOpportunityDescriptor());
-							}
-						}
+							while (decision
+									.equals(Decision.ON_YOUR_RISK_ACCESS)
+									&& GuiMain.getUser1().isStillMakingRequest(
+											accessRequest)) {
+								System.out
+										.println("Decision was on your risk access");
+								if (GuiMain.getUser1().givesUpRequestDueToRisk( // supposed
+																				// to
+																				// be
+																				// given
+																				// by
+																				// the
+																				// EventProcessor
+										accessRequest)) {
+									System.out
+											.println("User gave up due to risk - 2");
+									GuiMain.getUser1().setStillMakingRequest(
+											accessRequest, false);
+									// TODO Update threat to null
+									// TODO log this into the persitent storage
 
-					} else {
-						System.out.println("The denied access request was logged by the Event Correlator");
-						GuiMain.getS2EventCorrelator().logDeniedRequest(
-								accessRequest);
-					}
+									// GuiMain.getS2EventCorrelator()
+									// .logsAccessRequestUserDecisionInMusesCompanyInstance();
+									// It may be important to also log when a
+									// user
+									// decides not taking the opportunity due to
+									// risk,
+									// e.g.,
+									// to avoid never taking opportunities even
+									// when
+									// there is no risk due to laziness or risk
+									// aversion...
+								} else {
+
+									if (GuiMain
+											.getUser1()
+											.decidesAccessingAssetInSpiteOfRisk(
+													accessRequest)) {
+										System.out
+												.println("User accessed in spite of risk - 1");
+										GuiMain.getUser1()
+												.setStillMakingRequest(
+														accessRequest, false);
+										Asset[] corporateAssets = GuiMain
+												.getUser1().getCorporateAssets(
+														accessRequest);
+										GuiMain.getS2EventCorrelator()
+												.logsAccessRequestUserDecisionInMusesCompanyInstance();
+										GuiMain.getS2EventCorrelator()
+												.logsUserUsesAssetInMusesCompanyInstance();
+										GuiMain.getUser1().usesCorporateAssets(
+												corporateAssets);
+										if (GuiMain
+												.getUser1()
+												.successfullyUseCorporateAssetsGivenTheSpecifiedOpportunity(
+														accessRequest
+																.getOpportunityDescriptor())) {
+											GuiMain.getS2EventCorrelator()
+													.logsPositiveOutcomeBasedOnTheAchievedOpportunity(
+															accessRequest);
+											GuiMain.getS2Rt2ae()
+													.updatesTrustInUserGivenPositiveOutcome(
+															GuiMain.getUser1(),
+															accessRequest
+																	.getOpportunityDescriptor());
+										} else {
+											GuiMain.getS2EventCorrelator()
+													.logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(
+															accessRequest);
+											GuiMain.getS2Rt2ae()
+													.updatesTrustInUserGivenNegativeOutcome(
+															GuiMain.getUser1(),
+															accessRequest
+																	.getOpportunityDescriptor());
+										}
+									} else {
+										if (decision
+												.getRiskCommunication()
+												.hasRiskTreatment(
+														RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
+											if (GuiMain
+													.getUser1()
+													.acceptsToRefineOpportunity()) {
+												OpportunityDescriptor opportunityDescriptor = GuiMain
+														.getUser1()
+														.refinesOpportunity();
+												// in our example it corresponds
+												// to
+												// refinesOpportunity()
+												// below
+												accessRequest
+														.setOpportunityDescriptor(opportunityDescriptor);
+												GuiMain.getS2EventCorrelator()
+														.logsSuccessfullyAppliedRiskTreatment(
+																RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY);
+											}
+										}
+										for (RiskTreatment riskTreatment : decision
+												.getRiskCommunication()
+												.getRiskTreatments()) {
+											if (!riskTreatment
+													.equals(RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
+												if (GuiMain
+														.getUser1()
+														.appliesSuccessfullyRiskTreatment(
+																riskTreatment)) {
+													// e.g.
+													// user1.movesTo(genevaAirportSecuredCorporateLoungeWiFi);
+													// //this risk
+													// treatment allows her to
+													// access
+													// the asset
+													GuiMain.getUser1()
+															.isInformedOfSuccessfullyAppliedRiskTreatment(
+																	riskTreatment);
+													GuiMain.getS2EventCorrelator()
+															.logsSuccessfullyAppliedRiskTreatment(
+																	riskTreatment);
+												}
+											} else {
+												GuiMain.getUser1()
+														.isInformedOfUnsuccessfullRiskTreatmentApplication();
+											}
+										}
+										decision = GuiMain
+												.getS2Rt2ae()
+												.decidesBasedOnConfiguredRiskPolicy(
+														accessRequest);
+										GuiMain.getUser1()
+												.readsAccessRiskCommunicationIncludingPotentialRiskTreatments(
+														decision.getRiskCommunication()); // including
+																							// some
+																							// potential
+																							// other
+																							// behaviours,
+																							// risk
+										// treatments that would allow the user
+										// to
+										// access the
+										// asset with less risk, such as going
+										// to a
+										// company
+										// lounge with secure WiFi
+									}
+								}
+							}
+							if (decision.equals(Decision.ALLOW_ACCESS)) {
+								System.out
+										.println("The access request was allowed");
+								GuiMain.getUser1().setStillMakingRequest(
+										accessRequest, false);
+								Asset[] corporateAssets = GuiMain.getUser1()
+										.getCorporateAssets(accessRequest);
+								GuiMain.getS2EventCorrelator()
+										.logsUserUsesAssetInMusesCompanyInstance();
+								GuiMain.getUser1().usesCorporateAssets(
+										corporateAssets);
+								if (GuiMain
+										.getUser1()
+										.successfullyUseCorporateAssetsGivenTheSpecifiedOpportunity(
+												accessRequest
+														.getOpportunityDescriptor())) {
+									GuiMain.getS2EventCorrelator()
+											.logsPositiveOutcomeBasedOnTheAchievedOpportunity(
+													accessRequest);
+									// TODO we agreed that we only know if the
+									// outcome was positive after six months, so
+									// we shouldnt update trust in user right
+									// away, right?
+									GuiMain.getS2Rt2ae()
+											.updatesTrustInUserGivenPositiveOutcome(
+													GuiMain.getUser1(),
+													accessRequest
+															.getOpportunityDescriptor());
+								} else {
+									GuiMain.getS2EventCorrelator()
+											.logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(
+													accessRequest);
+									GuiMain.getS2Rt2ae()
+											.updatesTrustInUserGivenNegativeOutcome(
+													GuiMain.getUser1(),
+													accessRequest
+															.getOpportunityDescriptor());
+								}
+							}
+
+						} else {
+							System.out
+									.println("The denied access request was logged by the Event Correlator");
+							GuiMain.getS2EventCorrelator().logDeniedRequest(
+									accessRequest);
+						}
 					}
 					btnRunSimulation.setVisible(false);
 
