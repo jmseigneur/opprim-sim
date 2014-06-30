@@ -3,29 +3,48 @@
 
 package eu.musesproject.server.rt2ae;
 
+import eu.musesproject.server.rt2ae.Accessrequest;
 import eu.musesproject.server.rt2ae.Clue;
 import eu.musesproject.server.rt2ae.Outcome;
 import eu.musesproject.server.rt2ae.Threat;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 privileged aspect Threat_Roo_DbManaged {
     
+    @OneToMany(mappedBy = "threatid")
+    private Set<Accessrequest> Threat.accessrequests;
+    
     @OneToMany(mappedBy = "threatId")
     private Set<Clue> Threat.clues;
     
-    @OneToMany(mappedBy = "threatId")
+    @OneToMany(mappedBy = "threatId", cascade = CascadeType.ALL)
     private Set<Outcome> Threat.outcomes;
     
-    @Column(name = "description", length = 45)
+    @Column(name = "description")
     @NotNull
     private String Threat.description;
     
     @Column(name = "probability")
     @NotNull
     private Double Threat.probability;
+    
+    @Column(name = "occurences")
+    private Double Threat.occurences;
+    
+    @Column(name = "badOutcomeCount")
+    private Double Threat.badOutcomeCount;
+    
+    public Set<Accessrequest> Threat.getAccessrequests() {
+        return accessrequests;
+    }
+    
+    public void Threat.setAccessrequests(Set<Accessrequest> accessrequests) {
+        this.accessrequests = accessrequests;
+    }
     
     public Set<Clue> Threat.getClues() {
         return clues;
@@ -57,6 +76,22 @@ privileged aspect Threat_Roo_DbManaged {
     
     public void Threat.setProbability(Double probability) {
         this.probability = probability;
+    }
+    
+    public Double Threat.getOccurences() {
+        return occurences;
+    }
+    
+    public void Threat.setOccurences(Double occurences) {
+        this.occurences = occurences;
+    }
+    
+    public Double Threat.getBadOutcomeCount() {
+        return badOutcomeCount;
+    }
+    
+    public void Threat.setBadOutcomeCount(Double badOutcomeCount) {
+        this.badOutcomeCount = badOutcomeCount;
     }
     
 }

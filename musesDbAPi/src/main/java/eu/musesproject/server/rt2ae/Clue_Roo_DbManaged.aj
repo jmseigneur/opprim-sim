@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 privileged aspect Clue_Roo_DbManaged {
     
     @ManyToOne
-    @JoinColumn(name = "threat_id", referencedColumnName = "threat_id", nullable = false)
+    @JoinColumn(name = "threat_id", referencedColumnName = "threat_id")
     private Threat Clue.threatId;
     
     @Column(name = "value", length = 50)

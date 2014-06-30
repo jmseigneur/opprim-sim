@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 privileged aspect Risktreatment_Roo_DbManaged {
     
     @ManyToOne
-    @JoinColumn(name = "riskcommunication_id", referencedColumnName = "riskcommunication_id")
+    @JoinColumn(name = "riskcommunication_id", referencedColumnName = "riskcommunication_id", nullable = false)
     private Riskcommunication Risktreatment.riskcommunicationId;
     
     @Column(name = "textualdescription", length = 255)

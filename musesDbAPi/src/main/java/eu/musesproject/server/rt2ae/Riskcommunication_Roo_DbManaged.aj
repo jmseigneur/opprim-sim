@@ -3,6 +3,7 @@
 
 package eu.musesproject.server.rt2ae;
 
+import eu.musesproject.server.rt2ae.Accessrequest;
 import eu.musesproject.server.rt2ae.Decision;
 import eu.musesproject.server.rt2ae.Riskcommunication;
 import eu.musesproject.server.rt2ae.Risktreatment;
@@ -13,15 +14,26 @@ import javax.validation.constraints.NotNull;
 
 privileged aspect Riskcommunication_Roo_DbManaged {
     
+    @OneToMany(mappedBy = "riskcommunicationid")
+    private Set<Accessrequest> Riskcommunication.accessrequests;
+    
     @OneToMany(mappedBy = "riskcommunicationId")
     private Set<Decision> Riskcommunication.decisions;
     
     @OneToMany(mappedBy = "riskcommunicationId")
     private Set<Risktreatment> Riskcommunication.risktreatments;
     
-    @Column(name = "communication_sequence")
+    @Column(name = "textualDescription", length = 255)
     @NotNull
-    private Integer Riskcommunication.communicationSequence;
+    private String Riskcommunication.textualDescription;
+    
+    public Set<Accessrequest> Riskcommunication.getAccessrequests() {
+        return accessrequests;
+    }
+    
+    public void Riskcommunication.setAccessrequests(Set<Accessrequest> accessrequests) {
+        this.accessrequests = accessrequests;
+    }
     
     public Set<Decision> Riskcommunication.getDecisions() {
         return decisions;
@@ -39,12 +51,12 @@ privileged aspect Riskcommunication_Roo_DbManaged {
         this.risktreatments = risktreatments;
     }
     
-    public Integer Riskcommunication.getCommunicationSequence() {
-        return communicationSequence;
+    public String Riskcommunication.getTextualDescription() {
+        return textualDescription;
     }
     
-    public void Riskcommunication.setCommunicationSequence(Integer communicationSequence) {
-        this.communicationSequence = communicationSequence;
+    public void Riskcommunication.setTextualDescription(String textualDescription) {
+        this.textualDescription = textualDescription;
     }
     
 }

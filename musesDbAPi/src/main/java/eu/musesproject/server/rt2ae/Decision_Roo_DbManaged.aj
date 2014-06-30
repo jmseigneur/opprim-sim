@@ -26,6 +26,10 @@ privileged aspect Decision_Roo_DbManaged {
     @DateTimeFormat(style = "MM")
     private Calendar Decision.time;
     
+    @Column(name = "value", length = 19)
+    @NotNull
+    private String Decision.value;
+    
     public Riskcommunication Decision.getRiskcommunicationId() {
         return riskcommunicationId;
     }
@@ -40,6 +44,14 @@ privileged aspect Decision_Roo_DbManaged {
     
     public void Decision.setTime(Calendar time) {
         this.time = time;
+    }
+    
+    public String Decision.getValue() {
+        return value;
+    }
+    
+    public void Decision.setValue(String value) {
+        this.value = value;
     }
     
 }
