@@ -600,8 +600,11 @@ public class DbPersistenceManager extends PersistenceManager {
 				listclues.add(clue);
 			}*/
 			//threat.setClues(listclues);
-			threat.persist();
-			access.setThreatid(threat);
+			eu.musesproject.server.rt2ae.Threat threats = new eu.musesproject.server.rt2ae.Threat();
+			
+			//threat.persist();
+			List<eu.musesproject.server.rt2ae.Threat> listthreats = threats.findThreatbyDescription(accessrequest.getCluesThreatEntry().getThreat().getDescription());
+			access.setThreatid(threats.findThreat(listthreats.get(0).getThreatId()));
 			if(accessrequest.isSolved()){
 				access.setSolved((short) 1);
 			}else{
@@ -614,8 +617,13 @@ public class DbPersistenceManager extends PersistenceManager {
 			user.setSurname("");
 			user.setEmail("");
 			user.setTrustvalue(accessrequest.getUser().getTrustValue().getValue());
-			user.persist();
-			access.setUserId(user);
+			eu.musesproject.server.rt2ae.User users = new eu.musesproject.server.rt2ae.User();
+			//users.findUser(59);
+			List <User> listusers = users.findOneUsers(accessrequest.getUser().getNickname());
+			//user.persist();
+			access.setUserId(users.findUser(listusers.get(0).getUserId()));
+			
+			
 			eu.musesproject.server.rt2ae.UserAction useraction = new eu.musesproject.server.rt2ae.UserAction();
 			useraction.setId(accessrequest.getUserAction().getId());
 			useraction.persist();
@@ -680,9 +688,11 @@ public class DbPersistenceManager extends PersistenceManager {
 	/**
 	 * @param args
 	 */
-	/*public static void main(String[] args) {
-		DbPersistenceManager p = new DbPersistenceManager();
-		Outcome o = new Outcome();
+	public static void main(String[] args) {
+			DbPersistenceManager p = new DbPersistenceManager();
+			User u = new User();
+			System.out.println("test " + u.findOneUsers("TestUser").size());
+			/*Outcome o = new Outcome();
 		o.setCostBenefit(100.1);
 		o.setDescription("ooooooooo");
 		
@@ -815,7 +825,7 @@ public class DbPersistenceManager extends PersistenceManager {
 	
 		}
 		
-		//System.out.println("List of all users: "+ p.getAccessRequests().get(0).toString());
-	}*/
+		//System.out.println("List of all users: "+ p.getAccessRequests().get(0).toString());*/
+	}
 
 }

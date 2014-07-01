@@ -4,9 +4,12 @@
 package eu.musesproject.server.rt2ae;
 
 import eu.musesproject.server.rt2ae.Threat;
+
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.transaction.annotation.Transactional;
 
 privileged aspect Threat_Roo_Jpa_ActiveRecord {
@@ -33,10 +36,11 @@ privileged aspect Threat_Roo_Jpa_ActiveRecord {
         return entityManager().find(Threat.class, threatId);
     }
     
-    public static Threat Threat.findThreatbyDescription(String description) {
-        if (description == null) return null;
-        return entityManager().find(Threat.class, description);
+    public static List<Threat> Threat.findThreatbyDescription(String description) {
+        return entityManager().createQuery("SELECT o FROM Threat o where o.description =:description").setParameter("descritpion", description).getResultList();
     }
+    
+   
     
     public static List<Threat> Threat.findThreatEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM Threat o", Threat.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
