@@ -37,7 +37,7 @@ privileged aspect Threat_Roo_Jpa_ActiveRecord {
     }
     
     public static List<Threat> Threat.findThreatbyDescription(String description) {
-        return entityManager().createQuery("SELECT o FROM Threat o where o.description =:description").setParameter("descritpion", description).getResultList();
+        return entityManager().createQuery("SELECT o FROM Threat o where o.description =:description", Threat.class).setParameter("description", description).getResultList();
     }
     
    

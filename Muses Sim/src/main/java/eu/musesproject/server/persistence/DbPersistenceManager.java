@@ -603,7 +603,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			eu.musesproject.server.rt2ae.Threat threats = new eu.musesproject.server.rt2ae.Threat();
 			
 			//threat.persist();
-			List<eu.musesproject.server.rt2ae.Threat> listthreats = threats.findThreatbyDescription(accessrequest.getCluesThreatEntry().getThreat().getDescription());
+			List<eu.musesproject.server.rt2ae.Threat> listthreats = eu.musesproject.server.rt2ae.Threat.findThreatbyDescription(accessrequest.getCluesThreatEntry().getThreat().getDescription());
 			access.setThreatid(threats.findThreat(listthreats.get(0).getThreatId()));
 			if(accessrequest.isSolved()){
 				access.setSolved((short) 1);
