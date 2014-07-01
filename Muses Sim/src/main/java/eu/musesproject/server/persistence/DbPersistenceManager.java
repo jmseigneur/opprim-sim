@@ -590,7 +590,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			threat.setOccurences(accessrequest.getCluesThreatEntry().getThreat().getOccurences());
 			threat.setBadOutcomeCount(accessrequest.getCluesThreatEntry().getThreat().getBadOutcomeCount());
 			Set<eu.musesproject.server.rt2ae.Clue> listclues = new HashSet<eu.musesproject.server.rt2ae.Clue>();
-			Iterator<Clue> ist = accessrequest.getCluesThreatEntry().getClues().iterator();
+			/*Iterator<Clue> ist = accessrequest.getCluesThreatEntry().getClues().iterator();
 			while(ist.hasNext()){
 				eu.musesproject.server.rt2ae.Clue clue = new eu.musesproject.server.rt2ae.Clue();
 				Clue c = ist.next();
@@ -598,8 +598,8 @@ public class DbPersistenceManager extends PersistenceManager {
 				clue.setThreatId(threat);
 				//clue.persist();
 				listclues.add(clue);
-			}
-			threat.setClues(listclues);
+			}*/
+			//threat.setClues(listclues);
 			threat.persist();
 			access.setThreatid(threat);
 			if(accessrequest.isSolved()){
@@ -616,9 +616,8 @@ public class DbPersistenceManager extends PersistenceManager {
 			user.setTrustvalue(accessrequest.getUser().getTrustValue().getValue());
 			user.persist();
 			access.setUserId(user);
-			eu.musesproject.server.rt2ae.UserAction useraction = new eu.musesproject.server.rt2ae.UserAction() {
-			};
-			useraction.setId((int) accessrequest.getUserAction().getId());
+			eu.musesproject.server.rt2ae.UserAction useraction = new eu.musesproject.server.rt2ae.UserAction();
+			useraction.setId(accessrequest.getUserAction().getId());
 			useraction.persist();
 			access.setUseractionId(useraction);
 			eu.musesproject.server.rt2ae.Opportunity opportunity = new eu.musesproject.server.rt2ae.Opportunity();

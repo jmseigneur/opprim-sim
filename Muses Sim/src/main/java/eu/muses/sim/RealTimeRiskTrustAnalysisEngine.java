@@ -227,26 +227,41 @@ public class RealTimeRiskTrustAnalysisEngine {
 		}
 
 		List<Threat> currentThreats = new ArrayList<Threat>();
-		currentThreats = GuiMain.getPersistenceManager().getCluesThreatTable()
-				.getThreatsFromClues(clues);
-		if (currentThreats.isEmpty()) {
-			String threatName = "";
-			for (Clue clue : clues) {
-				threatName = threatName + clue.getId().substring(0, 1);
+		String threatName = "";
+		for (Clue clue : clues) {
+			threatName = threatName + clue.getId().substring(0, 1);
+		}
+		threatName = threatName.substring(0, threatName.length() - 2)
+				+ accessRequest.getUser().getNickname()
+				+ requestedAssests.iterator().next().getAssetName();
+		Threat threat = new Threat("Threat" + threatName, new Probability(0.5),
+				new Outcome("Compromised Asset", -requestedAssests.iterator()
+						.next().getValue()));
+		boolean exists = false;
+		List<Threat> dbThreats = GuiMain.getPersistenceManager().getThreats();
+		Threat existingThreat = new Threat();
+		for (Threat threat2 : dbThreats) {
+			if (threat2.getDescription().equalsIgnoreCase(
+					threat.getDescription())) {
+				exists = true;
+				existingThreat = threat2;
 			}
-			threatName = threatName.substring(0, threatName.length() - 2)
-					+ accessRequest.getUser().getNickname()
-					+ requestedAssests.iterator().next().getAssetName();
-			Threat threat = new Threat("Threat" + threatName, new Probability(
-					0.5), new Outcome("Compromised Asset", -requestedAssests
-					.iterator().next().getValue()));
-			CluesThreatTable table = GuiMain.getPersistenceManager()
-					.getCluesThreatTable();
-			table.addMapping(clues, threat);
-			GuiMain.getPersistenceManager().setCluesThreatTable(table);
-			table = GuiMain.getPersistenceManager().getCluesThreatTable();
-			table.updateThreatOccurences(threat);
-			GuiMain.getPersistenceManager().setCluesThreatTable(table);
+		}
+		/*
+		 * CluesThreatTable tab =
+		 * GuiMain.getPersistenceManager().getCluesThreatTable(); currentThreats
+		 * = tab.getThreatsFromClues(clues);
+		 */
+		if (!exists) {
+
+			/*
+			 * CluesThreatTable table = GuiMain.getPersistenceManager()
+			 * .getCluesThreatTable(); table.addMapping(clues, threat);
+			 * table.updateThreatOccurences(threat);
+			 * GuiMain.getPersistenceManager().setCluesThreatTable(table);
+			 */
+			currentThreats.add(threat);
+			GuiMain.getPersistenceManager().setThreats(currentThreats);
 			System.out.println("The newly created Threat from the Clues is: "
 					+ threat.getDescription() + " with probability "
 					+ threat.getProbabilityValue()
@@ -261,22 +276,23 @@ public class RealTimeRiskTrustAnalysisEngine {
 			GuiMain.getPersistenceManager().setAccessRequests(
 					new ArrayList<AccessRequest>(Arrays.asList(accessRequest)));
 		} else {
-			for (Threat threat : currentThreats) {
-				CluesThreatTable table = GuiMain.getPersistenceManager()
-						.getCluesThreatTable();
-				table.updateThreatOccurences(threat);
-				GuiMain.getPersistenceManager().setCluesThreatTable(table);
-				System.out.println("The inferred Threat from the Clues is: "
-						+ threat.getDescription()
-						+ " with probability "
-						+ threat.getProbabilityValue()
-						+ " for the following outcome: \""
-						+ threat.getOutcomes().iterator().next()
-								.getDescription()
-						+ "\" with the following potential cost (in kEUR): "
-						+ threat.getOutcomes().iterator().next()
-								.getCostBenefit() + "\n");
-			}
+			// for (Threat threat : currentThreats) {
+			existingThreat.setOccurences(existingThreat.getOccurences() + 1);
+			currentThreats.add(existingThreat);
+			/*
+			 * CluesThreatTable table = GuiMain.getPersistenceManager()
+			 * .getCluesThreatTable(); table.updateThreatOccurences(threat);
+			 * GuiMain.getPersistenceManager().setCluesThreatTable(table);
+			 */
+			GuiMain.getPersistenceManager().setThreats(currentThreats);
+			System.out.println("The inferred Threat from the Clues is: "
+					+ threat.getDescription() + " with probability "
+					+ threat.getProbabilityValue()
+					+ " for the following outcome: \""
+					+ threat.getOutcomes().iterator().next().getDescription()
+					+ "\" with the following potential cost (in kEUR): "
+					+ threat.getOutcomes().iterator().next().getCostBenefit()
+					+ "\n");
 			accessRequest.setCluesThreatEntry(new CluesThreatEntry(clues,
 					currentThreats.get(0)));
 			GuiMain.getPersistenceManager().setAccessRequests(

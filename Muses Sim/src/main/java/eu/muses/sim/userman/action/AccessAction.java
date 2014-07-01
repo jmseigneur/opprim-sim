@@ -8,9 +8,10 @@
 package eu.muses.sim.userman.action;
 
 public class AccessAction extends UserAction {
-
+	
 	public AccessAction() {
 		super();
+		this.setId(0);
 	}
 
 }

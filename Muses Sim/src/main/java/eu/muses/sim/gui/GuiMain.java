@@ -125,7 +125,7 @@ public class GuiMain {
 
 		userCso.setTrustValue(new TrustValue(0.5));
 		GuiMain.s2.setCso(GuiMain.userCso);
-		persistenceManager.setClues(new ArrayList<Clue>(Arrays.asList(
+		/*persistenceManager.setClues(new ArrayList<Clue>(Arrays.asList(
 				Clue.antivirusClue, Clue.firewallClue, Clue.vpnClue)));
 		persistenceManager.setAssets(new ArrayList<Asset>(Arrays.asList(
 				new Asset("Important File", 1000), new Asset("Irrelevant File",
@@ -134,7 +134,7 @@ public class GuiMain {
 				.asList(RiskPolicy.TAKE_FULL_RISK, RiskPolicy.TAKE_MEDIUM_RISK,
 						RiskPolicy.TAKE_NO_RISK)));
 		persistenceManager.setSimUsers(new ArrayList<SimUser>(Arrays
-				.asList(new SimUser("TestUser", 120, new TrustValue(0.5)))));
+				.asList(new SimUser("TestUser", 120, new TrustValue(0.5)))));*/
 
 		GuiMain.musesUsersDevicesAndAssetsConfigurationsSteps();
 		/*

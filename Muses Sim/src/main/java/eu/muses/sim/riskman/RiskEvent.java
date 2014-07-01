@@ -66,6 +66,12 @@ public abstract class RiskEvent {
 		this.outcome.add(outcome);
 	}
 
+	public RiskEvent() {
+		
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Returns <tt>true</tt> if this collection contains the specified element.
 	 *

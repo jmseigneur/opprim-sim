@@ -225,10 +225,7 @@ public class AssetPanel extends JPanel {
 							+ " was added with cost "
 							+ GuiMain.getS2Rt2ae()
 									.getAsset(txtAddAsset.getText()).getValue());
-					List<Outcome> oList = GuiMain.getPersistenceManager()
-							.getOutcomes();
-					oList.add(badOutcome);
-					GuiMain.getPersistenceManager().setOutcomes(oList);
+					GuiMain.getPersistenceManager().setOutcomes(new ArrayList<Outcome>(Arrays.asList(badOutcome)));
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

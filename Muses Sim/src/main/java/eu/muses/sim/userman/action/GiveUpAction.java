@@ -11,6 +11,7 @@ public class GiveUpAction extends UserAction {
 
 	public GiveUpAction() {
 		super();
+		this.setId(1);
 	}
 
 }

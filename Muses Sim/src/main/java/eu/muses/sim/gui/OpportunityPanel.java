@@ -31,6 +31,8 @@ import eu.muses.sim.riskman.opportunity.Opportunity;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class OpportunityPanel extends JPanel {
@@ -118,10 +120,7 @@ public class OpportunityPanel extends JPanel {
 					Opportunity op = new Opportunity(textField.getText(),
 							new Probability(0.5), (Outcome) comboBox
 									.getSelectedItem());
-					List<Opportunity> opList = GuiMain.getPersistenceManager()
-							.getOpportunities();
-					opList.add(op);
-					GuiMain.getPersistenceManager().setOpportunities(opList);
+					GuiMain.getPersistenceManager().setOpportunities(new ArrayList<Opportunity>(Arrays.asList(op)));
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

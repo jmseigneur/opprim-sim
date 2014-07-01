@@ -9,7 +9,7 @@ package eu.muses.sim.userman.action;
 
 public abstract class UserAction {
 
-	private long id;
+	private int id;
 	
 	public UserAction() {
 		super();
@@ -18,14 +18,14 @@ public abstract class UserAction {
 	/**
 	 * @return the id
 	 */
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	

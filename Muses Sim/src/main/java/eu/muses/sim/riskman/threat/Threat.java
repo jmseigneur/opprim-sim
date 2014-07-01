@@ -62,6 +62,12 @@ public class Threat extends RiskEvent {
 		this.description = description;
 	}
 
+	public Threat() {
+		
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Ensures that this collection contains the specified element (optional
 	 * operation).

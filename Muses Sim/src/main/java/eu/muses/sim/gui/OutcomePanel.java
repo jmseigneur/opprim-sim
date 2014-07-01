@@ -33,6 +33,8 @@ import eu.muses.sim.Outcome;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class OutcomePanel extends JPanel {
@@ -144,10 +146,7 @@ public class OutcomePanel extends JPanel {
 				try {
 					Outcome o = new Outcome(txtAddAsset.getText(), Double
 							.parseDouble(textField.getText()));
-					List<Outcome> olist = GuiMain.getPersistenceManager()
-							.getOutcomes();
-					olist.add(o);
-					GuiMain.getPersistenceManager().setOutcomes(olist);
+					GuiMain.getPersistenceManager().setOutcomes(new ArrayList<Outcome>(Arrays.asList(o)));
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

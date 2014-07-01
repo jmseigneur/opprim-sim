@@ -27,6 +27,7 @@ import java.awt.Component;
 
 import javax.swing.Box;
 
+import eu.muses.sim.Outcome;
 import eu.muses.wp5.Clue;
 
 import java.awt.event.ActionListener;
@@ -97,10 +98,7 @@ public class CluePanel extends JPanel {
 					if (textField.getText().isEmpty())
 						throw new Exception();
 					Clue c = new Clue(textField.getText());
-					List<Clue> cList = GuiMain.getPersistenceManager()
-							.getClues();
-					cList.add(c);
-					GuiMain.getPersistenceManager().setClues(cList);
+					GuiMain.getPersistenceManager().setClues(new ArrayList<Clue>(Arrays.asList(c)));
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);
