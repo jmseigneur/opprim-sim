@@ -7,6 +7,7 @@
  */
 package eu.muses.sim.request;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Vector;
 
@@ -51,6 +52,8 @@ public class AccessRequest extends Request {
 	
 	/** The solved status */
 	private boolean solved = false;
+	
+	private Calendar time;
 
 	/**
 	 * The risk events.
@@ -266,6 +269,20 @@ public class AccessRequest extends Request {
 	public void setRequestedCorporateAssets(
 			Collection<Asset> requestedCorporateAssets) {
 		this.requestedCorporateAssets = requestedCorporateAssets;
+	}
+
+	/**
+	 * @return the time
+	 */
+	public Calendar getTime() {
+		return time;
+	}
+
+	/**
+	 * @param time the time to set
+	 */
+	public void setTime(Calendar time) {
+		this.time = time;
 	}
 
 }

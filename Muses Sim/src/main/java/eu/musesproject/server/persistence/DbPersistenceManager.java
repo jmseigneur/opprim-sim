@@ -28,6 +28,8 @@ import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.sim.test.SimUser;
 import eu.muses.sim.trustman.TrustValue;
 import eu.muses.sim.trustman.UserTrustValue;
+import eu.muses.sim.userman.action.AccessAction;
+import eu.muses.sim.userman.action.GiveUpAction;
 import eu.muses.sim.userman.action.UserAction;
 import eu.muses.wp5.Clue;
 import eu.muses.wp5.CluesThreatEntry;
@@ -464,8 +466,11 @@ public class DbPersistenceManager extends PersistenceManager {
 			access.setUserAccessDecision(null);
 			access.setCorporateAccessRequestDecision(null);
 			access.setRiskEvent(null);
-			UserAction u = new UserAction() {
-			};
+			
+			if(accessrequests.getUseractionId().getId() == 0)
+				access.setUserAction(new AccessAction());
+			else
+				access.setUserAction(new GiveUpAction());
 			//u.setId(accessrequests.getUseractionId().getId());
 			
 			//access.setUserAction(u);
@@ -645,8 +650,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			}
 			opportunity.setOutcomes(listoutcome1);
 			opportunity.persist();
-			
-			
+		
 			access.setOpportunityId(opportunity);
 		    Calendar now = Calendar.getInstance();
 			access.setTime(now);
