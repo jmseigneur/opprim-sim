@@ -187,10 +187,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			Threat t = i.next();
 			
 			
-			threat.setDescription(t.getDescription());
-			threat.setProbability(t.getProbabilityValue());
-			threat.setBadOutcomeCount(t.getBadOutcomeCount());
-			threat.setOccurences(t.getOccurences());
+			
 			
 			Set<eu.musesproject.server.rt2ae.Outcome> listoutcome = new HashSet<eu.musesproject.server.rt2ae.Outcome>();
 			Iterator<Outcome> it = t.getOutcomes().iterator();
@@ -203,13 +200,21 @@ public class DbPersistenceManager extends PersistenceManager {
 				listoutcome.add(outcome);
 			}
 			threat.setOutcomes(listoutcome);
-			/*if (threat.findThreatbyDescription(t.getDescription())!=null){
-				threat.merge();
+			List<eu.musesproject.server.rt2ae.Threat> listthreat = new ArrayList<eu.musesproject.server.rt2ae.Threat>();
+						
+			if (eu.musesproject.server.rt2ae.Threat.findThreatbyDescription(t.getDescription())!=null){
+				listthreat = eu.musesproject.server.rt2ae.Threat.findThreatbyDescription(t.getDescription());
+				listthreat.get(0).setOccurences(t.getOccurences());
+				listthreat.get(0).merge();
 			}else{
+				threat.setDescription(t.getDescription());
+				threat.setProbability(t.getProbabilityValue());
+				threat.setBadOutcomeCount(t.getBadOutcomeCount());
+				threat.setOccurences(t.getOccurences());
 			    threat.persist();
 				
-			}*/			
-		    threat.persist();
+			}		
+		    //threat.persist();
 
 		    
 		}
@@ -462,7 +467,7 @@ public class DbPersistenceManager extends PersistenceManager {
 
 			//Asset as = new Asset(accessrequests.getAssetId().getAssetName(), accessrequests.getAssetId().getValue());
 			AccessRequest access = new AccessRequest();
-			access.setRequestedCorporateAssets(listasset);
+			access.setRequestedCorporateAssets(null);
 			access.setUserAccessDecision(null);
 			access.setCorporateAccessRequestDecision(null);
 			access.setRiskEvent(null);
@@ -488,9 +493,12 @@ public class DbPersistenceManager extends PersistenceManager {
 			
 			OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor();
 			if(listoutcome1.size() !=0){
-			 opportunityDescriptor = new OpportunityDescriptor(accessrequests.getOpportunityId().getDescription(),collection,listoutcome1.get(0));
+			 opportunityDescriptor = new OpportunityDescriptor(accessrequests.getOpportunityId().getDescription(),listasset,listoutcome1.get(0));
+			 for (int j = 1; j < listoutcome1.size(); j++) {
+				 opportunityDescriptor.addOutcome(listoutcome1.get(j));
+			}
 			}else{
-			opportunityDescriptor = new OpportunityDescriptor(accessrequests.getOpportunityId().getDescription(),collection,null);
+			opportunityDescriptor = new OpportunityDescriptor(accessrequests.getOpportunityId().getDescription(),listasset,null);
 	
 			}
 			//opportunityDescriptor.addOutcome(listoutcome1.get(1));
@@ -557,7 +565,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			AccessRequest accessrequest = i.next();
 			eu.musesproject.server.rt2ae.Accessrequest access = new eu.musesproject.server.rt2ae.Accessrequest();
 
-			Iterator<Asset> it = accessrequest.getRequestedCorporateAsset().iterator();
+			Iterator<Asset> it = accessrequest.getOpportunityDescriptor().getRequestedAssets().iterator();
 			while(it.hasNext()){
 				Asset asset1 = it.next();
 				eu.musesproject.server.rt2ae.Asset as = new eu.musesproject.server.rt2ae.Asset();
@@ -694,8 +702,11 @@ public class DbPersistenceManager extends PersistenceManager {
 	 */
 	public static void main(String[] args) {
 			DbPersistenceManager p = new DbPersistenceManager();
-			User u = new User();
-			System.out.println("test " + u.findOneUsers("TestUser").size());
+			List<eu.musesproject.server.rt2ae.Threat> threat = new ArrayList<eu.musesproject.server.rt2ae.Threat>();
+			threat = eu.musesproject.server.rt2ae.Threat.findThreatbyDescription("ThreatWVNereaTestAsset");
+			threat.get(0).setOccurences(999.0);
+			threat.get(0).merge();
+			//System.out.println("test " + u.findOneUsers("TestUser").size());
 			/*Outcome o = new Outcome();
 		o.setCostBenefit(100.1);
 		o.setDescription("ooooooooo");
