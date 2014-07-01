@@ -151,11 +151,22 @@ public class DbPersistenceManager extends PersistenceManager {
 		Iterator<eu.musesproject.server.rt2ae.Threat> i = l.iterator();
 		while(i.hasNext()){
 			eu.musesproject.server.rt2ae.Threat threat_temp = i.next();
-			Collection<Outcome> c = new ArrayList(threat_temp.getOutcomes());
+			//Collection<Outcome> c = new ArrayList(threat_temp.getOutcomes());
+			
+			Set<Outcome> listoutcome = new HashSet<Outcome>();
+			Iterator<eu.musesproject.server.rt2ae.Outcome> it = threat_temp.getOutcomes().iterator();
+			while(it.hasNext()){
+				Outcome outcome = new Outcome();
+				eu.musesproject.server.rt2ae.Outcome o = it.next();
+				outcome.setCostBenefit(o.getCostbenefit());
+				outcome.setDescription(o.getDescription());
+				//outcome.setThreatId(threat);
+				listoutcome.add(outcome);
+			}
 			
 			Probability p = new Probability();
 			p.setProb(threat_temp.getProbability());
-			Threat t = new Threat(threat_temp.getDescription(),p, c);
+			Threat t = new Threat(threat_temp.getDescription(),p, listoutcome);
 			lsim.add(t);
 		}
 		return lsim;		
