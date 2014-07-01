@@ -190,13 +190,14 @@ public class DbPersistenceManager extends PersistenceManager {
 				listoutcome.add(outcome);
 			}
 			threat.setOutcomes(listoutcome);
-			if (threat.findThreatbyDescription(t.getDescription())!=null){
+			/*if (threat.findThreatbyDescription(t.getDescription())!=null){
 				threat.merge();
 			}else{
 			    threat.persist();
 				
-			}			
-			
+			}*/			
+		    threat.persist();
+
 		    
 		}
 	}
