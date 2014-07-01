@@ -166,10 +166,14 @@ public class DbPersistenceManager extends PersistenceManager {
 	 */
 	@Override
 	public void setThreats(List<Threat> threats) {
+		eu.musesproject.server.rt2ae.Threat ts = new eu.musesproject.server.rt2ae.Threat();
+		
 		Iterator<Threat> i = threats.iterator();
 		while(i.hasNext()){
 			eu.musesproject.server.rt2ae.Threat threat = new eu.musesproject.server.rt2ae.Threat();
 			Threat t = i.next();
+			
+			
 			threat.setDescription(t.getDescription());
 			threat.setProbability(t.getProbabilityValue());
 			threat.setBadOutcomeCount(t.getBadOutcomeCount());
@@ -185,8 +189,14 @@ public class DbPersistenceManager extends PersistenceManager {
 				outcome.setThreatId(threat);
 				listoutcome.add(outcome);
 			}
-			threat.setOutcomes(listoutcome);		
-		    threat.persist();
+			threat.setOutcomes(listoutcome);
+			if (threat.findThreatbyDescription(t.getDescription())!=null){
+				threat.merge();
+			}else{
+			    threat.persist();
+				
+			}			
+			
 		    
 		}
 	}
