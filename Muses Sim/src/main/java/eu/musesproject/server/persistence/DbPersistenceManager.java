@@ -654,7 +654,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			
 			
 			
-			Iterator<eu.musesproject.server.rt2ae.Asset> ist4 = listasset.iterator();
+			/*Iterator<eu.musesproject.server.rt2ae.Asset> ist4 = listasset.iterator();
 			while(ist4.hasNext()){
 				eu.musesproject.server.rt2ae.Asset asset1 = new eu.musesproject.server.rt2ae.Asset();
 				asset1 = ist4.next();
@@ -665,7 +665,7 @@ public class DbPersistenceManager extends PersistenceManager {
 					eu.musesproject.server.rt2ae.Outcome outcome1 = new eu.musesproject.server.rt2ae.Outcome();
 					outcome1 = ist3.next();
 					outcome1.persist();
-				}*/
+				}
 			
 			  Iterator<eu.musesproject.server.rt2ae.Outcome> ist2 = listoutcome1.iterator();
 				while(ist2.hasNext()){
@@ -679,7 +679,7 @@ public class DbPersistenceManager extends PersistenceManager {
 					eu.musesproject.server.rt2ae.Clue clue1 = new eu.musesproject.server.rt2ae.Clue();
 					clue1 = ist1.next();
 					clue1.persist();
-				}
+				}*/
 			
 		}
 		
