@@ -608,7 +608,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			eu.musesproject.server.rt2ae.UserAction useraction = new eu.musesproject.server.rt2ae.UserAction() {
 			};
 			useraction.setId((int) accessrequest.getUserAction().getId());
-			
+			useraction.persist();
 			access.setUseractionId(useraction);
 			eu.musesproject.server.rt2ae.Opportunity opportunity = new eu.musesproject.server.rt2ae.Opportunity();
 			opportunity.setDescription(accessrequest.getOpportunityDescriptor().getDescription());
