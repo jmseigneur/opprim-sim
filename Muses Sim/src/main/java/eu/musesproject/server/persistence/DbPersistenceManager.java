@@ -537,7 +537,8 @@ public class DbPersistenceManager extends PersistenceManager {
 				listoutcome.add(outcome);
 			}
 			Threat ts = new Threat(accessrequests.getThreatid().getDescription(), p, listoutcome);
-			
+			ts.setOccurences(accessrequests.getThreatid().getOccurences());
+			ts.setBadOutcomeCount(accessrequests.getThreatid().getBadOutcomeCount());
 			List<Clue> list = new ArrayList<Clue>();
 			Iterator<eu.musesproject.server.rt2ae.Clue> it = accessrequests.getThreatid().getClues().iterator();
 			while(it.hasNext()){
@@ -595,7 +596,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			Set<eu.musesproject.server.rt2ae.Outcome> listoutcome = new HashSet<eu.musesproject.server.rt2ae.Outcome>();
 			Iterator<Outcome> its = accessrequest.getCluesThreatEntry().getThreat().getOutcomes().iterator();
 			eu.musesproject.server.rt2ae.Threat threat = new eu.musesproject.server.rt2ae.Threat();
-			threat.setProbability(0.3);
+			threat.setProbability(accessrequest.getCluesThreatEntry().getThreat().getProbability().getProb());
 			threat.setDescription(accessrequest.getCluesThreatEntry().getThreat().getDescription());
 			while(its.hasNext()){
 				eu.musesproject.server.rt2ae.Outcome outcome = new eu.musesproject.server.rt2ae.Outcome();
