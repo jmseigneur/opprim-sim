@@ -687,13 +687,13 @@ public class DbPersistenceManager extends PersistenceManager {
 		    Calendar now = Calendar.getInstance();
 		   
 			access.setTime(now);
-		    Timestamp t = new Timestamp(now.getTimeInMillis());  
+		    Timestamp t = new Timestamp(accessrequest.getTime().getTimeInMillis());  
 			//access.setTime(t);
 
 			
-			if(Accessrequest.findAccessrequestbyTimestampandThreat(now, listthreats.get(0)).size()>0){
-			List<Accessrequest> listaccessrequest = Accessrequest.findAccessrequestbyTimestampandThreat(now, listthreats.get(0));
-			listaccessrequest.get(0).setSolved((short) 1);
+			if(Accessrequest.findAccessrequestbyTimestampandThreat(accessrequest.getTime(), listthreats.get(0)).size()>0){
+			List<Accessrequest> listaccessrequest = Accessrequest.findAccessrequestbyTimestampandThreat(accessrequest.getTime(), listthreats.get(0));
+			//listaccessrequest.get(0).setSolved((short) 1);
 			listaccessrequest.get(0).merge();
 			}else{
 				access.persist();
