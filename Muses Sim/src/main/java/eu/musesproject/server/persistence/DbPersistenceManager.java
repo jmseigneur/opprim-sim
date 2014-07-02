@@ -464,8 +464,9 @@ public class DbPersistenceManager extends PersistenceManager {
 				Asset a = new Asset(asset_temp.getAssetName(), asset_temp.getValue());
 				listasset.add(a);
 			}*/
-			System.out.println("  coucou "+accessrequests.getAssetId().getAssetName());
+			//System.out.println("  coucou "+accessrequests.getAssetId().getAssetName());
 			Asset a = new Asset(accessrequests.getAssetId().getAssetName(), accessrequests.getAssetId().getValue());
+			listasset.add(a);
 			//Asset as = new Asset(accessrequests.getAssetId().getAssetName(), accessrequests.getAssetId().getValue());
 			AccessRequest access = new AccessRequest();
 			access.setRequestedCorporateAssets(null);
@@ -713,7 +714,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			threat = eu.musesproject.server.rt2ae.Threat.findThreatbyDescription("ThreatWVNereaTestAsset");
 			threat.get(0).setOccurences(999.0);
 			threat.get(0).merge();*/
-			//System.out.println("test " + p.getAccessRequests().toString());
+			//System.out.println("test " + p.getAccessRequests().get(0).getOpportunityDescriptor().getRequestedAssets().size());
 			/*Outcome o = new Outcome();
 		o.setCostBenefit(100.1);
 		o.setDescription("ooooooooo");
