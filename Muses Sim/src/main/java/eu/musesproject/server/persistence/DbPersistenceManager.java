@@ -669,6 +669,7 @@ public class DbPersistenceManager extends PersistenceManager {
 				outcome.setCostbenefit(o.getCostBenefit());
 				outcome.setDescription(o.getDescription());
 				outcome.setOpportunityId(opportunity);
+				outcome.persist();
 				listoutcome1.add(outcome);
 			}
 			opportunity.setOutcomes(listoutcome1);
