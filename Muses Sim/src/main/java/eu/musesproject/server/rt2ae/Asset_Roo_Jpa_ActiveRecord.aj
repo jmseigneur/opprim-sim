@@ -36,8 +36,8 @@ privileged aspect Asset_Roo_Jpa_ActiveRecord {
         return entityManager().find(Asset.class, assetId);
     }
     
-    public static List<Asset> Asset.findTAssetbyName(String name) {
-        return entityManager().createQuery("SELECT o FROM Asset o where o.assetName =:name").setParameter("assetName", name).getResultList();
+    public static List<Asset> Asset.findAssetbyName(String assetName) {
+        return entityManager().createQuery("SELECT o FROM Asset o where o.assetName =:assetName").setParameter("assetName",assetName).getResultList();
     }
     
     public static List<Asset> Asset.findAssetEntries(int firstResult, int maxResults) {

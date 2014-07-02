@@ -570,7 +570,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			while(it.hasNext()){
 				Asset asset1 = it.next();
 				eu.musesproject.server.rt2ae.Asset as = new eu.musesproject.server.rt2ae.Asset();
-				List <eu.musesproject.server.rt2ae.Asset> listassets = eu.musesproject.server.rt2ae.Asset.findTAssetbyName(asset1.getAssetName());
+				List <eu.musesproject.server.rt2ae.Asset> listassets = eu.musesproject.server.rt2ae.Asset.findAssetbyName(asset1.getAssetName());
 
 				//as.setAssetName(asset1.getAssetName());
 				//as.setValue(asset1.getValue());
