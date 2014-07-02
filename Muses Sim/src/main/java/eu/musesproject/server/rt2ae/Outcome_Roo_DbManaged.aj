@@ -21,7 +21,7 @@ privileged aspect Outcome_Roo_DbManaged {
     @JoinColumn(name = "threat_id", referencedColumnName = "threat_id")
     private Threat Outcome.threatId;
     
-    @Column(name = "description", length = 45)
+    @Column(name = "description")
     @NotNull
     private String Outcome.description;
     

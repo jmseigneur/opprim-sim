@@ -51,3 +51,6 @@ database reverse engineer --schema musesdatabase
 database reverse engineer --schema musesdatabase
 database reverse engineer --schema musesdatabase
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-07-01 11:12:14
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-07-01 16:52:23
+database reverse engineer --schema musesdatabase
+database reverse engineer --schema musesdatabase

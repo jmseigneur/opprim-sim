@@ -26,7 +26,7 @@ privileged aspect Opportunity_Roo_DbManaged {
     @OneToMany(mappedBy = "opportunityId", fetch = FetchType.EAGER)
     private Set<Outcome> Opportunity.outcomes;
     
-    @Column(name = "description", length = 45)
+    @Column(name = "description")
     @NotNull
     private String Opportunity.description;
     
