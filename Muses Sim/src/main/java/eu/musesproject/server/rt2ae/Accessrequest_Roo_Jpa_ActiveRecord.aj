@@ -39,7 +39,7 @@ privileged aspect Accessrequest_Roo_Jpa_ActiveRecord {
     }
     
     public static List<Accessrequest> Accessrequest.findAccessrequestbyTimestampandThreat(Calendar time,int threatid) {
-        return entityManager().createQuery("SELECT o FROM Accessrequest o where o.time =:time and o.threatid =:threatid").setParameter("time", time).setParameter("threatid", threatid).getResultList();
+        return entityManager().createQuery("SELECT o FROM Accessrequest o where o.time =:time and o.threatid =:threatid").setParameter("time", time.getTimeInMillis()).setParameter("threatid", threatid).getResultList();
     }
     
     public static List<Accessrequest> Accessrequest.findAccessrequestEntries(int firstResult, int maxResults) {
