@@ -12,8 +12,11 @@ import eu.musesproject.server.rt2ae.Riskinformation;
 import eu.musesproject.server.rt2ae.Threat;
 import eu.musesproject.server.rt2ae.User;
 import eu.musesproject.server.rt2ae.UserAction;
+
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,6 +24,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 privileged aspect Accessrequest_Roo_DbManaged {
@@ -60,7 +64,7 @@ privileged aspect Accessrequest_Roo_DbManaged {
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "MM")
-    private Calendar Accessrequest.time;
+    private Timestamp Accessrequest.time;
     
     @Column(name = "solved")
     private Short Accessrequest.solved;
@@ -129,11 +133,11 @@ privileged aspect Accessrequest_Roo_DbManaged {
         this.useractionId = useractionId;
     }
     
-    public Calendar Accessrequest.getTime() {
+    public Timestamp Accessrequest.getTime() {
         return time;
     }
     
-    public void Accessrequest.setTime(Calendar time) {
+    public void Accessrequest.setTime(Timestamp time) {
         this.time = time;
     }
     

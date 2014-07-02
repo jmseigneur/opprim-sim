@@ -678,8 +678,10 @@ public class DbPersistenceManager extends PersistenceManager {
 			access.setOpportunityId(opportunity);
 		    Calendar now = Calendar.getInstance();
 		   
-			access.setTime(now);
+			//access.setTime(now);
 		    Timestamp t = new Timestamp(now.getTimeInMillis());  
+			access.setTime(t);
+
 			
 			if(Accessrequest.findAccessrequestbyTimestampandThreat(t, listthreats.get(0).getThreatId()).size()>0){
 			List<Accessrequest> listaccessrequest = Accessrequest.findAccessrequestbyTimestampandThreat(t, listthreats.get(0).getThreatId());
