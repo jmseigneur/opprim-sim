@@ -18,7 +18,11 @@
         <column name="threatid" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
         <column name="solved" primaryKey="false" required="false" scale="0" size="3" type="-6,TINYINT"/>
         <column name="riskcommunicationid" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
-        <column name="riskcommunication_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <column name="asset_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
+        <foreign-key foreignTable="asset" name="asset_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="false"/>
+            <reference foreign="asset_id" local="asset_id"/>
+        </foreign-key>
         <foreign-key foreignTable="opportunity" name="opportunity_id" onDelete="none" onUpdate="none">
             <option key="exported" value="false"/>
             <reference foreign="opportunity_id" local="opportunity_id"/>
@@ -42,10 +46,6 @@
         <foreign-key foreignTable="user_action" name="useraction_id" onDelete="none" onUpdate="none">
             <option key="exported" value="false"/>
             <reference foreign="useraction_id" local="useraction_id"/>
-        </foreign-key>
-        <foreign-key foreignTable="asset" name="accessrequest_id" onDelete="none" onUpdate="none">
-            <option key="exported" value="true"/>
-            <reference foreign="accessrequest_id" local="accessrequest_id"/>
         </foreign-key>
         <foreign-key foreignTable="riskinformation" name="riskaccessrequestid" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>
@@ -72,6 +72,9 @@
         <index name="riskcommunicationid_idx">
             <index-column name="riskcommunicationid"/>
         </index>
+        <index name="asset_id_idx">
+            <index-column name="asset_id"/>
+        </index>
     </table>
     <table name="asset">
         <column name="asset_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
@@ -80,15 +83,14 @@
         <column name="value" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
         <column name="confidential_level" primaryKey="false" required="true" scale="0" size="20" type="1,ENUM"/>
         <column name="location" primaryKey="false" required="true" scale="0" size="255" type="12,VARCHAR"/>
-        <column name="accessrequest_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
         <column name="opportunityid" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
-        <foreign-key foreignTable="accessrequest" name="accessrequest_id" onDelete="none" onUpdate="none">
-            <option key="exported" value="false"/>
-            <reference foreign="accessrequest_id" local="accessrequest_id"/>
-        </foreign-key>
         <foreign-key foreignTable="opportunity" name="opportunityid" onDelete="none" onUpdate="none">
             <option key="exported" value="false"/>
             <reference foreign="opportunity_id" local="opportunityid"/>
+        </foreign-key>
+        <foreign-key foreignTable="accessrequest" name="asset_id" onDelete="none" onUpdate="none">
+            <option key="exported" value="true"/>
+            <reference foreign="asset_id" local="asset_id"/>
         </foreign-key>
         <foreign-key foreignTable="riskinformation" name="riskassetid" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>
@@ -101,9 +103,6 @@
         <unique name="PRIMARY">
             <unique-column name="asset_id"/>
         </unique>
-        <index name="accessrequest_id_idx">
-            <index-column name="accessrequest_id"/>
-        </index>
         <index name="opportunityid_idx">
             <index-column name="opportunityid"/>
         </index>
@@ -200,7 +199,7 @@
     </table>
     <table name="opportunity">
         <column name="opportunity_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
-        <column name="description" primaryKey="false" required="true" scale="0" size="45" type="12,VARCHAR"/>
+        <column name="description" primaryKey="false" required="true" scale="0" size="2147483647" type="-1,LONGTEXT"/>
         <column name="costbenefit" primaryKey="false" required="false" scale="0" size="22" type="8,DOUBLE"/>
         <foreign-key foreignTable="accessrequest" name="opportunity_id" onDelete="none" onUpdate="none">
             <option key="exported" value="true"/>
@@ -220,7 +219,7 @@
     </table>
     <table name="outcome">
         <column name="outcome_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
-        <column name="description" primaryKey="false" required="true" scale="0" size="45" type="12,VARCHAR"/>
+        <column name="description" primaryKey="false" required="true" scale="0" size="2147483647" type="-1,LONGTEXT"/>
         <column name="costbenefit" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
         <column name="threat_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
         <column name="opportunity_id" primaryKey="false" required="false" scale="0" size="10" type="4,INT"/>
@@ -347,7 +346,7 @@
     </table>
     <table name="threat">
         <column name="threat_id" primaryKey="true" required="true" scale="0" size="10" type="4,INT"/>
-        <column name="description" primaryKey="false" required="true" scale="0" size="45" type="12,VARCHAR"/>
+        <column name="description" primaryKey="false" required="true" scale="0" size="2147483647" type="-1,LONGTEXT"/>
         <column name="probability" primaryKey="false" required="true" scale="0" size="22" type="8,DOUBLE"/>
         <column name="occurences" primaryKey="false" required="false" scale="0" size="22" type="8,DOUBLE"/>
         <column name="badOutcomeCount" primaryKey="false" required="false" scale="0" size="22" type="8,DOUBLE"/>

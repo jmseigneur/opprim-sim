@@ -18,14 +18,13 @@ import javax.validation.constraints.NotNull;
 privileged aspect Asset_Roo_DbManaged {
     
     @OneToMany(mappedBy = "assetId")
+    private Set<Accessrequest> Asset.accessrequests;
+    
+    @OneToMany(mappedBy = "assetId")
     private Set<Riskinformation> Asset.riskinformations;
     
     @OneToMany(mappedBy = "assetsId")
     private Set<SecurityIncident> Asset.securityIncidents;
-    
-    @ManyToOne
-    @JoinColumn(name = "accessrequest_id", referencedColumnName = "accessrequest_id")
-    private Accessrequest Asset.accessrequestId;
     
     @ManyToOne
     @JoinColumn(name = "opportunityid", referencedColumnName = "opportunity_id")
@@ -51,6 +50,14 @@ privileged aspect Asset_Roo_DbManaged {
     @NotNull
     private String Asset.location;
     
+    public Set<Accessrequest> Asset.getAccessrequests() {
+        return accessrequests;
+    }
+    
+    public void Asset.setAccessrequests(Set<Accessrequest> accessrequests) {
+        this.accessrequests = accessrequests;
+    }
+    
     public Set<Riskinformation> Asset.getRiskinformations() {
         return riskinformations;
     }
@@ -65,14 +72,6 @@ privileged aspect Asset_Roo_DbManaged {
     
     public void Asset.setSecurityIncidents(Set<SecurityIncident> securityIncidents) {
         this.securityIncidents = securityIncidents;
-    }
-    
-    public Accessrequest Asset.getAccessrequestId() {
-        return accessrequestId;
-    }
-    
-    public void Asset.setAccessrequestId(Accessrequest accessrequestId) {
-        this.accessrequestId = accessrequestId;
     }
     
     public Opportunity Asset.getOpportunityid() {

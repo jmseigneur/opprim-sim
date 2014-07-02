@@ -455,16 +455,16 @@ public class DbPersistenceManager extends PersistenceManager {
 		Iterator<eu.musesproject.server.rt2ae.Accessrequest> i = l.iterator();
 		while(i.hasNext()){
 			eu.musesproject.server.rt2ae.Accessrequest accessrequests = i.next();
-			Iterator<eu.musesproject.server.rt2ae.Asset> ite = accessrequests.getAssets().iterator();
+			//Iterator<eu.musesproject.server.rt2ae.Asset> ite = accessrequests.getAssets().iterator();
 			List<Asset> listasset = new ArrayList<Asset>();
-			while(ite.hasNext()){
+			/*while(ite.hasNext()){
 			
 				eu.musesproject.server.rt2ae.Asset asset_temp = ite.next();
 				Asset a = new Asset(asset_temp.getAssetName(), asset_temp.getValue());
 				listasset.add(a);
-			}
+			}*/
 			
-
+			Asset a = new Asset(accessrequests.getAssetId().getAssetName(), accessrequests.getAssetId().getValue());
 			//Asset as = new Asset(accessrequests.getAssetId().getAssetName(), accessrequests.getAssetId().getValue());
 			AccessRequest access = new AccessRequest();
 			access.setRequestedCorporateAssets(null);
@@ -574,11 +574,12 @@ public class DbPersistenceManager extends PersistenceManager {
 				as.setConfidentialLevel("PUBLIC");
 				as.setDescription("");
 				as.setLocation("");
-				as.setAccessrequestId(access);
+				//as.setAccessrequestId(access);
 				//as.persist();
-				listasset.add(as);
+				//listasset.add(as);
+				access.setAssetId(as);
+
 			}
-			access.setAssets(listasset);
 			Probability p = new Probability();
 		
 			p.setProb(accessrequest.getCluesThreatEntry().getThreat().getProbability().getProb());

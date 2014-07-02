@@ -18,16 +18,16 @@ import javax.validation.constraints.NotNull;
 
 privileged aspect Threat_Roo_DbManaged {
     
-    @OneToMany(mappedBy = "threatid")
+    @OneToMany(mappedBy = "threatid", fetch = FetchType.EAGER)
     private Set<Accessrequest> Threat.accessrequests;
     
-    @OneToMany(mappedBy = "threatId" ,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "threatId", fetch = FetchType.EAGER)
     private Set<Clue> Threat.clues;
     
     @OneToMany(mappedBy = "threatId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Outcome> Threat.outcomes;
     
-    @Column(name = "description", length = 45)
+    @Column(name = "description")
     @NotNull
     private String Threat.description;
     

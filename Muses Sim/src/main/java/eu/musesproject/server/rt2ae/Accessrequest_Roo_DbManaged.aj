@@ -12,28 +12,25 @@ import eu.musesproject.server.rt2ae.Riskinformation;
 import eu.musesproject.server.rt2ae.Threat;
 import eu.musesproject.server.rt2ae.User;
 import eu.musesproject.server.rt2ae.UserAction;
-
 import java.util.Calendar;
 import java.util.Set;
-
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 privileged aspect Accessrequest_Roo_DbManaged {
     
-    @OneToMany(mappedBy = "accessrequestId", fetch = FetchType.EAGER)
-    private Set<Asset> Accessrequest.assets;
-    
     @OneToMany(mappedBy = "accessrequestId")
     private Set<Riskinformation> Accessrequest.riskinformations;
+    
+    @ManyToOne
+    @JoinColumn(name = "asset_id", referencedColumnName = "asset_id")
+    private Asset Accessrequest.assetId;
     
     @ManyToOne
     @JoinColumn(name = "opportunity_id", referencedColumnName = "opportunity_id")
@@ -68,23 +65,20 @@ privileged aspect Accessrequest_Roo_DbManaged {
     @Column(name = "solved")
     private Short Accessrequest.solved;
     
-    @Column(name = "riskcommunication_id")
-    private Integer Accessrequest.riskcommunicationId;
-    
-    public Set<Asset> Accessrequest.getAssets() {
-        return assets;
-    }
-    
-    public void Accessrequest.setAssets(Set<Asset> assets) {
-        this.assets = assets;
-    }
-    
     public Set<Riskinformation> Accessrequest.getRiskinformations() {
         return riskinformations;
     }
     
     public void Accessrequest.setRiskinformations(Set<Riskinformation> riskinformations) {
         this.riskinformations = riskinformations;
+    }
+    
+    public Asset Accessrequest.getAssetId() {
+        return assetId;
+    }
+    
+    public void Accessrequest.setAssetId(Asset assetId) {
+        this.assetId = assetId;
     }
     
     public Opportunity Accessrequest.getOpportunityId() {
@@ -149,14 +143,6 @@ privileged aspect Accessrequest_Roo_DbManaged {
     
     public void Accessrequest.setSolved(Short solved) {
         this.solved = solved;
-    }
-    
-    public Integer Accessrequest.getRiskcommunicationId() {
-        return riskcommunicationId;
-    }
-    
-    public void Accessrequest.setRiskcommunicationId(Integer riskcommunicationId) {
-        this.riskcommunicationId = riskcommunicationId;
     }
     
 }
