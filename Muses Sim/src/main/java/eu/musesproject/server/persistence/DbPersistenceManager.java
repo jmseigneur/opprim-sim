@@ -169,6 +169,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			Probability p = new Probability();
 			p.setProb(threat_temp.getProbability());
 			Threat t = new Threat(threat_temp.getDescription(),p, listoutcome);
+			t.setOccurences(threat_temp.getOccurences());
 			lsim.add(t);
 		}
 		return lsim;		
