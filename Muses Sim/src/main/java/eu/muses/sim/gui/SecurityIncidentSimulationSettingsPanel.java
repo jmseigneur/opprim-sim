@@ -145,7 +145,6 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 		sorter = new TableRowSorter<DefaultTableModel>(model);
 		model.addColumn("Asset");
 		model.addColumn("User");
-		model.addColumn("Clues");
 		model.addColumn("Threat");
 		model.addColumn("User Action");
 		model.addColumn("Status");
@@ -166,7 +165,6 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 					ar.getOpportunityDescriptor().getRequestedAssets()
 							.iterator().next().getAssetName(),
 					ar.getUser().getNickname(),
-					ar.getCluesThreatEntry().getCluesAsString(),
 					ar.getCluesThreatEntry().getThreat().getDescription(),
 					userAction, status });
 		}
