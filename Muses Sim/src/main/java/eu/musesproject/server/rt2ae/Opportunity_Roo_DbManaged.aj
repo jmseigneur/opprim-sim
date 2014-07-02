@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 
 privileged aspect Opportunity_Roo_DbManaged {
     
-    @OneToMany(mappedBy = "opportunityId")
+    @OneToMany(mappedBy = "opportunityId", fetch = FetchType.EAGER)
     private Set<Accessrequest> Opportunity.accessrequests;
     
     @OneToMany(mappedBy = "opportunityid", fetch = FetchType.EAGER)
