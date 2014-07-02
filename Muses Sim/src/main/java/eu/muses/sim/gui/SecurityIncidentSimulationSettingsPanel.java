@@ -36,6 +36,7 @@ import java.awt.Component;
 import javax.swing.Box;
 
 import eu.muses.sim.request.AccessRequest;
+import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.sim.userman.action.AccessAction;
 import eu.muses.sim.userman.action.GiveUpAction;
 import eu.muses.wp5.CluesThreatEntry;
@@ -43,6 +44,8 @@ import eu.muses.wp5.CluesThreatTable;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JScrollPane;
@@ -255,22 +258,16 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 									"The asset on the access request was not finally used",
 									"Notice", JOptionPane.OK_CANCEL_OPTION,
 									JOptionPane.INFORMATION_MESSAGE);
-					List<AccessRequest> aList = GuiMain.getPersistenceManager()
-							.getAccessRequests();
-					aList.get(modelRow).setSolved(true);
-					GuiMain.getPersistenceManager().setAccessRequests(aList);
-					CluesThreatEntry entry = GuiMain
+					AccessRequest aR = GuiMain.getPersistenceManager()
+							.getAccessRequests().get(modelRow);
+					aR.setSolved(true);
+					GuiMain.getPersistenceManager().setAccessRequests(new ArrayList<AccessRequest>(Arrays.asList(aR)));
+					Threat entry = GuiMain
 							.getPersistenceManager()
-							.getCluesThreatTable()
-							.getEntry(
-									GuiMain.getPersistenceManager()
 											.getAccessRequests().get(modelRow)
-											.getCluesThreatEntry());
-					CluesThreatTable table1 = GuiMain.getPersistenceManager()
-							.getCluesThreatTable();
-					table1.removeEntry(entry);
-					GuiMain.getPersistenceManager().setCluesThreatTable(table1);
-					table.setValueAt("Solved", viewRow, 5);
+											.getCluesThreatEntry().getThreat();
+					//TODO remove the threat
+					table.setValueAt("Solved", viewRow, 4);
 					model.fireTableDataChanged();
 				} catch (Exception ex) {
 					JOptionPane.showConfirmDialog(null,
@@ -309,22 +306,16 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 									"The asset on the access request was not finally used",
 									"Notice", JOptionPane.OK_CANCEL_OPTION,
 									JOptionPane.INFORMATION_MESSAGE);
-					List<AccessRequest> aList = GuiMain.getPersistenceManager()
-							.getAccessRequests();
-					aList.get(modelRow).setSolved(true);
-					GuiMain.getPersistenceManager().setAccessRequests(aList);
-					CluesThreatEntry entry = GuiMain
+					AccessRequest aR = GuiMain.getPersistenceManager()
+							.getAccessRequests().get(modelRow);
+					aR.setSolved(true);
+					GuiMain.getPersistenceManager().setAccessRequests(new ArrayList<AccessRequest>(Arrays.asList(aR)));
+					Threat entry = GuiMain
 							.getPersistenceManager()
-							.getCluesThreatTable()
-							.getEntry(
-									GuiMain.getPersistenceManager()
 											.getAccessRequests().get(modelRow)
-											.getCluesThreatEntry());
-					CluesThreatTable table1 = GuiMain.getPersistenceManager()
-							.getCluesThreatTable();
-					table1.removeEntry(entry);
-					GuiMain.getPersistenceManager().setCluesThreatTable(table1);
-					table.setValueAt("Solved", viewRow, 5);
+											.getCluesThreatEntry().getThreat();
+					//TODO remove the threat
+					table.setValueAt("Solved", viewRow, 4);
 					model.fireTableDataChanged();
 				} catch (Exception ex) {
 					JOptionPane.showConfirmDialog(null,
