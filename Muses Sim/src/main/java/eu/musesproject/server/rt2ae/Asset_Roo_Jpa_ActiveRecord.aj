@@ -4,9 +4,12 @@
 package eu.musesproject.server.rt2ae;
 
 import eu.musesproject.server.rt2ae.Asset;
+
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.transaction.annotation.Transactional;
 
 privileged aspect Asset_Roo_Jpa_ActiveRecord {
@@ -31,6 +34,10 @@ privileged aspect Asset_Roo_Jpa_ActiveRecord {
     public static Asset Asset.findAsset(Integer assetId) {
         if (assetId == null) return null;
         return entityManager().find(Asset.class, assetId);
+    }
+    
+    public static List<Asset> Asset.findTAssetbyName(String name) {
+        return entityManager().createQuery("SELECT o FROM Asset o where o.assetName =:name").setParameter("assetName", name).getResultList();
     }
     
     public static List<Asset> Asset.findAssetEntries(int firstResult, int maxResults) {

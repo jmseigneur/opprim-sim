@@ -570,15 +570,17 @@ public class DbPersistenceManager extends PersistenceManager {
 			while(it.hasNext()){
 				Asset asset1 = it.next();
 				eu.musesproject.server.rt2ae.Asset as = new eu.musesproject.server.rt2ae.Asset();
-				as.setAssetName(asset1.getAssetName());
-				as.setValue(asset1.getValue());
-				as.setConfidentialLevel("PUBLIC");
-				as.setDescription("");
-				as.setLocation("");
+				List <eu.musesproject.server.rt2ae.Asset> listassets = eu.musesproject.server.rt2ae.Asset.findTAssetbyName(asset1.getAssetName());
+
+				//as.setAssetName(asset1.getAssetName());
+				//as.setValue(asset1.getValue());
+				//as.setConfidentialLevel("PUBLIC");
+				//as.setDescription("");
+				//as.setLocation("");
 				//as.setAccessrequestId(access);
 				//as.persist();
 				//listasset.add(as);
-				access.setAssetId(as);
+				access.setAssetId(listassets.get(0));
 
 			}
 			Probability p = new Probability();
@@ -635,9 +637,11 @@ public class DbPersistenceManager extends PersistenceManager {
 			eu.musesproject.server.rt2ae.User users = new eu.musesproject.server.rt2ae.User();
 			//users.findUser(59);
 			List <User> listusers = users.findOneUsers(accessrequest.getUser().getNickname());
+			
 			//user.persist();
 			access.setUserId(users.findUser(listusers.get(0).getUserId()));
 			
+
 			
 			eu.musesproject.server.rt2ae.UserAction useraction = new eu.musesproject.server.rt2ae.UserAction();
 			useraction.setId(accessrequest.getUserAction().getId());
@@ -659,6 +663,7 @@ public class DbPersistenceManager extends PersistenceManager {
 				listoutcome1.add(outcome);
 			}
 			opportunity.setOutcomes(listoutcome1);
+			opportunity.setAssets(listasset);
 			opportunity.persist();
 		
 			access.setOpportunityId(opportunity);
