@@ -669,7 +669,7 @@ public class DbPersistenceManager extends PersistenceManager {
 				outcome.setCostbenefit(o.getCostBenefit());
 				outcome.setDescription(o.getDescription());
 				outcome.setOpportunityId(opportunity);
-				outcome.persist();
+				//outcome.persist();
 				listoutcome1.add(outcome);
 			}
 			opportunity.setOutcomes(listoutcome1);
@@ -677,6 +677,13 @@ public class DbPersistenceManager extends PersistenceManager {
 			opportunity.persist();
 		
 			access.setOpportunityId(opportunity);
+			
+			Iterator<eu.musesproject.server.rt2ae.Outcome> ist3 = listoutcome.iterator();
+			while(ist3.hasNext()){
+				eu.musesproject.server.rt2ae.Outcome outcome1 = new eu.musesproject.server.rt2ae.Outcome();
+				outcome1 = ist3.next();
+				outcome1.persist();
+			}
 		    Calendar now = Calendar.getInstance();
 		   
 			access.setTime(now);
