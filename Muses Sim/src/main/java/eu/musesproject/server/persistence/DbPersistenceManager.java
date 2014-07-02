@@ -506,9 +506,9 @@ public class DbPersistenceManager extends PersistenceManager {
 			//opportunityDescriptor.addOutcome(listoutcome1.get(1));
 			access.setOpportunityDescriptor(opportunityDescriptor);
 			if(accessrequests.getSolved()!=0){
-				access.setSolved(false);;
-			}else{
 				access.setSolved(true);;
+			}else{
+				access.setSolved(false);;
 			}
 			//access.setSolved(false);
 			TrustValue trustvalue = new TrustValue();
