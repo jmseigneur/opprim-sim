@@ -693,7 +693,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			
 			if(Accessrequest.findAccessrequestbyTimestampandThreat(accessrequest.getTime(), listthreats.get(0)).size()>0){
 			List<Accessrequest> listaccessrequest = Accessrequest.findAccessrequestbyTimestampandThreat(accessrequest.getTime(), listthreats.get(0));
-			//listaccessrequest.get(0).setSolved((short) 1);
+			listaccessrequest.get(0).setSolved((short) 1);
 			listaccessrequest.get(0).merge();
 			}else{
 				access.persist();
