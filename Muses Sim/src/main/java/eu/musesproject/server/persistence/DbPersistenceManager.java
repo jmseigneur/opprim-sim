@@ -463,7 +463,7 @@ public class DbPersistenceManager extends PersistenceManager {
 				Asset a = new Asset(asset_temp.getAssetName(), asset_temp.getValue());
 				listasset.add(a);
 			}*/
-			
+			System.out.println("  coucou "+accessrequests.getAssetId().getAssetName());
 			Asset a = new Asset(accessrequests.getAssetId().getAssetName(), accessrequests.getAssetId().getValue());
 			//Asset as = new Asset(accessrequests.getAssetId().getAssetName(), accessrequests.getAssetId().getValue());
 			AccessRequest access = new AccessRequest();
@@ -703,11 +703,11 @@ public class DbPersistenceManager extends PersistenceManager {
 	 */
 	public static void main(String[] args) {
 			DbPersistenceManager p = new DbPersistenceManager();
-			List<eu.musesproject.server.rt2ae.Threat> threat = new ArrayList<eu.musesproject.server.rt2ae.Threat>();
+			/*List<eu.musesproject.server.rt2ae.Threat> threat = new ArrayList<eu.musesproject.server.rt2ae.Threat>();
 			threat = eu.musesproject.server.rt2ae.Threat.findThreatbyDescription("ThreatWVNereaTestAsset");
 			threat.get(0).setOccurences(999.0);
-			threat.get(0).merge();
-			//System.out.println("test " + u.findOneUsers("TestUser").size());
+			threat.get(0).merge();*/
+			//System.out.println("test " + p.getAccessRequests().toString());
 			/*Outcome o = new Outcome();
 		o.setCostBenefit(100.1);
 		o.setDescription("ooooooooo");
