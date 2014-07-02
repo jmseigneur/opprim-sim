@@ -3,6 +3,7 @@
  */
 package eu.musesproject.server.persistence;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -676,9 +677,12 @@ public class DbPersistenceManager extends PersistenceManager {
 		
 			access.setOpportunityId(opportunity);
 		    Calendar now = Calendar.getInstance();
+		   
 			access.setTime(now);
-			if(Accessrequest.findAccessrequestbyTimestampandThreat(now, listthreats.get(0).getThreatId()).size()>0){
-			List<Accessrequest> listaccessrequest = Accessrequest.findAccessrequestbyTimestampandThreat(now, listthreats.get(0).getThreatId());
+		    Timestamp t = new Timestamp(now.getTimeInMillis());  
+			
+			if(Accessrequest.findAccessrequestbyTimestampandThreat(t, listthreats.get(0).getThreatId()).size()>0){
+			List<Accessrequest> listaccessrequest = Accessrequest.findAccessrequestbyTimestampandThreat(t, listthreats.get(0).getThreatId());
 			listaccessrequest.get(0).setSolved((short) 1);
 			listaccessrequest.get(0).merge();
 			}else{
