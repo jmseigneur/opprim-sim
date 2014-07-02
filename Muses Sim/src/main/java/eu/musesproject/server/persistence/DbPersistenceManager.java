@@ -202,8 +202,9 @@ public class DbPersistenceManager extends PersistenceManager {
 			threat.setOutcomes(listoutcome);
 			List<eu.musesproject.server.rt2ae.Threat> listthreat = new ArrayList<eu.musesproject.server.rt2ae.Threat>();
 						
-			if (eu.musesproject.server.rt2ae.Threat.findThreatbyDescription(t.getDescription())!=null){
+			if (eu.musesproject.server.rt2ae.Threat.findThreatbyDescription(t.getDescription()).size()>0){
 				listthreat = eu.musesproject.server.rt2ae.Threat.findThreatbyDescription(t.getDescription());
+				System.out.println(listthreat.size());
 				listthreat.get(0).setOccurences(t.getOccurences());
 				listthreat.get(0).merge();
 			}else{
