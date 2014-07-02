@@ -4,9 +4,14 @@
 package eu.musesproject.server.rt2ae;
 
 import eu.musesproject.server.rt2ae.Accessrequest;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.transaction.annotation.Transactional;
 
 privileged aspect Accessrequest_Roo_Jpa_ActiveRecord {
@@ -31,6 +36,10 @@ privileged aspect Accessrequest_Roo_Jpa_ActiveRecord {
     public static Accessrequest Accessrequest.findAccessrequest(Integer accessrequestId) {
         if (accessrequestId == null) return null;
         return entityManager().find(Accessrequest.class, accessrequestId);
+    }
+    
+    public static List<Accessrequest> Accessrequest.findAccessrequestbyTimestampandThreat(Calendar time,int threatid) {
+        return entityManager().createQuery("SELECT o FROM Accessrequest o where o.time =:time").setParameter("time", time).setParameter("threat_id", threatid).getResultList();
     }
     
     public static List<Accessrequest> Accessrequest.findAccessrequestEntries(int firstResult, int maxResults) {

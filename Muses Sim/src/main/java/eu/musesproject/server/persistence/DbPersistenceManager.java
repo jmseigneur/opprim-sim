@@ -34,6 +34,7 @@ import eu.muses.sim.userman.action.UserAction;
 import eu.muses.wp5.Clue;
 import eu.muses.wp5.CluesThreatEntry;
 import eu.muses.wp5.CluesThreatTable;
+import eu.musesproject.server.rt2ae.Accessrequest;
 import eu.musesproject.server.rt2ae.User;
 
 /**
@@ -474,6 +475,8 @@ public class DbPersistenceManager extends PersistenceManager {
 			access.setUserAccessDecision(null);
 			access.setCorporateAccessRequestDecision(null);
 			access.setRiskEvent(null);
+			access.setTime(accessrequests.getTime());
+
 			
 			if(accessrequests.getUseractionId().getId() == 0)
 				access.setUserAction(new AccessAction());
@@ -562,7 +565,7 @@ public class DbPersistenceManager extends PersistenceManager {
 		
 		List<AccessRequest> listaccessrequestsim = new ArrayList<AccessRequest>();
 		Set<eu.musesproject.server.rt2ae.Asset> listasset = new HashSet<eu.musesproject.server.rt2ae.Asset>();
-
+		
 		Iterator<AccessRequest> i = accessRequests.iterator();
 		while(i.hasNext()){
 			AccessRequest accessrequest = i.next();
@@ -671,7 +674,13 @@ public class DbPersistenceManager extends PersistenceManager {
 			access.setOpportunityId(opportunity);
 		    Calendar now = Calendar.getInstance();
 			access.setTime(now);
-			access.persist();
+			if(Accessrequest.findAccessrequestbyTimestampandThreat(now, listthreats.get(0).getThreatId()).size()>0){
+			List<Accessrequest> listaccessrequest = Accessrequest.findAccessrequestbyTimestampandThreat(now, listthreats.get(0).getThreatId());
+			listaccessrequest.get(0).setSolved((short) 1);
+			listaccessrequest.get(0).merge();
+			}else{
+				access.persist();
+			}
 			
 			
 			
@@ -711,6 +720,8 @@ public class DbPersistenceManager extends PersistenceManager {
 	 */
 	public static void main(String[] args) {
 			DbPersistenceManager p = new DbPersistenceManager();
+			
+			//list =	Accessrequest.findAccessrequestbyTimestampandThreat("2014-07-02 13:36:08", 1151);
 			/*List<eu.musesproject.server.rt2ae.Threat> threat = new ArrayList<eu.musesproject.server.rt2ae.Threat>();
 			threat = eu.musesproject.server.rt2ae.Threat.findThreatbyDescription("ThreatWVNereaTestAsset");
 			threat.get(0).setOccurences(999.0);
