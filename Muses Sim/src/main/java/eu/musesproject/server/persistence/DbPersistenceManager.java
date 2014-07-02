@@ -683,8 +683,8 @@ public class DbPersistenceManager extends PersistenceManager {
 			//access.setTime(t);
 
 			
-			if(Accessrequest.findAccessrequestbyTimestampandThreat(t, listthreats.get(0).getThreatId()).size()>0){
-			List<Accessrequest> listaccessrequest = Accessrequest.findAccessrequestbyTimestampandThreat(t, listthreats.get(0).getThreatId());
+			if(Accessrequest.findAccessrequestbyTimestampandThreat(now, listthreats.get(0).getThreatId()).size()>0){
+			List<Accessrequest> listaccessrequest = Accessrequest.findAccessrequestbyTimestampandThreat(now, listthreats.get(0).getThreatId());
 			listaccessrequest.get(0).setSolved((short) 1);
 			listaccessrequest.get(0).merge();
 			}else{
