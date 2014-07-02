@@ -678,11 +678,11 @@ public class DbPersistenceManager extends PersistenceManager {
 		
 			access.setOpportunityId(opportunity);
 			
-			Iterator<eu.musesproject.server.rt2ae.Outcome> ist3 = listoutcome.iterator();
-			while(ist3.hasNext()){
-				eu.musesproject.server.rt2ae.Outcome outcome1 = new eu.musesproject.server.rt2ae.Outcome();
-				outcome1 = ist3.next();
-				outcome1.persist();
+			Iterator<eu.musesproject.server.rt2ae.Outcome> ist2 = listoutcome1.iterator();
+				while(ist2.hasNext()){
+					eu.musesproject.server.rt2ae.Outcome outcome = new eu.musesproject.server.rt2ae.Outcome();
+					outcome = ist2.next();
+					outcome.persist();
 			}
 		    Calendar now = Calendar.getInstance();
 		   
