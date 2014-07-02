@@ -26,12 +26,15 @@ import java.awt.Component;
 
 import javax.swing.Box;
 
+import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.wp5.CluesThreatEntry;
 import eu.muses.wp5.CluesThreatTable;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
+import java.util.List;
+
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
@@ -72,25 +75,14 @@ public class CluesandThreatsPanel extends JPanel {
 		lblNewAsset.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(lblNewAsset, gbc_lblNewAsset);
 
-		CluesThreatTable tableCluesThreats = GuiMain.getPersistenceManager()
-				.getCluesThreatTable();
+		List<Threat> threats = GuiMain.getPersistenceManager().getThreats();
 		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Clues");
 		model.addColumn("Threat");
 		model.addColumn("Probability");
-
-		Collection<CluesThreatEntry> cluesThreatEntries = tableCluesThreats
-				.getCluesThreatTable();
-
-		for (CluesThreatEntry entry : cluesThreatEntries) {
-			System.out.println(entry.getCluesAsString());
-			System.out.println(entry.getThreat().getDescription());
-			System.out.println(String.valueOf(entry.getThreat()
-					.getProbability().getProb()));
+		for (Threat entry : threats) {
 			model.addRow(new String[] {
-					entry.getCluesAsString(),
-					entry.getThreat().getDescription(),
-					String.valueOf(entry.getThreat().getProbability().getProb()) });
+					entry.getDescription(),
+					String.valueOf(entry.getProbability().getProb()) });
 		}
 
 		JScrollPane scrollPane = new JScrollPane();

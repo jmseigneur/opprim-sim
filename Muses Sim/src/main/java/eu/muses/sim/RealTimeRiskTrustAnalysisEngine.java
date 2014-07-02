@@ -9,6 +9,7 @@ package eu.muses.sim;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
@@ -260,6 +261,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 			 * table.updateThreatOccurences(threat);
 			 * GuiMain.getPersistenceManager().setCluesThreatTable(table);
 			 */
+			threat.setOccurences(threat.getOccurences() + 1);
 			currentThreats.add(threat);
 			GuiMain.getPersistenceManager().setThreats(currentThreats);
 			System.out.println("The newly created Threat from the Clues is: "
@@ -273,12 +275,16 @@ public class RealTimeRiskTrustAnalysisEngine {
 			currentThreats.add(threat);
 			accessRequest.setCluesThreatEntry(new CluesThreatEntry(clues,
 					threat));
+			Calendar now = Calendar.getInstance();
+			accessRequest.setTime(now);
 			GuiMain.getPersistenceManager().setAccessRequests(
 					new ArrayList<AccessRequest>(Arrays.asList(accessRequest)));
 		} else {
 			// for (Threat threat : currentThreats) {
+			System.out.println("Occurences: " + existingThreat.getOccurences());
 			existingThreat.setOccurences(existingThreat.getOccurences() + 1);
 			currentThreats.add(existingThreat);
+			System.out.println("Occurences: " + existingThreat.getOccurences());
 			/*
 			 * CluesThreatTable table = GuiMain.getPersistenceManager()
 			 * .getCluesThreatTable(); table.updateThreatOccurences(threat);
@@ -295,6 +301,8 @@ public class RealTimeRiskTrustAnalysisEngine {
 					+ "\n");
 			accessRequest.setCluesThreatEntry(new CluesThreatEntry(clues,
 					currentThreats.get(0)));
+			Calendar now = Calendar.getInstance();
+			accessRequest.setTime(now);
 			GuiMain.getPersistenceManager().setAccessRequests(
 					new ArrayList<AccessRequest>(Arrays.asList(accessRequest)));
 		}
@@ -499,15 +507,14 @@ public class RealTimeRiskTrustAnalysisEngine {
 	public void recalculateThreatProbabilitiesWhenIncident(
 			AccessRequest accessRequest) {
 
-		CluesThreatTable table = GuiMain.getPersistenceManager()
-				.getCluesThreatTable();
-		table.updateThreatBadOutcomeCount(accessRequest.getCluesThreatEntry()
-				.getThreat());
-		GuiMain.getPersistenceManager().setCluesThreatTable(table);
-		table = GuiMain.getPersistenceManager().getCluesThreatTable();
-		Threat threat = table.updateThreatProbability(accessRequest
-				.getCluesThreatEntry().getThreat());
-		GuiMain.getPersistenceManager().setCluesThreatTable(table);
+		Threat threat = accessRequest
+				.getCluesThreatEntry().getThreat();
+		threat.setBadOutcomeCount(threat.getBadOutcomeCount() + 1);
+		System.out.println("The bad count: " + threat.getBadOutcomeCount() + " the occurences: " + threat.getOccurences());
+		double newProbability = threat.getBadOutcomeCount()
+				/ threat.getOccurences();
+		threat.setProbability(new Probability(newProbability));
+		GuiMain.getPersistenceManager().setThreats(new ArrayList<Threat>(Arrays.asList(threat)));
 		System.out.println("The new probability associated with the threat \""
 				+ threat.getDescription() + "\" is: "
 				+ threat.getProbability().getProb());
@@ -517,11 +524,13 @@ public class RealTimeRiskTrustAnalysisEngine {
 	public void recalculateThreatProbabilitiesWhenNoIncident(
 			AccessRequest accessRequest) {
 
-		CluesThreatTable table = GuiMain.getPersistenceManager()
-				.getCluesThreatTable();
-		Threat threat = table.updateThreatProbability(accessRequest
-				.getCluesThreatEntry().getThreat());
-		GuiMain.getPersistenceManager().setCluesThreatTable(table);
+		Threat threat = accessRequest
+				.getCluesThreatEntry().getThreat();
+		System.out.println("The bad count: " + threat.getBadOutcomeCount() + " the occurences: " + threat.getOccurences());
+		double newProbability = threat.getBadOutcomeCount()
+				/ threat.getOccurences();
+		threat.setProbability(new Probability(newProbability));
+		GuiMain.getPersistenceManager().setThreats(new ArrayList<Threat>(Arrays.asList(threat)));
 		System.out.println("The new probability associated with the threat \""
 				+ threat.getDescription() + "\" is: "
 				+ threat.getProbability().getProb());

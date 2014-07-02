@@ -29,8 +29,11 @@ import java.awt.Component;
 import javax.swing.Box;
 
 import eu.muses.sim.request.AccessRequest;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JScrollPane;
 
@@ -105,15 +108,14 @@ public class NoSecurityIncidentOnAssetPanel extends JPanel {
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (GuiMain.getSimAmount() > GuiMain.getIncidentAmount()) {
-
 					try {
 
-						GuiMain.setIncidentAmount(GuiMain.getIncidentAmount() + 1);
 						AccessRequest accessRequest = GuiMain
 								.getPersistenceManager()
 								.getAccessRequests()
 								.get(NoSecurityIncidentOnAssetPanel.accessRequest);
+						
+						if(!accessRequest.isSolved()){
 						GuiMain.setUser1(accessRequest.getUser());
 
 						System.out
@@ -121,10 +123,18 @@ public class NoSecurityIncidentOnAssetPanel extends JPanel {
 						GuiMain.getS2Rt2ae()
 								.recalculateThreatProbabilitiesWhenNoIncident(
 										accessRequest);
+						accessRequest.setSolved(true);
 						GuiMain.getPersistenceManager()
-								.getAccessRequests()
-								.get(NoSecurityIncidentOnAssetPanel.accessRequest)
-								.setSolved(true);
+								.setAccessRequests(new ArrayList<AccessRequest>(Arrays.asList(accessRequest)));
+						
+						}else{
+							JOptionPane
+							.showConfirmDialog(
+									null,
+									"There was already a security incident reported for this asset access request",
+									"Notice", JOptionPane.OK_CANCEL_OPTION,
+									JOptionPane.INFORMATION_MESSAGE);
+						}
 					} catch (Exception ex) {
 						ex.printStackTrace();
 						JOptionPane.showConfirmDialog(null,
@@ -132,16 +142,7 @@ public class NoSecurityIncidentOnAssetPanel extends JPanel {
 								"Error", JOptionPane.OK_CANCEL_OPTION,
 								JOptionPane.ERROR_MESSAGE);
 					}
-				} else {
 
-					JOptionPane
-							.showConfirmDialog(
-									null,
-									"There was already a security incident reported for this asset access request",
-									"Notice", JOptionPane.OK_CANCEL_OPTION,
-									JOptionPane.INFORMATION_MESSAGE);
-
-				}
 			}
 		});
 		GridBagConstraints gbc_btnRunSimulation = new GridBagConstraints();

@@ -148,6 +148,7 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 		model.addColumn("Threat");
 		model.addColumn("User Action");
 		model.addColumn("Status");
+		model.addColumn("Timestamp");
 
 		for (AccessRequest ar : GuiMain.getPersistenceManager()
 				.getAccessRequests()) {
@@ -166,7 +167,7 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 							.iterator().next().getAssetName(),
 					ar.getUser().getNickname(),
 					ar.getCluesThreatEntry().getThreat().getDescription(),
-					userAction, status });
+					userAction, status, Long.toString(ar.getTime().getTimeInMillis()) });
 		}
 
 		table = new JTable(model);
