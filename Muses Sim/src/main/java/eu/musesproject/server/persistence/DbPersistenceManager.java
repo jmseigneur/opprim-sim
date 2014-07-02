@@ -539,6 +539,8 @@ public class DbPersistenceManager extends PersistenceManager {
 			Threat ts = new Threat(accessrequests.getThreatid().getDescription(), p, listoutcome);
 			ts.setOccurences(accessrequests.getThreatid().getOccurences());
 			ts.setBadOutcomeCount(accessrequests.getThreatid().getBadOutcomeCount());
+			
+			
 			List<Clue> list = new ArrayList<Clue>();
 			Iterator<eu.musesproject.server.rt2ae.Clue> it = accessrequests.getThreatid().getClues().iterator();
 			while(it.hasNext()){
