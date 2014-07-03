@@ -43,6 +43,9 @@ privileged aspect User_Roo_DbManaged {
     @NotNull
     private Double User.hourlyCost;
     
+    @Column(name = "ttl")
+    private Integer User.ttl;
+    
     public Set<Accessrequest> User.getAccessrequests() {
         return accessrequests;
     }
@@ -105,6 +108,14 @@ privileged aspect User_Roo_DbManaged {
     
     public void User.setHourlyCost(Double hourlyCost) {
         this.hourlyCost = hourlyCost;
+    }
+    
+    public Integer User.getTtl() {
+        return ttl;
+    }
+    
+    public void User.setTtl(Integer ttl) {
+        this.ttl = ttl;
     }
     
 }

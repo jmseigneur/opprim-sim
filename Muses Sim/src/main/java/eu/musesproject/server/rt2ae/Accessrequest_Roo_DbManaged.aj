@@ -29,6 +29,10 @@ privileged aspect Accessrequest_Roo_DbManaged {
     private Set<Riskinformation> Accessrequest.riskinformations;
     
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User Accessrequest.userId;
+    
+    @ManyToOne
     @JoinColumn(name = "asset_id", referencedColumnName = "asset_id")
     private Asset Accessrequest.assetId;
     
@@ -39,10 +43,6 @@ privileged aspect Accessrequest_Roo_DbManaged {
     @ManyToOne
     @JoinColumn(name = "device_id", referencedColumnName = "device_id")
     private Device Accessrequest.deviceId;
-    
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    private User Accessrequest.userId;
     
     @ManyToOne
     @JoinColumn(name = "riskcommunicationid", referencedColumnName = "riskcommunication_id")
@@ -65,12 +65,23 @@ privileged aspect Accessrequest_Roo_DbManaged {
     @Column(name = "solved")
     private Short Accessrequest.solved;
     
+    @Column(name = "ttl")
+    private Integer Accessrequest.ttl;
+    
     public Set<Riskinformation> Accessrequest.getRiskinformations() {
         return riskinformations;
     }
     
     public void Accessrequest.setRiskinformations(Set<Riskinformation> riskinformations) {
         this.riskinformations = riskinformations;
+    }
+    
+    public User Accessrequest.getUserId() {
+        return userId;
+    }
+    
+    public void Accessrequest.setUserId(User userId) {
+        this.userId = userId;
     }
     
     public Asset Accessrequest.getAssetId() {
@@ -95,14 +106,6 @@ privileged aspect Accessrequest_Roo_DbManaged {
     
     public void Accessrequest.setDeviceId(Device deviceId) {
         this.deviceId = deviceId;
-    }
-    
-    public User Accessrequest.getUserId() {
-        return userId;
-    }
-    
-    public void Accessrequest.setUserId(User userId) {
-        this.userId = userId;
     }
     
     public Riskcommunication Accessrequest.getRiskcommunicationid() {
@@ -143,6 +146,14 @@ privileged aspect Accessrequest_Roo_DbManaged {
     
     public void Accessrequest.setSolved(Short solved) {
         this.solved = solved;
+    }
+    
+    public Integer Accessrequest.getTtl() {
+        return ttl;
+    }
+    
+    public void Accessrequest.setTtl(Integer ttl) {
+        this.ttl = ttl;
     }
     
 }

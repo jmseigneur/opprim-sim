@@ -527,6 +527,38 @@ public class DbPersistenceManager extends PersistenceManager {
 	 * @see eu.muses.sim.persistence.PersistenceManager#setAccessRequests(java.util.List)
 	 */
 	@Override
+	public void anonymizeAccessReqeuests(List<AccessRequest> accessRequests) {
+		
+		Set<eu.musesproject.server.rt2ae.Asset> listasset = new HashSet<eu.musesproject.server.rt2ae.Asset>();
+		
+		Iterator<AccessRequest> i = accessRequests.iterator();
+		while(i.hasNext()){
+			AccessRequest accessrequest = i.next();
+			eu.musesproject.server.rt2ae.Accessrequest access = new eu.musesproject.server.rt2ae.Accessrequest();
+
+			List<eu.musesproject.server.rt2ae.Threat> listthreats = eu.musesproject.server.rt2ae.Threat.findThreatbyDescription(accessrequest.getCluesThreatEntry().getThreat().getDescription());
+			access.setThreatid(eu.musesproject.server.rt2ae.Threat.findThreat(listthreats.get(0).getThreatId()));
+					
+			if(Accessrequest.findAccessrequestbyTimestampandThreat(accessrequest.getTime(), listthreats.get(0)).size()>0){
+			List<Accessrequest> listaccessrequest = Accessrequest.findAccessrequestbyTimestampandThreat(accessrequest.getTime(), listthreats.get(0));
+			listaccessrequest.get(0).setSolved((short) 1);
+			String description = listthreats.get(0).getDescription();
+			String text = description.replace(listaccessrequest.get(0).getUserId().getName(), "");
+			listthreats.get(0).setDescription(text);
+			listthreats.get(0).merge();
+			listaccessrequest.get(0).setUserId(null);
+			listaccessrequest.get(0).merge();
+			}else{
+				access.persist();
+			}	
+		}
+		
+	}
+	
+	/* (non-Javadoc)
+	 * @see eu.muses.sim.persistence.PersistenceManager#setAccessRequests(java.util.List)
+	 */
+	@Override
 	public void setAccessRequests(List<AccessRequest> accessRequests) {
 		
 		Set<eu.musesproject.server.rt2ae.Asset> listasset = new HashSet<eu.musesproject.server.rt2ae.Asset>();
@@ -629,9 +661,8 @@ public class DbPersistenceManager extends PersistenceManager {
 				access.persist();
 			}	
 		}
-		
 	}
-
+	
 	/**
 	 * @param args
 	 */

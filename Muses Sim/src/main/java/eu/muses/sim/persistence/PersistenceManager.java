@@ -118,4 +118,10 @@ public abstract class PersistenceManager {
 	 */
 	public abstract void setAccessRequests(List<AccessRequest> accessRequests);
 
+	/**
+	 * @param accessRequests
+	 *            the accessRequests to anonymize
+	 */
+	public abstract void anonymizeAccessReqeuests(List<AccessRequest> accessRequests);
+
 }
