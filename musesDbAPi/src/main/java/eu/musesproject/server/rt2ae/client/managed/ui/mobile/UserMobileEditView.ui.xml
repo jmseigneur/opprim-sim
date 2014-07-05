@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:a="urn:import:eu.musesproject.server.rt2ae.client.managed.ui" xmlns:d="urn:import:com.google.gwt.user.datepicker.client" xmlns:e="urn:import:eu.musesproject.server.rt2ae.client.managed.ui.editor" xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:r="urn:import:eu.musesproject.server.rt2ae.client.scaffold.ui">
+  <ui:style>
+    .outer {
+      padding: 10px;
+    }
+    .error {
+      padding-left: 0.5em;
+      background-color: red;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      padding-bottom: 10px;
+    }
+  </ui:style>
+ 
+  <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
+    <div class="{style.error}" ui:field="errors"/>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <g:Button ui:field="save">Save</g:Button>
+  <div id="accessrequests">
+            <div class="{style.label}">Accessrequests</div>
+            <div class="{style.value}">
+                <e:AccessrequestSetEditor ui:field="accessrequests"/>
+            </div>
+        </div>
+        <div id="devices">
+            <div class="{style.label}">Devices</div>
+            <div class="{style.value}">
+                <e:DeviceSetEditor ui:field="devices"/>
+            </div>
+        </div>
+        <div id="securityIncidents">
+            <div class="{style.label}">Security Incidents</div>
+            <div class="{style.value}">
+                <e:SecurityIncidentSetEditor ui:field="securityIncidents"/>
+            </div>
+        </div>
+        <div id="name">
+            <div class="{style.label}">Name</div>
+            <div class="{style.value}">
+                <g:TextBox ui:field="name"/>
+            </div>
+        </div>
+        <div id="surname">
+            <div class="{style.label}">Surname</div>
+            <div class="{style.value}">
+                <g:TextBox ui:field="surname"/>
+            </div>
+        </div>
+        <div id="email">
+            <div class="{style.label}">Email</div>
+            <div class="{style.value}">
+                <g:TextBox ui:field="email"/>
+            </div>
+        </div>
+        <div id="trustvalue">
+            <div class="{style.label}">Trustvalue</div>
+            <div class="{style.value}">
+                <g:DoubleBox ui:field="trustvalue"/>
+            </div>
+        </div>
+        <div id="hourlyCost">
+            <div class="{style.label}">Hourly Cost</div>
+            <div class="{style.value}">
+                <g:DoubleBox ui:field="hourlyCost"/>
+            </div>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

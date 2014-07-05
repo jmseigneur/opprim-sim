@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+ <ui:style>
+    .fields {
+      margin-top: 0.5em;
+      margin-left: 1em;
+    }
+    .label {
+      min-height: 25px;
+      font-weight: bold;
+    }
+    .button {
+      margin-right: 1em;
+    }
+    .bar {
+      margin-left: 1em;
+    }
+    .header {
+      margin-left: 1em;
+      color: #4B4A4A;
+      text-shadow: #ddf 1px 1px 0;
+      margin-bottom: 0;
+    }
+    .underline {
+      border-bottom: 2px solid #6F7277;
+    }
+  </ui:style>
+  <g:HTMLPanel>
+    <div class="{style.underline}">
+      <h3 class="{style.header}">
+                <ui:msg>
+                    <span ui:field="displayRenderer"/>
+                </ui:msg>
+            </h3>
+    </div>
+
+    <table class="{style.fields}" id="boundElementHolder">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    <tr id="accessrequestId">
+                <td>
+                    <span class="{style.label}">Accessrequest Id:</span>
+                </td>
+                <td>
+                    <span ui:field="accessrequestId"/>
+                </td>
+            </tr>
+            <tr id="assets">
+                <td>
+                    <span class="{style.label}">Assets:</span>
+                </td>
+                <td>
+                    <span ui:field="assets"/>
+                </td>
+            </tr>
+            <tr id="riskinformations">
+                <td>
+                    <span class="{style.label}">Riskinformations:</span>
+                </td>
+                <td>
+                    <span ui:field="riskinformations"/>
+                </td>
+            </tr>
+            <tr id="opportunityId">
+                <td>
+                    <span class="{style.label}">Opportunity Id:</span>
+                </td>
+                <td>
+                    <span ui:field="opportunityId"/>
+                </td>
+            </tr>
+            <tr id="deviceId">
+                <td>
+                    <span class="{style.label}">Device Id:</span>
+                </td>
+                <td>
+                    <span ui:field="deviceId"/>
+                </td>
+            </tr>
+            <tr id="userId">
+                <td>
+                    <span class="{style.label}">User Id:</span>
+                </td>
+                <td>
+                    <span ui:field="userId"/>
+                </td>
+            </tr>
+            <tr id="riskcommunicationid">
+                <td>
+                    <span class="{style.label}">Riskcommunicationid:</span>
+                </td>
+                <td>
+                    <span ui:field="riskcommunicationid"/>
+                </td>
+            </tr>
+            <tr id="threatid">
+                <td>
+                    <span class="{style.label}">Threatid:</span>
+                </td>
+                <td>
+                    <span ui:field="threatid"/>
+                </td>
+            </tr>
+            <tr id="useractionId">
+                <td>
+                    <span class="{style.label}">Useraction Id:</span>
+                </td>
+                <td>
+                    <span ui:field="useractionId"/>
+                </td>
+            </tr>
+            <tr id="solved">
+                <td>
+                    <span class="{style.label}">Solved:</span>
+                </td>
+                <td>
+                    <span ui:field="solved"/>
+                </td>
+            </tr>
+            <tr id="riskcommunicationId">
+                <td>
+                    <span class="{style.label}">Riskcommunication Id:</span>
+                </td>
+                <td>
+                    <span ui:field="riskcommunicationId"/>
+                </td>
+            </tr>
+        </table>
+
+  <div class="{style.bar}">
+    <g:Button addStyleNames="{style.button}" ui:field="edit">Edit</g:Button>
+    <g:Anchor ui:field="delete">Delete</g:Anchor>
+   </div>
+  </g:HTMLPanel>
+</ui:UiBinder>

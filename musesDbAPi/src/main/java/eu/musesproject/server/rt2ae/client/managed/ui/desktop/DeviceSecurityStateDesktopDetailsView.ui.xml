@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+ <ui:style>
+    .fields {
+      margin-top: 0.5em;
+      margin-left: 1em;
+    }
+    .label {
+      min-height: 25px;
+      font-weight: bold;
+    }
+    .button {
+      margin-right: 1em;
+    }
+    .bar {
+      margin-left: 1em;
+    }
+    .header {
+      margin-left: 1em;
+      color: #4B4A4A;
+      text-shadow: #ddf 1px 1px 0;
+      margin-bottom: 0;
+    }
+    .underline {
+      border-bottom: 2px solid #6F7277;
+    }
+  </ui:style>
+  <g:HTMLPanel>
+    <div class="{style.underline}">
+      <h3 class="{style.header}">
+                <ui:msg>
+                    <span ui:field="displayRenderer"/>
+                </ui:msg>
+            </h3>
+    </div>
+
+    <table class="{style.fields}" id="boundElementHolder">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    <tr id="deviceSecurityStateId">
+                <td>
+                    <span class="{style.label}">Device Security State Id:</span>
+                </td>
+                <td>
+                    <span ui:field="deviceSecurityStateId"/>
+                </td>
+            </tr>
+            <tr id="deviceId">
+                <td>
+                    <span class="{style.label}">Device Id:</span>
+                </td>
+                <td>
+                    <span ui:field="deviceId"/>
+                </td>
+            </tr>
+            <tr id="devicestate">
+                <td>
+                    <span class="{style.label}">Devicestate:</span>
+                </td>
+                <td>
+                    <span ui:field="devicestate"/>
+                </td>
+            </tr>
+            <tr id="antivirus">
+                <td>
+                    <span class="{style.label}">Antivirus:</span>
+                </td>
+                <td>
+                    <span ui:field="antivirus"/>
+                </td>
+            </tr>
+            <tr id="passwordprotection">
+                <td>
+                    <span class="{style.label}">Passwordprotection:</span>
+                </td>
+                <td>
+                    <span ui:field="passwordprotection"/>
+                </td>
+            </tr>
+            <tr id="autolock">
+                <td>
+                    <span class="{style.label}">Autolock:</span>
+                </td>
+                <td>
+                    <span ui:field="autolock"/>
+                </td>
+            </tr>
+            <tr id="sslprotection">
+                <td>
+                    <span class="{style.label}">Sslprotection:</span>
+                </td>
+                <td>
+                    <span ui:field="sslprotection"/>
+                </td>
+            </tr>
+            <tr id="encryption">
+                <td>
+                    <span class="{style.label}">Encryption:</span>
+                </td>
+                <td>
+                    <span ui:field="encryption"/>
+                </td>
+            </tr>
+            <tr id="trackingdevice">
+                <td>
+                    <span class="{style.label}">Trackingdevice:</span>
+                </td>
+                <td>
+                    <span ui:field="trackingdevice"/>
+                </td>
+            </tr>
+            <tr id="remotewipe">
+                <td>
+                    <span class="{style.label}">Remotewipe:</span>
+                </td>
+                <td>
+                    <span ui:field="remotewipe"/>
+                </td>
+            </tr>
+            <tr id="vpn">
+                <td>
+                    <span class="{style.label}">Vpn:</span>
+                </td>
+                <td>
+                    <span ui:field="vpn"/>
+                </td>
+            </tr>
+        </table>
+
+  <div class="{style.bar}">
+    <g:Button addStyleNames="{style.button}" ui:field="edit">Edit</g:Button>
+    <g:Anchor ui:field="delete">Delete</g:Anchor>
+   </div>
+  </g:HTMLPanel>
+</ui:UiBinder>

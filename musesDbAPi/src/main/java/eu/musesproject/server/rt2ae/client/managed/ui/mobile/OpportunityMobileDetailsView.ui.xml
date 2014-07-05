@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+ <ui:style>
+    .outer {
+      padding: 10px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      padding: 4px 0px 15px 15px;
+    }
+  </ui:style>
+
+  <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
+  	
+    <div id="opportunityId">
+            <div class="{style.label}">Opportunity Id</div>
+            <div class="{style.value}" ui:field="opportunityId"/>
+        </div>
+    
+    <div id="accessrequests">
+            <div class="{style.label}">Accessrequests</div>
+            <div class="{style.value}" ui:field="accessrequests"/>
+        </div>
+    
+    <div id="assets">
+            <div class="{style.label}">Assets</div>
+            <div class="{style.value}" ui:field="assets"/>
+        </div>
+    
+    <div id="outcomes">
+            <div class="{style.label}">Outcomes</div>
+            <div class="{style.value}" ui:field="outcomes"/>
+        </div>
+    
+    <div id="description">
+            <div class="{style.label}">Description</div>
+            <div class="{style.value}" ui:field="description"/>
+        </div>
+    
+    <div id="costbenefit">
+            <div class="{style.label}">Costbenefit</div>
+            <div class="{style.value}" ui:field="costbenefit"/>
+        </div>
+    
+
+    <g:Button ui:field="delete">Delete</g:Button>
+  </g:HTMLPanel>
+</ui:UiBinder>

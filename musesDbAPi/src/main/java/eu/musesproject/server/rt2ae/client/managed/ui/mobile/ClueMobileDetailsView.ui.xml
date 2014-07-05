@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+ <ui:style>
+    .outer {
+      padding: 10px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      padding: 4px 0px 15px 15px;
+    }
+  </ui:style>
+
+  <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
+  	
+    <div id="clueId">
+            <div class="{style.label}">Clue Id</div>
+            <div class="{style.value}" ui:field="clueId"/>
+        </div>
+    
+    <div id="threatId">
+            <div class="{style.label}">Threat Id</div>
+            <div class="{style.value}" ui:field="threatId"/>
+        </div>
+    
+    <div id="value">
+            <div class="{style.label}">Value</div>
+            <div class="{style.value}" ui:field="value"/>
+        </div>
+    
+
+    <g:Button ui:field="delete">Delete</g:Button>
+  </g:HTMLPanel>
+</ui:UiBinder>

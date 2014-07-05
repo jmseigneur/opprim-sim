@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+ <ui:style>
+    .outer {
+      padding: 10px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      padding: 4px 0px 15px 15px;
+    }
+  </ui:style>
+
+  <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
+  	
+    <div id="assetId">
+            <div class="{style.label}">Asset Id</div>
+            <div class="{style.value}" ui:field="assetId"/>
+        </div>
+    
+    <div id="riskinformations">
+            <div class="{style.label}">Riskinformations</div>
+            <div class="{style.value}" ui:field="riskinformations"/>
+        </div>
+    
+    <div id="securityIncidents">
+            <div class="{style.label}">Security Incidents</div>
+            <div class="{style.value}" ui:field="securityIncidents"/>
+        </div>
+    
+    <div id="accessrequestId">
+            <div class="{style.label}">Accessrequest Id</div>
+            <div class="{style.value}" ui:field="accessrequestId"/>
+        </div>
+    
+    <div id="opportunityid">
+            <div class="{style.label}">Opportunityid</div>
+            <div class="{style.value}" ui:field="opportunityid"/>
+        </div>
+    
+    <div id="assetName">
+            <div class="{style.label}">Asset Name</div>
+            <div class="{style.value}" ui:field="assetName"/>
+        </div>
+    
+    <div id="description">
+            <div class="{style.label}">Description</div>
+            <div class="{style.value}" ui:field="description"/>
+        </div>
+    
+    <div id="value">
+            <div class="{style.label}">Value</div>
+            <div class="{style.value}" ui:field="value"/>
+        </div>
+    
+    <div id="confidentialLevel">
+            <div class="{style.label}">Confidential Level</div>
+            <div class="{style.value}" ui:field="confidentialLevel"/>
+        </div>
+    
+    <div id="location">
+            <div class="{style.label}">Location</div>
+            <div class="{style.value}" ui:field="location"/>
+        </div>
+    
+
+    <g:Button ui:field="delete">Delete</g:Button>
+  </g:HTMLPanel>
+</ui:UiBinder>

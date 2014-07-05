@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>eu.musesproject.server.rt2ae</groupId>
     <artifactId>musesDbAPi</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <version>0.1.0.BUILD-SNAPSHOT</version>
     <name>musesDbAPi</name>
     <properties>
@@ -13,6 +13,7 @@
         <roo.version>1.2.4.RELEASE</roo.version>
         <slf4j.version>1.7.5</slf4j.version>
         <spring.version>3.2.3.RELEASE</spring.version>
+    <gwt.version>2.5.0</gwt.version>
     </properties>
     <repositories>
         <repository>
@@ -29,6 +30,11 @@
             <id>spring-roo-repository</id>
             <name>Spring Roo Repository</name>
             <url>http://spring-roo-repository.springsource.org/release</url>
+        </repository>
+    <repository>
+            <id>maven.springframework.org.external</id>
+            <url>http://maven.springframework.org/external</url>
+            <name>SpringSource Maven Repository - External Releases</name>
         </repository>
     </repositories>
     <pluginRepositories>
@@ -222,6 +228,96 @@
                 </exclusion>
             </exclusions>
         </dependency>
+    <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>spring-js-resources</artifactId>
+            <version>2.2.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>2.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jstl-impl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>2.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.5</version>
+        </dependency>
+    <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-servlet</artifactId>
+            <version>${gwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>${gwt.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20090211</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt.inject</groupId>
+            <artifactId>gin</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.0.0.GA</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.7.1</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -354,11 +450,15 @@
                         <buildCommand>
                             <name>org.springframework.ide.eclipse.core.springbuilder</name>
                         </buildCommand>
+                    <buildCommand>
+                            <name>com.google.gwt.eclipse.core.gwtProjectValidator</name>
+                        </buildCommand>
                     </additionalBuildcommands>
                     <additionalProjectnatures>
                         <projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
                         <projectnature>com.springsource.sts.roo.core.nature</projectnature>
                         <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    <projectnature>com.google.gwt.eclipse.core.gwtNature</projectnature>
                     </additionalProjectnatures>
                 </configuration>
             </plugin>
@@ -386,6 +486,67 @@
                     </webAppConfig>
                 </configuration>
             </plugin>
+        <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <version>2.5.0</version>
+                <configuration>
+                    <logLevel>INFO</logLevel>
+                    <style>PRETTY</style>
+                    <runTarget>/ApplicationScaffold.html</runTarget>
+                    <hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
+                    <modules>
+                        <module>${project.groupId}.ApplicationScaffold</module>
+                    </modules>
+                    <copyWebapp>true</copyWebapp>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>gwtcompile</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.google.gwt</groupId>
+                        <artifactId>gwt-dev</artifactId>
+                        <version>${gwt.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.google.gwt</groupId>
+                        <artifactId>gwt-user</artifactId>
+                        <version>${gwt.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <id>VerifyRequestFactoryInterfaces</id>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-cp</argument>
+                                <classpath/>
+                                <argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
+                                <argument>${project.build.outputDirectory}</argument>
+                                <argument>${project.groupId}.client.managed.request.ApplicationRequestFactory</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+    <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
     </build>
 </project>

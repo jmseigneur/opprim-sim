@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:a="urn:import:eu.musesproject.server.rt2ae.client.managed.ui" xmlns:d="urn:import:com.google.gwt.user.datepicker.client" xmlns:e="urn:import:eu.musesproject.server.rt2ae.client.managed.ui.editor" xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:r="urn:import:eu.musesproject.server.rt2ae.client.scaffold.ui">
+  <ui:style>
+    .outer {
+      padding: 10px;
+    }
+    .error {
+      padding-left: 0.5em;
+      background-color: red;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      padding-bottom: 10px;
+    }
+  </ui:style>
+ 
+  <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
+    <div class="{style.error}" ui:field="errors"/>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <g:Button ui:field="save">Save</g:Button>
+  <div id="deviceId">
+            <div class="{style.label}">Device Id</div>
+            <div class="{style.value}">
+                <g:ValueListBox ui:field="deviceId"/>
+            </div>
+        </div>
+        <div id="devicestate">
+            <div class="{style.label}">Devicestate</div>
+            <div class="{style.value}">
+                <g:TextBox ui:field="devicestate"/>
+            </div>
+        </div>
+        <div id="antivirus">
+            <div class="{style.label}">Antivirus</div>
+            <div class="{style.value}">
+                <g:IntegerBox ui:field="antivirus"/>
+            </div>
+        </div>
+        <div id="passwordprotection">
+            <div class="{style.label}">Passwordprotection</div>
+            <div class="{style.value}">
+                <g:IntegerBox ui:field="passwordprotection"/>
+            </div>
+        </div>
+        <div id="autolock">
+            <div class="{style.label}">Autolock</div>
+            <div class="{style.value}">
+                <g:IntegerBox ui:field="autolock"/>
+            </div>
+        </div>
+        <div id="sslprotection">
+            <div class="{style.label}">Sslprotection</div>
+            <div class="{style.value}">
+                <g:IntegerBox ui:field="sslprotection"/>
+            </div>
+        </div>
+        <div id="encryption">
+            <div class="{style.label}">Encryption</div>
+            <div class="{style.value}">
+                <g:IntegerBox ui:field="encryption"/>
+            </div>
+        </div>
+        <div id="trackingdevice">
+            <div class="{style.label}">Trackingdevice</div>
+            <div class="{style.value}">
+                <g:IntegerBox ui:field="trackingdevice"/>
+            </div>
+        </div>
+        <div id="remotewipe">
+            <div class="{style.label}">Remotewipe</div>
+            <div class="{style.value}">
+                <g:IntegerBox ui:field="remotewipe"/>
+            </div>
+        </div>
+        <div id="vpn">
+            <div class="{style.label}">Vpn</div>
+            <div class="{style.value}">
+                <g:IntegerBox ui:field="vpn"/>
+            </div>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

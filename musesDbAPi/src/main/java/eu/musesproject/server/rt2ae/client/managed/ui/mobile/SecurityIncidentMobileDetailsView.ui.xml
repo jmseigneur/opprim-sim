@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+ <ui:style>
+    .outer {
+      padding: 10px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      padding: 4px 0px 15px 15px;
+    }
+  </ui:style>
+
+  <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
+  	
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <g:Button ui:field="delete">Delete</g:Button>
+  <div id="securityIncidentId">
+            <div class="{style.label}">Security Incident Id</div>
+            <div class="{style.value}" ui:field="securityIncidentId"/>
+        </div>
+        <div id="assetsId">
+            <div class="{style.label}">Assets Id</div>
+            <div class="{style.value}" ui:field="assetsId"/>
+        </div>
+        <div id="devicesId">
+            <div class="{style.label}">Devices Id</div>
+            <div class="{style.value}" ui:field="devicesId"/>
+        </div>
+        <div id="usersId">
+            <div class="{style.label}">Users Id</div>
+            <div class="{style.value}" ui:field="usersId"/>
+        </div>
+        <div id="description">
+            <div class="{style.label}">Description</div>
+            <div class="{style.value}" ui:field="description"/>
+        </div>
+        <div id="costbenefit">
+            <div class="{style.label}">Costbenefit</div>
+            <div class="{style.value}" ui:field="costbenefit"/>
+        </div>
+        <div id="decisionId">
+            <div class="{style.label}">Decision Id</div>
+            <div class="{style.value}" ui:field="decisionId"/>
+        </div>
+        <div id="probability">
+            <div class="{style.label}">Probability</div>
+            <div class="{style.value}" ui:field="probability"/>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

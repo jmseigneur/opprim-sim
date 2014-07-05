@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+ <ui:style>
+    .outer {
+      padding: 10px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      padding: 4px 0px 15px 15px;
+    }
+  </ui:style>
+
+  <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
+  	
+    <div id="threatId">
+            <div class="{style.label}">Threat Id</div>
+            <div class="{style.value}" ui:field="threatId"/>
+        </div>
+    
+    <div id="accessrequests">
+            <div class="{style.label}">Accessrequests</div>
+            <div class="{style.value}" ui:field="accessrequests"/>
+        </div>
+    
+    <div id="clues">
+            <div class="{style.label}">Clues</div>
+            <div class="{style.value}" ui:field="clues"/>
+        </div>
+    
+    <div id="outcomes">
+            <div class="{style.label}">Outcomes</div>
+            <div class="{style.value}" ui:field="outcomes"/>
+        </div>
+    
+    <div id="description">
+            <div class="{style.label}">Description</div>
+            <div class="{style.value}" ui:field="description"/>
+        </div>
+    
+    <div id="probability">
+            <div class="{style.label}">Probability</div>
+            <div class="{style.value}" ui:field="probability"/>
+        </div>
+    
+    <div id="occurences">
+            <div class="{style.label}">Occurences</div>
+            <div class="{style.value}" ui:field="occurences"/>
+        </div>
+    
+    <div id="badOutcomeCount">
+            <div class="{style.label}">Bad Outcome Count</div>
+            <div class="{style.value}" ui:field="badOutcomeCount"/>
+        </div>
+    
+
+    <g:Button ui:field="delete">Delete</g:Button>
+  </g:HTMLPanel>
+</ui:UiBinder>

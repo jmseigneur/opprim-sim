@@ -35,3 +35,13 @@ database reverse engineer --schema musesdatabase
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-06-23 15:32:50
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-06-30 16:58:10
 database reverse engineer --schema musesdatabase
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-07-01 11:12:14
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-07-04 22:54:24
+web gwt setup
+web gwt setup 
+web gwt all --proxyPackage ~.client.proxy --requestPackage ~.client.request
+
+quit
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2014-07-05 00:03:07
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-07-05 00:26:11
+logging setup --level INFO

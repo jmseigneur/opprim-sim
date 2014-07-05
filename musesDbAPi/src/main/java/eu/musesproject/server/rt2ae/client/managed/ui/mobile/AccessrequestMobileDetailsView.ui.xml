@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+ <ui:style>
+    .outer {
+      padding: 10px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .value {
+      padding: 4px 0px 15px 15px;
+    }
+  </ui:style>
+
+  <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
+  	
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <g:Button ui:field="delete">Delete</g:Button>
+  <div id="accessrequestId">
+            <div class="{style.label}">Accessrequest Id</div>
+            <div class="{style.value}" ui:field="accessrequestId"/>
+        </div>
+        <div id="assets">
+            <div class="{style.label}">Assets</div>
+            <div class="{style.value}" ui:field="assets"/>
+        </div>
+        <div id="riskinformations">
+            <div class="{style.label}">Riskinformations</div>
+            <div class="{style.value}" ui:field="riskinformations"/>
+        </div>
+        <div id="opportunityId">
+            <div class="{style.label}">Opportunity Id</div>
+            <div class="{style.value}" ui:field="opportunityId"/>
+        </div>
+        <div id="deviceId">
+            <div class="{style.label}">Device Id</div>
+            <div class="{style.value}" ui:field="deviceId"/>
+        </div>
+        <div id="userId">
+            <div class="{style.label}">User Id</div>
+            <div class="{style.value}" ui:field="userId"/>
+        </div>
+        <div id="riskcommunicationid">
+            <div class="{style.label}">Riskcommunicationid</div>
+            <div class="{style.value}" ui:field="riskcommunicationid"/>
+        </div>
+        <div id="threatid">
+            <div class="{style.label}">Threatid</div>
+            <div class="{style.value}" ui:field="threatid"/>
+        </div>
+        <div id="useractionId">
+            <div class="{style.label}">Useraction Id</div>
+            <div class="{style.value}" ui:field="useractionId"/>
+        </div>
+        <div id="solved">
+            <div class="{style.label}">Solved</div>
+            <div class="{style.value}" ui:field="solved"/>
+        </div>
+        <div id="riskcommunicationId">
+            <div class="{style.label}">Riskcommunication Id</div>
+            <div class="{style.value}" ui:field="riskcommunicationId"/>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>
