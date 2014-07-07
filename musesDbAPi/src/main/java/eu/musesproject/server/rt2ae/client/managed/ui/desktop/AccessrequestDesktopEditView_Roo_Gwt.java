@@ -25,6 +25,7 @@ import com.google.gwt.user.client.ui.ValueListBox;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
+
 import eu.musesproject.server.rt2ae.client.managed.activity.AccessrequestEditActivityWrapper;
 import eu.musesproject.server.rt2ae.client.managed.activity.AccessrequestEditActivityWrapper.View;
 import eu.musesproject.server.rt2ae.client.managed.ui.AccessrequestEditView;
@@ -39,6 +40,8 @@ import eu.musesproject.server.rt2ae.client.proxy.RiskinformationProxy;
 import eu.musesproject.server.rt2ae.client.proxy.ThreatProxy;
 import eu.musesproject.server.rt2ae.client.proxy.UserActionProxy;
 import eu.musesproject.server.rt2ae.client.proxy.UserProxy;
+import eu.musesproject.server.rt2ae.client.scaffold.ui.ShortBox;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
