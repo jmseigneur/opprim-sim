@@ -29,7 +29,15 @@
     
 
     <g:Button ui:field="save">Save</g:Button>
-  <div id="accessrequests">
+  
+        
+        
+        
+        
+        
+        
+        
+    <div id="accessrequests">
             <div class="{style.label}">Accessrequests</div>
             <div class="{style.value}">
                 <e:AccessrequestSetEditor ui:field="accessrequests"/>

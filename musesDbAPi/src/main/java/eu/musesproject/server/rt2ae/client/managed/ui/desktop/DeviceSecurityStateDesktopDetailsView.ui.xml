@@ -58,7 +58,18 @@
       
       
       
-    <tr id="deviceSecurityStateId">
+    
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        <tr id="deviceSecurityStateId">
                 <td>
                     <span class="{style.label}">Device Security State Id:</span>
                 </td>

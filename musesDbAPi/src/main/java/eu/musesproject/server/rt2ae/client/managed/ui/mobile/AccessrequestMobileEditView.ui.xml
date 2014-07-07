@@ -31,7 +31,17 @@
     
 
     <g:Button ui:field="save">Save</g:Button>
-  <div id="assets">
+  
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    <div id="assets">
             <div class="{style.label}">Assets</div>
             <div class="{style.value}">
                 <e:AssetSetEditor ui:field="assets"/>

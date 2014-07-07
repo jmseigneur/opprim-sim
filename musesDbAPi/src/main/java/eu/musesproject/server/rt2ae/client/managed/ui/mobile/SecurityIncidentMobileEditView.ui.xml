@@ -28,7 +28,14 @@
     
 
     <g:Button ui:field="save">Save</g:Button>
-  <div id="assetsId">
+  
+        
+        
+        
+        
+        
+        
+    <div id="assetsId">
             <div class="{style.label}">Assets Id</div>
             <div class="{style.value}">
                 <g:ValueListBox ui:field="assetsId"/>

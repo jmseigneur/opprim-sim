@@ -32,7 +32,15 @@
     
 
     <g:Button ui:field="delete">Delete</g:Button>
-  <div id="securityIncidentId">
+  
+        
+        
+        
+        
+        
+        
+        
+    <div id="securityIncidentId">
             <div class="{style.label}">Security Incident Id</div>
             <div class="{style.value}" ui:field="securityIncidentId"/>
         </div>

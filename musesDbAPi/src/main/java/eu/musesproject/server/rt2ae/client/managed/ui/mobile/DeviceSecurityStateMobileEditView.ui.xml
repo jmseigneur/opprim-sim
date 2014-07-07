@@ -31,7 +31,17 @@
     
 
     <g:Button ui:field="save">Save</g:Button>
-  <div id="deviceId">
+  
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    <div id="deviceId">
             <div class="{style.label}">Device Id</div>
             <div class="{style.value}">
                 <g:ValueListBox ui:field="deviceId"/>

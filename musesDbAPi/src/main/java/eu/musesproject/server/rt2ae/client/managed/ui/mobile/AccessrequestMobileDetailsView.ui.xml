@@ -38,7 +38,18 @@
     
 
     <g:Button ui:field="delete">Delete</g:Button>
-  <div id="accessrequestId">
+  
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    <div id="accessrequestId">
             <div class="{style.label}">Accessrequest Id</div>
             <div class="{style.value}" ui:field="accessrequestId"/>
         </div>

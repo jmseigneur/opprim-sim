@@ -38,7 +38,18 @@
     
 
     <g:Button ui:field="delete">Delete</g:Button>
-  <div id="deviceSecurityStateId">
+  
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    <div id="deviceSecurityStateId">
             <div class="{style.label}">Device Security State Id</div>
             <div class="{style.value}" ui:field="deviceSecurityStateId"/>
         </div>

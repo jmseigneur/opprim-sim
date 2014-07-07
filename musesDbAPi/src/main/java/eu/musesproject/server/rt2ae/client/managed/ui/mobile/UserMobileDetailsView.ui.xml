@@ -34,7 +34,16 @@
     
 
     <g:Button ui:field="delete">Delete</g:Button>
-  <div id="userId">
+  
+        
+        
+        
+        
+        
+        
+        
+        
+    <div id="userId">
             <div class="{style.label}">User Id</div>
             <div class="{style.value}" ui:field="userId"/>
         </div>
