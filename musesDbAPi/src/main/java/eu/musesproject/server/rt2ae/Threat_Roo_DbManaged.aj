@@ -38,6 +38,9 @@ privileged aspect Threat_Roo_DbManaged {
     @Column(name = "badOutcomeCount")
     private Double Threat.badOutcomeCount;
     
+    @Column(name = "ttl")
+    private Integer Threat.ttl;
+    
     public Set<Accessrequest> Threat.getAccessrequests() {
         return accessrequests;
     }
@@ -92,6 +95,14 @@ privileged aspect Threat_Roo_DbManaged {
     
     public void Threat.setBadOutcomeCount(Double badOutcomeCount) {
         this.badOutcomeCount = badOutcomeCount;
+    }
+    
+    public Integer Threat.getTtl() {
+        return ttl;
+    }
+    
+    public void Threat.setTtl(Integer ttl) {
+        this.ttl = ttl;
     }
     
 }
