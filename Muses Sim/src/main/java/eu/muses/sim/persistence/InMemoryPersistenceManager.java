@@ -199,4 +199,10 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 		this.accessRequests = accessRequests;
 	}
 
+	@Override
+	public void anonymizeAccessReqeuests(List<AccessRequest> accessRequests) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
