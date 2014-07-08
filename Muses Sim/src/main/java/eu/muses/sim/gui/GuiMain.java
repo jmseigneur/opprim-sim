@@ -354,6 +354,15 @@ public class GuiMain {
 		mnScenarios.add(mntmMultiAgentSim);
 		mnScenarios.add(mntmSecurityIncidentOn);
 		mnScenarios.add(mntmDataBreach);
+		
+		JMenuItem mntmPrivacyShield = new JMenuItem("Privacy Shield");
+		mntmPrivacyShield.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JPanel privacyShieldPanel = new PrivacyShieldPanel();
+				switchPanel(privacyShieldPanel);
+			}
+		});
+		mnScenarios.add(mntmPrivacyShield);
 
 		JMenu mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
