@@ -482,10 +482,18 @@ public class DbPersistenceManager extends PersistenceManager {
 			}else{
 				access.setSolved(false);;
 			}
-			TrustValue trustvalue = new TrustValue();
-			trustvalue.setValue(0.5);
-			SimUser user = new SimUser(accessrequests.getUserId().getName(), 0, trustvalue);
-			access.setUser(user);
+			if(accessrequests.getUserId()!=null){
+				TrustValue trustvalue = new TrustValue();
+				trustvalue.setValue(0.5);
+				SimUser user = new SimUser(accessrequests.getUserId().getName(), accessrequests.getUserId().getHourlyCost(), trustvalue);
+				access.setUser(user);
+			}else{
+				TrustValue trustvalue = new TrustValue();
+				trustvalue.setValue(0.0);
+				SimUser user = new SimUser("anonymous", 0, trustvalue);
+				access.setUser(user);
+			}
+			
 			CluesThreatEntry cluesThreatEntry = new CluesThreatEntry();
 			Probability p = new Probability();
 			p.setProb(accessrequests.getThreatid().getProbability());
