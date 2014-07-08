@@ -120,7 +120,8 @@ public class OpportunityPanel extends JPanel {
 					Opportunity op = new Opportunity(textField.getText(),
 							new Probability(0.5), (Outcome) comboBox
 									.getSelectedItem());
-					GuiMain.getPersistenceManager().setOpportunities(new ArrayList<Opportunity>(Arrays.asList(op)));
+					GuiMain.getPersistenceManager().setOpportunities(
+							new ArrayList<Opportunity>(Arrays.asList(op)));
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

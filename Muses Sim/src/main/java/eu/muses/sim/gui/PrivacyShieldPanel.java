@@ -167,7 +167,8 @@ public class PrivacyShieldPanel extends JPanel {
 							.iterator().next().getAssetName(),
 					ar.getUser().getNickname(),
 					ar.getCluesThreatEntry().getThreat().getDescription(),
-					userAction, status, Long.toString(ar.getTime().getTimeInMillis()) });
+					userAction, status,
+					Long.toString(ar.getTime().getTimeInMillis()) });
 		}
 
 		table = new JTable(model);
@@ -232,11 +233,12 @@ public class PrivacyShieldPanel extends JPanel {
 		btnSaveClue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AccessRequest ar = GuiMain.getPersistenceManager()
-				.getAccessRequests().get(modelRow);
-				GuiMain.getPersistenceManager().anonymizeAccessReqeuests(new ArrayList<AccessRequest>(Arrays.asList(ar)));
+						.getAccessRequests().get(modelRow);
+				GuiMain.getPersistenceManager().anonymizeAccessReqeuests(
+						new ArrayList<AccessRequest>(Arrays.asList(ar)));
 				JPanel privacyShieldPanel = new PrivacyShieldPanel();
 				GuiMain.switchPanel(privacyShieldPanel);
-			}		
+			}
 		});
 
 		JButton btnClearAssetFrom = new JButton("Go Back");

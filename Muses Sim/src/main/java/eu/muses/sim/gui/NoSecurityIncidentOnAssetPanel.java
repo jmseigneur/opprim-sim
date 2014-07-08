@@ -108,14 +108,13 @@ public class NoSecurityIncidentOnAssetPanel extends JPanel {
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-					try {
+				try {
 
-						AccessRequest accessRequest = GuiMain
-								.getPersistenceManager()
-								.getAccessRequests()
-								.get(NoSecurityIncidentOnAssetPanel.accessRequest);
-						
-						if(!accessRequest.isSolved()){
+					AccessRequest accessRequest = GuiMain
+							.getPersistenceManager().getAccessRequests()
+							.get(NoSecurityIncidentOnAssetPanel.accessRequest);
+
+					if (!accessRequest.isSolved()) {
 						GuiMain.setUser1(accessRequest.getUser());
 
 						System.out
@@ -124,24 +123,25 @@ public class NoSecurityIncidentOnAssetPanel extends JPanel {
 								.recalculateThreatProbabilitiesWhenNoIncident(
 										accessRequest);
 						accessRequest.setSolved(true);
-						GuiMain.getPersistenceManager()
-								.setAccessRequests(new ArrayList<AccessRequest>(Arrays.asList(accessRequest)));
-						
-						}else{
-							JOptionPane
-							.showConfirmDialog(
-									null,
-									"There was already a security incident reported for this asset access request",
-									"Notice", JOptionPane.OK_CANCEL_OPTION,
-									JOptionPane.INFORMATION_MESSAGE);
-						}
-					} catch (Exception ex) {
-						ex.printStackTrace();
-						JOptionPane.showConfirmDialog(null,
-								"Something went wrong with the simulation",
-								"Error", JOptionPane.OK_CANCEL_OPTION,
-								JOptionPane.ERROR_MESSAGE);
+						GuiMain.getPersistenceManager().setAccessRequests(
+								new ArrayList<AccessRequest>(Arrays
+										.asList(accessRequest)));
+
+					} else {
+						JOptionPane
+								.showConfirmDialog(
+										null,
+										"There was already a security incident reported for this asset access request",
+										"Notice", JOptionPane.OK_CANCEL_OPTION,
+										JOptionPane.INFORMATION_MESSAGE);
 					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane.showConfirmDialog(null,
+							"Something went wrong with the simulation",
+							"Error", JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
 
 			}
 		});

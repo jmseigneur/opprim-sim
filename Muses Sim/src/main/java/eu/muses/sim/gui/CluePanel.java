@@ -98,7 +98,8 @@ public class CluePanel extends JPanel {
 					if (textField.getText().isEmpty())
 						throw new Exception();
 					Clue c = new Clue(textField.getText());
-					GuiMain.getPersistenceManager().setClues(new ArrayList<Clue>(Arrays.asList(c)));
+					GuiMain.getPersistenceManager().setClues(
+							new ArrayList<Clue>(Arrays.asList(c)));
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

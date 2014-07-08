@@ -146,7 +146,8 @@ public class OutcomePanel extends JPanel {
 				try {
 					Outcome o = new Outcome(txtAddAsset.getText(), Double
 							.parseDouble(textField.getText()));
-					GuiMain.getPersistenceManager().setOutcomes(new ArrayList<Outcome>(Arrays.asList(o)));
+					GuiMain.getPersistenceManager().setOutcomes(
+							new ArrayList<Outcome>(Arrays.asList(o)));
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);

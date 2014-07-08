@@ -108,13 +108,12 @@ public class SecurityIncidentOnAssetPanel extends JPanel {
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-					try {
+				try {
 
-						AccessRequest accessRequest = GuiMain
-								.getPersistenceManager()
-								.getAccessRequests()
-								.get(SecurityIncidentOnAssetPanel.accessRequest);
-						if(!accessRequest.isSolved()){
+					AccessRequest accessRequest = GuiMain
+							.getPersistenceManager().getAccessRequests()
+							.get(SecurityIncidentOnAssetPanel.accessRequest);
+					if (!accessRequest.isSolved()) {
 						GuiMain.setUser1(accessRequest.getUser());
 
 						// Much later assuming there is a security incident on
@@ -149,24 +148,25 @@ public class SecurityIncidentOnAssetPanel extends JPanel {
 									.recalculateThreatProbabilitiesWhenIncident(
 											accessRequest);
 							accessRequest.setSolved(true);
-							GuiMain.getPersistenceManager()
-									.setAccessRequests(new ArrayList<AccessRequest>(Arrays.asList(accessRequest)));
+							GuiMain.getPersistenceManager().setAccessRequests(
+									new ArrayList<AccessRequest>(Arrays
+											.asList(accessRequest)));
 						}
-						}else{
-							JOptionPane
-							.showConfirmDialog(
-									null,
-									"There was already a security incident reported for this asset access request",
-									"Notice", JOptionPane.OK_CANCEL_OPTION,
-									JOptionPane.INFORMATION_MESSAGE);
-						}
-					} catch (Exception ex) {
-						ex.printStackTrace();
-						JOptionPane.showConfirmDialog(null,
-								"Something went wrong with the simulation",
-								"Error", JOptionPane.OK_CANCEL_OPTION,
-								JOptionPane.ERROR_MESSAGE);
+					} else {
+						JOptionPane
+								.showConfirmDialog(
+										null,
+										"There was already a security incident reported for this asset access request",
+										"Notice", JOptionPane.OK_CANCEL_OPTION,
+										JOptionPane.INFORMATION_MESSAGE);
 					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					JOptionPane.showConfirmDialog(null,
+							"Something went wrong with the simulation",
+							"Error", JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		GridBagConstraints gbc_btnRunSimulation = new GridBagConstraints();

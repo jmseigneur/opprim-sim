@@ -170,7 +170,8 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 							.iterator().next().getAssetName(),
 					ar.getUser().getNickname(),
 					ar.getCluesThreatEntry().getThreat().getDescription(),
-					userAction, status, Long.toString(ar.getTime().getTimeInMillis()) });
+					userAction, status,
+					Long.toString(ar.getTime().getTimeInMillis()) });
 		}
 
 		table = new JTable(model);
@@ -261,12 +262,12 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 					AccessRequest aR = GuiMain.getPersistenceManager()
 							.getAccessRequests().get(modelRow);
 					aR.setSolved(true);
-					GuiMain.getPersistenceManager().setAccessRequests(new ArrayList<AccessRequest>(Arrays.asList(aR)));
-					Threat entry = GuiMain
-							.getPersistenceManager()
-											.getAccessRequests().get(modelRow)
-											.getCluesThreatEntry().getThreat();
-					//TODO remove the threat
+					GuiMain.getPersistenceManager().setAccessRequests(
+							new ArrayList<AccessRequest>(Arrays.asList(aR)));
+					Threat entry = GuiMain.getPersistenceManager()
+							.getAccessRequests().get(modelRow)
+							.getCluesThreatEntry().getThreat();
+					// TODO remove the threat
 					table.setValueAt("Solved", viewRow, 4);
 					model.fireTableDataChanged();
 				} catch (Exception ex) {
@@ -309,12 +310,12 @@ public class SecurityIncidentSimulationSettingsPanel extends JPanel {
 					AccessRequest aR = GuiMain.getPersistenceManager()
 							.getAccessRequests().get(modelRow);
 					aR.setSolved(true);
-					GuiMain.getPersistenceManager().setAccessRequests(new ArrayList<AccessRequest>(Arrays.asList(aR)));
-					Threat entry = GuiMain
-							.getPersistenceManager()
-											.getAccessRequests().get(modelRow)
-											.getCluesThreatEntry().getThreat();
-					//TODO remove the threat
+					GuiMain.getPersistenceManager().setAccessRequests(
+							new ArrayList<AccessRequest>(Arrays.asList(aR)));
+					Threat entry = GuiMain.getPersistenceManager()
+							.getAccessRequests().get(modelRow)
+							.getCluesThreatEntry().getThreat();
+					// TODO remove the threat
 					table.setValueAt("Solved", viewRow, 4);
 					model.fireTableDataChanged();
 				} catch (Exception ex) {
