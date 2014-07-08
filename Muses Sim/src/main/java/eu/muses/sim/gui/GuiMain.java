@@ -27,8 +27,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import org.apache.http.impl.conn.InMemoryDnsResolver;
+
 import eu.muses.sim.RealTimeRiskTrustAnalysisEngine;
 import eu.muses.sim.corporate.Corporation;
+import eu.muses.sim.persistence.InMemoryPersistenceManager;
 import eu.muses.sim.persistence.PersistenceManager;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.PersonalUserDevice;
@@ -108,7 +111,8 @@ public class GuiMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					persistenceManager = new DbPersistenceManager();
+					// persistenceManager = new DbPersistenceManager();
+					persistenceManager = new InMemoryPersistenceManager();
 					GuiMain window = new GuiMain();
 					window.frmMusesRtae.setVisible(true);
 				} catch (Exception e) {
@@ -125,16 +129,17 @@ public class GuiMain {
 
 		userCso.setTrustValue(new TrustValue(0.5));
 		GuiMain.s2.setCso(GuiMain.userCso);
-		/*persistenceManager.setClues(new ArrayList<Clue>(Arrays.asList(
-				Clue.antivirusClue, Clue.firewallClue, Clue.vpnClue)));
-		persistenceManager.setAssets(new ArrayList<Asset>(Arrays.asList(
-				new Asset("Important File", 1000), new Asset("Irrelevant File",
-						0))));
-		persistenceManager.setRiskPolicies(new ArrayList<RiskPolicy>(Arrays
-				.asList(RiskPolicy.TAKE_FULL_RISK, RiskPolicy.TAKE_MEDIUM_RISK,
-						RiskPolicy.TAKE_NO_RISK)));
-		persistenceManager.setSimUsers(new ArrayList<SimUser>(Arrays
-				.asList(new SimUser("TestUser", 120, new TrustValue(0.5)))));*/
+		/*
+		 * persistenceManager.setClues(new ArrayList<Clue>(Arrays.asList(
+		 * Clue.antivirusClue, Clue.firewallClue, Clue.vpnClue)));
+		 * persistenceManager.setAssets(new ArrayList<Asset>(Arrays.asList( new
+		 * Asset("Important File", 1000), new Asset("Irrelevant File", 0))));
+		 * persistenceManager.setRiskPolicies(new ArrayList<RiskPolicy>(Arrays
+		 * .asList(RiskPolicy.TAKE_FULL_RISK, RiskPolicy.TAKE_MEDIUM_RISK,
+		 * RiskPolicy.TAKE_NO_RISK))); persistenceManager.setSimUsers(new
+		 * ArrayList<SimUser>(Arrays .asList(new SimUser("TestUser", 120, new
+		 * TrustValue(0.5)))));
+		 */
 
 		GuiMain.musesUsersDevicesAndAssetsConfigurationsSteps();
 		/*
@@ -354,7 +359,7 @@ public class GuiMain {
 		mnScenarios.add(mntmMultiAgentSim);
 		mnScenarios.add(mntmSecurityIncidentOn);
 		mnScenarios.add(mntmDataBreach);
-		
+
 		JMenuItem mntmPrivacyShield = new JMenuItem("Privacy Shield");
 		mntmPrivacyShield.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

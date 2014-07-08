@@ -80,8 +80,7 @@ public class CluesandThreatsPanel extends JPanel {
 		model.addColumn("Threat");
 		model.addColumn("Probability");
 		for (Threat entry : threats) {
-			model.addRow(new String[] {
-					entry.getDescription(),
+			model.addRow(new String[] { entry.getDescription(),
 					String.valueOf(entry.getProbability().getProb()) });
 		}
 

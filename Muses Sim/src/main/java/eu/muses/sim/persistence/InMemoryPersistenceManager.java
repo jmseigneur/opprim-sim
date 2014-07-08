@@ -38,7 +38,7 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 
 	/** The clues threat table. */
 	private CluesThreatTable cluesThreatTable = new CluesThreatTable();
-	
+
 	/** The access requests */
 	private List<AccessRequest> accessRequests = new ArrayList<AccessRequest>();
 
@@ -60,7 +60,10 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	 *            the outcomes to set
 	 */
 	public void setOutcomes(List<Outcome> outcomes) {
-		this.outcomes = outcomes;
+		for (Outcome outcome : outcomes) {
+			this.outcomes.add(outcome);
+		}
+
 	}
 
 	@Override
@@ -77,7 +80,10 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	 *            the opportunities to set
 	 */
 	public void setOpportunities(List<Opportunity> opportunities) {
-		this.opportunities = opportunities;
+		for (Opportunity opportunity : opportunities) {
+			this.opportunities.add(opportunity);
+		}
+
 	}
 
 	@Override
@@ -94,7 +100,10 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	 *            the assets to set
 	 */
 	public void setAssets(List<Asset> assets) {
-		this.assets = assets;
+		for (Asset asset : assets) {
+			this.assets.add(asset);
+		}
+
 	}
 
 	@Override
@@ -111,7 +120,10 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	 *            the threats to set
 	 */
 	public void setThreats(List<Threat> threats) {
-		this.threats = threats;
+		for (Threat threat : threats) {
+			this.threats.add(threat);
+		}
+
 	}
 
 	@Override
@@ -128,7 +140,10 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	 *            the clues to set
 	 */
 	public void setClues(List<Clue> clues) {
-		this.clues = clues;
+		for (Clue clue : clues) {
+			this.clues.add(clue);
+		}
+
 	}
 
 	@Override
@@ -145,7 +160,10 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	 *            the riskPolicies to set
 	 */
 	public void setRiskPolicies(List<RiskPolicy> riskPolicies) {
-		this.riskPolicies = riskPolicies;
+		for (RiskPolicy riskPolicy : riskPolicies) {
+			this.riskPolicies.add(riskPolicy);
+		}
+
 	}
 
 	@Override
@@ -162,7 +180,10 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	 *            the simUsers to set
 	 */
 	public void setSimUsers(List<SimUser> simUsers) {
-		this.simUsers = simUsers;
+		for (SimUser simUser : simUsers) {
+			this.simUsers.add(simUser);
+		}
+
 	}
 
 	@Override
@@ -186,7 +207,7 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	/**
 	 * @return the accessRequests
 	 */
-	public List<AccessRequest> getAccessRequests(){
+	public List<AccessRequest> getAccessRequests() {
 		return accessRequests;
 	}
 
@@ -195,14 +216,17 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	 * @param accessRequests
 	 *            the accessRequests to set
 	 */
-	public void setAccessRequests(List<AccessRequest> accessRequests){
-		this.accessRequests = accessRequests;
+	public void setAccessRequests(List<AccessRequest> accessRequests) {
+		for (AccessRequest accessRequest : accessRequests) {
+			this.accessRequests.add(accessRequest);
+		}
+
 	}
 
 	@Override
 	public void anonymizeAccessReqeuests(List<AccessRequest> accessRequests) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
