@@ -344,7 +344,7 @@ public class DbPersistenceManager extends PersistenceManager {
 			eu.musesproject.server.rt2ae.Threat threat_temp = i.next();
 			
 			List<Clue> list = new ArrayList<Clue>();
-			Iterator<eu.musesproject.server.rt2ae.Clue> it = threat_temp.getClues().iterator();
+			/*Iterator<eu.musesproject.server.rt2ae.Clue> it = threat_temp.getClues().iterator();
 			while(it.hasNext()){
 				eu.musesproject.server.rt2ae.Clue clue = new eu.musesproject.server.rt2ae.Clue();
 				clue = it.next();
@@ -352,9 +352,9 @@ public class DbPersistenceManager extends PersistenceManager {
 				c.setId(clue.getValue());
 				
 				list.add(c);
-			}
-			CluesThreatEntry e = new CluesThreatEntry();
-			e.setClues(list);
+			}*/
+			CluesThreatEntry cluesthreatentry = new CluesThreatEntry();
+			//cluesthreatentry.setClues(list);
 			Probability p = new Probability();
 			p.setProb(threat_temp.getProbability());
 			
@@ -369,7 +369,7 @@ public class DbPersistenceManager extends PersistenceManager {
 				listoutcome.add(o);
 			}
 			Threat t = new Threat(threat_temp.getDescription(), p, listoutcome);
-			e.setThreat(t);
+			cluesthreatentry.setThreat(t);
 			cluethreattable.addMapping(list, t);
 		}
 		return cluethreattable;
@@ -536,9 +536,7 @@ public class DbPersistenceManager extends PersistenceManager {
 	 */
 	@Override
 	public void anonymizeAccessReqeuests(List<AccessRequest> accessRequests) {
-		
-		Set<eu.musesproject.server.rt2ae.Asset> listasset = new HashSet<eu.musesproject.server.rt2ae.Asset>();
-		
+				
 		Iterator<AccessRequest> i = accessRequests.iterator();
 		while(i.hasNext()){
 			AccessRequest accessrequest = i.next();
