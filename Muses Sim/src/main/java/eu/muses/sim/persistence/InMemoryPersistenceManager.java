@@ -120,8 +120,28 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	 *            the threats to set
 	 */
 	public void setThreats(List<Threat> threats) {
+		int x = -1;
 		for (Threat threat : threats) {
-			this.threats.add(threat);
+			if (this.threats.size() > 0) {
+				for (int i = 0; i < this.threats.size(); i++) {
+					if (this.threats.get(i)
+							.getDescription()
+							.equals(threat.getDescription())) {
+						x = i;
+					} else {
+						x = -1;
+					}
+				}
+				
+				if (x != -1){
+					this.threats.set(x, threat);
+				}else{
+					this.threats.add(threat);
+				}
+				
+			} else {
+				this.threats.add(threat);
+			}
 		}
 
 	}
@@ -217,10 +237,46 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	 *            the accessRequests to set
 	 */
 	public void setAccessRequests(List<AccessRequest> accessRequests) {
+		int x = -1;
+		try{
+			System.out.println("We have entered in setAccessRequest");
 		for (AccessRequest accessRequest : accessRequests) {
-			this.accessRequests.add(accessRequest);
+			System.out.println("We have entered in loop setAccessRequest: " + this.accessRequests.size());
+			if (this.accessRequests.size() > 0) {
+				for (int i = 0; i < this.accessRequests.size(); i++) {
+					if (this.accessRequests.get(i)
+							.getCluesThreatEntry()
+							.getThreat()
+							.getDescription()
+							.equals(accessRequest.getCluesThreatEntry()
+									.getThreat().getDescription())
+							&& this.accessRequests.get(i).getTime().getTimeInMillis() == accessRequest.getTime().getTimeInMillis()
+									) {
+						System.out.println("We are replacing the AccessRequest " + i + " with threat desc " + this.accessRequests.get(i)
+								.getCluesThreatEntry()
+								.getThreat()
+								.getDescription() + " - " + accessRequest.getCluesThreatEntry()
+								.getThreat().getDescription() + " and time " + this.accessRequests.get(i).getTime().getTimeInMillis() + " - " + accessRequest.getTime().getTimeInMillis());
+						x = i;
+					} else {
+						x = -1;
+					}
+				}
+				
+				if(x != -1){
+					this.accessRequests.set(x, accessRequest);
+				}else{
+					this.accessRequests.add(accessRequest);
+				}
+				
+			} else {
+				System.out.println("2");
+				this.accessRequests.add(accessRequest);
+			}
 		}
-
+		}catch (Exception ex){
+			ex.printStackTrace();
+		}
 	}
 
 	@Override

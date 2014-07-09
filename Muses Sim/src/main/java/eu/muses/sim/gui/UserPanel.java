@@ -33,6 +33,8 @@ import eu.muses.sim.trustman.TrustValue;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -137,10 +139,7 @@ public class UserPanel extends JPanel {
 							.parseDouble(textField_1.getText()),
 							new TrustValue(Double.parseDouble(textField
 									.getText())));
-					List<SimUser> uList = GuiMain.getPersistenceManager()
-							.getSimUsers();
-					uList.add(u);
-					GuiMain.getPersistenceManager().setSimUsers(uList);
+					GuiMain.getPersistenceManager().setSimUsers(new ArrayList<SimUser>(Arrays.asList(u)));
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);
@@ -163,6 +162,7 @@ public class UserPanel extends JPanel {
 							"Wrong Input", JOptionPane.OK_CANCEL_OPTION,
 							JOptionPane.ERROR_MESSAGE);
 				} catch (Exception ex) {
+					ex.printStackTrace();
 					JOptionPane.showConfirmDialog(null,
 							"Incorrect input, check all input fields",
 							"Wrong Input", JOptionPane.OK_CANCEL_OPTION,

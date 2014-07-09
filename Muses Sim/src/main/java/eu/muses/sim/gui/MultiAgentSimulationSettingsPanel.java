@@ -36,6 +36,7 @@ import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.test.SimUser;
 import eu.muses.sim.trustman.TrustValue;
 import eu.muses.sim.userman.action.AccessAction;
+import eu.muses.sim.userman.action.GiveUpAction;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -210,6 +211,24 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		gbc_chckbxNewCheckBox.gridy = 5;
 		add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
 
+		final JCheckBox chckbxUseOpportunities = new JCheckBox(
+				"Use opportunities");
+		GridBagConstraints gbc_chckbxUseOpportunities = new GridBagConstraints();
+		gbc_chckbxUseOpportunities.anchor = GridBagConstraints.WEST;
+		gbc_chckbxUseOpportunities.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxUseOpportunities.gridx = 4;
+		gbc_chckbxUseOpportunities.gridy = 5;
+		add(chckbxUseOpportunities, gbc_chckbxUseOpportunities);
+
+		final JCheckBox chckbxUseRiskTreatment = new JCheckBox(
+				"Use risk treatment");
+		GridBagConstraints gbc_chckbxUseRiskTreatment = new GridBagConstraints();
+		gbc_chckbxUseRiskTreatment.anchor = GridBagConstraints.WEST;
+		gbc_chckbxUseRiskTreatment.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxUseRiskTreatment.gridx = 5;
+		gbc_chckbxUseRiskTreatment.gridy = 5;
+		add(chckbxUseRiskTreatment, gbc_chckbxUseRiskTreatment);
+
 		JLabel lblFixedValue = new JLabel("Fixed value [0...1]");
 		lblFixedValue.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GridBagConstraints gbc_lblFixedValue = new GridBagConstraints();
@@ -218,7 +237,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		gbc_lblFixedValue.gridy = 6;
 		add(lblFixedValue, gbc_lblFixedValue);
 
-		JCheckBox chckbxRandomTrustValues = new JCheckBox("Random trust values");
+		final JCheckBox chckbxRandomTrustValues = new JCheckBox("Random trust values");
 		GridBagConstraints gbc_chckbxRandomTrustValues = new GridBagConstraints();
 		gbc_chckbxRandomTrustValues.fill = GridBagConstraints.HORIZONTAL;
 		gbc_chckbxRandomTrustValues.insets = new Insets(0, 0, 5, 5);
@@ -279,7 +298,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		gbc_label_3.gridy = 8;
 		add(label_3, gbc_label_3);
 
-		JSlider slider = new JSlider();
+		final JSlider slider = new JSlider();
 		slider.setValue(0);
 		slider.setMajorTickSpacing(10);
 		slider.setMinorTickSpacing(5);
@@ -301,7 +320,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 			}
 		});
 
-		JSlider slider_3 = new JSlider();
+		final JSlider slider_3 = new JSlider();
 		slider_3.setValue(0);
 		slider_3.setMajorTickSpacing(10);
 		slider_3.setMinorTickSpacing(5);
@@ -323,7 +342,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 			}
 		});
 
-		JCheckBox chckbxRandomRiskPolicy = new JCheckBox(
+		final JCheckBox chckbxRandomRiskPolicy = new JCheckBox(
 				"Random risk policy for each user");
 		GridBagConstraints gbc_chckbxRandomRiskPolicy = new GridBagConstraints();
 		gbc_chckbxRandomRiskPolicy.fill = GridBagConstraints.HORIZONTAL;
@@ -340,7 +359,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		gbc_lblOr_1.gridy = 10;
 		add(lblOr_1, gbc_lblOr_1);
 
-		JComboBox<RiskPolicy> comboBox = new JComboBox<RiskPolicy>();
+		final JComboBox<RiskPolicy> comboBox = new JComboBox<RiskPolicy>();
 		if (!GuiMain.getPersistenceManager().getRiskPolicies().isEmpty()) {
 			for (RiskPolicy rp : GuiMain.getPersistenceManager()
 					.getRiskPolicies()) {
@@ -384,7 +403,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		gbc_label_4.gridy = 11;
 		add(label_4, gbc_label_4);
 
-		JSlider slider_4 = new JSlider();
+		final JSlider slider_4 = new JSlider();
 		slider_4.setMajorTickSpacing(10);
 		slider_4.setMinorTickSpacing(5);
 		slider_4.setValue(0);
@@ -410,12 +429,31 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		btnStartSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-
+					int userBehaviourLeft = slider_1.getValue()*slider.getValue();
+					int userGiveUpLeft = slider_1.getValue()*slider_3.getValue();
 					Random r = new Random(1983);
 					for (int i = 0; i < slider_1.getValue(); i++) {
+						if(chckbxRandomTrustValues.isSelected()){
 						SimUser u = new SimUser("User" + i,
-								r.nextDouble() * 1000, new TrustValue(0.5));
+								r.nextDouble() * 1000, new TrustValue(r.nextDouble()));
+						if(userBehaviourLeft > 0){
+							u.setBehaviour(0);
+							userBehaviourLeft--;
+						}else{
+							u.setBehaviour(100);
+						}
 						GuiMain.getPersistenceManager().getSimUsers().add(u);
+						}else{
+							SimUser u = new SimUser("User" + i,
+									r.nextDouble() * 1000, new TrustValue(Double.valueOf(textField_1.getText())));
+							if(userBehaviourLeft > 0){
+								u.setBehaviour(0);
+								userBehaviourLeft--;
+							}else{
+								u.setBehaviour(100);
+							}
+							GuiMain.getPersistenceManager().getSimUsers().add(u);
+						}
 					}
 					for (int j = 0; j < slider_2.getValue(); j++) {
 						Asset a = new Asset("Asset" + j,
@@ -428,25 +466,44 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 							AccessRequest ar = new AccessRequest(GuiMain
 									.getMaterialForPatentProposal());
 							OpportunityDescriptor opportunityDescriptor = new OpportunityDescriptor();
-							opportunityDescriptor
-									.setDescription("If user works the company will not lose "
-											+ GuiMain.getPersistenceManager()
-													.getSimUsers().get(l)
-													.getHourlyCost());
-							opportunityDescriptor.addOutcome(new Outcome(
-									"If user works the company will not lose "
-											+ GuiMain.getPersistenceManager()
-													.getSimUsers().get(l)
-													.getHourlyCost(), GuiMain
-											.getPersistenceManager()
-											.getSimUsers().get(l)
-											.getHourlyCost()));
-							opportunityDescriptor.addRequestedAsset(GuiMain
-									.getPersistenceManager()
-									.getAssets()
-									.get(r.nextInt(GuiMain
-											.getPersistenceManager()
-											.getAssets().size())));
+							if (chckbxUseOpportunities.isSelected()) {
+								opportunityDescriptor
+										.setDescription("If user works the company will not lose "
+												+ GuiMain
+														.getPersistenceManager()
+														.getSimUsers().get(l)
+														.getHourlyCost());
+								opportunityDescriptor
+										.addOutcome(new Outcome(
+												"If user works the company will not lose "
+														+ GuiMain
+																.getPersistenceManager()
+																.getSimUsers()
+																.get(l)
+																.getHourlyCost(),
+												GuiMain.getPersistenceManager()
+														.getSimUsers().get(l)
+														.getHourlyCost()));
+								opportunityDescriptor.addRequestedAsset(GuiMain
+										.getPersistenceManager()
+										.getAssets()
+										.get(r.nextInt(GuiMain
+												.getPersistenceManager()
+												.getAssets().size())));
+							} else {
+								opportunityDescriptor
+										.setDescription("There is no opportunity descriptor asociated with this request");
+								opportunityDescriptor
+										.addOutcome(new Outcome(
+												"There is no opportunity descriptor asociated with this request",
+												0.0));
+								opportunityDescriptor.addRequestedAsset(GuiMain
+										.getPersistenceManager()
+										.getAssets()
+										.get(r.nextInt(GuiMain
+												.getPersistenceManager()
+												.getAssets().size())));
+							}
 							ar.setOpportunityDescriptor(opportunityDescriptor);
 							GuiMain.getPersistenceManager().getSimUsers()
 									.get(l).setBehaviour(100);
@@ -458,7 +515,12 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 							 */
 							ar.setUser(GuiMain.getPersistenceManager()
 									.getSimUsers().get(l));
+							if(userGiveUpLeft > 0){
+								ar.setUserAction(new GiveUpAction());
+								userGiveUpLeft--;
+							}else{
 							ar.setUserAction(new AccessAction());
+							}
 							GuiMain.getArList().add(ar);
 						}
 
@@ -467,8 +529,15 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 							.println("The number of total access requests  is: "
 									+ GuiMain.getPersistenceManager()
 											.getAccessRequests().size());
-					MultiAgentSimulationPanel simPanel = new MultiAgentSimulationPanel();
+					if (chckbxRandomRiskPolicy.isSelected()){
+					MultiAgentSimulationPanel simPanel = new MultiAgentSimulationPanel(true, slider_4.getValue());
 					GuiMain.switchPanel(simPanel);
+					}else{
+						GuiMain.getS2Rt2ae().setRiskPolicy(
+								(RiskPolicy) comboBox.getSelectedItem());
+						MultiAgentSimulationPanel simPanel = new MultiAgentSimulationPanel(false, slider_4.getValue());
+						GuiMain.switchPanel(simPanel);	
+					}
 				} catch (Exception ex) {
 					JOptionPane.showConfirmDialog(null,
 							"Check that all the parameters are correct.",

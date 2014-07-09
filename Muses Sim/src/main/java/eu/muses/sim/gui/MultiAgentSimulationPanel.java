@@ -31,10 +31,14 @@ import eu.muses.sim.OpportunityDescriptor;
 import eu.muses.sim.decision.CorporateUserAccessRequestDecision;
 import eu.muses.sim.decision.Decision;
 import eu.muses.sim.request.AccessRequest;
+import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.RiskTreatment;
+import eu.muses.sim.riskman.RiskValue;
 import eu.muses.sim.riskman.asset.Asset;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Random;
 
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
@@ -49,7 +53,7 @@ public class MultiAgentSimulationPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MultiAgentSimulationPanel() {
+	public MultiAgentSimulationPanel(final boolean randomPolicy, final int attackLikelyhood) {
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -117,8 +121,12 @@ public class MultiAgentSimulationPanel extends JPanel {
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-
+					Random r = new Random(1983);
 					for (int i = 0; i < GuiMain.getArList().size(); i++) {
+						if(randomPolicy){
+							RiskPolicy rP = new RiskPolicy(new RiskValue(r.nextDouble(), "Policy"+i), null);
+							GuiMain.getS2Rt2ae().setRiskPolicy(rP);
+						}
 						GuiMain.setSimAmount(GuiMain.getSimAmount() + 1);
 						AccessRequest accessRequest = GuiMain.getArList()
 								.get(i);
