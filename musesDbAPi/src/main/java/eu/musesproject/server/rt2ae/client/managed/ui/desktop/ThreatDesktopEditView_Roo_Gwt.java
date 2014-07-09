@@ -62,6 +62,9 @@ public abstract class ThreatDesktopEditView_Roo_Gwt extends Composite implements
     @UiField
     DoubleBox badOutcomeCount;
 
+    @UiField
+    IntegerBox ttl;
+
     public void setAccessrequestsPickerValues(Collection<AccessrequestProxy> values) {
         accessrequests.setAcceptableValues(values);
     }

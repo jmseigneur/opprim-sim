@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import eu.musesproject.server.rt2ae.client.managed.ui.AssetDetailsView;
+import eu.musesproject.server.rt2ae.client.managed.ui.editor.AccessrequestSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.RiskinformationSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.SecurityIncidentSetEditor;
 import eu.musesproject.server.rt2ae.client.proxy.AccessrequestProxy;
@@ -30,13 +31,13 @@ public abstract class AssetMobileDetailsView_Roo_Gwt extends Composite implement
     Element assetId;
 
     @UiField
+    Element accessrequests;
+
+    @UiField
     Element riskinformations;
 
     @UiField
     Element securityIncidents;
-
-    @UiField
-    Element accessrequestId;
 
     @UiField
     Element opportunityid;
@@ -61,9 +62,9 @@ public abstract class AssetMobileDetailsView_Roo_Gwt extends Composite implement
     public void setValue(AssetProxy proxy) {
         this.proxy = proxy;
         assetId.setInnerText(proxy.getAssetId() == null ? "" : String.valueOf(proxy.getAssetId()));
+        accessrequests.setInnerText(proxy.getAccessrequests() == null ? "" : eu.musesproject.server.rt2ae.client.scaffold.place.CollectionRenderer.of(eu.musesproject.server.rt2ae.client.managed.ui.renderer.AccessrequestProxyRenderer.instance()).render(proxy.getAccessrequests()));
         riskinformations.setInnerText(proxy.getRiskinformations() == null ? "" : eu.musesproject.server.rt2ae.client.scaffold.place.CollectionRenderer.of(eu.musesproject.server.rt2ae.client.managed.ui.renderer.RiskinformationProxyRenderer.instance()).render(proxy.getRiskinformations()));
         securityIncidents.setInnerText(proxy.getSecurityIncidents() == null ? "" : eu.musesproject.server.rt2ae.client.scaffold.place.CollectionRenderer.of(eu.musesproject.server.rt2ae.client.managed.ui.renderer.SecurityIncidentProxyRenderer.instance()).render(proxy.getSecurityIncidents()));
-        accessrequestId.setInnerText(proxy.getAccessrequestId() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.AccessrequestProxyRenderer.instance().render(proxy.getAccessrequestId()));
         opportunityid.setInnerText(proxy.getOpportunityid() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.OpportunityProxyRenderer.instance().render(proxy.getOpportunityid()));
         assetName.setInnerText(proxy.getAssetName() == null ? "" : String.valueOf(proxy.getAssetName()));
         description.setInnerText(proxy.getDescription() == null ? "" : String.valueOf(proxy.getDescription()));

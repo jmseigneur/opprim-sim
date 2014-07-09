@@ -153,5 +153,20 @@ public abstract class UserDesktopListView_Roo_Gwt extends AbstractProxyListView<
                 return renderer.render(object.getHourlyCost());
             }
         }, "Hourly Cost");
+        paths.add("ttl");
+        table.addColumn(new TextColumn<UserProxy>() {
+
+            Renderer<java.lang.Integer> renderer = new AbstractRenderer<java.lang.Integer>() {
+
+                public String render(java.lang.Integer obj) {
+                    return obj == null ? "" : String.valueOf(obj);
+                }
+            };
+
+            @Override
+            public String getValue(UserProxy object) {
+                return renderer.render(object.getTtl());
+            }
+        }, "Ttl");
     }
 }

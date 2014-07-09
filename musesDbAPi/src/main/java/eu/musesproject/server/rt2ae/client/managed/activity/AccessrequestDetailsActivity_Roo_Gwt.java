@@ -13,7 +13,6 @@ import com.google.web.bindery.requestfactory.shared.Request;
 import eu.musesproject.server.rt2ae.client.managed.request.ApplicationRequestFactory;
 import eu.musesproject.server.rt2ae.client.managed.ui.AccessrequestDetailsView;
 import eu.musesproject.server.rt2ae.client.managed.ui.AccessrequestDetailsView.Delegate;
-import eu.musesproject.server.rt2ae.client.managed.ui.editor.AssetSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.RiskinformationSetEditor;
 import eu.musesproject.server.rt2ae.client.proxy.AccessrequestProxy;
 import eu.musesproject.server.rt2ae.client.proxy.AssetProxy;
@@ -60,6 +59,6 @@ public abstract class AccessrequestDetailsActivity_Roo_Gwt extends AbstractActiv
     }
 
     protected void find(Receiver<EntityProxy> callback) {
-        requests.find(proxyId).with("assets", "riskinformations", "opportunityId", "deviceId", "userId", "riskcommunicationid", "threatid", "useractionId").fire(callback);
+        requests.find(proxyId).with("riskinformations", "assetId", "opportunityId", "deviceId", "userId", "riskcommunicationid", "threatid", "useractionId").fire(callback);
     }
 }

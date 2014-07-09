@@ -63,6 +63,24 @@
             
             
             
+        
+            
+            
+            
+            
+            
+            
+            
+            
+        
+            
+            
+            
+            
+            
+            
+            
+            
         <tr id="userId">
                 <td>
                     <span class="{style.label}">User Id:</span>
@@ -133,6 +151,14 @@
                 </td>
                 <td>
                     <span ui:field="hourlyCost"/>
+                </td>
+            </tr>
+            <tr id="ttl">
+                <td>
+                    <span class="{style.label}">Ttl:</span>
+                </td>
+                <td>
+                    <span ui:field="ttl"/>
                 </td>
             </tr>
         </table>

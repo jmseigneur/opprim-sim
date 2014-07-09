@@ -7,7 +7,6 @@ import com.google.gwt.view.client.Range;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.Request;
 import eu.musesproject.server.rt2ae.client.managed.request.ApplicationRequestFactory;
-import eu.musesproject.server.rt2ae.client.managed.ui.editor.AssetSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.RiskinformationSetEditor;
 import eu.musesproject.server.rt2ae.client.proxy.AccessrequestProxy;
 import eu.musesproject.server.rt2ae.client.proxy.AssetProxy;

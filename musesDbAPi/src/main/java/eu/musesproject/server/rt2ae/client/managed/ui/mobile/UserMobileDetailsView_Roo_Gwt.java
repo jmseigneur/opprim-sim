@@ -53,6 +53,9 @@ public abstract class UserMobileDetailsView_Roo_Gwt extends Composite implements
     @UiField
     Element hourlyCost;
 
+    @UiField
+    Element ttl;
+
     UserProxy proxy;
 
     public void setValue(UserProxy proxy) {
@@ -66,5 +69,6 @@ public abstract class UserMobileDetailsView_Roo_Gwt extends Composite implements
         email.setInnerText(proxy.getEmail() == null ? "" : String.valueOf(proxy.getEmail()));
         trustvalue.setInnerText(proxy.getTrustvalue() == null ? "" : String.valueOf(proxy.getTrustvalue()));
         hourlyCost.setInnerText(proxy.getHourlyCost() == null ? "" : String.valueOf(proxy.getHourlyCost()));
+        ttl.setInnerText(proxy.getTtl() == null ? "" : String.valueOf(proxy.getTtl()));
     }
 }

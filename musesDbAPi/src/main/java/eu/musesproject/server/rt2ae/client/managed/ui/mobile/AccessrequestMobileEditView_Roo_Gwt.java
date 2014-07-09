@@ -28,7 +28,6 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
 import eu.musesproject.server.rt2ae.client.managed.activity.AccessrequestEditActivityWrapper;
 import eu.musesproject.server.rt2ae.client.managed.activity.AccessrequestEditActivityWrapper.View;
 import eu.musesproject.server.rt2ae.client.managed.ui.AccessrequestEditView;
-import eu.musesproject.server.rt2ae.client.managed.ui.editor.AssetSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.RiskinformationSetEditor;
 import eu.musesproject.server.rt2ae.client.proxy.AccessrequestProxy;
 import eu.musesproject.server.rt2ae.client.proxy.AssetProxy;
@@ -48,10 +47,10 @@ import java.util.Set;
 public abstract class AccessrequestMobileEditView_Roo_Gwt extends Composite implements View<AccessrequestMobileEditView> {
 
     @UiField
-    AssetSetEditor assets;
-
-    @UiField
     RiskinformationSetEditor riskinformations;
+
+    @UiField(provided = true)
+    ValueListBox<AssetProxy> assetId = new ValueListBox<AssetProxy>(eu.musesproject.server.rt2ae.client.managed.ui.renderer.AssetProxyRenderer.instance(), new com.google.web.bindery.requestfactory.gwt.ui.client.EntityProxyKeyProvider<eu.musesproject.server.rt2ae.client.proxy.AssetProxy>());
 
     @UiField(provided = true)
     ValueListBox<OpportunityProxy> opportunityId = new ValueListBox<OpportunityProxy>(eu.musesproject.server.rt2ae.client.managed.ui.renderer.OpportunityProxyRenderer.instance(), new com.google.web.bindery.requestfactory.gwt.ui.client.EntityProxyKeyProvider<eu.musesproject.server.rt2ae.client.proxy.OpportunityProxy>());
@@ -75,7 +74,11 @@ public abstract class AccessrequestMobileEditView_Roo_Gwt extends Composite impl
     ShortBox solved;
 
     @UiField
-    IntegerBox riskcommunicationId;
+    IntegerBox ttl;
+
+    public void setAssetIdPickerValues(Collection<AssetProxy> values) {
+        assetId.setAcceptableValues(values);
+    }
 
     public void setOpportunityIdPickerValues(Collection<OpportunityProxy> values) {
         opportunityId.setAcceptableValues(values);
@@ -83,10 +86,6 @@ public abstract class AccessrequestMobileEditView_Roo_Gwt extends Composite impl
 
     public void setUseractionIdPickerValues(Collection<UserActionProxy> values) {
         useractionId.setAcceptableValues(values);
-    }
-
-    public void setAssetsPickerValues(Collection<AssetProxy> values) {
-        assets.setAcceptableValues(values);
     }
 
     public void setRiskcommunicationidPickerValues(Collection<RiskcommunicationProxy> values) {

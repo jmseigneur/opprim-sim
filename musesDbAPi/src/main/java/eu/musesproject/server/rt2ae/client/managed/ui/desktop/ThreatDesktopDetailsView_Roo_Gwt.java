@@ -51,6 +51,9 @@ public abstract class ThreatDesktopDetailsView_Roo_Gwt extends Composite impleme
     @UiField
     SpanElement badOutcomeCount;
 
+    @UiField
+    SpanElement ttl;
+
     ThreatProxy proxy;
 
     @UiField
@@ -66,6 +69,7 @@ public abstract class ThreatDesktopDetailsView_Roo_Gwt extends Composite impleme
         probability.setInnerText(proxy.getProbability() == null ? "" : String.valueOf(proxy.getProbability()));
         occurences.setInnerText(proxy.getOccurences() == null ? "" : String.valueOf(proxy.getOccurences()));
         badOutcomeCount.setInnerText(proxy.getBadOutcomeCount() == null ? "" : String.valueOf(proxy.getBadOutcomeCount()));
+        ttl.setInnerText(proxy.getTtl() == null ? "" : String.valueOf(proxy.getTtl()));
         displayRenderer.setInnerText(eu.musesproject.server.rt2ae.client.managed.ui.renderer.ThreatProxyRenderer.instance().render(proxy));
     }
 }

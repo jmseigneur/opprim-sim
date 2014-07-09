@@ -39,4 +39,8 @@ public interface ThreatProxy extends EntityProxy {
     abstract Double getBadOutcomeCount();
 
     abstract void setBadOutcomeCount(Double badOutcomeCount);
+
+    abstract Integer getTtl();
+
+    abstract void setTtl(Integer ttl);
 }

@@ -69,6 +69,27 @@
             
             
             
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
         <tr id="accessrequestId">
                 <td>
                     <span class="{style.label}">Accessrequest Id:</span>
@@ -77,20 +98,20 @@
                     <span ui:field="accessrequestId"/>
                 </td>
             </tr>
-            <tr id="assets">
-                <td>
-                    <span class="{style.label}">Assets:</span>
-                </td>
-                <td>
-                    <span ui:field="assets"/>
-                </td>
-            </tr>
             <tr id="riskinformations">
                 <td>
                     <span class="{style.label}">Riskinformations:</span>
                 </td>
                 <td>
                     <span ui:field="riskinformations"/>
+                </td>
+            </tr>
+            <tr id="assetId">
+                <td>
+                    <span class="{style.label}">Asset Id:</span>
+                </td>
+                <td>
+                    <span ui:field="assetId"/>
                 </td>
             </tr>
             <tr id="opportunityId">
@@ -149,12 +170,12 @@
                     <span ui:field="solved"/>
                 </td>
             </tr>
-            <tr id="riskcommunicationId">
+            <tr id="ttl">
                 <td>
-                    <span class="{style.label}">Riskcommunication Id:</span>
+                    <span class="{style.label}">Ttl:</span>
                 </td>
                 <td>
-                    <span ui:field="riskcommunicationId"/>
+                    <span ui:field="ttl"/>
                 </td>
             </tr>
         </table>

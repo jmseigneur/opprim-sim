@@ -43,7 +43,33 @@
     <div class="{style.errors}" ui:field="errors"/>
     <table class="{style.fields}" id="boundElementHolder">
     	
-      	<tr id="riskinformations">
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+    <tr id="accessrequests">
+      		<td>
+                    <div class="{style.label}">Accessrequests:</div>
+                </td>
+      		<td>
+                    <e:AccessrequestSetEditor ui:field="accessrequests"/>
+                </td>
+      	</tr>
+            <tr id="riskinformations">
       		<td>
                     <div class="{style.label}">Riskinformations:</div>
                 </td>
@@ -51,8 +77,7 @@
                     <e:RiskinformationSetEditor ui:field="riskinformations"/>
                 </td>
       	</tr>
-      	
-      	<tr id="securityIncidents">
+            <tr id="securityIncidents">
       		<td>
                     <div class="{style.label}">Security Incidents:</div>
                 </td>
@@ -60,17 +85,7 @@
                     <e:SecurityIncidentSetEditor ui:field="securityIncidents"/>
                 </td>
       	</tr>
-      	
-      	<tr id="accessrequestId">
-      		<td>
-                    <div class="{style.label}">Accessrequest Id:</div>
-                </td>
-      		<td>
-                    <g:ValueListBox ui:field="accessrequestId"/>
-                </td>
-      	</tr>
-      	
-      	<tr id="opportunityid">
+            <tr id="opportunityid">
       		<td>
                     <div class="{style.label}">Opportunityid:</div>
                 </td>
@@ -78,8 +93,7 @@
                     <g:ValueListBox ui:field="opportunityid"/>
                 </td>
       	</tr>
-      	
-      	<tr id="assetName">
+            <tr id="assetName">
       		<td>
                     <div class="{style.label}">Asset Name:</div>
                 </td>
@@ -87,8 +101,7 @@
                     <g:TextBox ui:field="assetName"/>
                 </td>
       	</tr>
-      	
-      	<tr id="description">
+            <tr id="description">
       		<td>
                     <div class="{style.label}">Description:</div>
                 </td>
@@ -96,8 +109,7 @@
                     <g:TextBox ui:field="description"/>
                 </td>
       	</tr>
-      	
-      	<tr id="value">
+            <tr id="value">
       		<td>
                     <div class="{style.label}">Value:</div>
                 </td>
@@ -105,8 +117,7 @@
                     <g:DoubleBox ui:field="value"/>
                 </td>
       	</tr>
-      	
-      	<tr id="confidentialLevel">
+            <tr id="confidentialLevel">
       		<td>
                     <div class="{style.label}">Confidential Level:</div>
                 </td>
@@ -114,8 +125,7 @@
                     <g:TextBox ui:field="confidentialLevel"/>
                 </td>
       	</tr>
-      	
-      	<tr id="location">
+            <tr id="location">
       		<td>
                     <div class="{style.label}">Location:</div>
                 </td>
@@ -123,8 +133,7 @@
                     <g:TextBox ui:field="location"/>
                 </td>
       	</tr>
-      	
-    </table>
+        </table>
     <div class="{style.bar}">
       <g:Button addStyleNames="{style.button}" ui:field="save">Save</g:Button>
       <g:Button addStyleNames="{style.button}" ui:field="cancel">Cancel</g:Button>

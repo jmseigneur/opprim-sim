@@ -37,6 +37,22 @@
         
         
         
+    
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
     <div id="accessrequests">
             <div class="{style.label}">Accessrequests</div>
             <div class="{style.value}">
@@ -83,6 +99,12 @@
             <div class="{style.label}">Hourly Cost</div>
             <div class="{style.value}">
                 <g:DoubleBox ui:field="hourlyCost"/>
+            </div>
+        </div>
+        <div id="ttl">
+            <div class="{style.label}">Ttl</div>
+            <div class="{style.value}">
+                <g:IntegerBox ui:field="ttl"/>
             </div>
         </div>
     </g:HTMLPanel>

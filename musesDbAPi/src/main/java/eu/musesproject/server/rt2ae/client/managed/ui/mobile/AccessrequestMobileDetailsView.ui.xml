@@ -49,17 +49,38 @@
         
         
         
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
     <div id="accessrequestId">
             <div class="{style.label}">Accessrequest Id</div>
             <div class="{style.value}" ui:field="accessrequestId"/>
         </div>
-        <div id="assets">
-            <div class="{style.label}">Assets</div>
-            <div class="{style.value}" ui:field="assets"/>
-        </div>
         <div id="riskinformations">
             <div class="{style.label}">Riskinformations</div>
             <div class="{style.value}" ui:field="riskinformations"/>
+        </div>
+        <div id="assetId">
+            <div class="{style.label}">Asset Id</div>
+            <div class="{style.value}" ui:field="assetId"/>
         </div>
         <div id="opportunityId">
             <div class="{style.label}">Opportunity Id</div>
@@ -89,9 +110,9 @@
             <div class="{style.label}">Solved</div>
             <div class="{style.value}" ui:field="solved"/>
         </div>
-        <div id="riskcommunicationId">
-            <div class="{style.label}">Riskcommunication Id</div>
-            <div class="{style.value}" ui:field="riskcommunicationId"/>
+        <div id="ttl">
+            <div class="{style.label}">Ttl</div>
+            <div class="{style.value}" ui:field="ttl"/>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

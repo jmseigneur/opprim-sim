@@ -43,7 +43,21 @@
     <div class="{style.errors}" ui:field="errors"/>
     <table class="{style.fields}" id="boundElementHolder">
     	
-      	<tr id="accessrequests">
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+      	
+    <tr id="accessrequests">
       		<td>
                     <div class="{style.label}">Accessrequests:</div>
                 </td>
@@ -51,8 +65,7 @@
                     <e:AccessrequestSetEditor ui:field="accessrequests"/>
                 </td>
       	</tr>
-      	
-      	<tr id="clues">
+            <tr id="clues">
       		<td>
                     <div class="{style.label}">Clues:</div>
                 </td>
@@ -60,8 +73,7 @@
                     <e:ClueSetEditor ui:field="clues"/>
                 </td>
       	</tr>
-      	
-      	<tr id="outcomes">
+            <tr id="outcomes">
       		<td>
                     <div class="{style.label}">Outcomes:</div>
                 </td>
@@ -69,8 +81,7 @@
                     <e:OutcomeSetEditor ui:field="outcomes"/>
                 </td>
       	</tr>
-      	
-      	<tr id="description">
+            <tr id="description">
       		<td>
                     <div class="{style.label}">Description:</div>
                 </td>
@@ -78,8 +89,7 @@
                     <g:TextBox ui:field="description"/>
                 </td>
       	</tr>
-      	
-      	<tr id="probability">
+            <tr id="probability">
       		<td>
                     <div class="{style.label}">Probability:</div>
                 </td>
@@ -87,8 +97,7 @@
                     <g:DoubleBox ui:field="probability"/>
                 </td>
       	</tr>
-      	
-      	<tr id="occurences">
+            <tr id="occurences">
       		<td>
                     <div class="{style.label}">Occurences:</div>
                 </td>
@@ -96,8 +105,7 @@
                     <g:DoubleBox ui:field="occurences"/>
                 </td>
       	</tr>
-      	
-      	<tr id="badOutcomeCount">
+            <tr id="badOutcomeCount">
       		<td>
                     <div class="{style.label}">Bad Outcome Count:</div>
                 </td>
@@ -105,8 +113,15 @@
                     <g:DoubleBox ui:field="badOutcomeCount"/>
                 </td>
       	</tr>
-      	
-    </table>
+            <tr id="ttl">
+      		<td>
+                    <div class="{style.label}">Ttl:</div>
+                </td>
+      		<td>
+                    <g:IntegerBox ui:field="ttl"/>
+                </td>
+      	</tr>
+        </table>
     <div class="{style.bar}">
       <g:Button addStyleNames="{style.button}" ui:field="save">Save</g:Button>
       <g:Button addStyleNames="{style.button}" ui:field="cancel">Cancel</g:Button>

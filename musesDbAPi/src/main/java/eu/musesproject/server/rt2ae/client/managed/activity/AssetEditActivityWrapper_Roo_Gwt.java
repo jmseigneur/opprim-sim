@@ -10,6 +10,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import eu.musesproject.server.rt2ae.client.managed.activity.AssetEditActivityWrapper.View;
 import eu.musesproject.server.rt2ae.client.managed.request.ApplicationRequestFactory;
 import eu.musesproject.server.rt2ae.client.managed.ui.AssetEditView;
+import eu.musesproject.server.rt2ae.client.managed.ui.editor.AccessrequestSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.RiskinformationSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.SecurityIncidentSetEditor;
 import eu.musesproject.server.rt2ae.client.proxy.AccessrequestProxy;
@@ -38,6 +39,16 @@ public abstract class AssetEditActivityWrapper_Roo_Gwt implements Activity, IsSc
 
     @Override
     public void start(AcceptsOneWidget display, EventBus eventBus) {
+        view.setAccessrequestsPickerValues(Collections.<AccessrequestProxy>emptyList());
+        requests.accessrequestRequest().findAccessrequestEntries(0, 50).with(eu.musesproject.server.rt2ae.client.managed.ui.renderer.AccessrequestProxyRenderer.instance().getPaths()).fire(new Receiver<List<AccessrequestProxy>>() {
+
+            public void onSuccess(List<AccessrequestProxy> response) {
+                List<AccessrequestProxy> values = new ArrayList<AccessrequestProxy>();
+                values.add(null);
+                values.addAll(response);
+                view.setAccessrequestsPickerValues(values);
+            }
+        });
         view.setRiskinformationsPickerValues(Collections.<RiskinformationProxy>emptyList());
         requests.riskinformationRequest().findRiskinformationEntries(0, 50).with(eu.musesproject.server.rt2ae.client.managed.ui.renderer.RiskinformationProxyRenderer.instance().getPaths()).fire(new Receiver<List<RiskinformationProxy>>() {
 
@@ -58,16 +69,6 @@ public abstract class AssetEditActivityWrapper_Roo_Gwt implements Activity, IsSc
                 view.setSecurityIncidentsPickerValues(values);
             }
         });
-        view.setAccessrequestIdPickerValues(Collections.<AccessrequestProxy>emptyList());
-        requests.accessrequestRequest().findAccessrequestEntries(0, 50).with(eu.musesproject.server.rt2ae.client.managed.ui.renderer.AccessrequestProxyRenderer.instance().getPaths()).fire(new Receiver<List<AccessrequestProxy>>() {
-
-            public void onSuccess(List<AccessrequestProxy> response) {
-                List<AccessrequestProxy> values = new ArrayList<AccessrequestProxy>();
-                values.add(null);
-                values.addAll(response);
-                view.setAccessrequestIdPickerValues(values);
-            }
-        });
         view.setOpportunityidPickerValues(Collections.<OpportunityProxy>emptyList());
         requests.opportunityRequest().findOpportunityEntries(0, 50).with(eu.musesproject.server.rt2ae.client.managed.ui.renderer.OpportunityProxyRenderer.instance().getPaths()).fire(new Receiver<List<OpportunityProxy>>() {
 
@@ -83,11 +84,11 @@ public abstract class AssetEditActivityWrapper_Roo_Gwt implements Activity, IsSc
 
     public interface View_Roo_Gwt<V extends eu.musesproject.server.rt2ae.client.managed.ui.AssetEditView<V>> extends AssetEditView<V> {
 
+        void setAccessrequestsPickerValues(Collection<AccessrequestProxy> values);
+
         void setRiskinformationsPickerValues(Collection<RiskinformationProxy> values);
 
         void setSecurityIncidentsPickerValues(Collection<SecurityIncidentProxy> values);
-
-        void setAccessrequestIdPickerValues(Collection<AccessrequestProxy> values);
 
         void setOpportunityidPickerValues(Collection<OpportunityProxy> values);
     }

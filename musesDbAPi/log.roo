@@ -47,3 +47,4 @@ quit
 logging setup --level INFO
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-07-07 20:57:31
 database reverse engineer --schema musesdatabase
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2014-07-08 11:36:36

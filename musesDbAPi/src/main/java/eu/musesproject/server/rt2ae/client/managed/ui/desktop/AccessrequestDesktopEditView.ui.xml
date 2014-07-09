@@ -73,20 +73,39 @@
             
             
             
-        <tr id="assets">
-      		<td>
-                    <div class="{style.label}">Assets:</div>
-                </td>
-      		<td>
-                    <e:AssetSetEditor ui:field="assets"/>
-                </td>
-      	</tr>
-            <tr id="riskinformations">
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
+            
+            
+            
+            
+            
+            
+            
+            
+        <tr id="riskinformations">
       		<td>
                     <div class="{style.label}">Riskinformations:</div>
                 </td>
       		<td>
                     <e:RiskinformationSetEditor ui:field="riskinformations"/>
+                </td>
+      	</tr>
+            <tr id="assetId">
+      		<td>
+                    <div class="{style.label}">Asset Id:</div>
+                </td>
+      		<td>
+                    <g:ValueListBox ui:field="assetId"/>
                 </td>
       	</tr>
             <tr id="opportunityId">
@@ -145,12 +164,12 @@
                     <r:ShortBox ui:field="solved"/>
                 </td>
       	</tr>
-            <tr id="riskcommunicationId">
+            <tr id="ttl">
       		<td>
-                    <div class="{style.label}">Riskcommunication Id:</div>
+                    <div class="{style.label}">Ttl:</div>
                 </td>
       		<td>
-                    <g:IntegerBox ui:field="riskcommunicationId"/>
+                    <g:IntegerBox ui:field="ttl"/>
                 </td>
       	</tr>
         </table>

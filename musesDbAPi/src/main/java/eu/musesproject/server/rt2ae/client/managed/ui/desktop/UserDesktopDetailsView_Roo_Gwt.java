@@ -54,6 +54,9 @@ public abstract class UserDesktopDetailsView_Roo_Gwt extends Composite implement
     @UiField
     SpanElement hourlyCost;
 
+    @UiField
+    SpanElement ttl;
+
     UserProxy proxy;
 
     @UiField
@@ -70,6 +73,7 @@ public abstract class UserDesktopDetailsView_Roo_Gwt extends Composite implement
         email.setInnerText(proxy.getEmail() == null ? "" : String.valueOf(proxy.getEmail()));
         trustvalue.setInnerText(proxy.getTrustvalue() == null ? "" : String.valueOf(proxy.getTrustvalue()));
         hourlyCost.setInnerText(proxy.getHourlyCost() == null ? "" : String.valueOf(proxy.getHourlyCost()));
+        ttl.setInnerText(proxy.getTtl() == null ? "" : String.valueOf(proxy.getTtl()));
         displayRenderer.setInnerText(eu.musesproject.server.rt2ae.client.managed.ui.renderer.UserProxyRenderer.instance().render(proxy));
     }
 }

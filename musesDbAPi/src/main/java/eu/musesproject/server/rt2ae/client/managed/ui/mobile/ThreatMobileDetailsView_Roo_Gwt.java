@@ -50,6 +50,9 @@ public abstract class ThreatMobileDetailsView_Roo_Gwt extends Composite implemen
     @UiField
     Element badOutcomeCount;
 
+    @UiField
+    Element ttl;
+
     ThreatProxy proxy;
 
     public void setValue(ThreatProxy proxy) {
@@ -62,5 +65,6 @@ public abstract class ThreatMobileDetailsView_Roo_Gwt extends Composite implemen
         probability.setInnerText(proxy.getProbability() == null ? "" : String.valueOf(proxy.getProbability()));
         occurences.setInnerText(proxy.getOccurences() == null ? "" : String.valueOf(proxy.getOccurences()));
         badOutcomeCount.setInnerText(proxy.getBadOutcomeCount() == null ? "" : String.valueOf(proxy.getBadOutcomeCount()));
+        ttl.setInnerText(proxy.getTtl() == null ? "" : String.valueOf(proxy.getTtl()));
     }
 }

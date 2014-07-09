@@ -15,7 +15,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import eu.musesproject.server.rt2ae.client.managed.ui.AccessrequestDetailsView;
-import eu.musesproject.server.rt2ae.client.managed.ui.editor.AssetSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.RiskinformationSetEditor;
 import eu.musesproject.server.rt2ae.client.proxy.AccessrequestProxy;
 import eu.musesproject.server.rt2ae.client.proxy.AssetProxy;
@@ -34,10 +33,10 @@ public abstract class AccessrequestMobileDetailsView_Roo_Gwt extends Composite i
     Element accessrequestId;
 
     @UiField
-    Element assets;
+    Element riskinformations;
 
     @UiField
-    Element riskinformations;
+    Element assetId;
 
     @UiField
     Element opportunityId;
@@ -61,15 +60,15 @@ public abstract class AccessrequestMobileDetailsView_Roo_Gwt extends Composite i
     Element solved;
 
     @UiField
-    Element riskcommunicationId;
+    Element ttl;
 
     AccessrequestProxy proxy;
 
     public void setValue(AccessrequestProxy proxy) {
         this.proxy = proxy;
         accessrequestId.setInnerText(proxy.getAccessrequestId() == null ? "" : String.valueOf(proxy.getAccessrequestId()));
-        assets.setInnerText(proxy.getAssets() == null ? "" : eu.musesproject.server.rt2ae.client.scaffold.place.CollectionRenderer.of(eu.musesproject.server.rt2ae.client.managed.ui.renderer.AssetProxyRenderer.instance()).render(proxy.getAssets()));
         riskinformations.setInnerText(proxy.getRiskinformations() == null ? "" : eu.musesproject.server.rt2ae.client.scaffold.place.CollectionRenderer.of(eu.musesproject.server.rt2ae.client.managed.ui.renderer.RiskinformationProxyRenderer.instance()).render(proxy.getRiskinformations()));
+        assetId.setInnerText(proxy.getAssetId() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.AssetProxyRenderer.instance().render(proxy.getAssetId()));
         opportunityId.setInnerText(proxy.getOpportunityId() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.OpportunityProxyRenderer.instance().render(proxy.getOpportunityId()));
         deviceId.setInnerText(proxy.getDeviceId() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.DeviceProxyRenderer.instance().render(proxy.getDeviceId()));
         userId.setInnerText(proxy.getUserId() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.UserProxyRenderer.instance().render(proxy.getUserId()));
@@ -77,6 +76,6 @@ public abstract class AccessrequestMobileDetailsView_Roo_Gwt extends Composite i
         threatid.setInnerText(proxy.getThreatid() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.ThreatProxyRenderer.instance().render(proxy.getThreatid()));
         useractionId.setInnerText(proxy.getUseractionId() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.UserActionProxyRenderer.instance().render(proxy.getUseractionId()));
         solved.setInnerText(proxy.getSolved() == null ? "" : String.valueOf(proxy.getSolved()));
-        riskcommunicationId.setInnerText(proxy.getRiskcommunicationId() == null ? "" : String.valueOf(proxy.getRiskcommunicationId()));
+        ttl.setInnerText(proxy.getTtl() == null ? "" : String.valueOf(proxy.getTtl()));
     }
 }

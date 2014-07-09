@@ -19,49 +19,62 @@
   <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
     <div class="{style.error}" ui:field="errors"/>
     
-    <div id="accessrequests">
+    
+    
+    
+    
+    
+    
+    
+
+    <g:Button ui:field="save">Save</g:Button>
+  <div id="accessrequests">
             <div class="{style.label}">Accessrequests</div>
             <div class="{style.value}">
                 <e:AccessrequestSetEditor ui:field="accessrequests"/>
             </div>
         </div>
-    <div id="clues">
+        <div id="clues">
             <div class="{style.label}">Clues</div>
             <div class="{style.value}">
                 <e:ClueSetEditor ui:field="clues"/>
             </div>
         </div>
-    <div id="outcomes">
+        <div id="outcomes">
             <div class="{style.label}">Outcomes</div>
             <div class="{style.value}">
                 <e:OutcomeSetEditor ui:field="outcomes"/>
             </div>
         </div>
-    <div id="description">
+        <div id="description">
             <div class="{style.label}">Description</div>
             <div class="{style.value}">
                 <g:TextBox ui:field="description"/>
             </div>
         </div>
-    <div id="probability">
+        <div id="probability">
             <div class="{style.label}">Probability</div>
             <div class="{style.value}">
                 <g:DoubleBox ui:field="probability"/>
             </div>
         </div>
-    <div id="occurences">
+        <div id="occurences">
             <div class="{style.label}">Occurences</div>
             <div class="{style.value}">
                 <g:DoubleBox ui:field="occurences"/>
             </div>
         </div>
-    <div id="badOutcomeCount">
+        <div id="badOutcomeCount">
             <div class="{style.label}">Bad Outcome Count</div>
             <div class="{style.value}">
                 <g:DoubleBox ui:field="badOutcomeCount"/>
             </div>
         </div>
-
-    <g:Button ui:field="save">Save</g:Button>
-  </g:HTMLPanel>
+        <div id="ttl">
+            <div class="{style.label}">Ttl</div>
+            <div class="{style.value}">
+                <g:IntegerBox ui:field="ttl"/>
+            </div>
+        </div>
+    </g:HTMLPanel>
 </ui:UiBinder>

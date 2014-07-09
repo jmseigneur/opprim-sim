@@ -11,6 +11,7 @@ import com.google.gwt.text.shared.AbstractRenderer;
 import com.google.gwt.text.shared.AbstractSafeHtmlRenderer;
 import com.google.gwt.text.shared.Renderer;
 import com.google.gwt.text.shared.SafeHtmlRenderer;
+import eu.musesproject.server.rt2ae.client.managed.ui.editor.AccessrequestSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.RiskinformationSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.SecurityIncidentSetEditor;
 import eu.musesproject.server.rt2ae.client.proxy.AccessrequestProxy;

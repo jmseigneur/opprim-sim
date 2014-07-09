@@ -68,8 +68,8 @@ public class AccessrequestMobileListView extends AccessrequestMobileListView_Roo
             // Secondary property.
             sb.appendHtmlConstant("<div style=\"position:relative;\">");
             sb.appendHtmlConstant("<div class=\"" + secondaryStyle + "\">");
-            if (value.getAssets() != null) {
-                sb.appendEscaped(secondaryRenderer.render(value.getAssets()));
+            if (value.getAssetId() != null) {
+                sb.appendEscaped(secondaryRenderer.render((Set) value.getAssetId()));
             }
             sb.appendHtmlConstant("</div>");
             // Date property.

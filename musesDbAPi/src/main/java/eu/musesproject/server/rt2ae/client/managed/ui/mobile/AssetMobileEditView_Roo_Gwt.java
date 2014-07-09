@@ -28,6 +28,7 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
 import eu.musesproject.server.rt2ae.client.managed.activity.AssetEditActivityWrapper;
 import eu.musesproject.server.rt2ae.client.managed.activity.AssetEditActivityWrapper.View;
 import eu.musesproject.server.rt2ae.client.managed.ui.AssetEditView;
+import eu.musesproject.server.rt2ae.client.managed.ui.editor.AccessrequestSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.RiskinformationSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.SecurityIncidentSetEditor;
 import eu.musesproject.server.rt2ae.client.proxy.AccessrequestProxy;
@@ -44,13 +45,13 @@ import java.util.Set;
 public abstract class AssetMobileEditView_Roo_Gwt extends Composite implements View<AssetMobileEditView> {
 
     @UiField
+    AccessrequestSetEditor accessrequests;
+
+    @UiField
     RiskinformationSetEditor riskinformations;
 
     @UiField
     SecurityIncidentSetEditor securityIncidents;
-
-    @UiField(provided = true)
-    ValueListBox<AccessrequestProxy> accessrequestId = new ValueListBox<AccessrequestProxy>(eu.musesproject.server.rt2ae.client.managed.ui.renderer.AccessrequestProxyRenderer.instance(), new com.google.web.bindery.requestfactory.gwt.ui.client.EntityProxyKeyProvider<eu.musesproject.server.rt2ae.client.proxy.AccessrequestProxy>());
 
     @UiField(provided = true)
     ValueListBox<OpportunityProxy> opportunityid = new ValueListBox<OpportunityProxy>(eu.musesproject.server.rt2ae.client.managed.ui.renderer.OpportunityProxyRenderer.instance(), new com.google.web.bindery.requestfactory.gwt.ui.client.EntityProxyKeyProvider<eu.musesproject.server.rt2ae.client.proxy.OpportunityProxy>());
@@ -70,12 +71,12 @@ public abstract class AssetMobileEditView_Roo_Gwt extends Composite implements V
     @UiField
     TextBox location;
 
-    public void setAccessrequestIdPickerValues(Collection<AccessrequestProxy> values) {
-        accessrequestId.setAcceptableValues(values);
-    }
-
     public void setSecurityIncidentsPickerValues(Collection<SecurityIncidentProxy> values) {
         securityIncidents.setAcceptableValues(values);
+    }
+
+    public void setAccessrequestsPickerValues(Collection<AccessrequestProxy> values) {
+        accessrequests.setAcceptableValues(values);
     }
 
     public void setOpportunityidPickerValues(Collection<OpportunityProxy> values) {

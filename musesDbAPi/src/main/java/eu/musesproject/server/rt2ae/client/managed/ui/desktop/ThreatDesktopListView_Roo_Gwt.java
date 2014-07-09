@@ -138,5 +138,20 @@ public abstract class ThreatDesktopListView_Roo_Gwt extends AbstractProxyListVie
                 return renderer.render(object.getBadOutcomeCount());
             }
         }, "Bad Outcome Count");
+        paths.add("ttl");
+        table.addColumn(new TextColumn<ThreatProxy>() {
+
+            Renderer<java.lang.Integer> renderer = new AbstractRenderer<java.lang.Integer>() {
+
+                public String render(java.lang.Integer obj) {
+                    return obj == null ? "" : String.valueOf(obj);
+                }
+            };
+
+            @Override
+            public String getValue(ThreatProxy object) {
+                return renderer.render(object.getTtl());
+            }
+        }, "Ttl");
     }
 }

@@ -65,6 +65,9 @@ public abstract class UserDesktopEditView_Roo_Gwt extends Composite implements V
     @UiField
     DoubleBox hourlyCost;
 
+    @UiField
+    IntegerBox ttl;
+
     public void setDevicesPickerValues(Collection<DeviceProxy> values) {
         devices.setAcceptableValues(values);
     }

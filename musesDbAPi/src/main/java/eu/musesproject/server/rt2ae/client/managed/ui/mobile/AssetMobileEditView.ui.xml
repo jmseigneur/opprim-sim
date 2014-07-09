@@ -19,61 +19,70 @@
   <g:HTMLPanel debugId="boundElementHolder" styleName="{style.outer}">
     <div class="{style.error}" ui:field="errors"/>
     
-    <div id="riskinformations">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <g:Button ui:field="save">Save</g:Button>
+  <div id="accessrequests">
+            <div class="{style.label}">Accessrequests</div>
+            <div class="{style.value}">
+                <e:AccessrequestSetEditor ui:field="accessrequests"/>
+            </div>
+        </div>
+        <div id="riskinformations">
             <div class="{style.label}">Riskinformations</div>
             <div class="{style.value}">
                 <e:RiskinformationSetEditor ui:field="riskinformations"/>
             </div>
         </div>
-    <div id="securityIncidents">
+        <div id="securityIncidents">
             <div class="{style.label}">Security Incidents</div>
             <div class="{style.value}">
                 <e:SecurityIncidentSetEditor ui:field="securityIncidents"/>
             </div>
         </div>
-    <div id="accessrequestId">
-            <div class="{style.label}">Accessrequest Id</div>
-            <div class="{style.value}">
-                <g:ValueListBox ui:field="accessrequestId"/>
-            </div>
-        </div>
-    <div id="opportunityid">
+        <div id="opportunityid">
             <div class="{style.label}">Opportunityid</div>
             <div class="{style.value}">
                 <g:ValueListBox ui:field="opportunityid"/>
             </div>
         </div>
-    <div id="assetName">
+        <div id="assetName">
             <div class="{style.label}">Asset Name</div>
             <div class="{style.value}">
                 <g:TextBox ui:field="assetName"/>
             </div>
         </div>
-    <div id="description">
+        <div id="description">
             <div class="{style.label}">Description</div>
             <div class="{style.value}">
                 <g:TextBox ui:field="description"/>
             </div>
         </div>
-    <div id="value">
+        <div id="value">
             <div class="{style.label}">Value</div>
             <div class="{style.value}">
                 <g:DoubleBox ui:field="value"/>
             </div>
         </div>
-    <div id="confidentialLevel">
+        <div id="confidentialLevel">
             <div class="{style.label}">Confidential Level</div>
             <div class="{style.value}">
                 <g:TextBox ui:field="confidentialLevel"/>
             </div>
         </div>
-    <div id="location">
+        <div id="location">
             <div class="{style.label}">Location</div>
             <div class="{style.value}">
                 <g:TextBox ui:field="location"/>
             </div>
         </div>
-
-    <g:Button ui:field="save">Save</g:Button>
-  </g:HTMLPanel>
+    </g:HTMLPanel>
 </ui:UiBinder>

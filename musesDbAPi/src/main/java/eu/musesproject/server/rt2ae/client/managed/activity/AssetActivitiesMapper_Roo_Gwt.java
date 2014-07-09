@@ -9,6 +9,7 @@ import eu.musesproject.server.rt2ae.client.managed.request.ApplicationRequestFac
 import eu.musesproject.server.rt2ae.client.managed.ui.desktop.AssetDesktopDetailsView;
 import eu.musesproject.server.rt2ae.client.managed.ui.desktop.AssetDesktopEditView;
 import eu.musesproject.server.rt2ae.client.managed.ui.desktop.AssetDesktopListView;
+import eu.musesproject.server.rt2ae.client.managed.ui.editor.AccessrequestSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.RiskinformationSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.SecurityIncidentSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.mobile.AssetMobileDetailsView;

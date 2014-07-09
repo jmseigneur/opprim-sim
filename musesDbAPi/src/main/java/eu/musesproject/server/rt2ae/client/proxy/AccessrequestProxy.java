@@ -12,13 +12,13 @@ public interface AccessrequestProxy extends EntityProxy {
 
     abstract Integer getAccessrequestId();
 
-    abstract Set<AssetProxy> getAssets();
-
-    abstract void setAssets(Set<AssetProxy> assets);
-
     abstract Set<RiskinformationProxy> getRiskinformations();
 
     abstract void setRiskinformations(Set<RiskinformationProxy> riskinformations);
+
+    abstract AssetProxy getAssetId();
+
+    abstract void setAssetId(AssetProxy assetId);
 
     abstract OpportunityProxy getOpportunityId();
 
@@ -48,7 +48,7 @@ public interface AccessrequestProxy extends EntityProxy {
 
     abstract void setSolved(Short solved);
 
-    abstract Integer getRiskcommunicationId();
+    abstract Integer getTtl();
 
-    abstract void setRiskcommunicationId(Integer riskcommunicationId);
+    abstract void setTtl(Integer ttl);
 }

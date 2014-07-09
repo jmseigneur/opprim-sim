@@ -67,6 +67,9 @@ public abstract class UserMobileEditView_Roo_Gwt extends Composite implements Vi
     @UiField
     DoubleBox hourlyCost;
 
+    @UiField
+    IntegerBox ttl;
+
     public void setDevicesPickerValues(Collection<DeviceProxy> values) {
         devices.setAcceptableValues(values);
     }

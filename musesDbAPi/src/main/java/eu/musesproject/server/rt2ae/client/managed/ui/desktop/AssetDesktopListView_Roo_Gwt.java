@@ -14,6 +14,7 @@ import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSe
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import eu.musesproject.server.rt2ae.client.managed.ui.editor.AccessrequestSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.RiskinformationSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.SecurityIncidentSetEditor;
 import eu.musesproject.server.rt2ae.client.proxy.AccessrequestProxy;
@@ -48,6 +49,16 @@ public abstract class AssetDesktopListView_Roo_Gwt extends AbstractProxyListView
                 return renderer.render(object.getAssetId());
             }
         }, "Asset Id");
+        paths.add("accessrequests");
+        table.addColumn(new TextColumn<AssetProxy>() {
+
+            Renderer<java.util.Set> renderer = eu.musesproject.server.rt2ae.client.scaffold.place.CollectionRenderer.of(eu.musesproject.server.rt2ae.client.managed.ui.renderer.AccessrequestProxyRenderer.instance());
+
+            @Override
+            public String getValue(AssetProxy object) {
+                return renderer.render(object.getAccessrequests());
+            }
+        }, "Accessrequests");
         paths.add("riskinformations");
         table.addColumn(new TextColumn<AssetProxy>() {
 
@@ -68,16 +79,6 @@ public abstract class AssetDesktopListView_Roo_Gwt extends AbstractProxyListView
                 return renderer.render(object.getSecurityIncidents());
             }
         }, "Security Incidents");
-        paths.add("accessrequestId");
-        table.addColumn(new TextColumn<AssetProxy>() {
-
-            Renderer<eu.musesproject.server.rt2ae.client.proxy.AccessrequestProxy> renderer = eu.musesproject.server.rt2ae.client.managed.ui.renderer.AccessrequestProxyRenderer.instance();
-
-            @Override
-            public String getValue(AssetProxy object) {
-                return renderer.render(object.getAccessrequestId());
-            }
-        }, "Accessrequest Id");
         paths.add("opportunityid");
         table.addColumn(new TextColumn<AssetProxy>() {
 

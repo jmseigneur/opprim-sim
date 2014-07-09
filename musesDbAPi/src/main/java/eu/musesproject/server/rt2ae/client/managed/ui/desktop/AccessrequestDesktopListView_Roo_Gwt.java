@@ -14,7 +14,6 @@ import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSe
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import eu.musesproject.server.rt2ae.client.managed.ui.editor.AssetSetEditor;
 import eu.musesproject.server.rt2ae.client.managed.ui.editor.RiskinformationSetEditor;
 import eu.musesproject.server.rt2ae.client.proxy.AccessrequestProxy;
 import eu.musesproject.server.rt2ae.client.proxy.AssetProxy;
@@ -52,16 +51,6 @@ public abstract class AccessrequestDesktopListView_Roo_Gwt extends AbstractProxy
                 return renderer.render(object.getAccessrequestId());
             }
         }, "Accessrequest Id");
-        paths.add("assets");
-        table.addColumn(new TextColumn<AccessrequestProxy>() {
-
-            Renderer<java.util.Set> renderer = eu.musesproject.server.rt2ae.client.scaffold.place.CollectionRenderer.of(eu.musesproject.server.rt2ae.client.managed.ui.renderer.AssetProxyRenderer.instance());
-
-            @Override
-            public String getValue(AccessrequestProxy object) {
-                return renderer.render(object.getAssets());
-            }
-        }, "Assets");
         paths.add("riskinformations");
         table.addColumn(new TextColumn<AccessrequestProxy>() {
 
@@ -72,6 +61,16 @@ public abstract class AccessrequestDesktopListView_Roo_Gwt extends AbstractProxy
                 return renderer.render(object.getRiskinformations());
             }
         }, "Riskinformations");
+        paths.add("assetId");
+        table.addColumn(new TextColumn<AccessrequestProxy>() {
+
+            Renderer<eu.musesproject.server.rt2ae.client.proxy.AssetProxy> renderer = eu.musesproject.server.rt2ae.client.managed.ui.renderer.AssetProxyRenderer.instance();
+
+            @Override
+            public String getValue(AccessrequestProxy object) {
+                return renderer.render(object.getAssetId());
+            }
+        }, "Asset Id");
         paths.add("opportunityId");
         table.addColumn(new TextColumn<AccessrequestProxy>() {
 
@@ -147,7 +146,7 @@ public abstract class AccessrequestDesktopListView_Roo_Gwt extends AbstractProxy
                 return renderer.render(object.getSolved());
             }
         }, "Solved");
-        paths.add("riskcommunicationId");
+        paths.add("ttl");
         table.addColumn(new TextColumn<AccessrequestProxy>() {
 
             Renderer<java.lang.Integer> renderer = new AbstractRenderer<java.lang.Integer>() {
@@ -159,8 +158,8 @@ public abstract class AccessrequestDesktopListView_Roo_Gwt extends AbstractProxy
 
             @Override
             public String getValue(AccessrequestProxy object) {
-                return renderer.render(object.getRiskcommunicationId());
+                return renderer.render(object.getTtl());
             }
-        }, "Riskcommunication Id");
+        }, "Ttl");
     }
 }

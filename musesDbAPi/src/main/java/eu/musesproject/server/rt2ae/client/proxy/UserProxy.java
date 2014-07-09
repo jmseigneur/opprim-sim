@@ -43,4 +43,8 @@ public interface UserProxy extends EntityProxy {
     abstract Double getHourlyCost();
 
     abstract void setHourlyCost(Double hourlyCost);
+
+    abstract Integer getTtl();
+
+    abstract void setTtl(Integer ttl);
 }

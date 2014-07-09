@@ -67,6 +67,22 @@
             
             
             
+        
+            
+            
+            
+            
+            
+            
+            
+        
+            
+            
+            
+            
+            
+            
+            
         <tr id="accessrequests">
       		<td>
                     <div class="{style.label}">Accessrequests:</div>
@@ -129,6 +145,14 @@
                 </td>
       		<td>
                     <g:DoubleBox ui:field="hourlyCost"/>
+                </td>
+      	</tr>
+            <tr id="ttl">
+      		<td>
+                    <div class="{style.label}">Ttl:</div>
+                </td>
+      		<td>
+                    <g:IntegerBox ui:field="ttl"/>
                 </td>
       	</tr>
         </table>

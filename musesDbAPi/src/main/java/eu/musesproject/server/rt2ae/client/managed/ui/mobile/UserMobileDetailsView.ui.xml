@@ -43,6 +43,24 @@
         
         
         
+    
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
     <div id="userId">
             <div class="{style.label}">User Id</div>
             <div class="{style.value}" ui:field="userId"/>
@@ -78,6 +96,10 @@
         <div id="hourlyCost">
             <div class="{style.label}">Hourly Cost</div>
             <div class="{style.value}" ui:field="hourlyCost"/>
+        </div>
+        <div id="ttl">
+            <div class="{style.label}">Ttl</div>
+            <div class="{style.value}" ui:field="ttl"/>
         </div>
     </g:HTMLPanel>
 </ui:UiBinder>

@@ -36,7 +36,23 @@
 
     <table class="{style.fields}" id="boundElementHolder">
       
-      <tr id="threatId">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    <tr id="threatId">
                 <td>
                     <span class="{style.label}">Threat Id:</span>
                 </td>
@@ -44,8 +60,7 @@
                     <span ui:field="threatId"/>
                 </td>
             </tr>
-      
-      <tr id="accessrequests">
+            <tr id="accessrequests">
                 <td>
                     <span class="{style.label}">Accessrequests:</span>
                 </td>
@@ -53,8 +68,7 @@
                     <span ui:field="accessrequests"/>
                 </td>
             </tr>
-      
-      <tr id="clues">
+            <tr id="clues">
                 <td>
                     <span class="{style.label}">Clues:</span>
                 </td>
@@ -62,8 +76,7 @@
                     <span ui:field="clues"/>
                 </td>
             </tr>
-      
-      <tr id="outcomes">
+            <tr id="outcomes">
                 <td>
                     <span class="{style.label}">Outcomes:</span>
                 </td>
@@ -71,8 +84,7 @@
                     <span ui:field="outcomes"/>
                 </td>
             </tr>
-      
-      <tr id="description">
+            <tr id="description">
                 <td>
                     <span class="{style.label}">Description:</span>
                 </td>
@@ -80,8 +92,7 @@
                     <span ui:field="description"/>
                 </td>
             </tr>
-      
-      <tr id="probability">
+            <tr id="probability">
                 <td>
                     <span class="{style.label}">Probability:</span>
                 </td>
@@ -89,8 +100,7 @@
                     <span ui:field="probability"/>
                 </td>
             </tr>
-      
-      <tr id="occurences">
+            <tr id="occurences">
                 <td>
                     <span class="{style.label}">Occurences:</span>
                 </td>
@@ -98,8 +108,7 @@
                     <span ui:field="occurences"/>
                 </td>
             </tr>
-      
-      <tr id="badOutcomeCount">
+            <tr id="badOutcomeCount">
                 <td>
                     <span class="{style.label}">Bad Outcome Count:</span>
                 </td>
@@ -107,8 +116,15 @@
                     <span ui:field="badOutcomeCount"/>
                 </td>
             </tr>
-      
-    </table>
+            <tr id="ttl">
+                <td>
+                    <span class="{style.label}">Ttl:</span>
+                </td>
+                <td>
+                    <span ui:field="ttl"/>
+                </td>
+            </tr>
+        </table>
 
   <div class="{style.bar}">
     <g:Button addStyleNames="{style.button}" ui:field="edit">Edit</g:Button>
