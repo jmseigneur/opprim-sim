@@ -237,7 +237,8 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		gbc_lblFixedValue.gridy = 6;
 		add(lblFixedValue, gbc_lblFixedValue);
 
-		final JCheckBox chckbxRandomTrustValues = new JCheckBox("Random trust values");
+		final JCheckBox chckbxRandomTrustValues = new JCheckBox(
+				"Random trust values");
 		GridBagConstraints gbc_chckbxRandomTrustValues = new GridBagConstraints();
 		gbc_chckbxRandomTrustValues.fill = GridBagConstraints.HORIZONTAL;
 		gbc_chckbxRandomTrustValues.insets = new Insets(0, 0, 5, 5);
@@ -299,6 +300,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		add(label_3, gbc_label_3);
 
 		final JSlider slider = new JSlider();
+		slider.setSnapToTicks(true);
 		slider.setValue(0);
 		slider.setMajorTickSpacing(10);
 		slider.setMinorTickSpacing(5);
@@ -321,6 +323,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		});
 
 		final JSlider slider_3 = new JSlider();
+		slider_3.setSnapToTicks(true);
 		slider_3.setValue(0);
 		slider_3.setMajorTickSpacing(10);
 		slider_3.setMinorTickSpacing(5);
@@ -404,6 +407,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		add(label_4, gbc_label_4);
 
 		final JSlider slider_4 = new JSlider();
+		slider_4.setSnapToTicks(true);
 		slider_4.setMajorTickSpacing(10);
 		slider_4.setMinorTickSpacing(5);
 		slider_4.setValue(0);
@@ -429,30 +433,37 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		btnStartSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					int userBehaviourLeft = slider_1.getValue()*slider.getValue();
-					int userGiveUpLeft = slider_1.getValue()*slider_3.getValue();
+					int userBehaviourLeft = (int) (slider_1.getValue() * (Double) (slider
+							.getValue() / 100.00));
+					int userGiveUpLeft = (int) (slider_1.getValue() * (Double) (slider_3
+							.getValue() / 100.00));
 					Random r = new Random(1983);
 					for (int i = 0; i < slider_1.getValue(); i++) {
-						if(chckbxRandomTrustValues.isSelected()){
-						SimUser u = new SimUser("User" + i,
-								r.nextDouble() * 1000, new TrustValue(r.nextDouble()));
-						if(userBehaviourLeft > 0){
-							u.setBehaviour(0);
-							userBehaviourLeft--;
-						}else{
-							u.setBehaviour(100);
-						}
-						GuiMain.getPersistenceManager().getSimUsers().add(u);
-						}else{
+						if (chckbxRandomTrustValues.isSelected()) {
 							SimUser u = new SimUser("User" + i,
-									r.nextDouble() * 1000, new TrustValue(Double.valueOf(textField_1.getText())));
-							if(userBehaviourLeft > 0){
+									r.nextDouble() * 1000, new TrustValue(r
+											.nextDouble()));
+							if (userBehaviourLeft > 0) {
 								u.setBehaviour(0);
 								userBehaviourLeft--;
-							}else{
+							} else {
 								u.setBehaviour(100);
 							}
-							GuiMain.getPersistenceManager().getSimUsers().add(u);
+							GuiMain.getPersistenceManager().getSimUsers()
+									.add(u);
+						} else {
+							SimUser u = new SimUser("User" + i,
+									r.nextDouble() * 1000, new TrustValue(
+											Double.valueOf(textField_1
+													.getText())));
+							if (userBehaviourLeft > 0) {
+								u.setBehaviour(0);
+								userBehaviourLeft--;
+							} else {
+								u.setBehaviour(100);
+							}
+							GuiMain.getPersistenceManager().getSimUsers()
+									.add(u);
 						}
 					}
 					for (int j = 0; j < slider_2.getValue(); j++) {
@@ -515,28 +526,32 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 							 */
 							ar.setUser(GuiMain.getPersistenceManager()
 									.getSimUsers().get(l));
-							if(userGiveUpLeft > 0){
+							if (userGiveUpLeft > 0 && r.nextDouble() > 0.5) {
 								ar.setUserAction(new GiveUpAction());
 								userGiveUpLeft--;
-							}else{
-							ar.setUserAction(new AccessAction());
+							} else {
+								ar.setUserAction(new AccessAction());
 							}
 							GuiMain.getArList().add(ar);
 						}
 
 					}
-					System.out
-							.println("The number of total access requests  is: "
-									+ GuiMain.getPersistenceManager()
-											.getAccessRequests().size());
-					if (chckbxRandomRiskPolicy.isSelected()){
-					MultiAgentSimulationPanel simPanel = new MultiAgentSimulationPanel(true, slider_4.getValue());
-					GuiMain.switchPanel(simPanel);
-					}else{
+					if (chckbxRandomRiskPolicy.isSelected()) {
+						MultiAgentSimulationPanel simPanel = new MultiAgentSimulationPanel(
+								true,
+								(int) (slider_1.getValue() * (Double) (slider_4
+										.getValue() / 100.00))
+										* Integer.parseInt(textField.getText()));
+						GuiMain.switchPanel(simPanel);
+					} else {
 						GuiMain.getS2Rt2ae().setRiskPolicy(
 								(RiskPolicy) comboBox.getSelectedItem());
-						MultiAgentSimulationPanel simPanel = new MultiAgentSimulationPanel(false, slider_4.getValue());
-						GuiMain.switchPanel(simPanel);	
+						MultiAgentSimulationPanel simPanel = new MultiAgentSimulationPanel(
+								false,
+								(int) (slider_1.getValue() * (Double) (slider_4
+										.getValue() / 100.00))
+										* Integer.parseInt(textField.getText()));
+						GuiMain.switchPanel(simPanel);
 					}
 				} catch (Exception ex) {
 					JOptionPane.showConfirmDialog(null,

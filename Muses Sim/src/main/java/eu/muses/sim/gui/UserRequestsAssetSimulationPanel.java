@@ -172,10 +172,11 @@ public class UserRequestsAssetSimulationPanel extends JPanel {
 								GuiMain.getUser1().setStillMakingRequest(
 										accessRequest, false);
 							} else {
-								if (decision.getRiskCommunication() != null && decision
-										.getRiskCommunication()
-										.hasRiskTreatment(
-												RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
+								if (decision.getRiskCommunication() != null
+										&& decision
+												.getRiskCommunication()
+												.hasRiskTreatment(
+														RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
 									if (GuiMain.getUser1()
 											.acceptsToRefineOpportunity()) {
 										System.out

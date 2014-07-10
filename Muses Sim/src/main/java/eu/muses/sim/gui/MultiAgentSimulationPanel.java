@@ -34,10 +34,15 @@ import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.RiskTreatment;
 import eu.muses.sim.riskman.RiskValue;
+import eu.muses.sim.riskman.SecurityIncident;
 import eu.muses.sim.riskman.asset.Asset;
+import eu.muses.sim.userman.action.AccessAction;
+import eu.muses.sim.userman.action.GiveUpAction;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import javax.swing.JTextPane;
@@ -53,7 +58,8 @@ public class MultiAgentSimulationPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MultiAgentSimulationPanel(final boolean randomPolicy, final int attackLikelyhood) {
+	public MultiAgentSimulationPanel(final boolean randomPolicy,
+			final int attackLikelyhood) {
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -121,11 +127,20 @@ public class MultiAgentSimulationPanel extends JPanel {
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					int attackLikelyhoodTemp = attackLikelyhood;
 					Random r = new Random(1983);
 					for (int i = 0; i < GuiMain.getArList().size(); i++) {
-						if(randomPolicy){
-							RiskPolicy rP = new RiskPolicy(new RiskValue(r.nextDouble(), "Policy"+i), null);
-							GuiMain.getS2Rt2ae().setRiskPolicy(rP);
+						if (randomPolicy) {
+							double type = r.nextDouble();
+							if (type < 0.33)
+								GuiMain.getS2Rt2ae().setRiskPolicy(
+										RiskPolicy.TAKE_FULL_RISK);
+							if (type >= 0.33 && type < 0.66)
+								GuiMain.getS2Rt2ae().setRiskPolicy(
+										RiskPolicy.TAKE_MEDIUM_RISK);
+							if (type >= 0.66)
+								GuiMain.getS2Rt2ae().setRiskPolicy(
+										RiskPolicy.TAKE_NO_RISK);
 						}
 						GuiMain.setSimAmount(GuiMain.getSimAmount() + 1);
 						AccessRequest accessRequest = GuiMain.getArList()
@@ -185,10 +200,11 @@ public class MultiAgentSimulationPanel extends JPanel {
 									GuiMain.getUser1().setStillMakingRequest(
 											accessRequest, false);
 								} else {
-									if (decision
-											.getRiskCommunication()
-											.hasRiskTreatment(
-													RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
+									if (decision.getRiskCommunication() != null
+											&& decision
+													.getRiskCommunication()
+													.hasRiskTreatment(
+															RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
 										if (GuiMain.getUser1()
 												.acceptsToRefineOpportunity()) {
 											System.out
@@ -209,29 +225,33 @@ public class MultiAgentSimulationPanel extends JPanel {
 															RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY);
 										}
 									}
-									for (RiskTreatment riskTreatment : decision
-											.getRiskCommunication()
-											.getRiskTreatments()) {
-										if (!riskTreatment
-												.equals(RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
-											if (GuiMain
-													.getUser1()
-													.appliesSuccessfullyRiskTreatment(
-															riskTreatment)) {
-												// e.g.
-												// user1.movesTo(genevaAirportSecuredCorporateLoungeWiFi);
-												// //this risk treatment
-												// allows her to access the
-												// asset
-												GuiMain.getUser1()
-														.isInformedOfSuccessfullyAppliedRiskTreatment(
-																riskTreatment);
-												GuiMain.getS2EventCorrelator()
-														.logsSuccessfullyAppliedRiskTreatment(
-																riskTreatment);
-											} else {
-												GuiMain.getUser1()
-														.isInformedOfUnsuccessfullRiskTreatmentApplication();
+									if (decision.getRiskCommunication() != null
+											&& decision.getRiskCommunication()
+													.getRiskTreatments() != null) {
+										for (RiskTreatment riskTreatment : decision
+												.getRiskCommunication()
+												.getRiskTreatments()) {
+											if (!riskTreatment
+													.equals(RiskTreatment.PROVIDE_A_DESCRIPTION_OF_YOUR_OPPORTUNITY)) {
+												if (GuiMain
+														.getUser1()
+														.appliesSuccessfullyRiskTreatment(
+																riskTreatment)) {
+													// e.g.
+													// user1.movesTo(genevaAirportSecuredCorporateLoungeWiFi);
+													// //this risk treatment
+													// allows her to access the
+													// asset
+													GuiMain.getUser1()
+															.isInformedOfSuccessfullyAppliedRiskTreatment(
+																	riskTreatment);
+													GuiMain.getS2EventCorrelator()
+															.logsSuccessfullyAppliedRiskTreatment(
+																	riskTreatment);
+												} else {
+													GuiMain.getUser1()
+															.isInformedOfUnsuccessfullRiskTreatmentApplication();
+												}
 											}
 										}
 									}
@@ -448,6 +468,86 @@ public class MultiAgentSimulationPanel extends JPanel {
 							GuiMain.getS2EventCorrelator().logDeniedRequest(
 									accessRequest);
 						}
+
+						if (attackLikelyhoodTemp > 0 && r.nextDouble() > 0.5) {
+							if (!accessRequest.isSolved()
+									&& accessRequest.getUserAction().getClass()
+											.equals(AccessAction.class)) {
+								GuiMain.setUser1(accessRequest.getUser());
+
+								// Much later assuming there is a security
+								// incident on
+								// the
+								// asset
+								SecurityIncident securityIncidentOnPatent = new SecurityIncident(
+										"Patent is invalidated", GuiMain
+												.getMaterialForPatentProposal()
+												.getValue()); // the
+																// MUSES
+																// WP5
+																// event
+																// correlator
+																// would
+																// detect
+								// this incident
+								GuiMain.getS2EventCorrelator()
+										.reportsSecurityIncident(
+												securityIncidentOnPatent);
+								if (GuiMain.getS2EventCorrelator()
+										.seemsUserInvolvedInSecurityIncident(
+												GuiMain.getUser1()) > 0.8) {
+									System.out
+											.println("S2 Event Correlator detected a security incident possibly linked to the user");
+									GuiMain.getS2MusesClientApp()
+											.warnsUserResponsibleForSecurityIncident(
+													GuiMain.getUser1(),
+													securityIncidentOnPatent);
+									GuiMain.getS2Rt2ae().decreasesTrustInUser(
+											GuiMain.getUser1(),
+											securityIncidentOnPatent);
+									GuiMain.getS2Rt2ae()
+											.recalculateThreatProbabilitiesWhenIncident(
+													accessRequest);
+									accessRequest.setSolved(true);
+									GuiMain.getPersistenceManager()
+											.setAccessRequests(
+													new ArrayList<AccessRequest>(
+															Arrays.asList(accessRequest)));
+								}
+								attackLikelyhoodTemp--;
+							} else {
+								accessRequest.setSolved(true);
+								GuiMain.getPersistenceManager()
+										.setAccessRequests(
+												new ArrayList<AccessRequest>(
+														Arrays.asList(accessRequest)));
+							}
+						} else {
+							if (!accessRequest.isSolved()
+									&& accessRequest.getUserAction().getClass()
+											.equals(AccessAction.class)) {
+								GuiMain.setUser1(accessRequest.getUser());
+
+								System.out
+										.println("Event Correlator confirmed that there was no security incident for this access request");
+								GuiMain.getS2Rt2ae()
+										.recalculateThreatProbabilitiesWhenNoIncident(
+												accessRequest);
+								accessRequest.setSolved(true);
+								GuiMain.getPersistenceManager()
+										.setAccessRequests(
+												new ArrayList<AccessRequest>(
+														Arrays.asList(accessRequest)));
+
+							} else {
+								accessRequest.setSolved(true);
+								GuiMain.getPersistenceManager()
+										.setAccessRequests(
+												new ArrayList<AccessRequest>(
+														Arrays.asList(accessRequest)));
+							}
+						}
+
 					}
 					btnRunSimulation.setVisible(false);
 
