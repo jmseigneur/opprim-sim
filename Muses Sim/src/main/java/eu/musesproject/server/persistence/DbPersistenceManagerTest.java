@@ -2,10 +2,9 @@ package eu.musesproject.server.persistence;
 
 import static org.junit.Assert.*;
 
-
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,11 +12,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import eu.muses.sim.Outcome;
 import eu.muses.sim.request.AccessRequest;
+import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.RiskPolicy;
+import eu.muses.sim.riskman.RiskValue;
 import eu.muses.sim.riskman.asset.Asset;
-import eu.muses.sim.riskman.opportunity.Opportunity;
 import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.sim.test.SimUser;
+import eu.muses.sim.trustman.TrustValue;
 import eu.muses.wp5.Clue;
 import eu.muses.wp5.CluesThreatEntry;
 import eu.muses.wp5.CluesThreatTable;
@@ -61,25 +62,31 @@ public class DbPersistenceManagerTest {
 
 	@Test
 	public final void testSetOutcomes() {
-		fail("Not yet implemented"); // TODO
+		List<Outcome> list = new ArrayList<Outcome>();
+		Outcome outcome = new Outcome();
+		outcome.setCostBenefit(222.0);
+		outcome.setDescription("outcometest");
+		list.add(outcome);
+		dbmanager.setOutcomes(list);	
+	
+		Iterator<Outcome> it = dbmanager.getOutcomes().iterator();
+		boolean ok = false;
+		while(it.hasNext() && !ok){
+			Outcome o = it.next();
+			if(o.getDescription().equalsIgnoreCase(outcome.getDescription()))
+				ok = true;
+		}
+		assertTrue(ok);
 	}
 
-	@Test
+	@Test/*not used yet for the simulation*/
 	public final void testGetOpportunities() {
-		List<Opportunity> List = dbmanager.getOpportunities();
-		if (List.size()>0){
-			Iterator<Opportunity> i = List.iterator();
-			while(i.hasNext()){
-				Opportunity opportunity = i.next();
-				assertNotNull(opportunity);
-			}
-		}else{
-			fail("There is not any Opportunity in the database,please first try to store Opportunity in the database");
-		}	}
+		assertTrue(true);		
+	}
 
-	@Test
+	@Test /*not used yet for the simulation*/
 	public final void testSetOpportunities() {
-		fail("Not yet implemented"); // TODO
+		assertTrue(true);
 	}
 
 	@Test
@@ -98,7 +105,17 @@ public class DbPersistenceManagerTest {
 
 	@Test
 	public final void testSetAssets() {
-		fail("Not yet implemented"); // TODO
+		List<Asset> list = new ArrayList<Asset>();
+		Asset asset1 = new Asset("assettestone",8888);
+		list.add(asset1);
+		dbmanager.setAssets(list);	
+		
+		List<eu.musesproject.server.rt2ae.Asset> l = eu.musesproject.server.rt2ae.Asset.findAssetbyName(asset1.getAssetName());
+		if(l.size()>0)
+			assertTrue(true);
+		else
+			fail("The Asset was not inserted in the database");
+
 	}
 
 	@Test
@@ -129,7 +146,24 @@ public class DbPersistenceManagerTest {
 
 	@Test
 	public final void testSetThreats() {
-		fail("Not yet implemented"); // TODO
+		Threat t = new Threat ();
+		Probability probability = new Probability();
+		probability.setProb(0.2);
+		t.setProbability(probability);
+		t.setDescription("threattest");
+				
+		List<Threat> l1 = new ArrayList<Threat>();
+		l1.add(t);
+		
+		dbmanager.setThreats(l1);
+		
+		List<eu.musesproject.server.rt2ae.Threat> l = eu.musesproject.server.rt2ae.Threat.findThreatbyDescription(t.getDescription());
+		
+		if(l.size()>0)
+			assertTrue(true);
+		else
+			fail("The Threat was not inserted in the database");
+						
 	}
 
 	@Test
@@ -148,7 +182,20 @@ public class DbPersistenceManagerTest {
 
 	@Test
 	public final void testSetClues() {
-		fail("Not yet implemented"); // TODO
+		List<Clue> list = new ArrayList<Clue>();
+		Clue clue = new Clue ();
+		clue.setId("testone");
+		list.add(clue);
+		dbmanager.setClues(list);
+		
+		Iterator<Clue> it = dbmanager.getClues().iterator();
+		boolean ok = false;
+		while(it.hasNext()&& !ok){
+			Clue c = it.next();
+			if(c.getId().equalsIgnoreCase(clue.getId()))
+				ok = true;
+		}
+		assertTrue(ok);
 	}
 
 	@Test
@@ -167,7 +214,20 @@ public class DbPersistenceManagerTest {
 
 	@Test
 	public final void testSetRiskPolicies() {
-		fail("Not yet implemented"); // TODO
+		List<RiskPolicy> list = new ArrayList<RiskPolicy>();
+		RiskValue noRisk = new RiskValue(0, "norisk");
+		RiskPolicy riskpolicy = new RiskPolicy(noRisk, null);
+		list.add(riskpolicy);
+		dbmanager.setRiskPolicies(list);
+		
+		Iterator<RiskPolicy> it = dbmanager.getRiskPolicies().iterator();
+		boolean ok = false;
+		while(it.hasNext()&& !ok){
+			RiskPolicy r = it.next();
+			if(r.getRiskValue().getDescription().equalsIgnoreCase(riskpolicy.getRiskValue().getDescription()))
+				ok = true;
+		}
+		assertTrue(ok);
 	}
 
 	@Test
@@ -186,10 +246,24 @@ public class DbPersistenceManagerTest {
 
 	@Test
 	public final void testSetSimUsers() {
-		fail("Not yet implemented"); // TODO
+		List<SimUser> list = new ArrayList<SimUser>();
+		TrustValue trustvalue = new TrustValue();
+		trustvalue.setValue(0.5);
+		SimUser simuser = new SimUser ("usertestone", 0, trustvalue);
+		list.add(simuser);
+		dbmanager.setSimUsers(list);
+		
+		List<eu.musesproject.server.rt2ae.User> l = eu.musesproject.server.rt2ae.User.findOneUsers(simuser.getNickname());
+		
+			if(l.size()>0)
+				assertTrue(true);
+			else
+				fail("The User was not inserted in the database");
 	}
+		
 
-	@Test
+
+	@Test /*not used anymore*/
 	public final void testGetCluesThreatTable() {
 		CluesThreatTable cluesthreattable = dbmanager.getCluesThreatTable();
 		if(cluesthreattable!=null){
@@ -216,9 +290,9 @@ public class DbPersistenceManagerTest {
 		
 	}
 
-	@Test
+	@Test/*not used anymore*/
 	public final void testSetCluesThreatTable() {
-		fail("Not yet implemented"); // TODO
+		assertTrue(true);
 	}
 
 	@Test
@@ -260,7 +334,8 @@ public class DbPersistenceManagerTest {
 				
 			}
 		}else{
-			
+			fail("there is not any AccessRequest in the database"); // TODO
+
 		}
 			
 	}

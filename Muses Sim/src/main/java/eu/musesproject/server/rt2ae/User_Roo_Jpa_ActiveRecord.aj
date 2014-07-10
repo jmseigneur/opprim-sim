@@ -4,12 +4,9 @@
 package eu.musesproject.server.rt2ae;
 
 import eu.musesproject.server.rt2ae.User;
-
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import org.springframework.transaction.annotation.Transactional;
 
 privileged aspect User_Roo_Jpa_ActiveRecord {
@@ -31,10 +28,6 @@ privileged aspect User_Roo_Jpa_ActiveRecord {
         return entityManager().createQuery("SELECT o FROM User o", User.class).getResultList();
     }
     
-    public static List<User> User.findOneUsers(String name) {
-        return entityManager().createQuery("SELECT o FROM User o where o.name =:name").setParameter("name", name).getResultList();
-    }
-    
     public static User User.findUser(Integer userId) {
         if (userId == null) return null;
         return entityManager().find(User.class, userId);
@@ -42,6 +35,10 @@ privileged aspect User_Roo_Jpa_ActiveRecord {
     
     public static List<User> User.findUserEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM User o", User.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+    
+    public static List<User> User.findOneUsers(String name) {
+        return entityManager().createQuery("SELECT o FROM User o where o.name =:name").setParameter("name", name).getResultList();
     }
     
     @Transactional

@@ -5,7 +5,6 @@ package eu.musesproject.server.rt2ae;
 
 import eu.musesproject.server.rt2ae.Accessrequest;
 
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 
@@ -39,9 +38,8 @@ privileged aspect Accessrequest_Roo_Jpa_ActiveRecord {
     }
     
     public static List<Accessrequest> Accessrequest.findAccessrequestbyTimestampandThreat(Calendar time,Threat threatid) {
-    	 Timestamp t = new Timestamp(time.getTimeInMillis()); 
-        return entityManager().createQuery("SELECT o FROM Accessrequest o where o.time =:time and o.threatid =:threatid").setParameter("time", time).setParameter("threatid", threatid).getResultList();
-    }
+       return entityManager().createQuery("SELECT o FROM Accessrequest o where o.time =:time and o.threatid =:threatid").setParameter("time", time).setParameter("threatid", threatid).getResultList();
+   }
     
     public static List<Accessrequest> Accessrequest.findAccessrequestEntries(int firstResult, int maxResults) {
         return entityManager().createQuery("SELECT o FROM Accessrequest o", Accessrequest.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
