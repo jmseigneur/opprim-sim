@@ -127,6 +127,8 @@ public class MultiAgentSimulationPanel extends JPanel {
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					double overallCostBenefit = -((GuiMain.getArList().size()*10000) - (attackLikelyhood*10000));
+					double simulatedCostBenefit = 0;
 					int attackLikelyhoodTemp = attackLikelyhood;
 					Random r = new Random(1983);
 					for (int i = 0; i < GuiMain.getArList().size(); i++) {

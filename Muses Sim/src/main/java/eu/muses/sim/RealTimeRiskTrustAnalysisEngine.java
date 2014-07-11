@@ -120,12 +120,14 @@ public class RealTimeRiskTrustAnalysisEngine {
 					.getCostBenefit();
 
 			if (riskEvent.getOutcomes().iterator().next().getCostBenefit() < 0) {
+				System.out.println("This is a threat");
 				combinedProbabilityThreats = combinedProbabilityThreats
 						* riskEvent.getProbability().getProb();
 				singleThreatProbabibility = singleThreatProbabibility
 						+ riskEvent.getProbability().getProb();
 				threatcount++;
 			} else {
+				System.out.println("This is an opportunity");
 				combinedProbabilityOpportunities = combinedProbabilityOpportunities
 						* riskEvent.getProbability().getProb();
 				singleOpportunityProbability = singleOpportunityProbability
@@ -170,12 +172,11 @@ public class RealTimeRiskTrustAnalysisEngine {
 			return Decision.STRONG_DENY_ACCESS;
 		}
 		if (riskPolicy == RiskPolicy.TAKE_MEDIUM_RISK) {
-			if (costOpportunity < 0
-					&& combinedProbabilityThreats < riskPolicy.getRiskValue()
+			if (combinedProbabilityThreats < riskPolicy.getRiskValue()
 							.getValue()) {
 				return Decision.ALLOW_ACCESS;
 			} else {
-				return Decision.ON_YOUR_RISK_ACCESS;
+				return Decision.STRONG_DENY_ACCESS;
 			}
 		}
 		if (riskPolicy == RiskPolicy.TAKE_CORPORATE_RISK) {
@@ -272,7 +273,6 @@ public class RealTimeRiskTrustAnalysisEngine {
 					+ "\" with the following potential cost (in kEUR): "
 					+ threat.getOutcomes().iterator().next().getCostBenefit()
 					+ "\n");
-			currentThreats.add(threat);
 			accessRequest.setCluesThreatEntry(new CluesThreatEntry(clues,
 					threat));
 			Calendar now = Calendar.getInstance();

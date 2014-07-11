@@ -258,8 +258,6 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 								.getDescription() + " - " + accessRequest.getCluesThreatEntry()
 								.getThreat().getDescription() + " and time " + this.accessRequests.get(i).getTime().getTimeInMillis() + " - " + accessRequest.getTime().getTimeInMillis());
 						x = i;
-					} else {
-						x = -1;
 					}
 				}
 				

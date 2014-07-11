@@ -467,8 +467,10 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 						}
 					}
 					for (int j = 0; j < slider_2.getValue(); j++) {
+						/*Asset a = new Asset("Asset" + j,
+								r.nextDouble() * 100000);*/
 						Asset a = new Asset("Asset" + j,
-								r.nextDouble() * 100000);
+								10000);
 						GuiMain.getPersistenceManager().getAssets().add(a);
 					}
 					for (int k = 0; k < Integer.parseInt(textField.getText()); k++) {
