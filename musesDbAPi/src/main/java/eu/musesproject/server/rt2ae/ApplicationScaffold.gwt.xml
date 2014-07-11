@@ -9,7 +9,10 @@
 	<inherits name="com.google.gwt.logging.Logging"/>
 	<inherits name="com.google.gwt.inject.Inject"/>
 	<inherits name="com.google.gwt.text.Text"/>
-
+  <inherits name="com.bradrydzewski.gwt.calendar.Calendar" />
+  <inherits name="com.bradrydzewski.gwt.calendar.theme.google.Google" />
+  
+  
 	<source path="eu/musesproject/server/rt2ae/client/request"/>
     <source path="eu/musesproject/server/rt2ae/client/proxy"/>
     <source path="client"/>
