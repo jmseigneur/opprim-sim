@@ -71,6 +71,16 @@
         
         
         
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
     <div id="userId">
             <div class="{style.label}">User Id</div>
             <div class="{style.value}" ui:field="userId"/>

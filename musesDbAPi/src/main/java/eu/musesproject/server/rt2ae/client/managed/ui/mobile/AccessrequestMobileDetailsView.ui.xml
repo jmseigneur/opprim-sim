@@ -81,6 +81,17 @@
         
         
         
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     <div id="accessrequestId">
             <div class="{style.label}">Accessrequest Id</div>
             <div class="{style.value}" ui:field="accessrequestId"/>

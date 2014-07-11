@@ -74,7 +74,6 @@ public abstract class AccessrequestDesktopDetailsView_Roo_Gwt extends Composite 
         riskinformations.setInnerText(proxy.getRiskinformations() == null ? "" : eu.musesproject.server.rt2ae.client.scaffold.place.CollectionRenderer.of(eu.musesproject.server.rt2ae.client.managed.ui.renderer.RiskinformationProxyRenderer.instance()).render(proxy.getRiskinformations()));
         assetId.setInnerText(proxy.getAssetId() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.AssetProxyRenderer.instance().render(proxy.getAssetId()));
         opportunityId.setInnerText(proxy.getOpportunityId() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.OpportunityProxyRenderer.instance().render(proxy.getOpportunityId()));
-        deviceId.setInnerText(proxy.getDeviceId() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.DeviceProxyRenderer.instance().render(proxy.getDeviceId()));
         userId.setInnerText(proxy.getUserId() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.UserProxyRenderer.instance().render(proxy.getUserId()));
         riskcommunicationid.setInnerText(proxy.getRiskcommunicationid() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.RiskcommunicationProxyRenderer.instance().render(proxy.getRiskcommunicationid()));
         threatid.setInnerText(proxy.getThreatid() == null ? "" : eu.musesproject.server.rt2ae.client.managed.ui.renderer.ThreatProxyRenderer.instance().render(proxy.getThreatid()));
