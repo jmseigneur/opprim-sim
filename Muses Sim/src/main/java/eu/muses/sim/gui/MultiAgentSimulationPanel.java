@@ -41,6 +41,13 @@ import eu.muses.sim.userman.action.GiveUpAction;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -60,6 +67,7 @@ public class MultiAgentSimulationPanel extends JPanel {
 	 */
 	public MultiAgentSimulationPanel(final boolean randomPolicy,
 			final int attackLikelyhood) {
+		System.out.println("Attack likelyhood: " + attackLikelyhood);
 		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -127,7 +135,7 @@ public class MultiAgentSimulationPanel extends JPanel {
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					double overallCostBenefit = -((GuiMain.getArList().size()*10000) - (attackLikelyhood*10000));
+					double overallCostBenefit = -(attackLikelyhood * 10000);
 					double simulatedCostBenefit = 0;
 					int attackLikelyhoodTemp = attackLikelyhood;
 					Random r = new Random(1983);
@@ -469,6 +477,8 @@ public class MultiAgentSimulationPanel extends JPanel {
 									.println("The denied access request was logged by the Event Correlator");
 							GuiMain.getS2EventCorrelator().logDeniedRequest(
 									accessRequest);
+							accessRequest.setSolved(true);
+							accessRequest.setUserAction(new GiveUpAction());
 						}
 
 						if (attackLikelyhoodTemp > 0 && r.nextDouble() > 0.5) {
@@ -476,7 +486,14 @@ public class MultiAgentSimulationPanel extends JPanel {
 									&& accessRequest.getUserAction().getClass()
 											.equals(AccessAction.class)) {
 								GuiMain.setUser1(accessRequest.getUser());
-
+								simulatedCostBenefit = simulatedCostBenefit
+										- (accessRequest
+												.getOpportunityDescriptor()
+												.getRequestedAssets()
+												.iterator().next().getValue() + accessRequest
+												.getOpportunityDescriptor()
+												.getOutcomes().iterator()
+												.next().getCostBenefit());
 								// Much later assuming there is a security
 								// incident on
 								// the
@@ -519,6 +536,11 @@ public class MultiAgentSimulationPanel extends JPanel {
 								attackLikelyhoodTemp--;
 							} else {
 								accessRequest.setSolved(true);
+								simulatedCostBenefit = simulatedCostBenefit
+										- accessRequest
+												.getOpportunityDescriptor()
+												.getOutcomes().iterator()
+												.next().getCostBenefit();
 								GuiMain.getPersistenceManager()
 										.setAccessRequests(
 												new ArrayList<AccessRequest>(
@@ -529,7 +551,11 @@ public class MultiAgentSimulationPanel extends JPanel {
 									&& accessRequest.getUserAction().getClass()
 											.equals(AccessAction.class)) {
 								GuiMain.setUser1(accessRequest.getUser());
-
+								simulatedCostBenefit = simulatedCostBenefit
+										+ accessRequest
+												.getOpportunityDescriptor()
+												.getOutcomes().iterator()
+												.next().getCostBenefit();
 								System.out
 										.println("Event Correlator confirmed that there was no security incident for this access request");
 								GuiMain.getS2Rt2ae()
@@ -543,6 +569,11 @@ public class MultiAgentSimulationPanel extends JPanel {
 
 							} else {
 								accessRequest.setSolved(true);
+								simulatedCostBenefit = simulatedCostBenefit
+										- accessRequest
+												.getOpportunityDescriptor()
+												.getOutcomes().iterator()
+												.next().getCostBenefit();
 								GuiMain.getPersistenceManager()
 										.setAccessRequests(
 												new ArrayList<AccessRequest>(
@@ -550,6 +581,19 @@ public class MultiAgentSimulationPanel extends JPanel {
 							}
 						}
 
+					}
+					System.out.println("Amount of requests: " + GuiMain.getArList().size() + " realCostBenefit: " + overallCostBenefit
+							+ " $ - Simulated Cost benefit: "
+							+ simulatedCostBenefit + " $");
+					try (PrintWriter out = new PrintWriter(new BufferedWriter(
+							new FileWriter("results.txt", true)))) {
+						out.println(((attackLikelyhood * 100) / GuiMain
+								.getArList().size())
+								+ ";"
+								+ overallCostBenefit
+								+ ";" + simulatedCostBenefit);
+					} catch (IOException ex) {
+						System.err.println(ex);
 					}
 					btnRunSimulation.setVisible(false);
 

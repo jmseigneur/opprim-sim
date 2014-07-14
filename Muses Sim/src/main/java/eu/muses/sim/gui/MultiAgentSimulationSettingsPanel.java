@@ -467,10 +467,11 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 						}
 					}
 					for (int j = 0; j < slider_2.getValue(); j++) {
-						/*Asset a = new Asset("Asset" + j,
-								r.nextDouble() * 100000);*/
-						Asset a = new Asset("Asset" + j,
-								10000);
+						/*
+						 * Asset a = new Asset("Asset" + j, r.nextDouble() *
+						 * 100000);
+						 */
+						Asset a = new Asset("Asset" + j, 10000);
 						GuiMain.getPersistenceManager().getAssets().add(a);
 					}
 					for (int k = 0; k < Integer.parseInt(textField.getText()); k++) {
@@ -541,18 +542,18 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 					if (chckbxRandomRiskPolicy.isSelected()) {
 						MultiAgentSimulationPanel simPanel = new MultiAgentSimulationPanel(
 								true,
-								(int) (slider_1.getValue() * (Double) (slider_4
-										.getValue() / 100.00))
-										* Integer.parseInt(textField.getText()));
+								(int) ((slider_1.getValue() * Integer
+										.parseInt(textField.getText())) * (Double) (slider_4
+										.getValue() / 100.00)));
 						GuiMain.switchPanel(simPanel);
 					} else {
 						GuiMain.getS2Rt2ae().setRiskPolicy(
 								(RiskPolicy) comboBox.getSelectedItem());
 						MultiAgentSimulationPanel simPanel = new MultiAgentSimulationPanel(
 								false,
-								(int) (slider_1.getValue() * (Double) (slider_4
-										.getValue() / 100.00))
-										* Integer.parseInt(textField.getText()));
+								(int) ((slider_1.getValue() * Integer
+										.parseInt(textField.getText())) * (Double) (slider_4
+										.getValue() / 100.00)));
 						GuiMain.switchPanel(simPanel);
 					}
 				} catch (Exception ex) {

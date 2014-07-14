@@ -172,7 +172,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 			return Decision.STRONG_DENY_ACCESS;
 		}
 		if (riskPolicy == RiskPolicy.TAKE_MEDIUM_RISK) {
-			if (combinedProbabilityThreats < riskPolicy.getRiskValue()
+			if (combinedProbabilityThreats <= riskPolicy.getRiskValue()
 							.getValue()) {
 				return Decision.ALLOW_ACCESS;
 			} else {

@@ -134,17 +134,17 @@ public class GuiMain {
 				InMemoryPersistenceManager.class)) {
 			persistenceManager.setClues(new ArrayList<Clue>(Arrays.asList(
 					Clue.antivirusClue, Clue.firewallClue, Clue.vpnClue)));
-			persistenceManager.setAssets(new ArrayList<Asset>(Arrays.asList(
+			/*persistenceManager.setAssets(new ArrayList<Asset>(Arrays.asList(
 					new Asset("Important File", 1000), new Asset(
-							"Irrelevant File", 0))));
+							"Irrelevant File", 0))));*/
 			persistenceManager.setRiskPolicies(new ArrayList<RiskPolicy>(Arrays
 					.asList(RiskPolicy.TAKE_FULL_RISK,
 							RiskPolicy.TAKE_MEDIUM_RISK,
 							RiskPolicy.TAKE_NO_RISK)));
-			persistenceManager
+			/*persistenceManager
 					.setSimUsers(new ArrayList<SimUser>(Arrays
 							.asList(new SimUser("TestUser", 120,
-									new TrustValue(0.5)))));
+									new TrustValue(0.5)))));*/
 		}
 
 		GuiMain.musesUsersDevicesAndAssetsConfigurationsSteps();
