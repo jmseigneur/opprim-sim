@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -135,10 +136,11 @@ public class MultiAgentSimulationPanel extends JPanel {
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					double overallCostBenefit = -(attackLikelyhood * 10000);
+					double overallCostBenefit = -(attackLikelyhood * 10000) + (GuiMain.getArList().size()*200);
 					double simulatedCostBenefit = 0;
+					int flaggedRequests = 0;
 					int attackLikelyhoodTemp = attackLikelyhood;
-					Random r = new Random(1983);
+					Random r = new Random(20671943);
 					for (int i = 0; i < GuiMain.getArList().size(); i++) {
 						if (randomPolicy) {
 							double type = r.nextDouble();
@@ -481,7 +483,7 @@ public class MultiAgentSimulationPanel extends JPanel {
 							accessRequest.setUserAction(new GiveUpAction());
 						}
 
-						if (attackLikelyhoodTemp > 0 && r.nextDouble() > 0.5) {
+						if (attackLikelyhoodTemp > 0 && r.nextDouble() > 0.6) {
 							if (!accessRequest.isSolved()
 									&& accessRequest.getUserAction().getClass()
 											.equals(AccessAction.class)) {
@@ -534,8 +536,23 @@ public class MultiAgentSimulationPanel extends JPanel {
 															Arrays.asList(accessRequest)));
 								}
 								attackLikelyhoodTemp--;
+								flaggedRequests = flaggedRequests + 1;
+								try (PrintWriter out = new PrintWriter(new BufferedWriter(
+										new FileWriter("flagged" + ((attackLikelyhood * 100) / GuiMain
+												.getArList().size()) + ".txt", true)))) {
+									out.println(flaggedRequests + ";" + (i+1));
+								} catch (IOException ex) {
+									System.err.println(ex);
+								}
 							} else {
 								accessRequest.setSolved(true);
+								try (PrintWriter out = new PrintWriter(new BufferedWriter(
+										new FileWriter("flagged" + ((attackLikelyhood * 100) / GuiMain
+												.getArList().size()) + ".txt", true)))) {
+									out.println(flaggedRequests + ";" + (i+1));
+								} catch (IOException ex) {
+									System.err.println(ex);
+								}
 								simulatedCostBenefit = simulatedCostBenefit
 										- accessRequest
 												.getOpportunityDescriptor()
@@ -566,9 +583,23 @@ public class MultiAgentSimulationPanel extends JPanel {
 										.setAccessRequests(
 												new ArrayList<AccessRequest>(
 														Arrays.asList(accessRequest)));
+								try (PrintWriter out = new PrintWriter(new BufferedWriter(
+										new FileWriter("flagged" + ((attackLikelyhood * 100) / GuiMain
+												.getArList().size()) + ".txt", true)))) {
+									out.println(flaggedRequests + ";" + (i+1));
+								} catch (IOException ex) {
+									System.err.println(ex);
+								}
 
 							} else {
 								accessRequest.setSolved(true);
+								try (PrintWriter out = new PrintWriter(new BufferedWriter(
+										new FileWriter("flagged" + ((attackLikelyhood * 100) / GuiMain
+												.getArList().size()) + ".txt", true)))) {
+									out.println(flaggedRequests + ";" + (i+1));
+								} catch (IOException ex) {
+									System.err.println(ex);
+								}
 								simulatedCostBenefit = simulatedCostBenefit
 										- accessRequest
 												.getOpportunityDescriptor()
@@ -582,16 +613,18 @@ public class MultiAgentSimulationPanel extends JPanel {
 						}
 
 					}
-					System.out.println("Amount of requests: " + GuiMain.getArList().size() + " realCostBenefit: " + overallCostBenefit
+					DecimalFormat df = new DecimalFormat("#");
+					df.setMaximumFractionDigits(4);
+					System.out.println("Amount of requests: " + GuiMain.getArList().size() + " realCostBenefit: " + df.format(overallCostBenefit)
 							+ " $ - Simulated Cost benefit: "
-							+ simulatedCostBenefit + " $");
+							+ df.format(simulatedCostBenefit) + " $");
 					try (PrintWriter out = new PrintWriter(new BufferedWriter(
-							new FileWriter("results.txt", true)))) {
+							new FileWriter("results_ops_10.txt", true)))) {
 						out.println(((attackLikelyhood * 100) / GuiMain
 								.getArList().size())
 								+ ";"
-								+ overallCostBenefit
-								+ ";" + simulatedCostBenefit);
+								+ df.format(overallCostBenefit)
+								+ ";" + df.format(simulatedCostBenefit));
 					} catch (IOException ex) {
 						System.err.println(ex);
 					}

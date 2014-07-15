@@ -141,7 +141,6 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		final JSlider slider_2 = new JSlider();
 		slider_2.setBackground(Color.WHITE);
 		slider_2.setMajorTickSpacing(1000);
-		slider_2.setValue(100);
 		slider_2.setMinorTickSpacing(500);
 		slider_2.setMaximum(10000);
 		slider_2.setPaintTicks(true);
@@ -174,7 +173,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		add(lblAccessRequestsPer, gbc_lblAccessRequestsPer);
 
 		textField = new JTextField();
-		textField.setText("1");
+		textField.setText("24");
 		textField.setToolTipText("only positive numbers");
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
@@ -255,6 +254,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 		add(lblOr, gbc_lblOr);
 
 		textField_1 = new JTextField();
+		textField_1.setText("0.5");
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
@@ -373,6 +373,8 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 					new String[] { "ADD RISK POLICIES FIRST" }));
 		}
 
+		comboBox.setSelectedIndex(1);
+		
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
@@ -437,11 +439,11 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 							.getValue() / 100.00));
 					int userGiveUpLeft = (int) (slider_1.getValue() * (Double) (slider_3
 							.getValue() / 100.00));
-					Random r = new Random(1983);
+					Random r = new Random(1985495673);
 					for (int i = 0; i < slider_1.getValue(); i++) {
 						if (chckbxRandomTrustValues.isSelected()) {
 							SimUser u = new SimUser("User" + i,
-									r.nextDouble() * 1000, new TrustValue(r
+									200, new TrustValue(r
 											.nextDouble()));
 							if (userBehaviourLeft > 0) {
 								u.setBehaviour(0);
@@ -453,7 +455,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 									.add(u);
 						} else {
 							SimUser u = new SimUser("User" + i,
-									r.nextDouble() * 1000, new TrustValue(
+									200, new TrustValue(
 											Double.valueOf(textField_1
 													.getText())));
 							if (userBehaviourLeft > 0) {
