@@ -58,6 +58,11 @@ public abstract class PersistenceManager {
 	public abstract List<Threat> getThreats();
 
 	/**
+	 * @return the threat
+	 */
+	public abstract Threat getSingleThreat(Threat t);
+	
+	/**
 	 * @param threats
 	 *            the threats to set
 	 */
@@ -90,6 +95,11 @@ public abstract class PersistenceManager {
 	 */
 	public abstract List<SimUser> getSimUsers();
 
+	/**
+	 * @return the simUser
+	 */
+	public abstract SimUser getSingleSimUsers(SimUser u);
+	
 	/**
 	 * @param simUsers
 	 *            the simUsers to set

@@ -10,6 +10,7 @@ import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.opportunity.Opportunity;
 import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.sim.test.SimUser;
+import eu.muses.sim.trustman.TrustValue;
 import eu.muses.wp5.Clue;
 import eu.muses.wp5.CluesThreatTable;
 
@@ -113,6 +114,18 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	public List<Threat> getThreats() {
 		return threats;
 	}
+	
+	@Override
+	/**
+	 * @return the threat
+	 */
+	public Threat getSingleThreat(Threat t) {
+		for (int i = 0; i < this.threats.size(); i++) {
+			if(this.threats.get(i).getDescription().equals(t.getDescription()))
+				return this.threats.get(i);
+		}
+		return null;
+	}
 
 	@Override
 	/**
@@ -128,9 +141,7 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 							.getDescription()
 							.equals(threat.getDescription())) {
 						x = i;
-					} else {
-						x = -1;
-					}
+					} 
 				}
 				
 				if (x != -1){
@@ -193,6 +204,18 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	public List<SimUser> getSimUsers() {
 		return simUsers;
 	}
+	
+	@Override
+	/**
+	 * @return the simUser
+	 */
+	public SimUser getSingleSimUsers(SimUser u) {
+		for (int i = 0; i < this.simUsers.size(); i++) {
+			if(this.simUsers.get(i).getNickname().equals(u.getNickname()))
+				return this.simUsers.get(i);
+		}
+		return new SimUser("NotFound", 0.0,new TrustValue(0.0));
+	}
 
 	@Override
 	/**
@@ -200,8 +223,25 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	 *            the simUsers to set
 	 */
 	public void setSimUsers(List<SimUser> simUsers) {
-		for (SimUser simUser : simUsers) {
-			this.simUsers.add(simUser);
+		
+		int x = -1;
+		for (SimUser user : simUsers) {
+			if (this.simUsers.size() > 0) {
+				for (int i = 0; i < this.simUsers.size(); i++) {
+					if (this.simUsers.get(i)
+							.getNickname()
+							.equals(user.getNickname())) {
+						x = i;
+				}
+				}
+				if (x != -1){
+					this.simUsers.set(x, user);
+				}else{
+					this.simUsers.add(user);
+				}
+			} else {
+				this.simUsers.add(user);
+			}
 		}
 
 	}

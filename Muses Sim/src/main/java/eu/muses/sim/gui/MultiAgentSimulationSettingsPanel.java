@@ -40,6 +40,8 @@ import eu.muses.sim.userman.action.GiveUpAction;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import javax.swing.JComboBox;
@@ -451,8 +453,8 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 							} else {
 								u.setBehaviour(100);
 							}
-							GuiMain.getPersistenceManager().getSimUsers()
-									.add(u);
+							GuiMain.getPersistenceManager().setSimUsers(new ArrayList<SimUser>(Arrays.asList(u)));
+							System.out.println(GuiMain.getPersistenceManager().getSingleSimUsers(u).getTrustValue().getValue());
 						} else {
 							SimUser u = new SimUser("User" + i,
 									200, new TrustValue(
@@ -464,8 +466,8 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 							} else {
 								u.setBehaviour(100);
 							}
-							GuiMain.getPersistenceManager().getSimUsers()
-									.add(u);
+							GuiMain.getPersistenceManager().setSimUsers(new ArrayList<SimUser>(Arrays.asList(u)));
+							System.out.println(GuiMain.getPersistenceManager().getSingleSimUsers(u).getTrustValue().getValue());
 						}
 					}
 					for (int j = 0; j < slider_2.getValue(); j++) {
@@ -531,6 +533,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 							 */
 							ar.setUser(GuiMain.getPersistenceManager()
 									.getSimUsers().get(l));
+							System.out.println(ar.getUser().getNickname() + " - " + ar.getUser().getTrustValue().getValue());
 							if (userGiveUpLeft > 0 && r.nextDouble() > 0.5) {
 								ar.setUserAction(new GiveUpAction());
 								userGiveUpLeft--;

@@ -30,12 +30,15 @@ import javax.swing.Box;
 import eu.muses.sim.OpportunityDescriptor;
 import eu.muses.sim.decision.CorporateUserAccessRequestDecision;
 import eu.muses.sim.decision.Decision;
+import eu.muses.sim.persistence.PersistenceManager;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.RiskTreatment;
 import eu.muses.sim.riskman.RiskValue;
 import eu.muses.sim.riskman.SecurityIncident;
 import eu.muses.sim.riskman.asset.Asset;
+import eu.muses.sim.riskman.threat.Threat;
+import eu.muses.sim.test.SimUser;
 import eu.muses.sim.userman.action.AccessAction;
 import eu.muses.sim.userman.action.GiveUpAction;
 
@@ -136,11 +139,12 @@ public class MultiAgentSimulationPanel extends JPanel {
 		btnRunSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					double overallCostBenefit = -(attackLikelyhood * 10000) + (GuiMain.getArList().size()*200);
+					double overallCostBenefit = -(attackLikelyhood * 10000)
+							+ (GuiMain.getArList().size() * 200);
 					double simulatedCostBenefit = 0;
 					int flaggedRequests = 0;
 					int attackLikelyhoodTemp = attackLikelyhood;
-					Random r = new Random(20671943);
+					Random r = new Random(587658421);
 					for (int i = 0; i < GuiMain.getArList().size(); i++) {
 						if (randomPolicy) {
 							double type = r.nextDouble();
@@ -157,7 +161,11 @@ public class MultiAgentSimulationPanel extends JPanel {
 						GuiMain.setSimAmount(GuiMain.getSimAmount() + 1);
 						AccessRequest accessRequest = GuiMain.getArList()
 								.get(i);
-						GuiMain.setUser1(accessRequest.getUser());
+						
+						SimUser u = GuiMain.getPersistenceManager().getSingleSimUsers(accessRequest.getUser());
+						accessRequest.setUser(u);
+						GuiMain.setUser1(u);
+						System.out.println(accessRequest.getUser().getTrustValue().getValue());
 
 						// XXX //user1Laptop is for example inferred by the
 						// sensed
@@ -457,20 +465,20 @@ public class MultiAgentSimulationPanel extends JPanel {
 									// outcome was positive after six months, so
 									// we shouldnt update trust in user right
 									// away, right?
-									GuiMain.getS2Rt2ae()
+									/*GuiMain.getS2Rt2ae()
 											.updatesTrustInUserGivenPositiveOutcome(
 													GuiMain.getUser1(),
 													accessRequest
-															.getOpportunityDescriptor());
+															.getOpportunityDescriptor());*/
 								} else {
 									GuiMain.getS2EventCorrelator()
 											.logsNegativeOutcomeBasedOnTheNonAchievedOpportunity(
 													accessRequest);
-									GuiMain.getS2Rt2ae()
+									/*GuiMain.getS2Rt2ae()
 											.updatesTrustInUserGivenNegativeOutcome(
 													GuiMain.getUser1(),
 													accessRequest
-															.getOpportunityDescriptor());
+															.getOpportunityDescriptor());*/
 								}
 							}
 
@@ -501,15 +509,16 @@ public class MultiAgentSimulationPanel extends JPanel {
 								// the
 								// asset
 								SecurityIncident securityIncidentOnPatent = new SecurityIncident(
-										"Patent is invalidated", GuiMain
-												.getMaterialForPatentProposal()
-												.getValue()); // the
-																// MUSES
-																// WP5
-																// event
-																// correlator
-																// would
-																// detect
+										"Patent is invalidated", accessRequest
+												.getOpportunityDescriptor()
+												.getRequestedAssets()
+												.iterator().next().getValue()); // the
+																				// MUSES
+																				// WP5
+																				// event
+																				// correlator
+																				// would
+																				// detect
 								// this incident
 								GuiMain.getS2EventCorrelator()
 										.reportsSecurityIncident(
@@ -523,9 +532,11 @@ public class MultiAgentSimulationPanel extends JPanel {
 											.warnsUserResponsibleForSecurityIncident(
 													GuiMain.getUser1(),
 													securityIncidentOnPatent);
-									GuiMain.getS2Rt2ae().decreasesTrustInUser(
-											GuiMain.getUser1(),
-											securityIncidentOnPatent);
+									GuiMain.getS2Rt2ae()
+									.updatesTrustInUserGivenNegativeOutcome(
+											GuiMain.getPersistenceManager().getSingleSimUsers(accessRequest.getUser()),
+											accessRequest
+													.getOpportunityDescriptor());
 									GuiMain.getS2Rt2ae()
 											.recalculateThreatProbabilitiesWhenIncident(
 													accessRequest);
@@ -537,19 +548,29 @@ public class MultiAgentSimulationPanel extends JPanel {
 								}
 								attackLikelyhoodTemp--;
 								flaggedRequests = flaggedRequests + 1;
-								try (PrintWriter out = new PrintWriter(new BufferedWriter(
-										new FileWriter("flagged" + ((attackLikelyhood * 100) / GuiMain
-												.getArList().size()) + ".txt", true)))) {
-									out.println(flaggedRequests + ";" + (i+1));
+								try (PrintWriter out = new PrintWriter(
+										new BufferedWriter(
+												new FileWriter(
+														"flagged"
+																+ ((attackLikelyhood * 100) / GuiMain
+																		.getArList()
+																		.size())
+																+ ".txt", true)))) {
+									out.println(flaggedRequests + ";" + (i + 1));
 								} catch (IOException ex) {
 									System.err.println(ex);
 								}
 							} else {
 								accessRequest.setSolved(true);
-								try (PrintWriter out = new PrintWriter(new BufferedWriter(
-										new FileWriter("flagged" + ((attackLikelyhood * 100) / GuiMain
-												.getArList().size()) + ".txt", true)))) {
-									out.println(flaggedRequests + ";" + (i+1));
+								try (PrintWriter out = new PrintWriter(
+										new BufferedWriter(
+												new FileWriter(
+														"flagged"
+																+ ((attackLikelyhood * 100) / GuiMain
+																		.getArList()
+																		.size())
+																+ ".txt", true)))) {
+									out.println(flaggedRequests + ";" + (i + 1));
 								} catch (IOException ex) {
 									System.err.println(ex);
 								}
@@ -578,25 +599,40 @@ public class MultiAgentSimulationPanel extends JPanel {
 								GuiMain.getS2Rt2ae()
 										.recalculateThreatProbabilitiesWhenNoIncident(
 												accessRequest);
+								GuiMain.getS2Rt2ae()
+										.updatesTrustInUserGivenPositiveOutcome(
+												GuiMain.getPersistenceManager().getSingleSimUsers(accessRequest.getUser()),
+												accessRequest
+														.getOpportunityDescriptor());
 								accessRequest.setSolved(true);
 								GuiMain.getPersistenceManager()
 										.setAccessRequests(
 												new ArrayList<AccessRequest>(
 														Arrays.asList(accessRequest)));
-								try (PrintWriter out = new PrintWriter(new BufferedWriter(
-										new FileWriter("flagged" + ((attackLikelyhood * 100) / GuiMain
-												.getArList().size()) + ".txt", true)))) {
-									out.println(flaggedRequests + ";" + (i+1));
+								try (PrintWriter out = new PrintWriter(
+										new BufferedWriter(
+												new FileWriter(
+														"flagged"
+																+ ((attackLikelyhood * 100) / GuiMain
+																		.getArList()
+																		.size())
+																+ ".txt", true)))) {
+									out.println(flaggedRequests + ";" + (i + 1));
 								} catch (IOException ex) {
 									System.err.println(ex);
 								}
 
 							} else {
 								accessRequest.setSolved(true);
-								try (PrintWriter out = new PrintWriter(new BufferedWriter(
-										new FileWriter("flagged" + ((attackLikelyhood * 100) / GuiMain
-												.getArList().size()) + ".txt", true)))) {
-									out.println(flaggedRequests + ";" + (i+1));
+								try (PrintWriter out = new PrintWriter(
+										new BufferedWriter(
+												new FileWriter(
+														"flagged"
+																+ ((attackLikelyhood * 100) / GuiMain
+																		.getArList()
+																		.size())
+																+ ".txt", true)))) {
+									out.println(flaggedRequests + ";" + (i + 1));
 								} catch (IOException ex) {
 									System.err.println(ex);
 								}
@@ -613,18 +649,32 @@ public class MultiAgentSimulationPanel extends JPanel {
 						}
 
 					}
+					double overallProb = 0;
+					for (int z = 0; z < GuiMain.getPersistenceManager()
+							.getThreats().size(); z++)
+						overallProb = overallProb
+								+ GuiMain.getPersistenceManager().getThreats()
+										.get(z).getProbability().getProb();
+
+					overallProb = (overallProb / GuiMain
+							.getPersistenceManager().getThreats().size());
 					DecimalFormat df = new DecimalFormat("#");
 					df.setMaximumFractionDigits(4);
-					System.out.println("Amount of requests: " + GuiMain.getArList().size() + " realCostBenefit: " + df.format(overallCostBenefit)
-							+ " $ - Simulated Cost benefit: "
-							+ df.format(simulatedCostBenefit) + " $");
+					System.out.println("Amount of requests: "
+							+ GuiMain.getArList().size() + " realCostBenefit: "
+							+ df.format(overallCostBenefit)
+							+ " € - Simulated Cost benefit: "
+							+ df.format(simulatedCostBenefit)
+							+ " € - Inferred Attack Probability: "
+							+ overallProb);
 					try (PrintWriter out = new PrintWriter(new BufferedWriter(
-							new FileWriter("results_ops_10.txt", true)))) {
+							new FileWriter("results_alt.txt", true)))) {
 						out.println(((attackLikelyhood * 100) / GuiMain
 								.getArList().size())
 								+ ";"
 								+ df.format(overallCostBenefit)
-								+ ";" + df.format(simulatedCostBenefit));
+								+ ";"
+								+ df.format(simulatedCostBenefit));
 					} catch (IOException ex) {
 						System.err.println(ex);
 					}

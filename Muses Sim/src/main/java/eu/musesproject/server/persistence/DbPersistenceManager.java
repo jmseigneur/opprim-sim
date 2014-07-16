@@ -676,4 +676,16 @@ public class DbPersistenceManager extends PersistenceManager {
 			
 	}
 
+	@Override
+	public SimUser getSingleSimUsers(SimUser u) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Threat getSingleThreat(Threat t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

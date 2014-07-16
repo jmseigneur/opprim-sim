@@ -104,7 +104,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 	 *            the risk policy
 	 * @return the decision
 	 */
-	private Decision decide(RiskEvent[] riskEvents, RiskPolicy riskPolicy) {
+	private Decision decide(RiskEvent[] riskEvents, RiskPolicy riskPolicy, SimUser u) {
 
 		double costOpportunity = 0.0;
 		double combinedProbabilityThreats = 1.0;
@@ -120,7 +120,7 @@ public class RealTimeRiskTrustAnalysisEngine {
 					.getCostBenefit();
 
 			if (riskEvent.getOutcomes().iterator().next().getCostBenefit() < 0) {
-				System.out.println("This is a threat");
+				System.out.println("This is a threat " + riskEvent.getProbability().getProb());
 				combinedProbabilityThreats = combinedProbabilityThreats
 						* riskEvent.getProbability().getProb();
 				singleThreatProbabibility = singleThreatProbabibility
@@ -165,30 +165,21 @@ public class RealTimeRiskTrustAnalysisEngine {
 		System.out.println("..");
 		System.out.println("...");
 
-		if (costOpportunity > 0 || riskPolicy == RiskPolicy.TAKE_FULL_RISK) {
+		if (riskPolicy.getRiskValue().getValue() == 0.0) {
 			return Decision.ALLOW_ACCESS;
 		}
-		if (riskPolicy == RiskPolicy.TAKE_NO_RISK && costOpportunity < 0) {
+		if (riskPolicy.getRiskValue().getValue() == 1.0) {
 			return Decision.STRONG_DENY_ACCESS;
 		}
-		if (riskPolicy == RiskPolicy.TAKE_MEDIUM_RISK) {
-			if (combinedProbabilityThreats <= riskPolicy.getRiskValue()
-							.getValue()) {
-				return Decision.ALLOW_ACCESS;
-			} else {
-				return Decision.STRONG_DENY_ACCESS;
-			}
-		}
-		if (riskPolicy == RiskPolicy.TAKE_CORPORATE_RISK) {
-			if (costOpportunity < 0
-					&& combinedProbabilityThreats < riskPolicy.getRiskValue()
-							.getValue()) {
-				return Decision.ALLOW_ACCESS;
-			} else {
+		if ((combinedProbabilityThreats + ((Double)1.0 - u.getTrustValue().getValue()))/2 <= riskPolicy.getRiskValue().getValue()) {
+			return Decision.ALLOW_ACCESS;
+		} else {
+			if (costOpportunity > 0)
 				return Decision.MAYBE_ACCESS;
-			}
+			else
+				return Decision.STRONG_DENY_ACCESS;
 		}
-		return Decision.MAYBE_ACCESS;
+
 	}
 
 	/**
@@ -262,7 +253,8 @@ public class RealTimeRiskTrustAnalysisEngine {
 			 * table.updateThreatOccurences(threat);
 			 * GuiMain.getPersistenceManager().setCluesThreatTable(table);
 			 */
-			threat.setOccurences(threat.getOccurences() + 1);
+			double oC = threat.getOccurences() + 1;
+			threat.setOccurences(oC);
 			currentThreats.add(threat);
 			GuiMain.getPersistenceManager().setThreats(currentThreats);
 			System.out.println("The newly created Threat from the Clues is: "
@@ -281,10 +273,11 @@ public class RealTimeRiskTrustAnalysisEngine {
 					new ArrayList<AccessRequest>(Arrays.asList(accessRequest)));
 		} else {
 			// for (Threat threat : currentThreats) {
-			System.out.println("Occurences: " + existingThreat.getOccurences());
-			existingThreat.setOccurences(existingThreat.getOccurences() + 1);
+			System.out.println("Occurences: " + existingThreat.getOccurences() + " - Bad Count: " + existingThreat.getBadOutcomeCount());
+			double oC = existingThreat.getOccurences() + 1;
+			existingThreat.setOccurences(oC);
 			currentThreats.add(existingThreat);
-			System.out.println("Occurences: " + existingThreat.getOccurences());
+			System.out.println("Occurences: " + existingThreat.getOccurences() + " - Bad Count: " + existingThreat.getBadOutcomeCount());
 			/*
 			 * CluesThreatTable table = GuiMain.getPersistenceManager()
 			 * .getCluesThreatTable(); table.updateThreatOccurences(threat);
@@ -292,15 +285,15 @@ public class RealTimeRiskTrustAnalysisEngine {
 			 */
 			GuiMain.getPersistenceManager().setThreats(currentThreats);
 			System.out.println("The inferred Threat from the Clues is: "
-					+ threat.getDescription() + " with probability "
-					+ threat.getProbabilityValue()
+					+ existingThreat.getDescription() + " with probability "
+					+ existingThreat.getProbability().getProb()
 					+ " for the following outcome: \""
-					+ threat.getOutcomes().iterator().next().getDescription()
+					+ existingThreat.getOutcomes().iterator().next().getDescription()
 					+ "\" with the following potential cost (in kEUR): "
-					+ threat.getOutcomes().iterator().next().getCostBenefit()
+					+ existingThreat.getOutcomes().iterator().next().getCostBenefit()
 					+ "\n");
 			accessRequest.setCluesThreatEntry(new CluesThreatEntry(clues,
-					currentThreats.get(0)));
+					existingThreat));
 			Calendar now = Calendar.getInstance();
 			accessRequest.setTime(now);
 			GuiMain.getPersistenceManager().setAccessRequests(
@@ -333,8 +326,10 @@ public class RealTimeRiskTrustAnalysisEngine {
 					opportunityDescriptor.getOutcomes());
 			riskEvents.add(opportunity);
 		}
+		
+		System.out.println("The prob is: " + riskEvents.get(0).getProbability().getProb());
 
-		return decide(riskEvents.toArray(new RiskEvent[0]), this.riskPolicy);
+		return decide(riskEvents.toArray(new RiskEvent[0]), this.riskPolicy, accessRequest.getUser());
 
 		// double denyBestCaseCostBenefit = lostBid.getCostBenefit() +
 		// lostTwoHoursWorkOfUser1.getCostBenefit() +
@@ -464,7 +459,13 @@ public class RealTimeRiskTrustAnalysisEngine {
 	 */
 	public void updatesTrustInUserGivenNegativeOutcome(SimUser user1,
 			OpportunityDescriptor opportunityDescriptor) {
-		// TODO Auto-generated method stub
+		if(user1.getTrustValue().getValue() <= 0)
+			user1.setTrustValue(new TrustValue(0.0));
+		else{
+		TrustValue t = new TrustValue((user1.getTrustValue().getValue() - 0.05));
+		user1.setTrustValue(t);
+		}
+		GuiMain.getPersistenceManager().setSimUsers(new ArrayList<SimUser>(Arrays.asList(user1)));
 
 	}
 
@@ -478,7 +479,15 @@ public class RealTimeRiskTrustAnalysisEngine {
 	 */
 	public void updatesTrustInUserGivenPositiveOutcome(SimUser user1,
 			OpportunityDescriptor opportunityDescriptor) {
-		// TODO Auto-generated method stub
+		System.out.println("Former users trust value is: " + user1.getTrustValue().getValue());
+		if(user1.getTrustValue().getValue() >= 1)
+			user1.setTrustValue(new TrustValue(1.0));
+		else{
+			TrustValue t = new TrustValue((user1.getTrustValue().getValue() + 0.1));
+			user1.setTrustValue(t);
+			}
+		System.out.println("New users trust value is: " + user1.getTrustValue().getValue());
+		GuiMain.getPersistenceManager().setSimUsers(new ArrayList<SimUser>(Arrays.asList(user1)));
 
 	}
 
@@ -507,14 +516,16 @@ public class RealTimeRiskTrustAnalysisEngine {
 	public void recalculateThreatProbabilitiesWhenIncident(
 			AccessRequest accessRequest) {
 
-		Threat threat = accessRequest
-				.getCluesThreatEntry().getThreat();
-		threat.setBadOutcomeCount(threat.getBadOutcomeCount() + 1);
-		System.out.println("The bad count: " + threat.getBadOutcomeCount() + " the occurences: " + threat.getOccurences());
+		Threat threat = GuiMain.getPersistenceManager().getSingleThreat(accessRequest.getCluesThreatEntry().getThreat());
+		double oC = threat.getBadOutcomeCount() + 1;
+		threat.setBadOutcomeCount(oC);
+		System.out.println("The bad count: " + threat.getBadOutcomeCount()
+				+ " the occurences: " + threat.getOccurences());
 		double newProbability = threat.getBadOutcomeCount()
 				/ threat.getOccurences();
 		threat.setProbability(new Probability(newProbability));
-		GuiMain.getPersistenceManager().setThreats(new ArrayList<Threat>(Arrays.asList(threat)));
+		GuiMain.getPersistenceManager().setThreats(
+				new ArrayList<Threat>(Arrays.asList(threat)));
 		System.out.println("The new probability associated with the threat \""
 				+ threat.getDescription() + "\" is: "
 				+ threat.getProbability().getProb());
@@ -524,13 +535,14 @@ public class RealTimeRiskTrustAnalysisEngine {
 	public void recalculateThreatProbabilitiesWhenNoIncident(
 			AccessRequest accessRequest) {
 
-		Threat threat = accessRequest
-				.getCluesThreatEntry().getThreat();
-		System.out.println("The bad count: " + threat.getBadOutcomeCount() + " the occurences: " + threat.getOccurences());
+		Threat threat = GuiMain.getPersistenceManager().getSingleThreat(accessRequest.getCluesThreatEntry().getThreat());
+		System.out.println("The bad count: " + threat.getBadOutcomeCount()
+				+ " the occurences: " + threat.getOccurences());
 		double newProbability = threat.getBadOutcomeCount()
 				/ threat.getOccurences();
 		threat.setProbability(new Probability(newProbability));
-		GuiMain.getPersistenceManager().setThreats(new ArrayList<Threat>(Arrays.asList(threat)));
+		GuiMain.getPersistenceManager().setThreats(
+				new ArrayList<Threat>(Arrays.asList(threat)));
 		System.out.println("The new probability associated with the threat \""
 				+ threat.getDescription() + "\" is: "
 				+ threat.getProbability().getProb());

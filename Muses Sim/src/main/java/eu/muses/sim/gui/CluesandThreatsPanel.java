@@ -79,9 +79,11 @@ public class CluesandThreatsPanel extends JPanel {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Threat");
 		model.addColumn("Probability");
+		model.addColumn("Total Outcomes");
+		model.addColumn("Bad Outcomes");
 		for (Threat entry : threats) {
 			model.addRow(new String[] { entry.getDescription(),
-					String.valueOf(entry.getProbability().getProb()) });
+					String.valueOf(entry.getProbability().getProb()), String.valueOf(entry.getOccurences()), String.valueOf(entry.getBadOutcomeCount()) });
 		}
 
 		JScrollPane scrollPane = new JScrollPane();
