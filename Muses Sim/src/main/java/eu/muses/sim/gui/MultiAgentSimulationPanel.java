@@ -669,12 +669,13 @@ public class MultiAgentSimulationPanel extends JPanel {
 							+ overallProb);
 					try (PrintWriter out = new PrintWriter(new BufferedWriter(
 							new FileWriter("results_alt.txt", true)))) {
-						out.println(((attackLikelyhood * 100) / GuiMain
+						/*out.println(((attackLikelyhood * 100) / GuiMain
 								.getArList().size())
 								+ ";"
 								+ df.format(overallCostBenefit)
 								+ ";"
-								+ df.format(simulatedCostBenefit));
+								+ df.format(simulatedCostBenefit));*/
+						out.println(df.format(simulatedCostBenefit));
 					} catch (IOException ex) {
 						System.err.println(ex);
 					}
