@@ -39,19 +39,23 @@ import java.util.List;
 
 import javax.swing.SwingConstants;
 
+/**
+ * The class AssetPanel
+ * It provides a GUI to add new assets for simulation purposes.
+ * 
+ */
 public class AssetPanel extends JPanel {
 
 	/**
-	 * 
+	 * Class variables.
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField txtAddAsset;
 	private JTextField textField;
-
 	Outcome badOutcome = new Outcome();
 
 	/**
-	 * Create the panel.
+	 * Creates and sets up the panel.
 	 */
 	public AssetPanel() {
 		setToolTipText("");
