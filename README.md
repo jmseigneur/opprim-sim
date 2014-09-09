@@ -1,4 +1,4 @@
-opprim-sim
+Opportunity-Enabled Risk Management (OPPRIM) Simulator
 =========
 
 Welcome to OPPRIM SIM, a Java project for risk and trust simulation.
