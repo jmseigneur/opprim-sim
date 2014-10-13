@@ -53,6 +53,12 @@ public class AccessRequest extends Request {
 	/** The solved status */
 	private boolean solved = false;
 	
+	/** The allowed status */
+	private boolean allowed = false;
+	
+	/** The malicious status */
+	private boolean malicious = false;
+	
 	private Calendar time;
 
 	/**
@@ -283,6 +289,34 @@ public class AccessRequest extends Request {
 	 */
 	public void setTime(Calendar time) {
 		this.time = time;
+	}
+
+	/**
+	 * @return the allowed
+	 */
+	public boolean isAllowed() {
+		return allowed;
+	}
+
+	/**
+	 * @param allowed the allowed to set
+	 */
+	public void setAllowed(boolean allowed) {
+		this.allowed = allowed;
+	}
+
+	/**
+	 * @return the malicious
+	 */
+	public boolean isMalicious() {
+		return malicious;
+	}
+
+	/**
+	 * @param malicious the malicious to set
+	 */
+	public void setMalicious(boolean malicious) {
+		this.malicious = malicious;
 	}
 
 }
