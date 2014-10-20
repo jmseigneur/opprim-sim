@@ -57,6 +57,10 @@ public class SimUser extends User {
 	
 	/** The request status */
 	private boolean requestStatus;
+	
+	private double occurences = 0;
+	
+	private double badOutcomeCount = 0;
 
 	/**
 	 * Instantiates a new sim user.
@@ -550,6 +554,22 @@ public class SimUser extends User {
 			this.requestStatus = true;
 		else
 			this.requestStatus = false;
+	}
+	
+	public double getOccurences() {
+		return occurences;
+	}
+
+	public void setOccurences(double occurences) {
+		this.occurences = occurences;
+	}
+
+	public double getBadOutcomeCount() {
+		return badOutcomeCount;
+	}
+
+	public void setBadOutcomeCount(double badOutcomeCount) {
+		this.badOutcomeCount = badOutcomeCount;
 	}
 
 }
