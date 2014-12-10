@@ -7,7 +7,10 @@
  */
 package eu.muses.sim.riskman;
 
+import java.util.ArrayList;
+
 import eu.muses.sim.corporate.policy.CorporateSecurityPolicy;
+import eu.muses.sim.riskman.complexpolicy.ComplexPolicy;
 import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.sim.riskman.vulnerability.Vulnerability;
 
@@ -32,6 +35,8 @@ public class RiskPolicy {
 	public static RiskPolicy TAKE_CORPORATE_RISK = new RiskPolicy(
 			RiskValue.TAKE_NO_MORE_RISK_THAN_CREATED_BY_CORPORATE_SECURITY_POLICY,
 			null);
+	
+	private ComplexPolicy complexPolicy;
 
 	/**
 	 * Instantiates a new risk policy.
@@ -79,6 +84,22 @@ public class RiskPolicy {
 	public void setCorporateSecurityPolicy(
 			CorporateSecurityPolicy corporateSecurityPolicy) {
 		this.corporateSecurityPolicy = corporateSecurityPolicy;
+	}
+	
+	
+
+	/**
+	 * @return the complexPolicy
+	 */
+	public ComplexPolicy getComplexPolicy() {
+		return complexPolicy;
+	}
+
+	/**
+	 * @param complexPolicy the complexPolicy to set
+	 */
+	public void setComplexPolicy(ComplexPolicy complexPolicy) {
+		this.complexPolicy = complexPolicy;
 	}
 
 	/*

@@ -6,6 +6,7 @@ import eu.muses.sim.Outcome;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.asset.Asset;
+import eu.muses.sim.riskman.complexpolicy.ComplexPolicy;
 import eu.muses.sim.riskman.opportunity.Opportunity;
 import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.sim.test.SimUser;
@@ -133,5 +134,17 @@ public abstract class PersistenceManager {
 	 *            the accessRequests to anonymize
 	 */
 	public abstract void anonymizeAccessReqeuests(List<AccessRequest> accessRequests);
+	
+	/**
+	 * @return the riskPolicies
+	 */
+	public abstract List<ComplexPolicy> getComplexPolicies();
+
+	/**
+	 * @param riskPolicies
+	 *            the riskPolicies to set
+	 */
+	public abstract void setComplexPolicies(List<ComplexPolicy> complexPolicies);
+
 
 }

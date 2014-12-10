@@ -9,7 +9,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import eu.muses.sim.OpportunityDescriptor;
 import eu.muses.sim.Outcome;
 import eu.muses.sim.persistence.PersistenceManager;
@@ -18,6 +20,7 @@ import eu.muses.sim.riskman.Probability;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.RiskValue;
 import eu.muses.sim.riskman.asset.Asset;
+import eu.muses.sim.riskman.complexpolicy.ComplexPolicy;
 import eu.muses.sim.riskman.opportunity.Opportunity;
 import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.sim.test.SimUser;
@@ -686,6 +689,18 @@ public class DbPersistenceManager extends PersistenceManager {
 	public Threat getSingleThreat(Threat t) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<ComplexPolicy> getComplexPolicies() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setComplexPolicies(List<ComplexPolicy> complexPolicies) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

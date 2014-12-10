@@ -44,4 +44,13 @@ public class CorporateUserAccessRequestDecision extends Decision {
 		this.textualDecisionDescription = textualDecisionDescription;
 	}
 
+	/* (non-Javadoc)
+	 * @see eu.muses.sim.decision.Decision#toString()
+	 */
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.textualDecisionDescription;
+	}
+	
 }

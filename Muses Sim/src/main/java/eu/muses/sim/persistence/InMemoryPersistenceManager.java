@@ -7,6 +7,7 @@ import eu.muses.sim.Outcome;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.asset.Asset;
+import eu.muses.sim.riskman.complexpolicy.ComplexPolicy;
 import eu.muses.sim.riskman.opportunity.Opportunity;
 import eu.muses.sim.riskman.threat.Threat;
 import eu.muses.sim.test.SimUser;
@@ -42,6 +43,9 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 
 	/** The access requests */
 	private List<AccessRequest> accessRequests = new ArrayList<AccessRequest>();
+	
+	/** The risk Policies */
+	private List<ComplexPolicy> complexPolicies = new ArrayList<ComplexPolicy>();
 
 	public InMemoryPersistenceManager() {
 		super();
@@ -321,6 +325,22 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	public void anonymizeAccessReqeuests(List<AccessRequest> accessRequests) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	/**
+	 * @return the complexPolicies
+	 */
+	public List<ComplexPolicy> getComplexPolicies() {
+		return complexPolicies;
+	}
+
+	@Override
+	/**
+	 * @param complexPolicies the complexPolicies to set
+	 */
+	public void setComplexPolicies(List<ComplexPolicy> complexPolicies) {
+		this.complexPolicies = complexPolicies;
 	}
 
 }

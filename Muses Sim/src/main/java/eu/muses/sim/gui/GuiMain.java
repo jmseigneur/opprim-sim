@@ -214,7 +214,7 @@ public class GuiMain {
 		mntmRiskPolicies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Risk panel initialization
-				JPanel riskPanel = new RiskPolicyPanel();
+				JPanel riskPanel = new AdvancedRiskPolicyPanel();
 				switchPanel(riskPanel);
 			}
 		});

@@ -20,6 +20,8 @@ import eu.muses.sim.test.SimUser;
  * The Class CorporateSecurityPolicy.
  */
 public class CorporateSecurityPolicy {
+	
+	public static boolean ALL_R = true;
 
 	/**
 	 * Instantiates a new corporate security policy.
