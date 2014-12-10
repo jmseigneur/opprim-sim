@@ -214,8 +214,18 @@ public class GuiMain {
 		mntmRiskPolicies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Risk panel initialization
-				JPanel riskPanel = new AdvancedRiskPolicyPanel();
+				JPanel riskPanel = new RiskPolicyPanel();
 				switchPanel(riskPanel);
+			}
+		});
+		
+		JMenuItem mntmComplexRiskPolicies = new JMenuItem("Complex Risk Policies");
+		mntmAssets.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Asset panel initialization
+				JPanel complexRiskPoliciesPanel = new AdvancedRiskPolicyPanel();
+				switchPanel(complexRiskPoliciesPanel);
+
 			}
 		});
 
@@ -230,6 +240,7 @@ public class GuiMain {
 		});
 		mnConfigurationMenu.add(mntmUsers);
 		mnConfigurationMenu.add(mntmRiskPolicies);
+		mnConfigurationMenu.add(mntmComplexRiskPolicies);
 
 		JMenuItem mntmClues = new JMenuItem("Clues");
 		mntmClues.addActionListener(new ActionListener() {
