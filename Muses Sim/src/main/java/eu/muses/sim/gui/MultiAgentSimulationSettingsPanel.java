@@ -446,7 +446,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 						if (chckbxRandomTrustValues.isSelected()) {
 							SimUser u = new SimUser("User" + i,
 									200, new TrustValue(r
-											.nextDouble()));
+											.nextDouble()),"pass");
 							if (userBehaviourLeft > 0) {
 								u.setBehaviour(0);
 								userBehaviourLeft--;
@@ -459,7 +459,7 @@ public class MultiAgentSimulationSettingsPanel extends JPanel {
 							SimUser u = new SimUser("User" + i,
 									200, new TrustValue(
 											Double.valueOf(textField_1
-													.getText())));
+													.getText())),"pass");
 							if (userBehaviourLeft > 0) {
 								u.setBehaviour(0);
 								userBehaviourLeft--;

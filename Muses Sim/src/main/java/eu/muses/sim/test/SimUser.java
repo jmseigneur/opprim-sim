@@ -70,8 +70,8 @@ public class SimUser extends User {
 	 * @param hourlyCost
 	 *            the hourly cost
 	 */
-	public SimUser(String nickname, double hourlyCost, TrustValue tValue) {
-		super(nickname);
+	public SimUser(String nickname, double hourlyCost, TrustValue tValue, String password) {
+		super(nickname, password);
 		this.hourlyCost = hourlyCost;
 		this.trustValue = tValue;
 		// TODO Auto-generated constructor stub

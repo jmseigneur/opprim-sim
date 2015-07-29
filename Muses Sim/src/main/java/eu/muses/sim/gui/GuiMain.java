@@ -1,6 +1,6 @@
 /*
  * Copyright
- * Jean-Marc Seigneur, Carlos Ballester Lafuente, Xavier Titi
+ * Jean-Marc Seigneur, Carlos Ballester Lafuente, Xavier Titi, Jonathan Guislain
  * University of Geneva
  * 2013 /2014
  *
@@ -39,6 +39,7 @@ import eu.muses.sim.riskman.RiskPolicy;
 import eu.muses.sim.riskman.RiskValue;
 import eu.muses.sim.riskman.asset.Asset;
 import eu.muses.sim.riskman.asset.UserDevice;
+import eu.muses.sim.riskman.complexpolicy.ComplexPolicy;
 import eu.muses.sim.test.MusesClientApp;
 import eu.muses.sim.test.MusesServerApp;
 import eu.muses.sim.test.SimUser;
@@ -49,7 +50,7 @@ import eu.musesproject.server.persistence.DbPersistenceManager;
 
 public class GuiMain {
 
-	private static JFrame frmMusesRtae;
+	public static JFrame frmMusesRtae;
 	private static JPanel mainPanel;
 
 	/** The s2. */
@@ -68,10 +69,10 @@ public class GuiMain {
 	static MusesClientApp s2MusesClientApp;
 
 	/** The user cso. */
-	static SimUser userCso = new SimUser("userCSO", 300, new TrustValue(0.5));
+	static SimUser userCso = new SimUser("userCSO", 300, new TrustValue(0.5), "pass");
 
 	/** The user1. */
-	static SimUser user1 = new SimUser("user1", 120, new TrustValue(0.5));
+	static SimUser user1 = new SimUser("user1", 120, new TrustValue(0.5), "pass");
 
 	/** The user1 laptop. */
 	static UserDevice user1Laptop = new PersonalUserDevice();
@@ -99,7 +100,12 @@ public class GuiMain {
 	static AccessRequest accessRequest;
 
 	/** The persistence manager */
-	static PersistenceManager persistenceManager;
+	static InMemoryPersistenceManager persistenceManager;
+	
+	
+	static String displayOpportunity = "0";
+
+
 
 	/** The temporary access request list */
 	static List<AccessRequest> arList = new ArrayList<AccessRequest>();
@@ -171,15 +177,29 @@ public class GuiMain {
 
 		frmMusesRtae = new JFrame();
 		frmMusesRtae.getContentPane().setBackground(new Color(255, 255, 255));
-		frmMusesRtae.setTitle("MUSES RT2AE");
-		frmMusesRtae.setSize(800, 600);
+		frmMusesRtae.setTitle("OPPRIM Simulator");
+		frmMusesRtae.setSize(650, 600);
+		frmMusesRtae.setLocationRelativeTo(null);
 		frmMusesRtae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ImageIcon img = new ImageIcon(
 				GuiMain.class.getResource("/eu/muses/sim/gui/muses-logo.png"));
 		frmMusesRtae.setIconImage(img.getImage());
 		initializeHomePanel();
 		switchPanel(mainPanel);
-
+		
+		ComplexPolicy newPolicy = new ComplexPolicy();
+		newPolicy.setTextPolicy("IF ( ( ( Max. opp benefit - Max. threat cost ) > 50000 ) OR ( All Rules = 1 ) ) THEN Access is allowed by MUSES ELSE Access is denied but may be allowed if some risk treatments are carried out" );
+		newPolicy.setName("1er Version");
+		newPolicy.setLogicalPolicy("(((c-a)>50000)||(f==1))");
+		
+		ComplexPolicy newPolicy2 = new ComplexPolicy();
+		newPolicy2.setTextPolicy("IF ( Opportunity Descriptor Already Displayed = 0 ) THEN ( IF ( ( ( Max. opp benefit - Max. threat cost ) > 50000 ) OR ( All Rules = 1 ) ) THEN Access is allowed by MUSES ELSE Access is denied but may be allowed if some risk treatments are carried out ) ELSE ( IF ( ( ( Max. opp benefit - Max. threat cost ) > 50000 ) OR ( All Rules = 1 ) ) THEN Access is allowed by MUSES ELSE Access is strongly denied and no risk treatment is possible ) ");
+		newPolicy2.setName("New Policy");
+		newPolicy2.setLogicalPolicy("(g==0)((((c-a)>50000)||(f==1)))((((c-a)>50000)||(f==1)))");
+		
+		
+		GuiMain.getPersistenceManager().getComplexPolicies().add(newPolicy2);
+		GuiMain.getPersistenceManager().getComplexPolicies().add(newPolicy);
 		// Menu bar and sub menus initialization
 		JMenuBar menuBar = new JMenuBar();
 		frmMusesRtae.setJMenuBar(menuBar);
@@ -209,6 +229,7 @@ public class GuiMain {
 			}
 		});
 		mnConfigurationMenu.add(mntmAssets);
+		
 
 		JMenuItem mntmRiskPolicies = new JMenuItem("Risk Policies");
 		mntmRiskPolicies.addActionListener(new ActionListener() {
@@ -220,7 +241,7 @@ public class GuiMain {
 		});
 		
 		JMenuItem mntmComplexRiskPolicies = new JMenuItem("Complex Risk Policies");
-		mntmAssets.addActionListener(new ActionListener() {
+		mntmComplexRiskPolicies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Asset panel initialization
 				JPanel complexRiskPoliciesPanel = new AdvancedRiskPolicyPanel();
@@ -278,6 +299,7 @@ public class GuiMain {
 			}
 		});
 		mnConfigurationMenu.add(mntmOpportunities);
+	
 
 		JMenu mnView = new JMenu("View");
 		menuBar.add(mnView);
@@ -331,6 +353,7 @@ public class GuiMain {
 			}
 		});
 		mnView.add(mntmOpportunitiesProbabilities);
+
 
 		JMenu mnScenarios = new JMenu("Scenarios");
 		menuBar.add(mnScenarios);
@@ -391,12 +414,41 @@ public class GuiMain {
 
 		JMenuItem mntmFaq = new JMenuItem("F.A.Q.");
 		mnHelp.add(mntmFaq);
+		
+		JMenu mnNewMenu = new JMenu("Connection");
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmOpportunitiesDescriptorO = new JMenuItem("Opportunities Descriptor");
+		mnNewMenu.add(mntmOpportunitiesDescriptorO);
+		mntmOpportunitiesDescriptorO.addActionListener(new ActionListener() {
+		/*	
+			public void actionPerformed(ActionEvent e) {
+				// Asset panel initialization
+				JPanel ODPanel = new OpportuniesDescriptorPanel();
+				switchPanel(ODPanel);
+
+			}*/
+			
+			public void actionPerformed(ActionEvent e) {
+				// Asset panel initialization
+				LoginView f = new LoginView();
+			    f.main(null);
+			}
+			
+		});
 	}
 
 	public static void switchPanel(JPanel panel) {
 
 		frmMusesRtae.getContentPane().removeAll();
 		frmMusesRtae.getContentPane().add(panel);
+		frmMusesRtae.getContentPane().revalidate();
+
+	}
+	public static void switchFramel(JFrame frame) {
+
+		frmMusesRtae.getContentPane().removeAll();
+		frmMusesRtae.getContentPane().add(frame);
 		frmMusesRtae.getContentPane().revalidate();
 
 	}
@@ -757,7 +809,7 @@ public class GuiMain {
 	 * @param inMemoryPersistenceManager
 	 *            the inMemoryPersistenceManager to set
 	 */
-	public static void setPersistenceManager(PersistenceManager pManager) {
+	public static void setPersistenceManager(InMemoryPersistenceManager pManager) {
 		persistenceManager = pManager;
 	}
 
@@ -775,5 +827,10 @@ public class GuiMain {
 	public void setArList(List<AccessRequest> arList) {
 		this.arList = arList;
 	}
+
+	
+
+
+
 
 }

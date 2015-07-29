@@ -3,6 +3,11 @@ package eu.muses.sim.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
+
+
 import eu.muses.sim.Outcome;
 import eu.muses.sim.request.AccessRequest;
 import eu.muses.sim.riskman.RiskPolicy;
@@ -46,11 +51,101 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	
 	/** The risk Policies */
 	private List<ComplexPolicy> complexPolicies = new ArrayList<ComplexPolicy>();
+	
+	/** Configuration for admin client*/
+	private AdminConfiguration adminConf = new AdminConfiguration();
+	
+	/** List of selected asset by the user*/
+	private List<Asset> selectedAssetsbyUser = new ArrayList<Asset>();
+
+	
 
 	public InMemoryPersistenceManager() {
 		super();
 	}
+	/**
+	 * For opportunity 
+	 */
+	
+	public int workingHour = 0;
+	public int potentialLoose = 0;
+	public String clueSelected = null;
+	public String assetSelected = null;
+	public String RPSelected = null;
+	public String Connection = null;
+	public String Zone = null;
+	public Object ObjAsset = null;
+	public String SelectedRule = null;
+	public int WorkingHour;
+	public int PotentialRevenueLoss;
+	public String LoosingExplanation = null;
+	
+	public String getSelectedRule() {
+		return SelectedRule;
+	}
 
+	public void setSelectedRule(String selectedRule) {
+		SelectedRule = selectedRule;
+	}
+
+	public String getZone() {
+		return Zone;
+	}
+
+	public void setZone(String zone) {
+		Zone = zone;
+	}
+
+	public String getConnection() {
+		return Connection;
+	}
+
+	public void setConnection(String connection) {
+		Connection = connection;
+	}
+
+	public int getWorkingHour() {
+		return workingHour;
+	}
+	public void setWorkingHour(int workingHour) {
+		this.workingHour = workingHour;
+	}
+	public int getPotentialLoose() {
+		return potentialLoose;
+	}
+	public void setPotentialLoose(int potentialLoose) {
+		this.potentialLoose = potentialLoose;
+	}
+	public String getClueSelected() {
+		return clueSelected;
+	}
+	public void setClueSelected(String clueSelected) {
+		this.clueSelected = clueSelected;
+	}
+	public String getAssetSelected() {
+		return assetSelected;
+	}
+	public void setAssetSelected(String assetSelected) {
+		this.assetSelected = assetSelected;
+	}
+	public String getRPSelected() {
+		return RPSelected;
+	}
+	public void setRPSelected(String rPSelected) {
+		RPSelected = rPSelected;
+	}
+
+	public Object getObjAsset() {
+		return ObjAsset;
+	}
+
+	public void setObjAsset(Object objAsset) {
+		ObjAsset = objAsset;
+	}
+
+	
+	
+	
 	@Override
 	/**
 	 * @return the outcomes
@@ -218,7 +313,7 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 			if(this.simUsers.get(i).getNickname().equals(u.getNickname()))
 				return this.simUsers.get(i);
 		}
-		return new SimUser("NotFound", 0.0,new TrustValue(0.0));
+		return new SimUser("NotFound", 0.0,new TrustValue(0.0), "pass");
 	}
 
 	@Override
@@ -342,5 +437,53 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	public void setComplexPolicies(List<ComplexPolicy> complexPolicies) {
 		this.complexPolicies = complexPolicies;
 	}
+
+	public AdminConfiguration getAdminConf() {
+		return adminConf;
+	}
+
+	public void setAdminConf(AdminConfiguration adminConf) {
+		this.adminConf = adminConf;
+	}
+
+	@Override
+	/**
+	 * @param assetName the name of the Asset
+	 *            
+	 */
+	public Asset findAssetbyName(String assetName){
+		for (int i = 0; i < this.assets.size(); i++) {
+			if(assets.get(i).getAssetName().equalsIgnoreCase(assetName))
+				return assets.get(i);
+		}
+		return null;
+	}
+
+	public List<Asset> getSelectedAssetsbyUser() {
+		return selectedAssetsbyUser;
+	}
+
+	public void setSelectedAssetsbyUser(List<Asset> selectedAssetsbyUser) {
+		this.selectedAssetsbyUser = selectedAssetsbyUser;
+	}
+
+	public int getPotentialRevenueLoss() {
+		return PotentialRevenueLoss;
+	}
+
+	public void setPotentialRevenueLoss(int potentialRevenueLoss) {
+		PotentialRevenueLoss = potentialRevenueLoss;
+	}
+
+	public String getLoosingExplanation() {
+		return LoosingExplanation;
+	}
+
+	public void setLoosingExplanation(String loosingExplanation) {
+		LoosingExplanation = loosingExplanation;
+	}
+
+	
+
 
 }

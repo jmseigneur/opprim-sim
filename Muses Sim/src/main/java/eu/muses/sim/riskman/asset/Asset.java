@@ -21,7 +21,7 @@ public class Asset {
 	protected double value;
 
 	/** The asset name. */
-	protected String assetName;
+	public String assetName;
 
 	/**
 	 * @uml.property name="vulnerabilities"

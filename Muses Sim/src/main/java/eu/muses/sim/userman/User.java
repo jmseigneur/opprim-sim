@@ -21,6 +21,8 @@ public class User {
 
 	/** The nickname. */
 	private String nickname;
+	
+	private String password;
 
 	/**
 	 * Instantiates a new user.
@@ -28,9 +30,10 @@ public class User {
 	 * @param nickname
 	 *            the nickname
 	 */
-	public User(String nickname) {
+	public User(String nickname, String password) {
 		super();
 		this.nickname = nickname;
+		this.password = password;
 	}
 
 	/**
@@ -52,5 +55,12 @@ public class User {
 		// TODO Auto-generated method stub
 		return this.nickname;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	
+	
 
 }

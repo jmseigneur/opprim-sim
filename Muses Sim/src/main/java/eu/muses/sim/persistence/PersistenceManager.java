@@ -1,5 +1,6 @@
 package eu.muses.sim.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import eu.muses.sim.Outcome;
@@ -145,6 +146,99 @@ public abstract class PersistenceManager {
 	 *            the riskPolicies to set
 	 */
 	public abstract void setComplexPolicies(List<ComplexPolicy> complexPolicies);
+	
+	/**
+	 * @param assetName the name of the Asset
+	 *            
+	 */
+	public abstract Asset findAssetbyName(String assetName);
+	
+	/**
+	 * For opportunity 
+	 */
+	
+	public int workingHour = 0;
+	public int potentialLoose = 0;
+	public String clueSelected = null;
+	public String assetSelected = null;
+	public String RPSelected = null;
+	public String Connection = null;
+	public String Zone = null;
+	public Object ObjAsset = null;
+	public String Psw;
+	public String Username;
+	
+	
+	public String getPsw() {
+		return Psw;
+	}
+
+	public void setPsw(String psw) {
+		Psw = psw;
+	}
+
+	public String getUsername() {
+		return Username;
+	}
+
+	public void setUsername(String username) {
+		Username = username;
+	}
+
+	public String getZone() {
+		return Zone;
+	}
+
+	public void setZone(String zone) {
+		Zone = zone;
+	}
+
+	public String getConnection() {
+		return Connection;
+	}
+
+	public void setConnection(String connection) {
+		Connection = connection;
+	}
+
+	public int getWorkingHour() {
+		return workingHour;
+	}
+	public void setWorkingHour(int workingHour) {
+		this.workingHour = workingHour;
+	}
+	public int getPotentialLoose() {
+		return potentialLoose;
+	}
+	public void setPotentialLoose(int potentialLoose) {
+		this.potentialLoose = potentialLoose;
+	}
+	public String getClueSelected() {
+		return clueSelected;
+	}
+	public void setClueSelected(String clueSelected) {
+		this.clueSelected = clueSelected;
+	}
+	public String getAssetSelected() {
+		return assetSelected;
+	}
+	public void setAssetSelected(String assetSelected) {
+		this.assetSelected = assetSelected;
+	}
+	public String getRPSelected() {
+		return RPSelected;
+	}
+	public void setRPSelected(String rPSelected) {
+		RPSelected = rPSelected;
+	}
+
+	public Object getObjAsset() {
+		return ObjAsset;
+	}
+
+	public void setObjAsset(Object objAsset) {
+		ObjAsset = objAsset;
+	}
 
 
 }

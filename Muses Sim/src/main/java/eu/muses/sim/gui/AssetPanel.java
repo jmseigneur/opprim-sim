@@ -33,11 +33,14 @@ import eu.muses.sim.riskman.asset.Asset;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.SwingConstants;
+
+import org.springframework.ui.context.Theme;
 
 /**
  * The class AssetPanel
@@ -52,6 +55,7 @@ public class AssetPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtAddAsset;
 	private JTextField textField;
+	private String confidentialLvl;
 	Outcome badOutcome = new Outcome();
 
 	/**
@@ -130,21 +134,21 @@ public class AssetPanel extends JPanel {
 		gbc_lblAssetType.gridx = 0;
 		gbc_lblAssetType.gridy = 5;
 		add(lblAssetType, gbc_lblAssetType);
-
-		JLabel lblInferredOutcomes = new JLabel("Inferred Outcomes:");
-		lblInferredOutcomes.setFont(new Font("Arial", Font.BOLD, 12));
-		GridBagConstraints gbc_lblInferredOutcomes = new GridBagConstraints();
-		gbc_lblInferredOutcomes.anchor = GridBagConstraints.WEST;
-		gbc_lblInferredOutcomes.insets = new Insets(0, 20, 5, 5);
-		gbc_lblInferredOutcomes.gridx = 1;
-		gbc_lblInferredOutcomes.gridy = 5;
-		add(lblInferredOutcomes, gbc_lblInferredOutcomes);
+		
+		JLabel lblAssetCLvl = new JLabel("Asset Confidential level:");
+		lblAssetCLvl.setFont(new Font("Arial", Font.BOLD, 12));
+		GridBagConstraints gbc_lblAssetCLvl = new GridBagConstraints();
+		gbc_lblAssetCLvl.anchor = GridBagConstraints.WEST;
+		gbc_lblAssetCLvl.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAssetCLvl.gridx = 1;
+		gbc_lblAssetCLvl.gridy = 5;
+		add(lblAssetCLvl, gbc_lblAssetCLvl);
 
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
 		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
 		gbc_verticalStrut_1.gridx = 13;
-		gbc_verticalStrut_1.gridy = 5;
+		gbc_verticalStrut_1.gridy = 7;
 		add(verticalStrut_1, gbc_verticalStrut_1);
 
 		final JComboBox<String> comboBox_1 = new JComboBox<String>();
@@ -158,61 +162,49 @@ public class AssetPanel extends JPanel {
 		gbc_comboBox_1.gridx = 0;
 		gbc_comboBox_1.gridy = 6;
 		add(comboBox_1, gbc_comboBox_1);
+		
+		final JComboBox<String> comboBoxConfidentialLvl = new JComboBox<String>();
+		comboBoxConfidentialLvl.addItem("SELECT A CONFIDENTIAL LEVEL");
+		comboBoxConfidentialLvl.addItem("Strict Confidential");
+		comboBoxConfidentialLvl.addItem("Confidential");
+		comboBoxConfidentialLvl.addItem("Public");
+		comboBoxConfidentialLvl.addItem("Internal");
 
-		final JLabel label_1 = new JLabel("");
-		GridBagConstraints gbc_label_1 = new GridBagConstraints();
-		gbc_label_1.anchor = GridBagConstraints.WEST;
-		gbc_label_1.ipadx = 1;
-		gbc_label_1.insets = new Insets(0, 20, 5, 5);
-		gbc_label_1.gridx = 1;
-		gbc_label_1.gridy = 6;
-		add(label_1, gbc_label_1);
+		GridBagConstraints gbc_comboBoxConfidentialLvl = new GridBagConstraints();
+		gbc_comboBoxConfidentialLvl.anchor = GridBagConstraints.WEST;
+		gbc_comboBoxConfidentialLvl.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxConfidentialLvl.gridx = 1;
+		gbc_comboBoxConfidentialLvl.gridy = 6;
+		add(comboBoxConfidentialLvl, gbc_comboBoxConfidentialLvl);
+		
+		JLabel lblEXTENSION = new JLabel("Extension:");
+		lblEXTENSION.setFont(new Font("Arial", Font.BOLD, 12));
+		GridBagConstraints gbc_lblEXTENSION = new GridBagConstraints();
+		gbc_lblEXTENSION.anchor = GridBagConstraints.WEST;
+		gbc_lblEXTENSION.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEXTENSION.gridx = 2;
+		gbc_lblEXTENSION.gridy = 5;
+		add(lblEXTENSION, gbc_lblEXTENSION);
+		
+		final JComboBox<String> comboBoxExtension = new JComboBox<String>();
+		comboBoxExtension.addItem("Select an extension");
+		comboBoxExtension.addItem(".txt");
+		comboBoxExtension.addItem(".pdf");
+		comboBoxExtension.addItem(".html");
 
-		comboBox_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		GridBagConstraints gbc_comboBoxExtension = new GridBagConstraints();
+		gbc_comboBoxExtension.anchor = GridBagConstraints.WEST;
+		gbc_comboBoxExtension.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxExtension.gridx = 2;
+		gbc_comboBoxExtension.gridy = 6;
+		add(comboBoxExtension, gbc_comboBoxExtension);
 
-				try {
-					if (comboBox_1.getSelectedItem().equals("File")) {
-						badOutcome.setDescription("File is compromised, lost "
-								+ -Double.parseDouble(textField.getText())
-								+ "€");
-						badOutcome.setCostBenefit(-Double.parseDouble(textField
-								.getText()));
-						label_1.setText(badOutcome.getDescription());
-					}
-					if (comboBox_1.getSelectedItem().equals("Equipment")) {
-						badOutcome
-								.setDescription("Equipment was damaged, lost "
-										+ -Double.parseDouble(textField
-												.getText()) + "€");
-						badOutcome.setCostBenefit(-Double.parseDouble(textField
-								.getText()));
-						label_1.setText(badOutcome.getDescription());
-					}
-					if (comboBox_1.getSelectedItem().equals("Other")) {
-						badOutcome
-								.setDescription("Bad Outcome resulting in a loss of "
-										+ -Double.parseDouble(textField
-												.getText()) + "€");
-						badOutcome.setCostBenefit(-Double.parseDouble(textField
-								.getText()));
-						label_1.setText(badOutcome.getDescription());
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-					JOptionPane.showConfirmDialog(null,
-							"Input should be correctly filled", "Wrong Input",
-							JOptionPane.OK_CANCEL_OPTION,
-							JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
 
 		JButton btnSaveAsset = new JButton("Save Asset");
 		btnSaveAsset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-
+					/*,confidentialLvl = comboBox_1.getSelectedItem().toString()*/
 					if (txtAddAsset.getText().isEmpty()
 							|| textField.getText().isEmpty()
 							|| comboBox_1.getSelectedIndex() == 0)
@@ -234,6 +226,35 @@ public class AssetPanel extends JPanel {
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);
+										
+					String extension = comboBoxExtension.getSelectedItem().toString();
+					String filename = txtAddAsset.getText()+extension;
+					String workingDirectory = "/Users/jonathan/Desktop/asset";
+			 
+					//****************//
+			 
+					String absoluteFilePath = "";
+			 
+					//absoluteFilePath = workingDirectory + System.getProperty("file.separator") + filename;
+					absoluteFilePath = workingDirectory + File.separator + filename;
+			 
+					System.out.println("Final filepath : " + absoluteFilePath);
+			 
+					//****************//
+			 
+					File file = new File(absoluteFilePath);
+					if (file.createNewFile()) {
+						System.out.println("File is created!");
+					} else {
+						System.out.println("File is already existed!");
+						 JOptionPane.showConfirmDialog(null,
+								 	"File is already existed!",
+			                        "MUSES Dialog",
+			                        JOptionPane.OK_CANCEL_OPTION,
+			                        JOptionPane.ERROR_MESSAGE);
+					}
+					
+					
 				} catch (Exception ex) {
 					JOptionPane.showConfirmDialog(null,
 							"Input should be correctly filled", "Wrong Input",
@@ -246,7 +267,7 @@ public class AssetPanel extends JPanel {
 		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();
 		gbc_btnSaveAsset.insets = new Insets(0, 40, 5, 5);
 		gbc_btnSaveAsset.gridx = 2;
-		gbc_btnSaveAsset.gridy = 6;
+		gbc_btnSaveAsset.gridy = 7;
 		add(btnSaveAsset, gbc_btnSaveAsset);
 
 		Component verticalStrut = Box.createVerticalStrut(20);

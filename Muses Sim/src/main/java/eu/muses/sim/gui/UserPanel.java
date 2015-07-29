@@ -35,6 +35,7 @@ import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -94,13 +95,33 @@ public class UserPanel extends JPanel {
 		gbc_txtAddAsset.gridy = 2;
 		add(txtAddAsset, gbc_txtAddAsset);
 		txtAddAsset.setColumns(10);
+		
+		final JLabel UserPsw = new JLabel("User Password:");
+		GridBagConstraints gbc_UserPsw = new GridBagConstraints();
+		gbc_UserPsw.anchor = GridBagConstraints.WEST;
+		gbc_UserPsw.insets = new Insets(0, 0, 5, 5);
+		gbc_UserPsw.gridx = 0;
+		gbc_UserPsw.gridy = 3;
+		UserPsw.setFont(new Font("Arial", Font.BOLD, 12));
+		add(UserPsw, gbc_UserPsw);
+
+		final JTextField txtAddPsw = new JTextField();
+		txtAddPsw.setToolTipText("Add a user nickname");
+		GridBagConstraints gbc_txtAddPsw = new GridBagConstraints();
+		gbc_txtAddPsw.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtAddPsw.gridwidth = 13;
+		gbc_txtAddPsw.insets = new Insets(0, 0, 5, 5);
+		gbc_txtAddPsw.gridx = 0;
+		gbc_txtAddPsw.gridy = 4;
+		add(txtAddPsw, gbc_txtAddPsw);
+		txtAddPsw.setColumns(10);
 
 		JLabel lblAssetValue = new JLabel("Trust Level:");
 		GridBagConstraints gbc_lblAssetValue = new GridBagConstraints();
 		gbc_lblAssetValue.anchor = GridBagConstraints.WEST;
 		gbc_lblAssetValue.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAssetValue.gridx = 0;
-		gbc_lblAssetValue.gridy = 3;
+		gbc_lblAssetValue.gridy = 5;
 		lblAssetValue.setFont(new Font("Arial", Font.BOLD, 12));
 		add(lblAssetValue, gbc_lblAssetValue);
 
@@ -110,7 +131,7 @@ public class UserPanel extends JPanel {
 		gbc_lblHourlyWage.anchor = GridBagConstraints.WEST;
 		gbc_lblHourlyWage.insets = new Insets(0, 0, 5, 5);
 		gbc_lblHourlyWage.gridx = 1;
-		gbc_lblHourlyWage.gridy = 3;
+		gbc_lblHourlyWage.gridy = 5;
 		add(lblHourlyWage, gbc_lblHourlyWage);
 
 		textField = new JTextField();
@@ -119,13 +140,20 @@ public class UserPanel extends JPanel {
 		gbc_textField.anchor = GridBagConstraints.WEST;
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.gridx = 0;
-		gbc_textField.gridy = 4;
+		gbc_textField.gridy = 6;
 		add(textField, gbc_textField);
 		textField.setColumns(10);
 
 		JButton btnSaveAsset = new JButton("Save User");
 		btnSaveAsset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				String userCu = txtAddAsset.getText();
+				String pswUc = txtAddPsw.getText();
+				
+				GuiMain.getPersistenceManager().setUsername(userCu);
+				GuiMain.getPersistenceManager().setPsw(pswUc);
+				
 				try {
 					if (txtAddAsset.getText().isEmpty()
 							|| textField_1.getText().isEmpty()
@@ -138,9 +166,20 @@ public class UserPanel extends JPanel {
 					SimUser u = new SimUser(txtAddAsset.getText(), Double
 							.parseDouble(textField_1.getText()),
 							new TrustValue(Double.parseDouble(textField
-									.getText())));
+									.getText())), txtAddPsw.getText());
 					GuiMain.getPersistenceManager().setSimUsers(
 							new ArrayList<SimUser>(Arrays.asList(u)));
+					
+				   /*
+					ArrayList<UserCredential> userArray;
+					userArray = new ArrayList<UserCredential>();
+					UserCredential userC = new UserCredential();
+					userC.setPsw(txtAddPsw.getText());
+					userC.setUsername(txtAddAsset.getText());
+					userArray.add(userC);
+				*/
+					
+					
 					GuiMain.initializeHomePanel();
 					JPanel mainPanel = GuiMain.getMainPanel();
 					GuiMain.switchPanel(mainPanel);
@@ -178,20 +217,21 @@ public class UserPanel extends JPanel {
 		gbc_textField_1.anchor = GridBagConstraints.WEST;
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_1.gridx = 1;
-		gbc_textField_1.gridy = 4;
+		gbc_textField_1.gridy = 6;
 		add(textField_1, gbc_textField_1);
+		
 		textField_1.setColumns(10);
 		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();
 		gbc_btnSaveAsset.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSaveAsset.gridx = 12;
-		gbc_btnSaveAsset.gridy = 4;
+		gbc_btnSaveAsset.gridy = 6;
 		add(btnSaveAsset, gbc_btnSaveAsset);
 
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
 		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
 		gbc_verticalStrut_1.gridx = 12;
-		gbc_verticalStrut_1.gridy = 5;
+		gbc_verticalStrut_1.gridy = 6;
 		add(verticalStrut_1, gbc_verticalStrut_1);
 
 		Component verticalStrut = Box.createVerticalStrut(20);
