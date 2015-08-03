@@ -30,6 +30,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -70,6 +71,7 @@ import java.util.List;
 import javax.swing.SwingConstants;
 
 import com.udojava.evalex.Expression;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
@@ -92,6 +94,8 @@ public class AdminClient extends JPanel implements ItemListener {
 	public String selectedRule;
 	public String ConnectionChoosen;
 	public String ZoneChoosen;
+	private JTextArea PolicyText;
+
 	
 	/**
 	 * Creates and sets up the panel.
@@ -104,7 +108,7 @@ public class AdminClient extends JPanel implements ItemListener {
 			
 		}
 		
-	
+		
 
 		JTextPane textPane = new JTextPane();
 		
@@ -122,7 +126,7 @@ public class AdminClient extends JPanel implements ItemListener {
 				GridBagLayout gridBagLayout = new GridBagLayout();
 				gridBagLayout.columnWidths = new int[] {300, 300};
 				gridBagLayout.rowHeights = new int[]{24, 85, 14, 14, 41, 41, 14, 41, 14, 23, 23, 23, 29, 29, 0};
-				gridBagLayout.columnWeights = new double[]{0.0, 0.0};
+				gridBagLayout.columnWeights = new double[]{1.0, 0.0};
 				gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 				setLayout(gridBagLayout);
 				
@@ -201,6 +205,7 @@ public class AdminClient extends JPanel implements ItemListener {
 								try {
 									document.insertString(document.getLength(),
 											"Policy to evaluate: \n" + cp.getTextPolicy(), null);
+									PolicyText.setText(cp.getTextPolicy());
 								} catch (BadLocationException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
@@ -213,26 +218,6 @@ public class AdminClient extends JPanel implements ItemListener {
 						gbc_comboBox_2.gridx = 0;
 						gbc_comboBox_2.gridy = 5;
 						add(comboBox_2, gbc_comboBox_2);
-						
-		JLabel LBLrules = new JLabel("Configuration of rule(s) that must be applied");
-		LBLrules.setFont(new Font("Arial", Font.BOLD, 12));
-		GridBagConstraints gbc_LBLrules = new GridBagConstraints();
-		gbc_LBLrules.gridwidth = 2;
-		gbc_LBLrules.anchor = GridBagConstraints.WEST;
-		gbc_LBLrules.insets = new Insets(0, 10, 5, 0);
-		gbc_LBLrules.gridx = 0;
-		gbc_LBLrules.gridy = 6;
-		add(LBLrules, gbc_LBLrules);
-		
-				
-			    CheckBoxRule1 = new JCheckBox("No access outside office");
-			    GridBagConstraints gbc_CheckBoxRule1 = new GridBagConstraints();
-			    gbc_CheckBoxRule1.anchor = GridBagConstraints.WEST;
-			    gbc_CheckBoxRule1.insets = new Insets(0, 0, 5, 5);
-			    gbc_CheckBoxRule1.gridx = 0;
-			    gbc_CheckBoxRule1.gridy = 7;
-			    add(CheckBoxRule1, gbc_CheckBoxRule1);
-			    CheckBoxRule1.addItemListener(this);
 		
 		
 		
@@ -435,6 +420,37 @@ public class AdminClient extends JPanel implements ItemListener {
 				
 			}
 		});
+		
+		PolicyText = new JTextArea();
+		PolicyText.setLineWrap(true);
+		GridBagConstraints gbc_PolicyText = new GridBagConstraints();
+		gbc_PolicyText.gridwidth = 2;
+		gbc_PolicyText.insets = new Insets(0, 0, 5, 5);
+		gbc_PolicyText.fill = GridBagConstraints.HORIZONTAL;
+		gbc_PolicyText.gridx = 0;
+		gbc_PolicyText.gridy = 6;
+		add(PolicyText, gbc_PolicyText);
+		PolicyText.setColumns(10);
+			    
+		JLabel LBLrules = new JLabel("Configuration of rule(s) that must be applied");
+		LBLrules.setFont(new Font("Arial", Font.BOLD, 12));
+		GridBagConstraints gbc_LBLrules = new GridBagConstraints();
+		gbc_LBLrules.gridwidth = 2;
+		gbc_LBLrules.anchor = GridBagConstraints.WEST;
+		gbc_LBLrules.insets = new Insets(0, 10, 5, 0);
+		gbc_LBLrules.gridx = 0;
+		gbc_LBLrules.gridy = 7;
+		add(LBLrules, gbc_LBLrules);
+		
+				
+			    CheckBoxRule1 = new JCheckBox("No access outside office");
+			    GridBagConstraints gbc_CheckBoxRule1 = new GridBagConstraints();
+			    gbc_CheckBoxRule1.anchor = GridBagConstraints.WEST;
+			    gbc_CheckBoxRule1.insets = new Insets(0, 0, 5, 5);
+			    gbc_CheckBoxRule1.gridx = 0;
+			    gbc_CheckBoxRule1.gridy = 8;
+			    add(CheckBoxRule1, gbc_CheckBoxRule1);
+			    CheckBoxRule1.addItemListener(this);
 		GridBagConstraints gbc_btnSaveAsset = new GridBagConstraints();
 		gbc_btnSaveAsset.insets = new Insets(0, 0, 5, 0);
 		gbc_btnSaveAsset.gridx = 1;
