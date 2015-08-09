@@ -514,9 +514,16 @@ public class OpportuniesDescriptorPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				GuiMain.persistenceManager.setWorkingHour(Integer.parseInt(txtAddOD.getText()));
-				GuiMain.persistenceManager.setPotentialLoose(Integer.parseInt(lostIncome.getText()));
-				GuiMain.persistenceManager.setLoosingExplanation(textField.getText());
+				
+				if (txtAddOD.getText().isEmpty() != true){
+					GuiMain.persistenceManager.setWorkingHour(Integer.parseInt(txtAddOD.getText()));
+				}
+				if (lostIncome.getText().isEmpty() != true){
+					GuiMain.persistenceManager.setPotentialLoose(Integer.parseInt(lostIncome.getText()));
+				}
+				if (textField.getText() != null){
+					GuiMain.persistenceManager.setLoosingExplanation(textField.getText());
+				}
 				
 				FilesInTheJList Fitj = new FilesInTheJList();
 				
