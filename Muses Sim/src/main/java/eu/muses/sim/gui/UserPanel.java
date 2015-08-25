@@ -20,6 +20,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -48,7 +49,8 @@ public class UserPanel extends JPanel {
 	private JTextField txtAddAsset;
 	private JTextField textField;
 	private JTextField textField_1;
-
+	private static String Password;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -105,7 +107,8 @@ public class UserPanel extends JPanel {
 		UserPsw.setFont(new Font("Arial", Font.BOLD, 12));
 		add(UserPsw, gbc_UserPsw);
 
-		final JTextField txtAddPsw = new JTextField();
+		final JPasswordField txtAddPsw = new JPasswordField();
+		txtAddPsw.setEchoChar('*');
 		txtAddPsw.setToolTipText("Add a user nickname");
 		GridBagConstraints gbc_txtAddPsw = new GridBagConstraints();
 		gbc_txtAddPsw.fill = GridBagConstraints.HORIZONTAL;
@@ -115,6 +118,7 @@ public class UserPanel extends JPanel {
 		gbc_txtAddPsw.gridy = 4;
 		add(txtAddPsw, gbc_txtAddPsw);
 		txtAddPsw.setColumns(10);
+		
 
 		JLabel lblAssetValue = new JLabel("Trust Level:");
 		GridBagConstraints gbc_lblAssetValue = new GridBagConstraints();
@@ -169,7 +173,7 @@ public class UserPanel extends JPanel {
 									.getText())), txtAddPsw.getText());
 					GuiMain.getPersistenceManager().setSimUsers(
 							new ArrayList<SimUser>(Arrays.asList(u)));
-					
+					System.out.println( txtAddPsw.getText());
 				   /*
 					ArrayList<UserCredential> userArray;
 					userArray = new ArrayList<UserCredential>();
@@ -243,4 +247,5 @@ public class UserPanel extends JPanel {
 
 	}
 
+	
 }

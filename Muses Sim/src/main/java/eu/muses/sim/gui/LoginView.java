@@ -64,20 +64,8 @@ public class LoginView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				GuiMain.initializeHomePanel();				
-				GuiMain.frmMusesRtae.setVisible(true);
-				JPanel ODPanel = new JPanel();
-				GuiMain.switchPanel(ODPanel);
-				GuiMain.frmMusesRtae.getJMenuBar().setVisible(true);
-				JLabel backgroundImage = new JLabel();
-				backgroundImage.setIcon(new ImageIcon(GuiMain.class
-						.getResource("/eu/muses/sim/gui/muses-title.png")));
-				ODPanel.setBackground(new Color(255, 255, 255));
-				BoxLayout layout = new BoxLayout(ODPanel, BoxLayout.X_AXIS);
-				ODPanel.setLayout(layout);
-				ODPanel.add(Box.createHorizontalGlue());
-				ODPanel.add(backgroundImage);
-				ODPanel.add(Box.createHorizontalGlue());
+				frame.dispose();
+
 				
 			}
 			
