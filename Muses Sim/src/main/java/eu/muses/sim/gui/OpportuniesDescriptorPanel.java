@@ -314,7 +314,7 @@ public class OpportuniesDescriptorPanel extends JPanel {
 				try{
 					
 					
-					SimUser user = new SimUser("user1", 120, new TrustValue(0.5), "pass");
+					SimUser user = GuiMain.persistenceManager.getSimUsers().get(0);
 
 					//Asset asset = new Asset("Patent", 10000);
 					int Hour = Integer.parseInt(txtAddOD.getText());

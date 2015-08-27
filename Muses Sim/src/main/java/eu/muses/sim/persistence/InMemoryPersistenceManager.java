@@ -57,6 +57,8 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 	
 	/** List of selected asset by the user*/
 	private List<Asset> selectedAssetsbyUser = new ArrayList<Asset>();
+	
+	private List<SimUser> loggedUser = new ArrayList<SimUser>();
 
 	
 
@@ -481,6 +483,14 @@ public class InMemoryPersistenceManager extends PersistenceManager {
 
 	public void setLoosingExplanation(String loosingExplanation) {
 		LoosingExplanation = loosingExplanation;
+	}
+
+	public List<SimUser> getLoggedUser() {
+		return loggedUser;
+	}
+
+	public void setLoggedUser(List<SimUser> loggedUser) {
+		this.loggedUser = loggedUser;
 	}
 
 	

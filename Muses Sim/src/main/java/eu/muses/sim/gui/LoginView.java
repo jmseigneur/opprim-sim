@@ -114,19 +114,21 @@ public class LoginView {
 					GuiMain.switchPanel(ODPanel);
 					GuiMain.frmMusesRtae.getJMenuBar().setVisible(false);
 					
-				}else if(user.equals(user) && psw1.equals(password)){
-					
-					GuiMain.frmMusesRtae.setVisible(true);
-				JPanel ODPanel = new InstallPanel();
-				GuiMain.switchPanel(ODPanel);
-				GuiMain.frmMusesRtae.getJMenuBar().setVisible(false);
+				
+				
 				}else if (GuiMain.persistenceManager.getSimUsers() != null){
 					int index = -1;
+					GuiMain.persistenceManager.getLoggedUser().clear();
 					for(int i = 0; i<GuiMain.persistenceManager.getSimUsers().size(); i++) {
 	                	
 	                	System.out.println(GuiMain.persistenceManager.getSimUsers().get(i).getNickname());
 	                	if (GuiMain.persistenceManager.getSimUsers().get(i).getNickname().contains(user) && GuiMain.persistenceManager.getSimUsers().get(i).getPassword().contains(password)) {
 	                		System.out.println("true");
+	                		
+	                		SimUser logUser = GuiMain.persistenceManager.getSimUsers().get(i);
+	                		
+	                		GuiMain.persistenceManager.getLoggedUser().add(logUser);
+	                		
 	                		GuiMain.frmMusesRtae.setVisible(true);
 	        				JPanel ODPanel = new InstallPanel();
 	        				GuiMain.switchPanel(ODPanel);
